@@ -1,2 +1,1 @@
-# blog
-my blog
+[我的博客](ljj.pub)，使用 [hexo](hexo.io) 搭建
