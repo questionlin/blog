@@ -11,7 +11,7 @@
 
     <title>
         
-        About - 我的博客
+        阻止网页操作完成后自动跳转 - 我的博客
         
     </title>
 
@@ -71,7 +71,7 @@
                     <span>存档</span>
                 </a>
             </li>
-            <li  class=active >
+            <li >
                 <a href="/about/">
                     <i class="iconfont icon-guanyu2"></i>
                     <span>关于</span>
@@ -87,6 +87,10 @@
             
         </ul>
     </div>
+    
+        <div id="toc" class="toc-article">
+    
+</div>
     
 </div>
 
@@ -111,13 +115,36 @@
     <div class="index-middle">
         <!-- Main Content -->
         
-<div class="post-content no-indent">
-    
-    
-    <div id="comment-container">
+
+
+<div class="post-container">
+    <div class="post-title">
+        阻止网页操作完成后自动跳转
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2018-06-01 15:41:16</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#javascript" title="javascript">javascript</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
+    </div>
+    <div class="post-content no-indent">
+        <p>阻止跳转的代码：$(window).on(‘beforeunload’, () =&gt; { console.log(‘leave’); return false; });</p>
+<p><a href="https://jingyan.baidu.com/article/574c52190bc5ac6c8d9dc196.html" target="_blank" rel="noopener">参考来源</a></p>
+
+        
+        <div id="comment-container">
+        </div>
     </div>
 </div>
-
     </div>
 </div>
 
@@ -180,7 +207,7 @@
     // We expose some of the variables needed by the front end
     window.hexo_search_path = "search.json"
     window.hexo_root = "/"
-    window.isPost = false
+    window.isPost = true
 </script>
 <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
 <script src="/js/index.js"></script>

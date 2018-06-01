@@ -11,7 +11,7 @@
 
     <title>
         
-        About - 我的博客
+        打包网页完整内容的一个方法 - 我的博客
         
     </title>
 
@@ -71,7 +71,7 @@
                     <span>存档</span>
                 </a>
             </li>
-            <li  class=active >
+            <li >
                 <a href="/about/">
                     <i class="iconfont icon-guanyu2"></i>
                     <span>关于</span>
@@ -87,6 +87,10 @@
             
         </ul>
     </div>
+    
+        <div id="toc" class="toc-article">
+    
+</div>
     
 </div>
 
@@ -111,13 +115,30 @@
     <div class="index-middle">
         <!-- Main Content -->
         
-<div class="post-content no-indent">
-    
-    
-    <div id="comment-container">
+
+
+<div class="post-container">
+    <div class="post-title">
+        打包网页完整内容的一个方法
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2018-06-01 15:38:45</span></span>
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
+    </div>
+    <div class="post-content no-indent">
+        <p>用 safari 保存网站为归档，格式为 webarchive ，用 WebArchive Extractor 解压缩。</p>
+<p>这样不但能保存完整的 html, javascript, css，而且每个文件分开，非常直观。</p>
+
+        
+        <div id="comment-container">
+        </div>
     </div>
 </div>
-
     </div>
 </div>
 
@@ -180,7 +201,7 @@
     // We expose some of the variables needed by the front end
     window.hexo_search_path = "search.json"
     window.hexo_root = "/"
-    window.isPost = false
+    window.isPost = true
 </script>
 <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
 <script src="/js/index.js"></script>

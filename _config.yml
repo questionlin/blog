@@ -87,7 +87,7 @@ deploy:
 # Site settings
 # 网站综合内容设置:
 SEOTitle: 我的博客
-header-img:
+header-img: img/avatar.jpeg
 email: boyquestion@163.com
 
 # SNS settings
@@ -101,13 +101,13 @@ linkedin_username:
 
 # Build settings
 anchorjs: true
-sidebar-avatar:
+sidebar-avatar: img/avatar.jpeg
 
 search:
   path: search.json
   field: post
 
 post_style:
-  indent: indent
+  indent: 
 
 #Custom Setting End
