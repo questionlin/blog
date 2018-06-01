@@ -1,7 +1,7 @@
 ---
 title: hexo搭建博客最佳实践
 date: 2018-06-01 14:54:15
-tags: hexo
+tags: [hexo, 最佳实践]
 ---
 在考察了多种方案后最终使用 hexo 搭起了博客，这篇文章写写我是怎么使用 hexo 和 github 来搭博客的。
 

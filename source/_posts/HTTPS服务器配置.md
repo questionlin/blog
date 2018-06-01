@@ -1,7 +1,7 @@
 ---
 title: HTTPS服务器配置
 date: 2018-06-01 15:43:38
-tags: http
+tags: [http, 最佳实践]
 ---
 ### 一、SSL证书申请
 
@@ -71,3 +71,6 @@ http://www.itrus.cn/html/fuwuyuzhichi/fuwuqizhengshuanzhuangpeizhizhinan 《服�
 部分国内签发的SSL证书，在Android上不受信任，推荐GeoTrust；  
 （2）如果页面有动静分离，静态资源使用独立域名的话，也需要为该域名申请证书；  
 （3）android低版本不支持SNI扩展，受此限制，一台服务器只能部署一个数字证书；
+
+
+转自 https://pay.weixin.qq.com/wiki/doc/api/micropay.php?chapter=10_4
