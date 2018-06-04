@@ -1,5 +1,6 @@
 ---
 title: select poll epoll 之间的区别
+abbrlink: 40035
 date: 2018-06-03 13:18:42
 tags:
 ---

@@ -1,7 +1,10 @@
 ---
 title: 线上代码和rpc debug哪家强
+tags:
+  - php
+  - 安利
+abbrlink: 45635
 date: 2018-06-03 23:16:18
-tags: [php, 安利]
 ---
 标题两种情况，除了看日志外，还有一种做法是做一种转发器，把断点输出转发到程序员这边。这篇文章安利下我做的转发器 [rebugger](https://github.com/questionlin/rebugger)。
 

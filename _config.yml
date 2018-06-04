@@ -6,7 +6,7 @@
 title: 我的博客
 subtitle:
 description: 
-keywords: php, redis, mysql, linux
+keywords: php, python, javascript, nodejs, redis, mysql, linux
 author: ljj
 language: zh
 timezone: Asia/Shanghai
@@ -15,7 +15,7 @@ timezone: Asia/Shanghai
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
 url: http://ljj.pub
 root: /
-permalink: :year/:month/:day/:title/
+permalink: posts/:abbrlink/
 permalink_defaults:
 
 # Directory
@@ -110,4 +110,8 @@ search:
 post_style:
   indent: 
 
+# abbrlink config
+abbrlink:
+  alg: crc16  #support crc16(default) and crc32
+  rep: dec    #support dec(default) and hex
 #Custom Setting End
