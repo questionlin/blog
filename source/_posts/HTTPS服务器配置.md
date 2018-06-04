@@ -3,7 +3,6 @@ title: HTTPS服务器配置
 tags:
   - http
   - 最佳实践
-abbrlink: 31550
 date: 2018-06-01 15:43:38
 ---
 ### 一、SSL证书申请

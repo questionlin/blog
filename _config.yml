@@ -15,7 +15,7 @@ timezone: Asia/Shanghai
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
 url: http://ljj.pub
 root: /
-permalink: posts/:abbrlink/
+permalink: posts/:id/
 permalink_defaults:
 
 # Directory
@@ -109,9 +109,4 @@ search:
 
 post_style:
   indent: 
-
-# abbrlink config
-abbrlink:
-  alg: crc16  #support crc16(default) and crc32
-  rep: dec    #support dec(default) and hex
 #Custom Setting End

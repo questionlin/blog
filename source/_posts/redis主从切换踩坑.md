@@ -1,7 +1,6 @@
 ---
 title: redis主从切换踩坑
 tags: redis
-abbrlink: 23635
 date: 2018-06-01 15:35:26
 ---
 昨天配置了 redis sentinel 的主从切换，无论如何都无法成功，网上也都不到原因。
