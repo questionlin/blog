@@ -1,5 +1,5 @@
 ---
-title: hexo搭建博客最佳实践
+title: hexo+github搭建博客最佳实践
 tags:
   - hexo
   - 最佳实践
