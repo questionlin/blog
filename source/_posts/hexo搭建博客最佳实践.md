@@ -4,6 +4,7 @@ tags:
   - hexo
   - 最佳实践
 date: 2018-06-01 14:54:15
+id: 1528164408
 ---
 在考察了多种方案后最终使用 hexo 搭起了博客，这篇文章写写我是怎么使用 hexo 和 github 来搭博客的。
 
@@ -15,6 +16,7 @@ hexo 不提供 markdown 编辑器，我使用 vscode，快捷键 command + k 再
 1. 把 _config.yml 里面的 public_dir 改为 docs
 2. 然后建一个普通的项目仓库，在 settings 里的 github pages Source 选为 master branch/docs folder。这里顺便把 Custom domain 改为自己的域名。
 3. 在域名 dns 设置里面添加 cname 指向 question.github.io
+4. 在文章顶部增加 id，值为 unix 时间戳，以优化 url
 
 用到的插件：
 - hexo-generator-search 用来支持搜索
