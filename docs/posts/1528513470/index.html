@@ -89,7 +89,7 @@
     </div>
     
         <div id="toc" class="toc-article">
-    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#B-Tree-索引"><span class="toc-text">B-Tree 索引</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#下面是一些关于B-Tree索引的限制："><span class="toc-text">下面是一些关于B-Tree索引的限制：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#高性能索引策略"><span class="toc-text">高性能索引策略</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#独立的列"><span class="toc-text">独立的列</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#前缀索引和索引选择性"><span class="toc-text">前缀索引和索引选择性</span></a></li></ol></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#B-Tree-索引"><span class="toc-text">B-Tree 索引</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#B-Tree索引的限制："><span class="toc-text">B-Tree索引的限制：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#高性能索引策略"><span class="toc-text">高性能索引策略</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#独立的列"><span class="toc-text">独立的列</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#前缀索引和索引选择性"><span class="toc-text">前缀索引和索引选择性</span></a></li></ol></li></ol>
 </div>
     
 </div>
@@ -152,7 +152,7 @@
 <li><p>精确匹配某一列并范围匹配另外一列<br>前面提到的索引也可用于查找所有姓为Allen，并且名字是字母K开头（比如Kim、Karl等）的人。即第一列last_name全匹配，第二列frst_name范围匹配。</p>
 </li>
 </ul>
-<h4 id="下面是一些关于B-Tree索引的限制："><a href="#下面是一些关于B-Tree索引的限制：" class="headerlink" title="下面是一些关于B-Tree索引的限制："></a>下面是一些关于B-Tree索引的限制：</h4><ul>
+<h4 id="B-Tree索引的限制："><a href="#B-Tree索引的限制：" class="headerlink" title="B-Tree索引的限制："></a>B-Tree索引的限制：</h4><ul>
 <li>如果不是按照索引的最左列开始查找，则无法使用索引。例如上面例子中的索引无法用于查找名字为Bill的人，也无法查找某个特定生日的人，因为这两列都不是最左数据列。类似地，也无法查找姓氏以某个字母结尾的人。</li>
 <li>不能跳过索引中的列。也就是说，前面所述的索引无法用于查找姓为Smith并且在某个特定日期出生的人。如果不指定名（first_name），则MySQL只能使用索引的第一列。</li>
 <li>如果查询中有某个列的范围查询，则其右边所有列都无法使用索引优化查找。例如有查询WHERE last_name=’Smith’ AND frst_name LIKE ‘J％’ AND dob=’1976-12-23’，这个查询只能使用索引的前两列，因为这里LIKE是一个范围条件（但是服务器可以把其余列用于其他目的）。如果范围查询列值的数量有限，那么可以通过使用多个等于条件来代替范围条件。在本章的索引案例学习部分，我们将演示一个详细的案例。</li>
