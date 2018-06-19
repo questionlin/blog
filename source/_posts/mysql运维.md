@@ -32,31 +32,13 @@ Select_* 变量是特定类型 SELECT 查询的计数器。其中Select_scan表
 Table_locks_immediate和Table_locks_waited变量可告诉你有多少锁被立即授权，有多少锁需要等待。但请注意，它们只是展示了服务器级别锁的统计，并不是存储引擎级的锁统计。
 
 ### SHOW ENGINE INNODB STATUS
-显示 InnoDB 引擎的信息，只有一列。
-
-#### 头部信息
-记录时间
-
-#### SEMAPHORES（信号量）
-
-#### LATEST FOREIGN KEY ERROR
+显示 InnoDB 引擎的信息，只有一列。因为不是专业运维，这里只介绍几个需要了解的段。
 
 #### LATEST DETECTED DEADLOCK
-
-#### TRANSACTIONS
-
-#### FILE I/O
-
-#### INSERT BUFFER AND ADAPTIVE HASH INDEX
-
-#### LOG
-
-#### BUFFER POOL AND MEMORY
-
-#### ROW OPERATIONS
+只有当前服务器内有死锁时才会出现，内容是死锁的上下文
 
 ### SHOW PROCESSLIST
-进程列表是当前连接到MySQL的连接或线程的清单。
+进程列表是当前连接到MySQL的连接或线程的清单。**这个命令可以看哪些线程持有锁**
 
 --------------------------
 参考资料：《高性能MySQL》
