@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keyword"  content="">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        mysql explain 中各列的意义 - 我的博客
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i>  </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/img/avatar.jpeg" />
+        </div>
+        <div class="name">
+            <i>ljj</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li >
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li >
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li >
+                <a href="/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li >
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#id-列"><span class="toc-text">id 列</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#select-type-列"><span class="toc-text">select_type 列</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#table-列"><span class="toc-text">table 列</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#type-列"><span class="toc-text">type 列</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#possible-keys-列"><span class="toc-text">possible_keys 列</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#key-列"><span class="toc-text">key 列</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#key-len-列"><span class="toc-text">key_len 列</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ref-列"><span class="toc-text">ref 列</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#rows-列"><span class="toc-text">rows 列</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#filtered-列"><span class="toc-text">filtered 列</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Extra-列"><span class="toc-text">Extra 列</span></a></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input"/>
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i>  </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        mysql explain 中各列的意义
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2018-06-19 10:22:21</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#mysql" title="mysql">mysql</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
+    </div>
+    <div class="post-content no-indent">
+        <h3 id="id-列"><a href="#id-列" class="headerlink" title="id 列"></a>id 列</h3><p>查询编号，从外到内的顺序递增，临时表的 id 为 NULL。</p>
+<h3 id="select-type-列"><a href="#select-type-列" class="headerlink" title="select_type 列"></a>select_type 列</h3><p>这一列显示是哪种类型的 SELECT。最外层是 PRIMARY，其他部分标记如下：</p>
+<ul>
+<li><p>SUBQUERY<br>包含在SELECT列表中的子查询中的SELECT（换句话说，不在FROM子句中）</p>
+</li>
+<li><p>DERIVED<br>包含在 FROM 子句的子查询中的SELECT。MySQL 会产生一个临时表。</p>
+</li>
+<li><p>UNION<br>在 UNION 中的第二个和随后的 SELECT。</p>
+</li>
+<li><p>UNION RESULT<br>用来从UNION的匿名临时表检索结果的SELECT被标记为UNION RESULT</p>
+</li>
+</ul>
+<h3 id="table-列"><a href="#table-列" class="headerlink" title="table 列"></a>table 列</h3><p>这一列显示了对应行正在访问哪个表。</p>
+<p>当在FROM子句中有子查询时，table列是<derivedn>的形式，其中N是子查询的id。这总是“向前引用”——换言之，N指向EXPLAIN输出中后面的一行。</derivedn></p>
+<p>当有UNION时，UNION RESULT的table列包含一个参与UNION的id列表。这总是“向后引用”，因为UNION RESULT出现在UNION中所有参与行之后。</p>
+<h3 id="type-列"><a href="#type-列" class="headerlink" title="type 列"></a>type 列</h3><p>访问类型，就是 MySQL 决定如何查找表中的行。下面一次从最差到最优：</p>
+<ul>
+<li><p>ALL<br>全表扫描</p>
+</li>
+<li><p>index<br>索引扫描，也要扫描全表，只是按照索引次序进行而不是行，避免了排序。</p>
+</li>
+<li><p>range<br>范围查询是一个有限制的索引扫描。WHERE 里带 BETWEEN 或 &gt; &lt;的查询。</p>
+</li>
+<li><p>ref<br>索引访问。叫 ref 是因为索引要跟某个参考值比较。ref_or_null 是 ref 的一个变体，它意味着 MySQL 必须进行第二次查找以找出 NULL 条目。</p>
+</li>
+<li><p>eq_ref<br>使用主键或唯一索引</p>
+</li>
+<li><p>const, system<br>MySQL 对语句优化后，变量被转为常量</p>
+</li>
+<li><p>NULL<br>只通过索引，不用访问数据表</p>
+</li>
+</ul>
+<h3 id="possible-keys-列"><a href="#possible-keys-列" class="headerlink" title="possible_keys 列"></a>possible_keys 列</h3><p>这一列显示了查询可以使用哪些索引，不一定真的用到。</p>
+<h3 id="key-列"><a href="#key-列" class="headerlink" title="key 列"></a>key 列</h3><p>这一列显示了 MySQL 决定采用那个索引。</p>
+<h3 id="key-len-列"><a href="#key-len-列" class="headerlink" title="key_len 列"></a>key_len 列</h3><p>该列显示了索引的字节数，不是表中数据的字节数。</p>
+<h3 id="ref-列"><a href="#ref-列" class="headerlink" title="ref 列"></a>ref 列</h3><p>这一列显示了之前的表在key列记录的索引中查找值所用的列或常量。</p>
+<h3 id="rows-列"><a href="#rows-列" class="headerlink" title="rows 列"></a>rows 列</h3><p>这一列是 MySQL 估计为了找到目标要读取的行数。不是最终目标行数。</p>
+<h3 id="filtered-列"><a href="#filtered-列" class="headerlink" title="filtered 列"></a>filtered 列</h3><p>rows 占总行数的比例</p>
+<h3 id="Extra-列"><a href="#Extra-列" class="headerlink" title="Extra 列"></a>Extra 列</h3><ul>
+<li><p>Using index<br>表示 MySQL 使用覆盖索引，不需要访问数据表</p>
+</li>
+<li><p>Using where<br>WHERE 条件使用了索引</p>
+</li>
+<li><p>Using temporary<br>使用了临时表</p>
+</li>
+<li><p>Using filesort<br>使用了外部索引排序</p>
+</li>
+<li><p>Range checked for each record (index map: N)<br>没有好用的索引</p>
+</li>
+</ul>
+<hr>
+<p>参考资料：《高性能MySQL》</p>
+
+        
+        <div id="comment-container">
+        </div>
+    </div>
+</div>
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+        <li>
+            <a target="_blank" href="https://www.zhihu.com/people/simonlin">
+                            <span class="fa-stack fa-lg">
+                                 <i class="iconfont icon-zhihu"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <li>
+            <a target="_blank" href="http://weibo.com/1919879611">
+                            <span class="fa-stack fa-lg">
+                                  <i class="iconfont icon-weibo"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+
+        
+        <li>
+            <a target="_blank"  href="https://github.com/questionlin">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-github"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+</html>
