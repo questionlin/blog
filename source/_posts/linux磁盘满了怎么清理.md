@@ -7,7 +7,7 @@ id: 1528685621
 1. 使用 df -h 查看磁盘剩余空间
 2. 使用 du --max-depth=1 -h 一级一级查看磁盘文件占用，找到适合删掉的文件
 3. 如果是只想删掉大文件，可以使用 find . -maxdepth 1 -size +100M
-```
+```sh
 #df -h
 Filesystem      Size  Used Avail Use% Mounted on
 /dev/vda1        30G   12G   17G  40% /

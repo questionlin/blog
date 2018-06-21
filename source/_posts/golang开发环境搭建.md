@@ -6,14 +6,14 @@ id: 1529303379
 ---
 ### 安装
 Mac 下安装 Go 编译器只要执行
-```
+```sh
 brew install go
 ```
 就可以了。各 linux 也可以使用自己的包管理器直接安装
 
 ### 工作空间
 首先找一个地方放我们的工作空间，比如我选的是$HOME/Documents/gowork。这个目录的位置不能是 Go 安装目录。
-```
+```sh
 $ mkdir $HOME/Documents/gowork
 ```
 Go代码必须放在工作空间内。它其实就是一个目录，其中包含三个子目录：
@@ -41,20 +41,20 @@ src/
 
 ### GOPATH 环境变量
 执行下面的命令
-```
+```sh
 $ export GOPATH=$HOME/gowork
 $ export PATH=$PATH:$GOPATH/bin
 ```
 
 ### 第一个程序
 我在 github 的用户名是 questionlin，我要做的第一个程序叫 hello。执行命令
-```
+```sh
 $ mkdir -p $GOPATH/src/github.com/questionlin/hello
 $ cd $GOPATH/src/github.com/questionlin/hello
 $ touch hello.go
 ```
 写入一下代码
-```
+```go
 package main
 
 import "fmt"
@@ -64,29 +64,29 @@ func main() {
 }
 ```
 执行一下命令编译。这个命令在任何目录都可以执行，不需要在工作空间
-```
+```sh
 $ go install github.com/questionlin/hello
 ```
 如果在工作空间可以省略路径
-```
+```sh
 $ cd $GOPATH/src/github.com/questionlin/hello
 $ go install
 ```
 现在执行看看
-```
+```sh
 $ $GOPATH/bin/hello
 Hello, world.
 ```
 
 ### 第一个库
 首先创建目录：
-```
+```sh
 $ mkdir $GOPATH/src/github.com/questionlin/stringutil
 $ cd $GOPATH/src/github.com/questionlin/stringutil
 $ touch reverse.go
 ```
 写入一下内容
-```
+```go
 // stringutil 包含有用于处理字符串的工具函数。
 package stringutil
 
@@ -100,15 +100,15 @@ func Reverse(s string) string {
 }
 ```
 使用 go build 来编译:
-```
+```sh
 $ go build github.com/questionlin/stringutil
 ```
 如果你在该包的源码目录中，只需执行：
-```
+```sh
 $ go build
 ```
 修改原来的 hello.go 文件，加入这个包：
-```
+```go
 package main
 
 import (
@@ -122,11 +122,11 @@ func main() {
 }
 ```
 然后在编译一次 hello：
-```
+```sh
 $ go install github.com/questionlin/hello
 ```
 现在再运行一次
-```
+```sh
 $ hello
 Hello, Go!
 ```
@@ -135,7 +135,7 @@ Hello, Go!
 
 ### 包名
 Go源文件中的第一个语句必须是
-```
+```go
 package 名称
 ```
 这里的 名称 即为导入该包时使用的默认名称。 （一个包中的所有文件都必须使用相同的 名称。）
@@ -150,7 +150,7 @@ Go拥有一个轻量级的测试框架，它由 go test 命令和 testing 包构
 你可以通过创建一个名字以 _test.go 结尾的，包含名为 TestXXX 且签名为 func (t *testing.T) 函数的文件来编写测试。 测试框架会运行每一个这样的函数；若该函数调用了像 t.Error 或 t.Fail 这样表示失败的函数，此测试即表示失败。
 
 我们可通过创建文件 $GOPATH/src/github.com/questionlin/stringutil/reverse_test.go 来为 stringutil 添加测试，其内容如下：
-```
+```go
 package stringutil
 
 import "testing"
@@ -172,7 +172,7 @@ func TestReverse(t *testing.T) {
 }
 ```
 接着使用 go test 运行该测试：
-```
+```sh
 $ go test github.com/questionlin/stringutil
 ok  	github.com/questionlin/stringutil 0.165s
 ```

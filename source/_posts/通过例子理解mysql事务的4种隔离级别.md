@@ -14,7 +14,7 @@ SQL标准定义了4种隔离级别，包括了一些具体规则，用来限定�
 (1)所有事务都可以看到其他未提交事务的执行结果  
 (2)本隔离级别很少用于实际应用，因为它的性能也不比其他级别好多少  
 (3)该级别引发的问题是——脏读(**Dirty Read**)：读取到了未提交的数据
-```
+```sh
 #首先，修改隔离级别
 set tx_isolation='READ-UNCOMMITTED';
 select @@tx_isolation;
@@ -35,8 +35,7 @@ select * from tx;
 |    3 |    3 |
 +------+------+
 
-#事务B：也启动一个事务(那么两个事务交叉了)
-       在事务B中执行更新语句，且不提交
+#事务B：也启动一个事务(那么两个事务交叉了)在事务B中执行更新语句，且不提交
 start transaction;
 update tx set num=10 where id=1;
 select * from tx;
@@ -87,7 +86,7 @@ select * from tx;
 |——>导致这种情况的原因可能有：
 1. 有一个交叉的事务有新的commit，导致了数据的改变  
 2. 一个数据库被多个实例操作时,同一事务的其他实例在该实例处理其间可能会有新的commit
-```
+```sh
 #首先修改隔离级别
 set tx_isolation='read-committed';
 select @@tx_isolation;
@@ -108,8 +107,7 @@ select * from tx;
 |    3 |    3 |
 +------+------+
 
-#事务B：也启动一个事务(那么两个事务交叉了)
-       在这事务中更新数据，且未提交
+#事务B：也启动一个事务(那么两个事务交叉了)在这事务中更新数据，且未提交
 start transaction;
 update tx set num=10 where id=1;
 select * from tx;
@@ -150,7 +148,7 @@ select * from tx; --------------->
 (2)它确保同一事务的多个实例在并发读取数据时，会看到同样的数据行  
 (3)此级别可能出现的问题——幻读(Phantom Read)：当用户读取某一范围的数据行时，另一个事务又在该范围内插入了新行，当用户再读取该范围的数据行时，会发现有新的“幻影” 行  
 (4)InnoDB和Falcon存储引擎通过多版本并发控制(MVCC，Multiversion Concurrency Control)机制解决了该问题
-```
+```sh
 #首先，更改隔离级别
 set tx_isolation='repeatable-read';
 select @@tx_isolation;
@@ -171,8 +169,7 @@ select * from tx;
 |    3 |    3 |
 +------+------+
 
-#事务B：开启一个新事务(那么这两个事务交叉了)
-       在事务B中更新数据，并提交
+#事务B：开启一个新事务(那么这两个事务交叉了)在事务B中更新数据，并提交
 start transaction;
 update tx set num=10 where id=1;
 select * from tx;
@@ -211,7 +208,7 @@ select * from tx;
 (1)这是最高的隔离级别  
 (2)它通过强制事务排序，使之不可能相互冲突，从而解决幻读问题。简言之,它是在每个读的数据行上加上共享锁。  
 (3)在这个级别，可能导致大量的超时现象和锁竞争
-```
+```sh
 #首先修改隔离界别
 set tx_isolation='serializable';
 select @@tx_isolation;
