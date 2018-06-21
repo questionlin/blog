@@ -39,7 +39,7 @@ Email Address：                          //您的邮件地址，不必输入，
 ### 二、HTTPS服务器配置
 
 1、 Nginx配置
-```
+```nginx
 server {
 listen       443;   #指定ssl监听端口
 server_name  www.example.com;

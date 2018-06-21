@@ -8,7 +8,7 @@ id: 1528513470
 InnoDB 使用的是B+Tree，即每一个叶子结点都包含指向下一个叶子节点的指针，从而方便叶子节点的范围遍历。B-Tree通常意味着所有的值都是按**顺序**存储在叶子节点的，并且每一个叶子页到根的距离相同。
 
 假设有如下数据表：
-```
+```sql
 CREATE TABLE People (
     last_name varchar(50)    not null,
     first_name varchar(50)   not null,
