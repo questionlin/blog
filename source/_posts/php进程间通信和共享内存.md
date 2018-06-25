@@ -88,9 +88,58 @@ hello world
 ```
 
 ## 同步与信号量
-为了同步多个进程的活动，就要允许在进程间共享数据。如果要多个进程读写同一个数据，就要引入锁。在多线程的情况下，本身有共享数据缓冲区，上锁与解锁非常简单。但是 php 本身不提供多线程支持，所以不在这里描述。对于多进程上锁与解锁，可以使用信号量(semaphore)。
+为了同步多个进程的活动，就要允许在进程间共享数据。如果要多个进程读写同一个数据，就要引入锁。在多线程的情况下，本身有共享数据缓冲区，上锁与解锁非常简单。对于多进程上锁与解锁，可以使用信号量(semaphore)。
 
-对于信号量，php 提供 sem_acquire(), sem_get(), sem_release(), sem_remove() 4个函数，已经全部在下个章节，共享内存里面使用到。因为信号量是为了共享内存存在的，就不在这个章节做特别说明了。
+对于多线程，php 有 pthreads 扩展，不过这个扩展需要将 php 编译成线程安全（ZTS）版本，具体参考其 [github 页面](https://github.com/krakjoe/pthreads)。这里给出一个 pthreads 互斥锁(mutex)和条件等待(cond)的演示，**但是注意，这两个类在最新版里已经删除，新版使用 synchronized 函数。这里之所以还使用旧版，是因为旧版更接近原 c 语言的用法**
+```php
+<?php
+/** 不可以使用 new 关键字，因为互斥量不是 PHP 对象 **/
+$mutex = Mutex::create();
+$cond = Cond::create();
+$condition = false;
+function produce()
+{
+  global $condition,$mutex,$cond;
+  Mutex::lock($mutex);
+  echo "pth2\n";
+  $condition = true;
+  Cond::signal($cond);
+  // Cond::broadcast($cond);
+  Mutex::unlock($mutex);
+}
+
+function comsume()
+{
+  global $condition,$mutex,$cond;
+  Mutex::lock($mutex);
+  while(!$condition){
+    Cond::wait($cond, $mutex);
+  }
+  echo "pth1\n";
+  Mutex::unlock($mutex);
+}
+
+// 线程2
+comsume();
+// 线程1
+produce();
+
+/** 永远不要忘记销毁你创建的条件变量及互斥量 **/
+Cond::destroy($cond);
+/** 销毁一个处于加锁状态的互斥量的操作是无效的 **/
+Mutex::unlock($mutex);
+/** 永远不要忘记销毁你创建的互斥量 **/
+Mutex::destroy($mutex);
+```
+运行结果如下，pth2永远在pth1前，即两个线程通过 mutex 和 cond 的结合使其线程间同步
+```
+pth2
+pth1
+```
+
+题外话：如果没有 mutex，signal 可能在 wait 之前执行，这样 wait 永远等不到 signal。mutex 和 cond 都是锁死等待，之所以需要 cond 是因为 Cond::wait() 后线程会释放锁，进入休眠，不再循环判断条件。在Cond::wait() 释放 mutex 之前，线程依靠 while() 保证程序不会执行到 echo。
+
+对于信号量，php 提供 sem_acquire(), sem_get(), sem_release(), sem_remove() 4个函数。因为信号量一般和共享内存一起使用，所以代码在下一节共享内存中演示。
 
 ## 共享内存
 共享内存是最快是进程间通信方式，因为n个进程之间并不需要数据复制，而是直接操控同一份数据。实际上信号量和共享内存是分不开的，要用也是搭配着用。*NIX的一些书籍中甚至不建议新手轻易使用这种进程间通信的方式，因为这是一种极易产生死锁的解决方案。共享内存顾名思义，就是一坨内存中的区域，可以让多个进程进行读写。这里最大的问题就在于数据同步的问题，比如一个在更改数据的时候，另一个进程不可以读，不然就会产生问题。所以为了解决这个问题才引入了信号量，信号量是一个计数器，是配合共享内存使用的，一般情况下流程如下：
