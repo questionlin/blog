@@ -75,5 +75,13 @@ http://www.itrus.cn/html/fuwuyuzhichi/fuwuqizhengshuanzhuangpeizhizhinan 《服�
 （2）如果页面有动静分离，静态资源使用独立域名的话，也需要为该域名申请证书；  
 （3）android低版本不支持SNI扩展，受此限制，一台服务器只能部署一个数字证书；
 
+---------------------------------------
 
 转自 https://pay.weixin.qq.com/wiki/doc/api/micropay.php?chapter=10_4
+
+参考资料：
+自动生成 web 服务器 https 配置：https://mozilla.github.io/server-side-tls/ssl-config-generator/
+
+免费证书：[Let's Encrypt](https://letsencrypt.org/), [StartSSL](https://www.startssl.com/Support?v=39)
+
+免费CDN：[CloudFlare](https://www.cloudflare.com/ssl/)
