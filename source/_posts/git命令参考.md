@@ -50,11 +50,19 @@ git checkout <branch-name>
 ```
 放弃文件修改也可以用这个命令，但如果文件名和分支名相同的话就会搞混。所以放弃文件修改统一加上 --
 
-# 放弃文件修改，从 stash 中拿出某个文件的修改
+# 放弃文件修改
 ```sh
-git checkout <stash@{n}> -- <file-name>
+git checkout -- <file-name>
+git checkout <stash@n> -- <file-name> #从stash中拿出某个文件的修改
 ```
-这是从 stash 中拿出某个文件的修改，但平时直接用作放弃文件修改。
+
+# 查看 commit/reflog 之间的文件区别
+```sh
+git diff #查看当前修改和上一次提交的区别
+git diff -- <file-name> #指定文件和上一次修改的区别
+git diff <commit-id>/<reflog-id> <commit-id>/reflog-id> #查看提交/操作之间的区别
+git diff <commit-id>/<reflog-id> -- <file-name> #指定文件提交/操作之间的区别
+```
 
 # 在当前分支基础上新建分支
 ```sh
