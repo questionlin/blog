@@ -1,7 +1,9 @@
 ---
 title: 分布式事务之mysql两阶段提交
 date: 2018-06-25 11:07:58
-tags: mysql
+tags:
+ - mysql
+ - 分布式
 id: 1529896095
 ---
 ## 两阶段提交
