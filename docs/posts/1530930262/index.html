@@ -310,7 +310,7 @@
 <li><strong>举例</strong>：User-Agent: Mozilla/4.0 (compatible; MSIE 5.5; Windows NT 5.0)</li>
 </ul>
 <p>另外说明一个，Age（秒）, Cache-Control, Expire（日期） 是设定为计算缓存生命周期的，但现在更好的做法是永久缓存，然后给 URL 加版本号的方法更新文件。</p>
-<h1 id="HTTP-与-WebSocket"><a href="#HTTP-与-WebSocket" class="headerlink" title="HTTP 与 WebSocket"></a>HTTP 与 WebSocket</h1><p>WebSocket 是在 HTTP 基础上的协议，需要浏览器支持。WebSocket 允许客户端和服务器通过长链接双工通信，即两边可以不断的向另一边发送信息而不用重新连接。没有 WebSocket 协议之前如果服务器要不断向浏览器发送信息，就要打开长链接（Connection: Keep-Alive，默认打开），而且只能服务器向浏览器发送。</p>
+<h1 id="HTTP-与-WebSocket"><a href="#HTTP-与-WebSocket" class="headerlink" title="HTTP 与 WebSocket"></a>HTTP 与 WebSocket</h1><p>WebSocket 是在 HTTP 基础上的协议，需要浏览器支持。WebSocket 允许客户端和服务器通过长链接双工通信，即两边可以不断的向另一边发送信息而不用重新连接。没有 WebSocket 协议之前如果服务器要不断向浏览器发送信息，就要打开长链接（Connection: Keep-Alive，默认打开），而且只能服务器向浏览器发送。而且由于服务端保持长链接开销很大，通常通过客户端隔一段时间请求来实现。</p>
 <hr>
 <p>参考资料：<br>《HTTP权威指南》<br>http状态码：<a href="https://baike.baidu.com/item/HTTP状态码/5053660?fr=aladdin" target="_blank" rel="noopener">https://baike.baidu.com/item/HTTP状态码/5053660?fr=aladdin</a></p>
 
