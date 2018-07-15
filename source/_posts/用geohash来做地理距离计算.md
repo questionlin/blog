@@ -14,6 +14,6 @@ keys [pattern]
 ```
 命令来匹配到所有 key。
 
-具体算法实现这里就不写了，可以看维基百科(https://en.wikipedia.org/wiki/Geohash)
+具体算法实现这里就不写了，可以看维基百科(https://en.wikipedia.org/wiki/Geohash)。使用 geohash 虽然能快速的得到附近的物品，却不能得到距离。如果需要距离，可以取出经纬度后再计算。
 
 最后推荐一个 [geohash 的 PHP 扩展](https://github.com/taogogo/geohash-php-extention)
