@@ -11,7 +11,7 @@
 
     <title>
         
-        mysql运维 - 我的博客
+        用geohash来做地理距离计算 - 我的博客
         
     </title>
 
@@ -89,7 +89,7 @@
     </div>
     
         <div id="toc" class="toc-article">
-    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#SHOW-STATUS"><span class="toc-text">SHOW STATUS</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#线程和连接统计"><span class="toc-text">线程和连接统计</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#二进制日志状态"><span class="toc-text">二进制日志状态</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#SELECT类型"><span class="toc-text">SELECT类型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#表锁"><span class="toc-text">表锁</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SHOW-ENGINE-INNODB-STATUS"><span class="toc-text">SHOW ENGINE INNODB STATUS</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#LATEST-DETECTED-DEADLOCK"><span class="toc-text">LATEST DETECTED DEADLOCK</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SHOW-PROCESSLIST"><span class="toc-text">SHOW PROCESSLIST</span></a></li></ol>
+    
 </div>
     
 </div>
@@ -119,20 +119,11 @@
 
 <div class="post-container">
     <div class="post-title">
-        mysql运维
+        用geohash来做地理距离计算
     </div>
 
     <div class="post-meta">
-        <span class="attr">发布于：<span>2018-06-19 14:17:44</span></span>
-        
-        <span class="attr">标签：/
-        
-        <a class="tag" href="/tags/#运维" title="运维">运维</a>
-        <span>/</span>
-        
-        <a class="tag" href="/tags/#mysql" title="mysql">mysql</a>
-        <span>/</span>
-        
+        <span class="attr">发布于：<span>2018-07-15 23:25:58</span></span>
         
         </span>
         <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
@@ -140,23 +131,12 @@
 </span>
     </div>
     <div class="post-content no-indent">
-        <h3 id="SHOW-STATUS"><a href="#SHOW-STATUS" class="headerlink" title="SHOW STATUS"></a>SHOW STATUS</h3><p>show status 命令会显示每个服务器变量和值，可以执行以下命令单个查看：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show status where Variable_name like &apos;Conne%&apos;</span><br></pre></td></tr></table></figure></p>
-<p>以下是一下重要的：</p>
-<h4 id="线程和连接统计"><a href="#线程和连接统计" class="headerlink" title="线程和连接统计"></a>线程和连接统计</h4><ul>
-<li>Connections, Max_used_connections, Threads_connected</li>
-<li>Aborted_clients, Aborted_connects</li>
-<li>Bytes_received, Bytes_sent</li>
-<li>Slow_lanuch_threads, Threads_cached, Threads_created,<br>Threads_running</li>
-</ul>
-<p>如果Aborted_connects不为0，可能意味着网络有问题或某人尝试连接但失败（可能用户指定了错误的密码或无效的数据库，或某个监控系统正在打开TCP的3306端口来检测服务器是否活着）。如果这个值太高，可能有严重的副作用：导致MySQL阻塞一个主机。</p>
-<h4 id="二进制日志状态"><a href="#二进制日志状态" class="headerlink" title="二进制日志状态"></a>二进制日志状态</h4><p>Binlog_cache_use和Binlog_cache_disk_use状态变量显示了在二进制日志缓存中有多少事务被存储过，以及多少事务因超过二进制日志缓存而必须存储到一个临时文件中。</p>
-<h4 id="SELECT类型"><a href="#SELECT类型" class="headerlink" title="SELECT类型"></a>SELECT类型</h4><p>Select_* 变量是特定类型 SELECT 查询的计数器。其中Select_scan表示全表扫描，Select_range_check 和 Select_full_join 表示无索引的联接。这三个开销较大。</p>
-<h4 id="表锁"><a href="#表锁" class="headerlink" title="表锁"></a>表锁</h4><p>Table_locks_immediate和Table_locks_waited变量可告诉你有多少锁被立即授权，有多少锁需要等待。但请注意，它们只是展示了服务器级别锁的统计，并不是存储引擎级的锁统计。</p>
-<h3 id="SHOW-ENGINE-INNODB-STATUS"><a href="#SHOW-ENGINE-INNODB-STATUS" class="headerlink" title="SHOW ENGINE INNODB STATUS"></a>SHOW ENGINE INNODB STATUS</h3><p>显示 InnoDB 引擎的信息，只有一列。因为不是专业运维，这里只介绍几个需要了解的段。</p>
-<h4 id="LATEST-DETECTED-DEADLOCK"><a href="#LATEST-DETECTED-DEADLOCK" class="headerlink" title="LATEST DETECTED DEADLOCK"></a>LATEST DETECTED DEADLOCK</h4><p>只有当前服务器内有死锁时才会出现，内容是死锁的上下文</p>
-<h3 id="SHOW-PROCESSLIST"><a href="#SHOW-PROCESSLIST" class="headerlink" title="SHOW PROCESSLIST"></a>SHOW PROCESSLIST</h3><p>进程列表是当前连接到MySQL的连接或线程的清单。<strong>这个命令可以看哪些线程持有锁</strong></p>
-<hr>
-<p>参考资料：《高性能MySQL》</p>
+        <p>在知道 geohash 之前，对于查找附近的人这种需求，我只知道用自己的经纬度和对方的经纬度经过勾股定理来计算距离，但因为这样的方法实在是太慢没法用，最后还是用了第三方的 API 来获得结果。这片文章就来介绍一下 geohash。</p>
+<p>geohash 是对经纬度做一系列计算，最后的到一个字符串，经纬度越精确，字符串越长，而距离越近的两点，字符串左边相同的字符就越多。例如使用 redis 的 geohash 命令得到上海人民广场地铁站的 geohash 是 wtw3sqgg0v0，上海博物馆是 wtw3sqh3ng0，老西门地铁站是 wtw3ss61250。可以看到人民广场离博物馆比较近，前6位字母是一样的，而距离较远的老西门则只有前5位一样了。这个算法可以设定精确度，越精确字符串越长。</p>
+<p>现在已经很清楚了，对于位置固定不变的东西，可以在 MySQL 保存 geohash 后用 Like ‘xxx%’ 来查找，缓存可以用 redis 的 geoadd 和 geohash。但如果需求是一个位置实时在变的出租车，我们不是要在缓存找到出租车的 geohash，而是要根据近似的 geohash 来找到出租车的信息。我的办法是把 geohash 作为 key，数据库 id 或者完整信息作为值，然后利用 redis 的<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">keys [pattern]</span><br></pre></td></tr></table></figure></p>
+<p>命令来匹配到所有 key。</p>
+<p>具体算法实现这里就不写了，可以看维基百科(<a href="https://en.wikipedia.org/wiki/Geohash" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/Geohash</a>)</p>
+<p>最后推荐一个 <a href="https://github.com/taogogo/geohash-php-extention" target="_blank" rel="noopener">geohash 的 PHP 扩展</a></p>
 
         
         <div id="comment-container">
