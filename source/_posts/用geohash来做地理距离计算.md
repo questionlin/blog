@@ -10,6 +10,6 @@ geohash 是对经纬度做一系列计算，最后的到一个字符串，经纬
 
 现在已经很清楚了，对于位置固定不变的东西，可以在 MySQL 保存 geohash 后用 Like 'xxx%' 来查找，缓存可以用 redis 的 geoadd 和 geohash。但如果需求是一个位置实时在变的出租车，我们不是要在缓存找到出租车的 geohash，而是要根据近似的 geohash 来找到出租车的信息。可以用 redis 的 GEORADIUSBYMEMBER 命令，将数据库 id 作为 key。
 
-具体算法实现这里就不写了，可以看维基百科(https://en.wikipedia.org/wiki/Geohash)。使用 geohash 虽然能快速的得到附近的物品，却不能得到距离。如果需要距离，可以取出经纬度后再计算。
+Geohash 具体算法实现这里就不写了，可以看维基百科(https://en.wikipedia.org/wiki/Geohash)。使用 geohash 虽然能快速的得到附近的物品，却不能得到距离。如果需要距离，可以取出经纬度后再计算。
 
 最后推荐一个 [geohash 的 PHP 扩展](https://github.com/taogogo/geohash-php-extention)
