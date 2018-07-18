@@ -11,7 +11,7 @@
 
     <title>
         
-        Hello World - 我的博客
+        PHP event 和 libevent 扩展的关系 - 我的博客
         
     </title>
 
@@ -89,7 +89,7 @@
     </div>
     
         <div id="toc" class="toc-article">
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Quick-Start"><span class="toc-text">Quick Start</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Create-a-new-post"><span class="toc-text">Create a new post</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Run-server"><span class="toc-text">Run server</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Generate-static-files"><span class="toc-text">Generate static files</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Deploy-to-remote-sites"><span class="toc-text">Deploy to remote sites</span></a></li></ol></li></ol>
+    
 </div>
     
 </div>
@@ -119,11 +119,17 @@
 
 <div class="post-container">
     <div class="post-title">
-        Hello World
+        PHP event 和 libevent 扩展的关系
     </div>
 
     <div class="post-meta">
-        <span class="attr">发布于：<span>2018-06-09 09:48:04</span></span>
+        <span class="attr">发布于：<span>2018-07-18 20:46:55</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#php" title="php">php</a>
+        <span>/</span>
+        
         
         </span>
         <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
@@ -131,15 +137,25 @@
 </span>
     </div>
     <div class="post-content no-indent">
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+        <p>PHP event 和 libevent 扩展都是对 libevent 的封装，前者有 stable 版本且一直在更新而后者只有 beta 版本。本来肯定要选 event 扩展，可是它的 pecl 页面上赫然写着依赖 libevent 扩展。陷入混乱的我给作者写了封邮件，<strong>结论是：大胆选 event 扩展</strong>。以下是邮件原文：</p>
+<blockquote>
+<p>Hi,</p>
+<p>event extension is an alternative to libevent extension.</p>
+<p>You can see “libevent” package listed as a dependency on<br><a href="https://pecl.php.net/package/event" target="_blank" rel="noopener">https://pecl.php.net/package/event</a>, but in reality “libevent”<br>extension is declared as <strong>conflicting</strong> package in package.xml:</p>
+<pre><code>&lt;package&gt;
+  &lt;name&gt;libevent&lt;/name&gt;
+  &lt;channel&gt;pecl.php.net&lt;/channel&gt;
+  &lt;min&gt;0.0.2&lt;/min&gt;
+  &lt;conflicts/&gt;
+  &lt;providesextension&gt;libevent&lt;/providesextension&gt;
+&lt;/package&gt;
+</code></pre><p>I can’t recall why. But you definitely don’t need libevent extension<br>in order to use “event”.</p>
+<p>On Wed, 18 Jul 2018 11:28:21 +0800 (CST)<br>“Simon Lin” <a href="mailto:&#98;&#111;&#x79;&#x71;&#x75;&#x65;&#115;&#x74;&#x69;&#111;&#110;&#64;&#x31;&#54;&#51;&#x2e;&#99;&#x6f;&#x6d;" target="_blank" rel="noopener">&#98;&#111;&#x79;&#x71;&#x75;&#x65;&#115;&#x74;&#x69;&#111;&#110;&#64;&#x31;&#54;&#51;&#x2e;&#99;&#x6f;&#x6d;</a> wrote:</p>
+<p>Hi,</p>
+<p>I’m just confused that what is the relation between event package and<br>libevent package? The pecl page shows event package has stable<br>versions while libevent package does not. If event package depends on<br>libevent package, is event package still stable?</p>
+<p>Sincerely,<br>Simon Lin</p>
+<p>–<br>Ruslan Osmanov</p>
+</blockquote>
 
         
         <div id="comment-container">
