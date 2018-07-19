@@ -11,7 +11,7 @@
 
     <title>
         
-        PHP event 和 libevent 扩展的关系 - 我的博客
+        redis数据结构备注 - 我的博客
         
     </title>
 
@@ -89,7 +89,7 @@
     </div>
     
         <div id="toc" class="toc-article">
-    
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Geo"><span class="toc-text">Geo</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Hashes"><span class="toc-text">Hashes</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#HyperLogLog"><span class="toc-text">HyperLogLog</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Lists"><span class="toc-text">Lists</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Sets"><span class="toc-text">Sets</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Sorted-Sets"><span class="toc-text">Sorted Sets</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Streams"><span class="toc-text">Streams</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Strings"><span class="toc-text">Strings</span></a></li></ol>
 </div>
     
 </div>
@@ -119,15 +119,15 @@
 
 <div class="post-container">
     <div class="post-title">
-        PHP event 和 libevent 扩展的关系
+        redis数据结构备注
     </div>
 
     <div class="post-meta">
-        <span class="attr">发布于：<span>2018-07-18 20:46:55</span></span>
+        <span class="attr">发布于：<span>2018-07-19 10:37:55</span></span>
         
         <span class="attr">标签：/
         
-        <a class="tag" href="/tags/#php" title="php">php</a>
+        <a class="tag" href="/tags/#redis" title="redis">redis</a>
         <span>/</span>
         
         
@@ -137,25 +137,49 @@
 </span>
     </div>
     <div class="post-content no-indent">
-        <p>PHP event 和 libevent 扩展都是对 libevent 的封装，前者有 stable 版本且一直在更新而后者只有 beta 版本。本来肯定要选 event 扩展，可是它的 pecl 页面上赫然写着依赖 libevent 扩展。陷入混乱的我给作者写了封邮件，<strong>结论是：大胆选 event 扩展</strong>。以下是邮件原文：</p>
-<blockquote>
-<p>Hi,</p>
-<p>event extension is an alternative to libevent extension.</p>
-<p>You can see “libevent” package listed as a dependency on<br><a href="https://pecl.php.net/package/event" target="_blank" rel="noopener">https://pecl.php.net/package/event</a>, but in reality “libevent”<br>extension is declared as <strong>conflicting</strong> package in package.xml:</p>
-<pre><code>&lt;package&gt;
-  &lt;name&gt;libevent&lt;/name&gt;
-  &lt;channel&gt;pecl.php.net&lt;/channel&gt;
-  &lt;min&gt;0.0.2&lt;/min&gt;
-  &lt;conflicts/&gt;
-  &lt;providesextension&gt;libevent&lt;/providesextension&gt;
-&lt;/package&gt;
-</code></pre><p>I can’t recall why. But you definitely don’t need libevent extension<br>in order to use “event”.</p>
-<p>On Wed, 18 Jul 2018 11:28:21 +0800 (CST)<br>“Simon Lin” <a href="mailto:&#98;&#x6f;&#x79;&#x71;&#x75;&#x65;&#x73;&#116;&#x69;&#x6f;&#x6e;&#64;&#49;&#x36;&#x33;&#x2e;&#99;&#111;&#109;" target="_blank" rel="noopener">&#98;&#x6f;&#x79;&#x71;&#x75;&#x65;&#x73;&#116;&#x69;&#x6f;&#x6e;&#64;&#49;&#x36;&#x33;&#x2e;&#99;&#111;&#109;</a> wrote:</p>
-<p>Hi,</p>
-<p>I’m just confused that what is the relation between event package and<br>libevent package? The pecl page shows event package has stable<br>versions while libevent package does not. If event package depends on<br>libevent package, is event package still stable?</p>
-<p>Sincerely,<br>Simon Lin</p>
-<p>–<br>Ruslan Osmanov</p>
-</blockquote>
+        <h1 id="Geo"><a href="#Geo" class="headerlink" title="Geo"></a>Geo</h1><p>Geo 命令用来把经纬度转换成 <a href="https://ljj.pub/posts/1531668376/">Geohash</a>。</p>
+<p>一般用途：</p>
+<ul>
+<li>获得地图上一个点附近 x米内的所有点</li>
+</ul>
+<h1 id="Hashes"><a href="#Hashes" class="headerlink" title="Hashes"></a>Hashes</h1><p>哈希表。以前会把数据序列化后作为字符串存储，现在可以直接存进 hash 里。缺点是只有一级，所以多级的情况还是要序列化。</p>
+<p>一般用途：</p>
+<ul>
+<li>数据库里的数据原封不动存进 hash</li>
+</ul>
+<h1 id="HyperLogLog"><a href="#HyperLogLog" class="headerlink" title="HyperLogLog"></a>HyperLogLog</h1><p>HyperLogLog 的用途是输入大量的字符串，最后得到去重字符串的数量。和 Sets 的区别是速度飞快，而且空间小很多，可能只有千分之一。缺点是数据存入后会做不可逆运算，因此只能统计数量，不能再取出数据。</p>
+<p>一般用途：</p>
+<ul>
+<li>统计 UV</li>
+</ul>
+<h1 id="Lists"><a href="#Lists" class="headerlink" title="Lists"></a>Lists</h1><p>列表。以前会用来作为消息队列，现在推荐使用 Streams。</p>
+<p>一般用途：</p>
+<ul>
+<li>有序的队列</li>
+</ul>
+<h1 id="Sets"><a href="#Sets" class="headerlink" title="Sets"></a>Sets</h1><p>去重的无序列表。如果要维护一个去重的列表。缺点是无序。</p>
+<p>一般用途：</p>
+<ul>
+<li>分布式的情况下，维护一个去重表</li>
+</ul>
+<h1 id="Sorted-Sets"><a href="#Sorted-Sets" class="headerlink" title="Sorted Sets"></a>Sorted Sets</h1><p>有序的去重列表。同样是去重的列表，可以给每个值加一个权重，得到一个顺序。</p>
+<p>一般用途：</p>
+<ul>
+<li>按照需要的顺序存储数据库的主键。作为数据库索引的补充。</li>
+</ul>
+<h1 id="Streams"><a href="#Streams" class="headerlink" title="Streams"></a>Streams</h1><p>专门的消息队列，比 List 快很多，用来代替 Kafka, RabbitMQ 等。</p>
+<p>一般用途：</p>
+<ul>
+<li>消息队列</li>
+</ul>
+<h1 id="Strings"><a href="#Strings" class="headerlink" title="Strings"></a>Strings</h1><p>最基本的字符串</p>
+<p>一般用途：</p>
+<ul>
+<li>加锁</li>
+<li>存储序列化的数据，比如 json</li>
+</ul>
+<hr>
+<p>参考资料：<br><a href="https://en.wikipedia.org/wiki/HyperLogLog" target="_blank" rel="noopener">HyperLogLog wiki</a></p>
 
         
         <div id="comment-container">
