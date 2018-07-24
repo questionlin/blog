@@ -89,7 +89,7 @@
     </div>
     
         <div id="toc" class="toc-article">
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#DNS负载均衡"><span class="toc-text">DNS负载均衡</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#负载分发"><span class="toc-text">负载分发</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#网关-web-API服务器"><span class="toc-text">网关+web/API服务器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#服务注册"><span class="toc-text">服务注册</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数据库"><span class="toc-text">数据库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#消息队列服务器"><span class="toc-text">消息队列服务器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第三方接口"><span class="toc-text">第三方接口</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#DNS负载均衡"><span class="toc-text">DNS负载均衡</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#负载分发"><span class="toc-text">负载分发</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#网关-web-API服务器"><span class="toc-text">网关+web/API服务器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#服务注册"><span class="toc-text">服务注册</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数据库"><span class="toc-text">数据库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#消息队列"><span class="toc-text">消息队列</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第三方接口"><span class="toc-text">第三方接口</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#日志收集"><span class="toc-text">日志收集</span></a></li></ol>
 </div>
     
 </div>
@@ -154,7 +154,7 @@
 </tr>
 </tbody>
 </table>
-<p><a href="##DNS负载均衡">DNS负载均衡</a> |<br><a href="##负载分发">负载分发</a> |<br><a href="##网关+web/API服务器">网关 + web/API 服务器</a>|<br>RPC服务器 | <a href="##服务注册">服务注册</a><br><a href="##数据库">数据库</a> | 缓存 | <a href="##消息队列服务器">消息队列服务器</a> | 搜索引擎 | <a href="##第三方接口">第三方接口</a></p>
+<p><a href="##DNS负载均衡">DNS负载均衡</a> |<br><a href="##负载分发">负载分发</a> |<br><a href="##网关+web/API服务器">网关 + web/API 服务器</a>|<br>RPC服务器 | <a href="##服务注册">服务注册</a><br><a href="##数据库">数据库</a> | 缓存 | <a href="##消息队列">消息队列</a> | 搜索引擎 | <a href="##第三方接口">第三方接口</a><br><a href="##日志收集">日志收集</a>|</p>
 <h2 id="DNS负载均衡"><a href="#DNS负载均衡" class="headerlink" title="DNS负载均衡"></a>DNS负载均衡</h2><p>DNS 负载均衡是把多个 A/CNAME 记录配置在 DNS 服务器上的一种均衡的办法。优点是不用另外配置服务器，缺点是规则生效慢，不宜多配。例如阿里巴巴华东节点就只配了4条记录。</p>
 <h2 id="负载分发"><a href="#负载分发" class="headerlink" title="负载分发"></a>负载分发</h2><p>将请求分发到各台服务器的主力服务器。常见的负载分发服务器有 HAProxy, nginx, LVS。</p>
 <p>通过负载分发出去的请求，为了保留用户 SESSION，一种方法是对用户id hash/取模，同一个用户的请求一直导向同一台服务器。但这种方法经常造成服务器使用不均，极不推荐。推荐的做法是把 SESSION 放在缓存服务器上，请求携带 token 一路往下传。</p>
@@ -209,13 +209,14 @@
 </tbody>
 </table>
 <p>对于超大型服务，MySQL 的主从复制速度不能满足的情况下，可以考虑 OceanBase / PhxSQL，他们用 paxos 算法实现了分布式情况下数据库的快速同步。</p>
-<h2 id="消息队列服务器"><a href="#消息队列服务器" class="headerlink" title="消息队列服务器"></a>消息队列服务器</h2><p>队列服务器有两种用处：</p>
+<h2 id="消息队列"><a href="#消息队列" class="headerlink" title="消息队列"></a>消息队列</h2><p>队列服务器有两种用处：</p>
 <ol>
 <li>把耗时多的服务放在队列里，由另一个服务异步运行</li>
 <li>有些数据对顺序要求很高，放在队列里，把并行转为串行</li>
 </ol>
 <p>常见的队列服务有 kafka / RabbitMQ / RocketMQ，新版的 redis 也提供队列服务。</p>
 <h2 id="第三方接口"><a href="#第三方接口" class="headerlink" title="第三方接口"></a>第三方接口</h2><p>第三方接口由于在异地，经常会出现请求错误。这时如果时间允许的话可以睡眠若干秒后直接重试，否则放入消息队列。</p>
+<h2 id="日志收集"><a href="#日志收集" class="headerlink" title="日志收集"></a>日志收集</h2><p>Elastic Stack(ELK) 是现在市面上最方便的日志收集和查询的工具。日志收集除了能做产品分析外，还能给新服务上线做蓝绿测试。即先在一台权重比较低的服务器上线新版，一段时间后如果日志没有报错，再在其他服务器上新。报警服务也可以架设在日志收集服务之上。</p>
 
         
         <div id="comment-container">
