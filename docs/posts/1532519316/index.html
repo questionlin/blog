@@ -11,7 +11,7 @@
 
     <title>
         
-        我的博客
+        RPC的大腿——事务管理器 - 我的博客
         
     </title>
 
@@ -53,7 +53,7 @@
     </div>
     <div class="contents" id="nav-content">
         <ul>
-            <li  class=active >
+            <li >
                 <a href="/">
                     <i class="iconfont icon-shouye1"></i>
                     <span>主页</span>
@@ -88,6 +88,10 @@
         </ul>
     </div>
     
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#为什么事务管理器重要"><span class="toc-text">为什么事务管理器重要</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#只有一台数据库的情况"><span class="toc-text">只有一台数据库的情况</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#分布式的情况"><span class="toc-text">分布式的情况</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#如何使用事务管理器"><span class="toc-text">如何使用事务管理器</span></a></li></ol>
+</div>
+    
 </div>
 
 
@@ -111,81 +115,51 @@
     <div class="index-middle">
         <!-- Main Content -->
         
-<div class="post-preview-container" style="min-height: 576px">
-    
-    <div class="post-preview">
-        <div class="post-time">2018-06-01</div>
-        <div class="post-info">
-            <a href="/posts/1528164430/">
-                <h3>
-                    redis主从切换踩坑
-                </h3>
-            </a>
-            <p>
-                
-                <span>/</span>
-                
-                <a class="tag" href="/tags/#redis" title="redis">redis</a>
-                <span>/</span>
-                
-                
-            </p>
-        </div>
-    </div>
-    
-    <div class="post-preview">
-        <div class="post-time">2018-06-01</div>
-        <div class="post-info">
-            <a href="/posts/1528164421/">
-                <h3>
-                    用人话教你设计模式
-                </h3>
-            </a>
-            <p>
-                
-                <span>/</span>
-                
-                <a class="tag" href="/tags/#php" title="php">php</a>
-                <span>/</span>
-                
-                
-            </p>
-        </div>
-    </div>
-    
-    <div class="post-preview">
-        <div class="post-time">2018-06-01</div>
-        <div class="post-info">
-            <a href="/posts/1528164408/">
-                <h3>
-                    hexo+github搭建博客最佳实践
-                </h3>
-            </a>
-            <p>
-                
-                <span>/</span>
-                
-                <a class="tag" href="/tags/#最佳实践" title="最佳实践">最佳实践</a>
-                <span>/</span>
-                
-                <a class="tag" href="/tags/#hexo" title="hexo">hexo</a>
-                <span>/</span>
-                
-                
-            </p>
-        </div>
-    </div>
-    
-</div>
-<ul class="pager">
-    
-    <li class="previous">
-        <a href="/page/3/">&larr; Newer Posts</a>
-    </li>
-    
-    
-</ul>
 
+
+<div class="post-container">
+    <div class="post-title">
+        RPC的大腿——事务管理器
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2018-07-25 19:47:48</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#架构" title="架构">架构</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
+    </div>
+    <div class="post-content no-indent">
+        <p>关于事务管理器，在之前的文章<a href="/posts/1529896095/">《分布式事务之mysql两阶段提交》</a>有介绍。简单的来说，就是独立于业务逻辑，专门负责执行数据库事务的服务。事务管理器对于 RPC 之重要，可以说没有事务管理器，就没有 RPC 服务。</p>
+<h1 id="为什么事务管理器重要"><a href="#为什么事务管理器重要" class="headerlink" title="为什么事务管理器重要"></a>为什么事务管理器重要</h1><p>首先我来梳理一下没有事务管理器的情况下，RPC 服务怎么调用数据库事务。</p>
+<h2 id="只有一台数据库的情况"><a href="#只有一台数据库的情况" class="headerlink" title="只有一台数据库的情况"></a>只有一台数据库的情况</h2><p>虽然只有一台数据库，但每个 RPC 都有自己的连接，所以 RPC 之间无法共享事务。</p>
+<ol>
+<li>每个 RPC 能访问所有表<ul>
+<li>rpc-1 开启了一个事务，同时调用 rpc-2，rpc-2 开启了另一个事务。如果1和2的事务访问同一个表的同一行数据，就会造成死锁。</li>
+</ul>
+</li>
+<li>每个 RPC 只能访问自己的表<ul>
+<li>如果每个 RPC 只能访问自己的表，那但凡 RPC 间的调用，都会变成分布式事务。这样不但代码量会变得很大，而且效率太低。</li>
+</ul>
+</li>
+</ol>
+<h2 id="分布式的情况"><a href="#分布式的情况" class="headerlink" title="分布式的情况"></a>分布式的情况</h2><p>分布式事务必须有事务管理器，参考<a href="/posts/1529896095/">《分布式事务之mysql两阶段提交》</a>。</p>
+<h1 id="如何使用事务管理器"><a href="#如何使用事务管理器" class="headerlink" title="如何使用事务管理器"></a>如何使用事务管理器</h1><p>对于只有一台服务器的情况，其实可以使用 MySQL 的 XA 事务。XA 事务在只有一台的机器的情况下效率并不低，可以在 RPC 之间传递 xid 的方式让多个数据库连接共享一个事务。</p>
+<p>或者可以自己实现一个事务管理器，rpc-1 先从事务管理器获得事务 id，被调 rpc-2 通过事务 id，获得 rpc-1 的数据库连接。这时的事务管理器就是一个数据库连接池。这里要注意单点问题。</p>
+<p>对于分布式的情况，XA 事务也可以，但是效率不高。可以考虑 TCC 事务，参考<a href="/posts/1530843273/">《分布式事务之TCC补偿型事务》</a>。</p>
+
+        
+        <div id="comment-container">
+        </div>
+    </div>
+</div>
     </div>
 </div>
 
@@ -248,7 +222,7 @@
     // We expose some of the variables needed by the front end
     window.hexo_search_path = "search.json"
     window.hexo_root = "/"
-    window.isPost = false
+    window.isPost = true
 </script>
 <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
 <script src="/js/index.js"></script>
