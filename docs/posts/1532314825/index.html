@@ -150,11 +150,30 @@
 </thead>
 <tbody>
 <tr>
-<td></td>
+<td><a href="##DNS负载均衡">DNS负载均衡</a></td>
+</tr>
+<tr>
+<td><a href="##负载分发">负载分发</a></td>
+</tr>
+<tr>
+<td><a href="##网关+web/API服务器">网关 + web/API 服务器</a></td>
+</tr>
+<tr>
+<td>RPC服务器</td>
+<td><a href="##服务注册">服务注册</a></td>
+</tr>
+<tr>
+<td><a href="##数据库">数据库</a></td>
+<td>缓存</td>
+<td><a href="##消息队列">消息队列</a></td>
+<td>搜索引擎</td>
+<td><a href="##第三方接口">第三方接口</a></td>
+</tr>
+<tr>
+<td><a href="##日志收集">日志收集</a></td>
 </tr>
 </tbody>
 </table>
-<p><a href="##DNS负载均衡">DNS负载均衡</a> |<br><a href="##负载分发">负载分发</a> |<br><a href="##网关+web/API服务器">网关 + web/API 服务器</a>|<br>RPC服务器 | <a href="##服务注册">服务注册</a><br><a href="##数据库">数据库</a> | 缓存 | <a href="##消息队列">消息队列</a> | 搜索引擎 | <a href="##第三方接口">第三方接口</a><br><a href="##日志收集">日志收集</a>|</p>
 <h2 id="DNS负载均衡"><a href="#DNS负载均衡" class="headerlink" title="DNS负载均衡"></a>DNS负载均衡</h2><p>DNS 负载均衡是把多个 A/CNAME 记录配置在 DNS 服务器上的一种均衡的办法。优点是不用另外配置服务器，缺点是规则生效慢，不宜多配。例如阿里巴巴华东节点就只配了4条记录。</p>
 <h2 id="负载分发"><a href="#负载分发" class="headerlink" title="负载分发"></a>负载分发</h2><p>将请求分发到各台服务器的主力服务器。常见的负载分发服务器有 HAProxy, nginx, LVS。</p>
 <p>通过负载分发出去的请求，为了保留用户 SESSION，一种方法是对用户id hash/取模，同一个用户的请求一直导向同一台服务器。但这种方法经常造成服务器使用不均，极不推荐。推荐的做法是把 SESSION 放在缓存服务器上，请求携带 token 一路往下传。</p>

@@ -137,7 +137,30 @@
 </span>
     </div>
     <div class="post-content no-indent">
-        <p>之前有过这样的需求，抽奖活动，奖品按一定权重随机抽取，例如：<br>|-|-|-|-|-|-|<br>|-|-|-|-|-|-|<br>权重 | 12 | 32 | 32 | 12 | 12<br>奖品 | a  | b  | c  | d  | e<br>之前的做法是把每个奖品按照权重，重复加进一个数据，即：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[a,a,a,a...b,b,b,b,b...c,c,c,c,c...d,d,d,d...e,e,e...]</span><br></pre></td></tr></table></figure></p>
+        <p>之前有过这样的需求，抽奖活动，奖品按一定权重随机抽取，例如：</p>
+<table>
+<thead>
+<tr>
+<th>奖品</th>
+<th>a</th>
+<th>b</th>
+<th>c</th>
+<th>d</th>
+<th>e</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>权重</td>
+<td>12</td>
+<td>32</td>
+<td>32</td>
+<td>12</td>
+<td>12</td>
+</tr>
+</tbody>
+</table>
+<p>之前的做法是把每个奖品按照权重，重复加进一个数据，即：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[a,a,a,a...b,b,b,b,b...c,c,c,c,c...d,d,d,d...e,e,e...]</span><br></pre></td></tr></table></figure></p>
 <p>里面有12个a,32个b以此类推。然后用 array_rand() 选出一个。</p>
 <p>这种方法首先会的到一个很大的数组，然后循环添加奖品也很费时。今天重新思考这个问题，可以用下面的方法：</p>
 <ol>
@@ -145,7 +168,7 @@
 <li>以总和为最大值得到一个随机数</li>
 <li>循环查找随机数在数组里的区间，进而得到结果</li>
 </ol>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">$gift = [<span class="string">'a'</span>=&gt;<span class="number">12</span>,<span class="string">'b'</span>=&gt;<span class="number">32</span>,<span class="string">'c'</span>=&gt;<span class="number">32</span>,<span class="string">'d'</span>=&gt;<span class="number">12</span>,<span class="string">'e'</span>=&gt;<span class="number">12</span>];</span><br><span class="line">$sum = array_sum($gift);</span><br><span class="line">$rand = mt_rand(<span class="number">1</span>,$sum);</span><br><span class="line">$i=<span class="number">0</span>;</span><br><span class="line">$the_gift=<span class="string">''</span>;</span><br><span class="line"><span class="keyword">foreach</span>($gift <span class="keyword">as</span> $key=&gt;$weight)&#123;</span><br><span class="line">    $i += $weight;</span><br><span class="line">    <span class="keyword">if</span>($rand &lt; $i)&#123;</span><br><span class="line">        $the_gift = $key;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">var_dump($the_gift);</span><br></pre></td></tr></table></figure>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">$gift = [<span class="string">'a'</span>=&gt;<span class="number">12</span>,<span class="string">'b'</span>=&gt;<span class="number">32</span>,<span class="string">'c'</span>=&gt;<span class="number">32</span>,<span class="string">'d'</span>=&gt;<span class="number">12</span>,<span class="string">'e'</span>=&gt;<span class="number">12</span>];</span><br><span class="line">$sum = array_sum($gift);</span><br><span class="line">$rand = mt_rand(<span class="number">1</span>,$sum);</span><br><span class="line">$i=<span class="number">0</span>;</span><br><span class="line">$the_gift=<span class="string">''</span>;</span><br><span class="line"><span class="keyword">foreach</span>($gift <span class="keyword">as</span> $key=&gt;$weight)&#123;</span><br><span class="line">    $i += $weight;</span><br><span class="line">    <span class="keyword">if</span>($rand &lt; $i)&#123;</span><br><span class="line">        $the_gift = $key;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">var_dump($the_gift);</span><br></pre></td></tr></table></figure>
 <p>虽然这个算法里也有循环，但是通常礼物不会很多，计算量非常小。</p>
 <p>最后给一个用 map 实现的方法，缺点是要用权重作为key，所以每个权重不能相同。<a href="https://www.cnblogs.com/exmyth/p/7100749.html" target="_blank" rel="noopener">https://www.cnblogs.com/exmyth/p/7100749.html</a></p>
 
