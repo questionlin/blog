@@ -11,7 +11,7 @@
 
     <title>
         
-        PHP event 和 libevent 扩展的关系 - 我的博客
+        一种带权重的随机选择 - 我的博客
         
     </title>
 
@@ -119,15 +119,15 @@
 
 <div class="post-container">
     <div class="post-title">
-        PHP event 和 libevent 扩展的关系
+        一种带权重的随机选择
     </div>
 
     <div class="post-meta">
-        <span class="attr">发布于：<span>2018-07-18 20:46:55</span></span>
+        <span class="attr">发布于：<span>2018-07-26 15:57:19</span></span>
         
         <span class="attr">标签：/
         
-        <a class="tag" href="/tags/#php" title="php">php</a>
+        <a class="tag" href="/tags/#算法" title="算法">算法</a>
         <span>/</span>
         
         
@@ -137,25 +137,17 @@
 </span>
     </div>
     <div class="post-content no-indent">
-        <p>PHP event 和 libevent 扩展都是对 libevent 的封装，前者有 stable 版本且一直在更新而后者只有 beta 版本。本来肯定要选 event 扩展，可是它的 pecl 页面上赫然写着依赖 libevent 扩展。陷入混乱的我给作者写了封邮件，<strong>结论是：大胆选 event 扩展</strong>。以下是邮件原文：</p>
-<blockquote>
-<p>Hi,</p>
-<p>event extension is an alternative to libevent extension.</p>
-<p>You can see “libevent” package listed as a dependency on<br><a href="https://pecl.php.net/package/event" target="_blank" rel="noopener">https://pecl.php.net/package/event</a>, but in reality “libevent”<br>extension is declared as <strong>conflicting</strong> package in package.xml:</p>
-<pre><code>&lt;package&gt;
-  &lt;name&gt;libevent&lt;/name&gt;
-  &lt;channel&gt;pecl.php.net&lt;/channel&gt;
-  &lt;min&gt;0.0.2&lt;/min&gt;
-  &lt;conflicts/&gt;
-  &lt;providesextension&gt;libevent&lt;/providesextension&gt;
-&lt;/package&gt;
-</code></pre><p>I can’t recall why. But you definitely don’t need libevent extension<br>in order to use “event”.</p>
-<p>On Wed, 18 Jul 2018 11:28:21 +0800 (CST)<br>“Simon Lin” <a href="mailto:&#x62;&#x6f;&#x79;&#x71;&#117;&#x65;&#x73;&#x74;&#105;&#x6f;&#x6e;&#64;&#49;&#54;&#51;&#46;&#99;&#111;&#109;" target="_blank" rel="noopener">&#x62;&#x6f;&#x79;&#x71;&#117;&#x65;&#x73;&#x74;&#105;&#x6f;&#x6e;&#64;&#49;&#54;&#51;&#46;&#99;&#111;&#109;</a> wrote:</p>
-<p>Hi,</p>
-<p>I’m just confused that what is the relation between event package and<br>libevent package? The pecl page shows event package has stable<br>versions while libevent package does not. If event package depends on<br>libevent package, is event package still stable?</p>
-<p>Sincerely,<br>Simon Lin</p>
-<p>–<br>Ruslan Osmanov</p>
-</blockquote>
+        <p>之前有过这样的需求，抽奖活动，奖品按一定权重随机抽取，例如：<br>|-|-|-|-|-|-|<br>|-|-|-|-|-|-|<br>权重 | 12 | 32 | 32 | 12 | 12<br>奖品 | a  | b  | c  | d  | e<br>之前的做法是把每个奖品按照权重，重复加进一个数据，即：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[a,a,a,a...b,b,b,b,b...c,c,c,c,c...d,d,d,d...e,e,e...]</span><br></pre></td></tr></table></figure></p>
+<p>里面有12个a,32个b以此类推。然后用 array_rand() 选出一个。</p>
+<p>这种方法首先会的到一个很大的数组，然后循环添加奖品也很费时。今天重新思考这个问题，可以用下面的方法：</p>
+<ol>
+<li>将所有权重相加得到总和</li>
+<li>以总和为最大值得到一个随机数</li>
+<li>循环查找随机数在数组里的区间，进而得到结果</li>
+</ol>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">$gift = [<span class="string">'a'</span>=&gt;<span class="number">12</span>,<span class="string">'b'</span>=&gt;<span class="number">32</span>,<span class="string">'c'</span>=&gt;<span class="number">32</span>,<span class="string">'d'</span>=&gt;<span class="number">12</span>,<span class="string">'e'</span>=&gt;<span class="number">12</span>];</span><br><span class="line">$sum = array_sum($gift);</span><br><span class="line">$rand = mt_rand(<span class="number">1</span>,$sum);</span><br><span class="line">$i=<span class="number">0</span>;</span><br><span class="line">$the_gift=<span class="string">''</span>;</span><br><span class="line"><span class="keyword">foreach</span>($gift <span class="keyword">as</span> $key=&gt;$weight)&#123;</span><br><span class="line">    $i += $weight;</span><br><span class="line">    <span class="keyword">if</span>($rand &lt; $i)&#123;</span><br><span class="line">        $the_gift = $key;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">var_dump($the_gift);</span><br></pre></td></tr></table></figure>
+<p>虽然这个算法里也有循环，但是通常礼物不会很多，计算量非常小。</p>
+<p>最后给一个用 map 实现的方法，缺点是要用权重作为key，所以每个权重不能相同。<a href="https://www.cnblogs.com/exmyth/p/7100749.html" target="_blank" rel="noopener">https://www.cnblogs.com/exmyth/p/7100749.html</a></p>
 
         
         <div id="comment-container">
