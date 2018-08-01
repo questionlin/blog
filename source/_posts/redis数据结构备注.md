@@ -53,6 +53,13 @@ HyperLogLog 的用途是输入大量的字符串，最后得到去重字符串�
 - 加锁
 - 存储序列化的数据，比如 json
 
+# Bitmap
+图的操作直观上就是 offset 上的值是 0 还是 1
+
+一般用途：
+- 统计用户一年登录了哪些天 SETBIT $uid $day 1。$offset 是一年中的第几天
+- 查看用户是否在线 SETBIT KEY $uid 1。这里 $uid 只能是数字
+
 ---------------------------
 参考资料：  
 [HyperLogLog wiki](https://en.wikipedia.org/wiki/HyperLogLog)
