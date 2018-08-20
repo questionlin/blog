@@ -89,7 +89,7 @@
     </div>
     
         <div id="toc" class="toc-article">
-    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Geo"><span class="toc-text">Geo</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Hashes"><span class="toc-text">Hashes</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#HyperLogLog"><span class="toc-text">HyperLogLog</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Lists"><span class="toc-text">Lists</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Sets"><span class="toc-text">Sets</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Sorted-Sets"><span class="toc-text">Sorted Sets</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Streams"><span class="toc-text">Streams</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Strings"><span class="toc-text">Strings</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Geo"><span class="toc-text">Geo</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Hashes"><span class="toc-text">Hashes</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#HyperLogLog"><span class="toc-text">HyperLogLog</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Lists"><span class="toc-text">Lists</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Sets"><span class="toc-text">Sets</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Sorted-Sets"><span class="toc-text">Sorted Sets</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Streams"><span class="toc-text">Streams</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Strings"><span class="toc-text">Strings</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Bitmap"><span class="toc-text">Bitmap</span></a></li></ol>
 </div>
     
 </div>
@@ -175,8 +175,15 @@
 <h1 id="Strings"><a href="#Strings" class="headerlink" title="Strings"></a>Strings</h1><p>最基本的字符串</p>
 <p>一般用途：</p>
 <ul>
-<li>加锁</li>
+<li>加锁 SET key value EX 5 NX。SET 和 EX 一起操作，保证锁超时的原子性。</li>
 <li>存储序列化的数据，比如 json</li>
+</ul>
+<h1 id="Bitmap"><a href="#Bitmap" class="headerlink" title="Bitmap"></a>Bitmap</h1><p>图是建立在 String 上的，提供直接对每一位的操作。图的操作直观上就是 offset 上的值是 0 还是 1</p>
+<p>一般用途：</p>
+<ul>
+<li>统计用户一年登录了哪些天 SETBIT $uid $day 1。$offset 是一年中的第几天</li>
+<li>查看用户是否在线 SETBIT KEY $uid 1。这里 $uid 只能是数字</li>
+<li>布隆过滤器。旧版可以找插件来实现</li>
 </ul>
 <hr>
 <p>参考资料：<br><a href="https://en.wikipedia.org/wiki/HyperLogLog" target="_blank" rel="noopener">HyperLogLog wiki</a></p>
