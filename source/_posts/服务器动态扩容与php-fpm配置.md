@@ -1,5 +1,5 @@
 ---
-title: sass服务器容量规划与php-fpm配置
+title: 服务器动态扩容与php-fpm配置
 date: 2018-08-19 17:38:38
 tags:
 - 运维
