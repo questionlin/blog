@@ -1,5 +1,5 @@
 ---
-title: elasticsearch搭建集群
+title: Elasticsearch搭建集群
 date: 2018-08-30 11:36:44
 tags: elasticsearch
 id: 1535600327
