@@ -11,7 +11,7 @@
 
     <title>
         
-        PHP event 和 libevent 扩展的关系 - 我的博客
+        sql的引号与索引 - 我的博客
         
     </title>
 
@@ -119,15 +119,15 @@
 
 <div class="post-container">
     <div class="post-title">
-        PHP event 和 libevent 扩展的关系
+        sql的引号与索引
     </div>
 
     <div class="post-meta">
-        <span class="attr">发布于：<span>2018-07-18 20:46:55</span></span>
+        <span class="attr">发布于：<span>2018-09-11 14:41:22</span></span>
         
         <span class="attr">标签：/
         
-        <a class="tag" href="/tags/#php" title="php">php</a>
+        <a class="tag" href="/tags/#mysql" title="mysql">mysql</a>
         <span>/</span>
         
         
@@ -137,25 +137,8 @@
 </span>
     </div>
     <div class="post-content no-indent">
-        <p>PHP event 和 libevent 扩展都是对 libevent 的封装，前者有 stable 版本且一直在更新而后者只有 beta 版本。本来肯定要选 event 扩展，可是它的 pecl 页面上赫然写着依赖 libevent 扩展。陷入混乱的我给作者写了封邮件，<strong>结论是：大胆选 event 扩展</strong>。以下是邮件原文：</p>
-<blockquote>
-<p>Hi,</p>
-<p>event extension is an alternative to libevent extension.</p>
-<p>You can see “libevent” package listed as a dependency on<br><a href="https://pecl.php.net/package/event" target="_blank" rel="noopener">https://pecl.php.net/package/event</a>, but in reality “libevent”<br>extension is declared as <strong>conflicting</strong> package in package.xml:</p>
-<pre><code>&lt;package&gt;
-  &lt;name&gt;libevent&lt;/name&gt;
-  &lt;channel&gt;pecl.php.net&lt;/channel&gt;
-  &lt;min&gt;0.0.2&lt;/min&gt;
-  &lt;conflicts/&gt;
-  &lt;providesextension&gt;libevent&lt;/providesextension&gt;
-&lt;/package&gt;
-</code></pre><p>I can’t recall why. But you definitely don’t need libevent extension<br>in order to use “event”.</p>
-<p>On Wed, 18 Jul 2018 11:28:21 +0800 (CST)<br>“Simon Lin” <a href="mailto:&#98;&#x6f;&#x79;&#x71;&#x75;&#x65;&#x73;&#x74;&#x69;&#111;&#x6e;&#x40;&#49;&#54;&#51;&#x2e;&#x63;&#x6f;&#109;" target="_blank" rel="noopener">&#98;&#x6f;&#x79;&#x71;&#x75;&#x65;&#x73;&#x74;&#x69;&#111;&#x6e;&#x40;&#49;&#54;&#51;&#x2e;&#x63;&#x6f;&#109;</a> wrote:</p>
-<p>Hi,</p>
-<p>I’m just confused that what is the relation between event package and<br>libevent package? The pecl page shows event package has stable<br>versions while libevent package does not. If event package depends on<br>libevent package, is event package still stable?</p>
-<p>Sincerely,<br>Simon Lin</p>
-<p>–<br>Ruslan Osmanov</p>
-</blockquote>
+        <p><strong>先说结论，sql 的 where 值部分，都要加上引号。</strong>即 where a=x 改成 where a=’x’。</p>
+<p>当列类型是数字时，不管值加不加引号，都会走索引。但如果列类型是字符串时，如果不加引号，就不会走索引。字符串不加引号的情况一般不会出现，以下情况会出现：某一列一开始打算用来存放字符串，但实际上存放的都是数字，久而久之开发人员以为此列就是用来存放数字，便不加引号。</p>
 
         
         <div id="comment-container">
