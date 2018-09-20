@@ -89,7 +89,7 @@
     </div>
     
         <div id="toc" class="toc-article">
-    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#数据原型"><span class="toc-text">数据原型</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#特征提取"><span class="toc-text">特征提取</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#数字的特征提取"><span class="toc-text">数字的特征提取</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#关系的特征提取"><span class="toc-text">关系的特征提取</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#特殊的关系特征"><span class="toc-text">特殊的关系特征</span></a></li></ol></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#数据原型"><span class="toc-text">数据原型</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#特征提取"><span class="toc-text">特征提取</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#数字的特征提取"><span class="toc-text">数字的特征提取</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#关系的特征提取"><span class="toc-text">关系的特征提取</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#特殊的关系特征"><span class="toc-text">特殊的关系特征</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#关系的数量"><span class="toc-text">关系的数量</span></a></li></ol></li></ol>
 </div>
     
 </div>
@@ -153,9 +153,10 @@
 <p>第三层处理完后用 sparse.hstack 压成一个二维数组，就成了最终训练用的特征。</p>
 <h2 id="特殊的关系特征"><a href="#特殊的关系特征" class="headerlink" title="特殊的关系特征"></a>特殊的关系特征</h2><p>用户特征里面有一类<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="string">'os'</span>,<span class="string">'ct'</span>]</span><br></pre></td></tr></table></figure></p>
 <p>这类值是用空格隔开的数字，但是数字只有1位。例子里用 LabelEncoder，会被当成整个字符串，显然不合适。用 CountVectorizer 则会报<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ValueError: empty vocabulary; perhaps the documents only contain stop words</span><br></pre></td></tr></table></figure></p>
-<p>我的做法是去掉空格后用 CountVectorizer(analyzer=’char’)</p>
+<p>我的做法是去掉空格（不去也一样）后用 CountVectorizer(analyzer=’char’)</p>
+<h2 id="关系的数量"><a href="#关系的数量" class="headerlink" title="关系的数量"></a>关系的数量</h2><p>关系特征里面还有一项是数量，比如 interest1，有些人只有一个，有些人有很多，更高分的选手把这项也计算出来作为特征。</p>
 <hr>
-<p>参考资料：<br>机器学习实战：<a href="https://github.com/Jack-Cherish/Machine-Learning" target="_blank" rel="noopener">https://github.com/Jack-Cherish/Machine-Learning</a><br>2018腾讯广告算法大赛baseline：<a href="https://github.com/YouChouNoBB/2018-tencent-ad-competition-baseline" target="_blank" rel="noopener">https://github.com/YouChouNoBB/2018-tencent-ad-competition-baseline</a></p>
+<p>参考资料：<br>2018腾讯广告算法大赛baseline：<a href="https://github.com/YouChouNoBB/2018-tencent-ad-competition-baseline" target="_blank" rel="noopener">https://github.com/YouChouNoBB/2018-tencent-ad-competition-baseline</a></p>
 
         
         <div id="comment-container">
