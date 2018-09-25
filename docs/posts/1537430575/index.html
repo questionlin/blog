@@ -148,8 +148,9 @@
 <h1 id="第二种结果——特征本身"><a href="#第二种结果——特征本身" class="headerlink" title="第二种结果——特征本身"></a>第二种结果——特征本身</h1><p>在参考资料 elasticsearch-spark-recommender 中，作者介绍了如何用 elasticsearch 和 spark 来做协同过滤推荐系统。例子有两个特征：</p>
 <ol>
 <li>电影特征（年份、类型）</li>
-<li>用户对电影的打分<br>例子中用 spark 提供的最小二乘机来训练模型，然后把得到的特征数组合并成字符串保存到 elasticsearch 中（文章里介绍了把spark 读写 es 的插件）</li>
+<li>用户对电影的打分</li>
 </ol>
+<p>例子中用 spark 提供的最小二乘机来训练模型，然后把得到的特征数组合并成字符串保存到 elasticsearch 中（文章里介绍了把spark 读写 es 的插件）</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pyspark.ml.recommendation <span class="keyword">import</span> ALS</span><br><span class="line"><span class="keyword">from</span> pyspark.sql.functions <span class="keyword">import</span> col</span><br><span class="line"><span class="comment"># 训练</span></span><br><span class="line">als = ALS(userCol=<span class="string">"userId"</span>, itemCol=<span class="string">"movieId"</span>, ratingCol=<span class="string">"rating"</span>, regParam=<span class="number">0.01</span>, rank=<span class="number">20</span>, seed=<span class="number">12</span>)</span><br><span class="line">model = als.fit(ratings_from_es)</span><br></pre></td></tr></table></figure>
 <p>每个电影的 document 中会多一行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vector: &apos;1.0348|2.329487|8.3456435|5.293874&apos;</span><br></pre></td></tr></table></figure></p>
 <p>当用户打开一个电影的网页，系统得到这部电影的特征 vector，然后输入 elasticsearch 进行搜索，es 会以’|’分隔字符串，然后无序匹配，得到匹配数字（其实是字符串）最多的电影返回给用户。这样一个协同过滤推荐系统就完成了。</p>
