@@ -165,7 +165,8 @@
 <p>（3）即使一个线程处在 epoll_wait 函数中，你也可以随时修改列表。</p>
 <p>（4）可以通过 epoll_wait() 使多个线程在同一个 epoll 队列中等待，这是 select / poll 无法做到的。</p>
 <h3 id="libevent"><a href="#libevent" class="headerlink" title="libevent"></a>libevent</h3><p>libevent 是一个库，将以上的方法封装在一套 API 中，使得同一套代码可以在不同系统中使用（FreeBSD 使用 kqueue)。</p>
-<p>参考资料：<br><strong><a href="https://www.cnblogs.com/Anker/p/3265058.html" target="_blank" rel="noopener">https://www.cnblogs.com/Anker/p/3265058.html</a></strong></p>
+<p>参考资料：
+<strong><a href="https://www.cnblogs.com/Anker/p/3265058.html" target="_blank" rel="noopener">https://www.cnblogs.com/Anker/p/3265058.html</a></strong></p>
 <p><strong><a href="https://www.ulduzsoft.com/2014/01/select-poll-epoll-practical-difference-for-system-architects/" target="_blank" rel="noopener">https://www.ulduzsoft.com/2014/01/select-poll-epoll-practical-difference-for-system-architects/</a></strong></p>
 <p><a href="http://www.cnblogs.com/apprentice89/archive/2013/05/09/3070051.html" target="_blank" rel="noopener">http://www.cnblogs.com/apprentice89/archive/2013/05/09/3070051.html</a></p>
 <p><a href="http://www.linuxidc.com/Linux/2012-05/59873p3.htm" target="_blank" rel="noopener">http://www.linuxidc.com/Linux/2012-05/59873p3.htm</a></p>

@@ -138,8 +138,10 @@
     </div>
     <div class="post-content no-indent">
         <p>有一个 WorkerMan 程序，会把 pid 放在 /tmp 目录下，过一段时间不知道为什么这个文件就消失了，然后命令行的控制就不起作用了。网上查了之后知道 linux 系统除了用户的 crontab 外，还有一些定时任务在 /etc/cron.* 系列目录下。一一查看之后没有发现这样的程序，但 pid 文件是不能 /tmp 下了。跟运维沟通后得知 linux 有个专门放 pid 文件的目录是 /var/run。</p>
-<p>改完程序后还不能重启进程，最好可以 reload。从运维那里得知一般程序 reload 可以用<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">kill</span> -HUP pid</span><br></pre></td></tr></table></figure></p>
-<p>这个命令。试了以后发现不行，主程序被杀死了。看程序里面用的是 SIGUSR1 这个信号，即要执行<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">kill</span> -USR1 pid</span><br></pre></td></tr></table></figure></p>
+<p>改完程序后还不能重启进程，最好可以 reload。从运维那里得知一般程序 reload 可以用
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">kill</span> -HUP pid</span><br></pre></td></tr></table></figure></p>
+<p>这个命令。试了以后发现不行，主程序被杀死了。看程序里面用的是 SIGUSR1 这个信号，即要执行
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">kill</span> -USR1 pid</span><br></pre></td></tr></table></figure></p>
 <p>SIGUSR1 信号是程序自定义的信号，至于 WorkerMan 收到这个信号执行了什么，就是另一篇文章的事了。</p>
 <p><strong>所以这里给出结论：SIGHUP 信号的解释是挂起，大多数服务器进程都会进行复位操作并重新加载配置文件。但不适用我们自己写的程序。</strong></p>
 

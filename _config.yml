@@ -110,3 +110,8 @@ search:
 post_style:
   indent: 
 #Custom Setting End
+
+# 内嵌<table>自动添加<br>bug https://github.com/hexojs/hexo/issues/1388
+marked:
+  gfm: true
+  breaks: false

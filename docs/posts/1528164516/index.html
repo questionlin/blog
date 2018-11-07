@@ -148,7 +148,8 @@
 <li><p>在 Master MySQL 上创建用户’repl’，并允许其他 Slave 服务可以通过远程访问 Master，通过该用户读取二进制日志，实现数据同步。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1 mysql&gt;create user repl; //创建新用户</span><br><span class="line">2 //repl用户必须具有REPLICATION SLAVE权限，除此之外没有必要添加不必要的权限，密码为mysql。说明一下192.168.0.%，这个配置是指明repl用户所在服务器，这里%是通配符，表示192.168.0.0-192.168.0.255的Server都可以以repl用户登陆主服务器。当然你也可以指定固定Ip。</span><br><span class="line">3 mysql&gt; GRANT REPLICATION SLAVE ON *.* TO &apos;repl&apos;@&apos;192.168.0.%&apos; IDENTIFIED BY &apos;mysql&apos;;</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>找到MySQL安装文件夹修改my.Ini文件。mysql中有好几种日志方式，这不是今天的重点。我们只要启动二进制日志log-bin就ok。<br>在[mysqld]下面增加下面几行代码</p>
+<li><p>找到MySQL安装文件夹修改my.Ini文件。mysql中有好几种日志方式，这不是今天的重点。我们只要启动二进制日志log-bin就ok。
+在[mysqld]下面增加下面几行代码</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1 server-id=1   //给数据库服务的唯一标识，一般为大家设置服务器Ip的末尾号</span><br><span class="line">2 log-bin=master-bin</span><br><span class="line">3 log-bin-index=master-bin.index</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>查看日志</p>

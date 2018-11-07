@@ -160,7 +160,8 @@
 </tr>
 </tbody>
 </table>
-<p>之前的做法是把每个奖品按照权重，重复加进一个数据，即：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[a,a,a,a...b,b,b,b,b...c,c,c,c,c...d,d,d,d...e,e,e...]</span><br></pre></td></tr></table></figure></p>
+<p>之前的做法是把每个奖品按照权重，重复加进一个数据，即：
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[a,a,a,a...b,b,b,b,b...c,c,c,c,c...d,d,d,d...e,e,e...]</span><br></pre></td></tr></table></figure></p>
 <p>里面有12个a,32个b以此类推。然后用 array_rand() 选出一个。</p>
 <p>这种方法首先会的到一个很大的数组，然后循环添加奖品也很费时。今天重新思考这个问题，可以用下面的方法：</p>
 <ol>
