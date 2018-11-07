@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keyword" content="">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        unix/linux chmod 权限计算器 - 我的博客
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i>  </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/img/avatar.jpeg">
+        </div>
+        <div class="name">
+            <i>ljj</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li>
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li>
+                <a href="/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input">
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i>  </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        unix/linux chmod 权限计算器
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2018-11-07 11:37:12</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#在线工具" title="在线工具">在线工具</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+
+    </div>
+    <div class="post-content no-indent">
+        <form name="chmod">
+<table border="0" align="center" cellpadding="4" cellspacing="0" class="datatable" style="font:normal 12px Verdana" ;="">
+    <tbody><tr align="LEFT" valign="MIDDLE"> 
+        <td class="adHeadline">Permissions:&nbsp; </td>
+        <td>
+        <input type="text" name="t_total" value="751" size="4" onkeyup="octalchange()">
+        </td>
+        <td>&nbsp; 
+        <input type="text" name="sym_total" value="" size="12" readonly="1" style="border: 0px none; font-family: &quot;Courier New&quot;, Courier, mono;">
+        </td>
+    </tr>
+    </tbody>
+</table>
+<br>
+<table border="0" align="center" cellpadding="4" cellspacing="0" class="datatable" style="font:normal 12px Verdana">
+    <tbody><tr bgcolor="#009900"> 
+        <td width="60" align="left"> </td>
+        <td width="55" align="center" style="color:white"><b>owner </b></td>
+        <td width="55" align="center" style="color:white"><b>group </b></td>
+        <td width="55" align="center" style="color:white"><b>other </b></td>
+    </tr>
+    <tr bgcolor="#dddddd"> 
+        <td width="60" align="left" nowrap="" bgcolor="#FFFFFF">read</td>
+        <td width="55" align="center" bgcolor="#EEEEEE"> 
+        <input type="checkbox" name="owner4" value="4" onclick="calc_chmod()">
+        </td>
+        <td width="55" align="center" bgcolor="#ffffff">
+        <input type="checkbox" name="group4" value="4" onclick="calc_chmod()">
+        </td>
+        <td width="55" align="center" bgcolor="#EEEEEE"> 
+        <input type="checkbox" name="other4" value="4" onclick="calc_chmod()">
+        </td>
+    </tr>
+    <tr bgcolor="#dddddd"> 
+        <td width="60" align="left" nowrap="" bgcolor="#FFFFFF">write</td>
+        <td width="55" align="center" bgcolor="#EEEEEE"> 
+        <input type="checkbox" name="owner2" value="2" onclick="calc_chmod()">
+        </td>
+        <td width="55" align="center" bgcolor="#ffffff">
+        <input type="checkbox" name="group2" value="2" onclick="calc_chmod()">
+        </td>
+        <td width="55" align="center" bgcolor="#EEEEEE"> 
+        <input type="checkbox" name="other2" value="2" onclick="calc_chmod()">
+        </td>
+    </tr>
+    <tr bgcolor="#dddddd"> 
+        <td width="60" align="left" nowrap="" bgcolor="#FFFFFF">execute</td>
+        <td width="55" align="center" bgcolor="#EEEEEE"> 
+        <input type="checkbox" name="owner1" value="1" onclick="calc_chmod()">
+        </td>
+        <td width="55" align="center" bgcolor="#ffffff">
+        <input type="checkbox" name="group1" value="1" onclick="calc_chmod()">
+        </td>
+        <td width="55" align="center" bgcolor="#EEEEEE"> 
+        <input type="checkbox" name="other1" value="1" onclick="calc_chmod()">
+        </td>
+    </tr>
+    </tbody>
+</table>
+</form>
+
+<hr>
+<p>在UNIX系统家族里，文件或目录权限的控制分别以读取（Read)，写入(Write)，执行(Execute)3种一般权限来区分，另有3种特殊权限可供运用，再搭配拥有者与所属群组管理权限范围。您可以使用CHMOD指令去变更文件与目录的权限，设置方式采用文字或数字代号皆可。符号连接的权限无法变更，如果您对符号连接修改权限，其改变会作用在被连接的原始文件。权限范围的表示法如下：</p>
+<ul>
+<li>u：User，即文件或目录的拥有者。</li>
+<li>g：Group，即文件或目录的所属群组。</li>
+<li>o：Other，除了文件或目录拥有者或所属群组之外，其他用户皆属于这个范围。</li>
+<li>a：All，即全部的用户，包含拥有者，所属群组以及其他用户。</li>
+<li>有关权限代号的部分，列表如下：</li>
+<li>r：读取权限，数字代号为“40”</li>
+<li>w：写入权限，数字代号为“2”</li>
+<li>x：执行或切换权限，数字代号为“10”</li>
+<li>-：不具任何权限，数字代号为“0”</li>
+</ul>
+<hr>
+<p>转自：<a href="http://mistupid.com/internet/chmod.htm" target="_blank" rel="noopener">http://mistupid.com/internet/chmod.htm</a></p>
+
+        
+        <div id="comment-container">
+        </div>
+    </div>
+</div>
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+        <li>
+            <a target="_blank" href="https://www.zhihu.com/people/simonlin">
+                            <span class="fa-stack fa-lg">
+                                 <i class="iconfont icon-zhihu"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <li>
+            <a target="_blank" href="http://weibo.com/1919879611">
+                            <span class="fa-stack fa-lg">
+                                  <i class="iconfont icon-weibo"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+
+        
+        <li>
+            <a target="_blank" href="https://github.com/questionlin">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-github"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+</html>
