@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+<head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
-    <meta name="keyword"  content="">
+    <meta name="keyword" content="">
     <link rel="shortcut icon" href="/img/favicon.ico">
 
     <title>
@@ -45,7 +45,7 @@
 <div class="nav" id="nav">
     <div class="avatar-name">
         <div class="avatar">
-            <img src="/img/avatar.jpeg" />
+            <img src="/img/avatar.jpeg">
         </div>
         <div class="name">
             <i>ljj</i>
@@ -53,25 +53,25 @@
     </div>
     <div class="contents" id="nav-content">
         <ul>
-            <li >
+            <li>
                 <a href="/">
                     <i class="iconfont icon-shouye1"></i>
                     <span>主页</span>
                 </a>
             </li>
-            <li >
+            <li>
                 <a href="/tags">
                     <i class="iconfont icon-biaoqian1"></i>
                     <span>标签</span>
                 </a>
             </li>
-            <li >
+            <li>
                 <a href="/archives">
                     <i class="iconfont icon-guidang2"></i>
                     <span>存档</span>
                 </a>
             </li>
-            <li >
+            <li>
                 <a href="/about/">
                     <i class="iconfont icon-guanyu2"></i>
                     <span>关于</span>
@@ -99,7 +99,7 @@
     <div class="search-container">
         <div class="search-input">
             <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
-            <input id="search-input"/>
+            <input id="search-input">
             <span id="begin-search">搜索</span>
         </div>
         <div class="search-result-container" id="search-result-container">
@@ -134,7 +134,7 @@
         </span>
         <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
 </span>
-</span>
+
     </div>
     <div class="post-content no-indent">
         <h1 id="搭建环境"><a href="#搭建环境" class="headerlink" title="搭建环境"></a>搭建环境</h1><p>首先确保你本地有 php 环境。然后下载 php 源码。</p>
@@ -143,18 +143,13 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">extension=rjson.so</span><br></pre></td></tr></table></figure>
 <p>看看扩展加载了没有</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ php -m | grep rjson</span><br><span class="line">rjson</span><br></pre></td></tr></table></figure>
-<p>新建一个文件 a.php
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">echo</span> rjson_test2(<span class="string">'ljj'</span>);</span><br></pre></td></tr></table></figure></p>
-<p>执行看看
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ php a.php</span><br><span class="line">Hello ljj</span><br></pre></td></tr></table></figure></p>
+<p>新建一个文件 a.php<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">echo</span> rjson_test2(<span class="string">'ljj'</span>);</span><br></pre></td></tr></table></figure></p>
+<p>执行看看<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ php a.php</span><br><span class="line">Hello ljj</span><br></pre></td></tr></table></figure></p>
 <p>我们看到模版自带的测试函数已经可以执行了</p>
-<h1 id="开始编写"><a href="#开始编写" class="headerlink" title="开始编写"></a>开始编写</h1><p>打开文件 rjson.c，可以找到 rjson_test1 和 rjson_test2 的定义。我们照着写一个 rjson_test3
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 在下面这个数组里增加一行，第二个参数是函数参数的定义，这里省略</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">const</span> zend_function_entry rjson_functions[] = &#123;</span><br><span class="line">    PHP_FE(rjson_test3,     <span class="literal">NULL</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 最外层增加rjson_test3，可以写在 rjson_test2 后面</span></span><br><span class="line">PHP_FUNCTION(rjson_test3)</span><br><span class="line">&#123;</span><br><span class="line">	zend_string *retval;</span><br><span class="line">	retval = strpprintf(<span class="number">0</span>, <span class="string">"I'm %s"</span>, <span class="string">"ljj"</span>);</span><br><span class="line">	RETURN_STR(retval);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h1 id="开始编写"><a href="#开始编写" class="headerlink" title="开始编写"></a>开始编写</h1><p>打开文件 rjson.c，可以找到 rjson_test1 和 rjson_test2 的定义。我们照着写一个 rjson_test3<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 在下面这个数组里增加一行，第二个参数是函数参数的定义，这里省略</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">const</span> zend_function_entry rjson_functions[] = &#123;</span><br><span class="line">    PHP_FE(rjson_test3,     <span class="literal">NULL</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 最外层增加rjson_test3，可以写在 rjson_test2 后面</span></span><br><span class="line">PHP_FUNCTION(rjson_test3)</span><br><span class="line">&#123;</span><br><span class="line">	zend_string *retval;</span><br><span class="line">	retval = strpprintf(<span class="number">0</span>, <span class="string">"I'm %s"</span>, <span class="string">"ljj"</span>);</span><br><span class="line">	RETURN_STR(retval);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>然后再 make install</p>
-<p>修改 a.php
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">echo</span> rjson_test3();</span><br></pre></td></tr></table></figure></p>
-<p>执行
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ php a.php</span><br><span class="line">I&apos;m ljj</span><br></pre></td></tr></table></figure></p>
+<p>修改 a.php<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">echo</span> rjson_test3();</span><br></pre></td></tr></table></figure></p>
+<p>执行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ php a.php</span><br><span class="line">I&apos;m ljj</span><br></pre></td></tr></table></figure></p>
 <p>到此，一个没有参数的函数就完成了。写 php 扩展的时候要用到很多 php 自己定义的 c 函数或者宏指令。比如 RETURN_STR() 不能返回 char<em>，只能返回 zend_string</em>。这些地方参考《PHP7内核剖析》。</p>
 <hr>
 <p>参考资料：<br>mac 系统下开发一个PHP扩展：<a href="https://blog.csdn.net/imbibi/article/details/79354464" target="_blank" rel="noopener">https://blog.csdn.net/imbibi/article/details/79354464</a><br>用C/C++扩展你的PHP：<a href="http://www.laruence.com/2009/04/28/719.html" target="_blank" rel="noopener">http://www.laruence.com/2009/04/28/719.html</a><br>《PHP7内核剖析》</p>
@@ -195,7 +190,7 @@
 
         
         <li>
-            <a target="_blank"  href="https://github.com/questionlin">
+            <a target="_blank" href="https://github.com/questionlin">
                             <span class="fa-stack fa-lg">
                                 <i class="iconfont icon-github"></i>
                             </span>

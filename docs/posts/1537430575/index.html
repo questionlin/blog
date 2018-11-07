@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+<head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
-    <meta name="keyword"  content="">
+    <meta name="keyword" content="">
     <link rel="shortcut icon" href="/img/favicon.ico">
 
     <title>
@@ -45,7 +45,7 @@
 <div class="nav" id="nav">
     <div class="avatar-name">
         <div class="avatar">
-            <img src="/img/avatar.jpeg" />
+            <img src="/img/avatar.jpeg">
         </div>
         <div class="name">
             <i>ljj</i>
@@ -53,25 +53,25 @@
     </div>
     <div class="contents" id="nav-content">
         <ul>
-            <li >
+            <li>
                 <a href="/">
                     <i class="iconfont icon-shouye1"></i>
                     <span>主页</span>
                 </a>
             </li>
-            <li >
+            <li>
                 <a href="/tags">
                     <i class="iconfont icon-biaoqian1"></i>
                     <span>标签</span>
                 </a>
             </li>
-            <li >
+            <li>
                 <a href="/archives">
                     <i class="iconfont icon-guidang2"></i>
                     <span>存档</span>
                 </a>
             </li>
-            <li >
+            <li>
                 <a href="/about/">
                     <i class="iconfont icon-guanyu2"></i>
                     <span>关于</span>
@@ -99,7 +99,7 @@
     <div class="search-container">
         <div class="search-input">
             <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
-            <input id="search-input"/>
+            <input id="search-input">
             <span id="begin-search">搜索</span>
         </div>
         <div class="search-result-container" id="search-result-container">
@@ -134,7 +134,7 @@
         </span>
         <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
 </span>
-</span>
+
     </div>
     <div class="post-content no-indent">
         <h1 id="第一种结果——label"><a href="#第一种结果——label" class="headerlink" title="第一种结果——label"></a>第一种结果——label</h1><p>先来回顾一下<a href="/posts/1537256287">上一篇文章</a>，文章中我们获得了三个特征：</p>
@@ -143,8 +143,7 @@
 <li>广告特征</li>
 <li>用户和广告的关系表</li>
 </ol>
-<p>我们使用CountVectorizer，OneHotEncoder，LabelEncoder，将所有特征压成一个 list，然后使用 lightGBM 模型来训练
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> lightgbm <span class="keyword">as</span> lgb</span><br><span class="line">clf = lgb.LGBMClassifier(</span><br><span class="line">    boosting_type=<span class="string">'gbdt'</span>, num_leaves=<span class="number">31</span>, reg_alpha=<span class="number">0.0</span>, reg_lambda=<span class="number">1</span>,</span><br><span class="line">    max_depth=<span class="number">-1</span>, n_estimators=<span class="number">1500</span>, objective=<span class="string">'binary'</span>,</span><br><span class="line">    subsample=<span class="number">0.7</span>, colsample_bytree=<span class="number">0.7</span>, subsample_freq=<span class="number">1</span>,</span><br><span class="line">    learning_rate=<span class="number">0.05</span>, min_child_weight=<span class="number">50</span>, random_state=<span class="number">2018</span>, n_jobs=<span class="number">-1</span></span><br><span class="line">)</span><br><span class="line">clf.fit(train_x, train_y, eval_set=[(train_x, train_y)], eval_metric=<span class="string">'auc'</span>,early_stopping_rounds=<span class="number">100</span>)</span><br><span class="line"></span><br><span class="line">label = clf.predict(test_x)</span><br></pre></td></tr></table></figure></p>
+<p>我们使用CountVectorizer，OneHotEncoder，LabelEncoder，将所有特征压成一个 list，然后使用 lightGBM 模型来训练<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> lightgbm <span class="keyword">as</span> lgb</span><br><span class="line">clf = lgb.LGBMClassifier(</span><br><span class="line">    boosting_type=<span class="string">'gbdt'</span>, num_leaves=<span class="number">31</span>, reg_alpha=<span class="number">0.0</span>, reg_lambda=<span class="number">1</span>,</span><br><span class="line">    max_depth=<span class="number">-1</span>, n_estimators=<span class="number">1500</span>, objective=<span class="string">'binary'</span>,</span><br><span class="line">    subsample=<span class="number">0.7</span>, colsample_bytree=<span class="number">0.7</span>, subsample_freq=<span class="number">1</span>,</span><br><span class="line">    learning_rate=<span class="number">0.05</span>, min_child_weight=<span class="number">50</span>, random_state=<span class="number">2018</span>, n_jobs=<span class="number">-1</span></span><br><span class="line">)</span><br><span class="line">clf.fit(train_x, train_y, eval_set=[(train_x, train_y)], eval_metric=<span class="string">'auc'</span>,early_stopping_rounds=<span class="number">100</span>)</span><br><span class="line"></span><br><span class="line">label = clf.predict(test_x)</span><br></pre></td></tr></table></figure></p>
 <p>最后得到的 label 是一个包含-1或1的 list。在生产环境中我们会不断的扫描新用户和新广告的特征，提取后用这个模型预测，把结果中为1的广告(aid)保存下来，最后投放给对应的用户(uid)。这是机器学习中一般的结果。</p>
 <h1 id="第二种结果——特征本身"><a href="#第二种结果——特征本身" class="headerlink" title="第二种结果——特征本身"></a>第二种结果——特征本身</h1><p>在参考资料 elasticsearch-spark-recommender 中，作者介绍了如何用 elasticsearch 和 spark 来做协同过滤推荐系统。例子有两个特征：</p>
 <ol>
@@ -153,8 +152,7 @@
 </ol>
 <p>例子中用 spark 提供的最小二乘机来训练模型，然后把得到的特征数组合并成字符串保存到 elasticsearch 中（文章里介绍了把spark 读写 es 的插件）</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pyspark.ml.recommendation <span class="keyword">import</span> ALS</span><br><span class="line"><span class="keyword">from</span> pyspark.sql.functions <span class="keyword">import</span> col</span><br><span class="line"><span class="comment"># 训练</span></span><br><span class="line">als = ALS(userCol=<span class="string">"userId"</span>, itemCol=<span class="string">"movieId"</span>, ratingCol=<span class="string">"rating"</span>, regParam=<span class="number">0.01</span>, rank=<span class="number">20</span>, seed=<span class="number">12</span>)</span><br><span class="line">model = als.fit(ratings_from_es)</span><br></pre></td></tr></table></figure>
-<p>每个电影的 document 中会多一行
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vector: &apos;1.0348|2.329487|8.3456435|5.293874&apos;</span><br></pre></td></tr></table></figure></p>
+<p>每个电影的 document 中会多一行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vector: &apos;1.0348|2.329487|8.3456435|5.293874&apos;</span><br></pre></td></tr></table></figure></p>
 <p>当用户打开一个电影的网页，系统得到这部电影的特征 vector，然后输入 elasticsearch 进行搜索，es 会以’|’分隔字符串，然后无序匹配，得到匹配数字（其实是字符串）最多的电影返回给用户。这样一个协同过滤推荐系统就完成了。</p>
 <hr>
 <p>参考资料：<br>Machine-Learning：<a href="https://github.com/Jack-Cherish/Machine-Learning" target="_blank" rel="noopener">https://github.com/Jack-Cherish/Machine-Learning</a><br>elasticsearch-spark-recommender：<a href="https://github.com/IBM/elasticsearch-spark-recommender" target="_blank" rel="noopener">https://github.com/IBM/elasticsearch-spark-recommender</a></p>
@@ -195,7 +193,7 @@
 
         
         <li>
-            <a target="_blank"  href="https://github.com/questionlin">
+            <a target="_blank" href="https://github.com/questionlin">
                             <span class="fa-stack fa-lg">
                                 <i class="iconfont icon-github"></i>
                             </span>

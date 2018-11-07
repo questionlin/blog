@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+<head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
-    <meta name="keyword"  content="">
+    <meta name="keyword" content="">
     <link rel="shortcut icon" href="/img/favicon.ico">
 
     <title>
@@ -45,7 +45,7 @@
 <div class="nav" id="nav">
     <div class="avatar-name">
         <div class="avatar">
-            <img src="/img/avatar.jpeg" />
+            <img src="/img/avatar.jpeg">
         </div>
         <div class="name">
             <i>ljj</i>
@@ -53,25 +53,25 @@
     </div>
     <div class="contents" id="nav-content">
         <ul>
-            <li >
+            <li>
                 <a href="/">
                     <i class="iconfont icon-shouye1"></i>
                     <span>主页</span>
                 </a>
             </li>
-            <li >
+            <li>
                 <a href="/tags">
                     <i class="iconfont icon-biaoqian1"></i>
                     <span>标签</span>
                 </a>
             </li>
-            <li >
+            <li>
                 <a href="/archives">
                     <i class="iconfont icon-guidang2"></i>
                     <span>存档</span>
                 </a>
             </li>
-            <li >
+            <li>
                 <a href="/about/">
                     <i class="iconfont icon-guanyu2"></i>
                     <span>关于</span>
@@ -99,7 +99,7 @@
     <div class="search-container">
         <div class="search-input">
             <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
-            <input id="search-input"/>
+            <input id="search-input">
             <span id="begin-search">搜索</span>
         </div>
         <div class="search-result-container" id="search-result-container">
@@ -137,7 +137,7 @@
         </span>
         <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
 </span>
-</span>
+
     </div>
     <div class="post-content no-indent">
         <h3 id="一、SSL证书申请"><a href="#一、SSL证书申请" class="headerlink" title="一、SSL证书申请"></a>一、SSL证书申请</h3><p>1、确认需要申请证书的域名</p>
@@ -147,20 +147,15 @@
 <p>3、将生成的csr文件提交给第三方证书颁发机构申请对应域名的服务器证书，同时将私钥文件保存好，以免丢失。</p>
 <p>4、证书申请后，证书颁发机构会提供服务器证书内容和两张中级CA证书，请按证书颁发机器说明生成服务器证书，此处假设服务器证书文件名称为<strong>server.pem</strong></p>
 <p>5、将生成的私钥文件<strong>server.key</strong>和服务器证书<strong>server.pem</strong>拷贝至服务器指定的目录即可进行HTTPS服务器配置</p>
-<h3 id="二、HTTPS服务器配置"><a href="#二、HTTPS服务器配置" class="headerlink" title="二、HTTPS服务器配置"></a>二、HTTPS服务器配置</h3><p>1、 Nginx配置
-<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">server</span> &#123;</span><br><span class="line"><span class="attribute">listen</span>       <span class="number">443</span>;   <span class="comment">#指定ssl监听端口</span></span><br><span class="line"><span class="attribute">server_name</span>  www.example.com;</span><br><span class="line"><span class="attribute">ssl</span> <span class="literal">on</span>;    <span class="comment">#开启ssl支持</span></span><br><span class="line"><span class="attribute">ssl_certificate</span>      /etc/nginx/server.pem;    <span class="comment">#指定服务器证书路径</span></span><br><span class="line"><span class="attribute">ssl_certificate_key</span>  /etc/nginx/server.key;    <span class="comment">#指定私钥证书路径</span></span><br><span class="line"><span class="attribute">ssl_session_timeout</span>  <span class="number">5m</span>;</span><br><span class="line"><span class="attribute">ssl_protocols</span> TLSv1 TLSv1.<span class="number">1</span> TLSv1.<span class="number">2</span>;     <span class="comment">#指定SSL服务器端支持的协议版本</span></span><br><span class="line"><span class="attribute">ssl_ciphers</span>  ALL：!ADH：!EXPORT56：RC4+RSA：+HIGH：+MEDIUM：+LOW：+SSLv2：+EXP;    <span class="comment">#指定加密算法</span></span><br><span class="line"><span class="attribute">ssl_prefer_server_ciphers</span>   <span class="literal">on</span>;    <span class="comment">#在使用SSLv3和TLS协议时指定服务器的加密算法要优先于客户端的加密算法</span></span><br><span class="line"><span class="comment">#以下内容请按域名需要进行配置，此处仅供参考</span></span><br><span class="line"><span class="attribute">location</span> / &#123;</span><br><span class="line"><span class="attribute">return</span> <span class="number">444</span>;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>2、其它web服务器配置
-请参考文档：<a href="http://www.itrus.cn/html/fuwuyuzhichi/fuwuqizhengshuanzhuangpeizhizhinan" target="_blank" rel="noopener">http://www.itrus.cn/html/fuwuyuzhichi/fuwuqizhengshuanzhuangpeizhizhinan</a> 《服务器证书配置指南》</p>
+<h3 id="二、HTTPS服务器配置"><a href="#二、HTTPS服务器配置" class="headerlink" title="二、HTTPS服务器配置"></a>二、HTTPS服务器配置</h3><p>1、 Nginx配置<br><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">server</span> &#123;</span><br><span class="line"><span class="attribute">listen</span>       <span class="number">443</span>;   <span class="comment">#指定ssl监听端口</span></span><br><span class="line"><span class="attribute">server_name</span>  www.example.com;</span><br><span class="line"><span class="attribute">ssl</span> <span class="literal">on</span>;    <span class="comment">#开启ssl支持</span></span><br><span class="line"><span class="attribute">ssl_certificate</span>      /etc/nginx/server.pem;    <span class="comment">#指定服务器证书路径</span></span><br><span class="line"><span class="attribute">ssl_certificate_key</span>  /etc/nginx/server.key;    <span class="comment">#指定私钥证书路径</span></span><br><span class="line"><span class="attribute">ssl_session_timeout</span>  <span class="number">5m</span>;</span><br><span class="line"><span class="attribute">ssl_protocols</span> TLSv1 TLSv1.<span class="number">1</span> TLSv1.<span class="number">2</span>;     <span class="comment">#指定SSL服务器端支持的协议版本</span></span><br><span class="line"><span class="attribute">ssl_ciphers</span>  ALL：!ADH：!EXPORT56：RC4+RSA：+HIGH：+MEDIUM：+LOW：+SSLv2：+EXP;    <span class="comment">#指定加密算法</span></span><br><span class="line"><span class="attribute">ssl_prefer_server_ciphers</span>   <span class="literal">on</span>;    <span class="comment">#在使用SSLv3和TLS协议时指定服务器的加密算法要优先于客户端的加密算法</span></span><br><span class="line"><span class="comment">#以下内容请按域名需要进行配置，此处仅供参考</span></span><br><span class="line"><span class="attribute">location</span> / &#123;</span><br><span class="line"><span class="attribute">return</span> <span class="number">444</span>;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>2、其它web服务器配置<br>请参考文档：<a href="http://www.itrus.cn/html/fuwuyuzhichi/fuwuqizhengshuanzhuangpeizhizhinan" target="_blank" rel="noopener">http://www.itrus.cn/html/fuwuyuzhichi/fuwuqizhengshuanzhuangpeizhizhinan</a> 《服务器证书配置指南》</p>
 <p>三、相关事项</p>
 <p>1、证书颁发机构<br>推荐天威诚信，具体请见：<a href="http://www.itrus.com.cn" target="_blank" rel="noopener">http://www.itrus.com.cn</a></p>
-<p>2、 参考文档<br><a href="http://nginx.org/en/docs/http/ngx_http_ssl_module.html#ssl_prefer_server_ciphers" target="_blank" rel="noopener">http://nginx.org/en/docs/http/ngx_http_ssl_module.html#ssl_prefer_server_ciphers</a> 《ngx_http_ssl_module》
-<a href="http://nginx.org/cn/docs/http/configuring_https_servers.html" target="_blank" rel="noopener">http://nginx.org/cn/docs/http/configuring_https_servers.html</a> 《nginx配置HTTPS服务器》
-<a href="http://www.itrus.cn/html/fuwuyuzhichi/fuwuqizhengshuanzhuangpeizhizhinan" target="_blank" rel="noopener">http://www.itrus.cn/html/fuwuyuzhichi/fuwuqizhengshuanzhuangpeizhizhinan</a> 《服务器证书配置指南》</p>
+<p>2、 参考文档<br><a href="http://nginx.org/en/docs/http/ngx_http_ssl_module.html#ssl_prefer_server_ciphers" target="_blank" rel="noopener">http://nginx.org/en/docs/http/ngx_http_ssl_module.html#ssl_prefer_server_ciphers</a> 《ngx_http_ssl_module》<br><a href="http://nginx.org/cn/docs/http/configuring_https_servers.html" target="_blank" rel="noopener">http://nginx.org/cn/docs/http/configuring_https_servers.html</a> 《nginx配置HTTPS服务器》<br><a href="http://www.itrus.cn/html/fuwuyuzhichi/fuwuqizhengshuanzhuangpeizhizhinan" target="_blank" rel="noopener">http://www.itrus.cn/html/fuwuyuzhichi/fuwuqizhengshuanzhuangpeizhizhinan</a> 《服务器证书配置指南》</p>
 <p>3、常见问题<br>（1）证书受信任的问题<br>部分国内签发的SSL证书，在Android上不受信任，推荐GeoTrust；<br>（2）如果页面有动静分离，静态资源使用独立域名的话，也需要为该域名申请证书；<br>（3）android低版本不支持SNI扩展，受此限制，一台服务器只能部署一个数字证书；</p>
 <hr>
 <p>转自 <a href="https://pay.weixin.qq.com/wiki/doc/api/micropay.php?chapter=10_4" target="_blank" rel="noopener">https://pay.weixin.qq.com/wiki/doc/api/micropay.php?chapter=10_4</a></p>
-<p>参考资料：
-自动生成 web 服务器 https 配置：<a href="https://mozilla.github.io/server-side-tls/ssl-config-generator/" target="_blank" rel="noopener">https://mozilla.github.io/server-side-tls/ssl-config-generator/</a></p>
+<p>参考资料：<br>自动生成 web 服务器 https 配置：<a href="https://mozilla.github.io/server-side-tls/ssl-config-generator/" target="_blank" rel="noopener">https://mozilla.github.io/server-side-tls/ssl-config-generator/</a></p>
 <p>免费证书：<a href="https://letsencrypt.org/" target="_blank" rel="noopener">Let’s Encrypt</a>, <a href="https://www.startssl.com/Support?v=39" target="_blank" rel="noopener">StartSSL</a></p>
 <p>免费CDN：<a href="https://www.cloudflare.com/ssl/" target="_blank" rel="noopener">CloudFlare</a></p>
 
@@ -200,7 +195,7 @@
 
         
         <li>
-            <a target="_blank"  href="https://github.com/questionlin">
+            <a target="_blank" href="https://github.com/questionlin">
                             <span class="fa-stack fa-lg">
                                 <i class="iconfont icon-github"></i>
                             </span>

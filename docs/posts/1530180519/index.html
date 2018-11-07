@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+<head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
-    <meta name="keyword"  content="">
+    <meta name="keyword" content="">
     <link rel="shortcut icon" href="/img/favicon.ico">
 
     <title>
@@ -45,7 +45,7 @@
 <div class="nav" id="nav">
     <div class="avatar-name">
         <div class="avatar">
-            <img src="/img/avatar.jpeg" />
+            <img src="/img/avatar.jpeg">
         </div>
         <div class="name">
             <i>ljj</i>
@@ -53,25 +53,25 @@
     </div>
     <div class="contents" id="nav-content">
         <ul>
-            <li >
+            <li>
                 <a href="/">
                     <i class="iconfont icon-shouye1"></i>
                     <span>主页</span>
                 </a>
             </li>
-            <li >
+            <li>
                 <a href="/tags">
                     <i class="iconfont icon-biaoqian1"></i>
                     <span>标签</span>
                 </a>
             </li>
-            <li >
+            <li>
                 <a href="/archives">
                     <i class="iconfont icon-guidang2"></i>
                     <span>存档</span>
                 </a>
             </li>
-            <li >
+            <li>
                 <a href="/about/">
                     <i class="iconfont icon-guanyu2"></i>
                     <span>关于</span>
@@ -99,7 +99,7 @@
     <div class="search-container">
         <div class="search-input">
             <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
-            <input id="search-input"/>
+            <input id="search-input">
             <span id="begin-search">搜索</span>
         </div>
         <div class="search-result-container" id="search-result-container">
@@ -134,14 +134,12 @@
         </span>
         <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
 </span>
-</span>
+
     </div>
     <div class="post-content no-indent">
         <p>有一个 WorkerMan 程序，会把 pid 放在 /tmp 目录下，过一段时间不知道为什么这个文件就消失了，然后命令行的控制就不起作用了。网上查了之后知道 linux 系统除了用户的 crontab 外，还有一些定时任务在 /etc/cron.* 系列目录下。一一查看之后没有发现这样的程序，但 pid 文件是不能 /tmp 下了。跟运维沟通后得知 linux 有个专门放 pid 文件的目录是 /var/run。</p>
-<p>改完程序后还不能重启进程，最好可以 reload。从运维那里得知一般程序 reload 可以用
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">kill</span> -HUP pid</span><br></pre></td></tr></table></figure></p>
-<p>这个命令。试了以后发现不行，主程序被杀死了。看程序里面用的是 SIGUSR1 这个信号，即要执行
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">kill</span> -USR1 pid</span><br></pre></td></tr></table></figure></p>
+<p>改完程序后还不能重启进程，最好可以 reload。从运维那里得知一般程序 reload 可以用<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">kill</span> -HUP pid</span><br></pre></td></tr></table></figure></p>
+<p>这个命令。试了以后发现不行，主程序被杀死了。看程序里面用的是 SIGUSR1 这个信号，即要执行<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">kill</span> -USR1 pid</span><br></pre></td></tr></table></figure></p>
 <p>SIGUSR1 信号是程序自定义的信号，至于 WorkerMan 收到这个信号执行了什么，就是另一篇文章的事了。</p>
 <p><strong>所以这里给出结论：SIGHUP 信号的解释是挂起，大多数服务器进程都会进行复位操作并重新加载配置文件。但不适用我们自己写的程序。</strong></p>
 
@@ -181,7 +179,7 @@
 
         
         <li>
-            <a target="_blank"  href="https://github.com/questionlin">
+            <a target="_blank" href="https://github.com/questionlin">
                             <span class="fa-stack fa-lg">
                                 <i class="iconfont icon-github"></i>
                             </span>

@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+<head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
-    <meta name="keyword"  content="">
+    <meta name="keyword" content="">
     <link rel="shortcut icon" href="/img/favicon.ico">
 
     <title>
@@ -45,7 +45,7 @@
 <div class="nav" id="nav">
     <div class="avatar-name">
         <div class="avatar">
-            <img src="/img/avatar.jpeg" />
+            <img src="/img/avatar.jpeg">
         </div>
         <div class="name">
             <i>ljj</i>
@@ -53,25 +53,25 @@
     </div>
     <div class="contents" id="nav-content">
         <ul>
-            <li >
+            <li>
                 <a href="/">
                     <i class="iconfont icon-shouye1"></i>
                     <span>主页</span>
                 </a>
             </li>
-            <li >
+            <li>
                 <a href="/tags">
                     <i class="iconfont icon-biaoqian1"></i>
                     <span>标签</span>
                 </a>
             </li>
-            <li >
+            <li>
                 <a href="/archives">
                     <i class="iconfont icon-guidang2"></i>
                     <span>存档</span>
                 </a>
             </li>
-            <li >
+            <li>
                 <a href="/about/">
                     <i class="iconfont icon-guanyu2"></i>
                     <span>关于</span>
@@ -99,7 +99,7 @@
     <div class="search-container">
         <div class="search-input">
             <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
-            <input id="search-input"/>
+            <input id="search-input">
             <span id="begin-search">搜索</span>
         </div>
         <div class="search-result-container" id="search-result-container">
@@ -134,7 +134,7 @@
         </span>
         <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
 </span>
-</span>
+
     </div>
     <div class="post-content no-indent">
         <h1 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h1><p>之前的一篇<a href="/posts/1529896095/">博客</a>已经提过通过 MySQL 提供的 XA 事务来实现分布式事务。但很多人发现它性能不好，一些大公司的做法是引入 TCC 事务模型。TCC 事务模型是补偿型事务的一种实现，分为 Try/ Confirm/ Cancel 三个阶段。在解释 TCC 前，现在考虑一个现实中分布式的例子：</p>
@@ -142,8 +142,7 @@
 <p>这个例子里面，向两个公司确认机票对应 Try 阶段，购票对应 Confirm 阶段，取消对应 Cancel 阶段。<strong>因此 TCC 模型就是用业务逻辑实现了数据库的事务逻辑。</strong> 整个逻辑的一个主要方面是确认操作是否可以失败。如果保证成功，则整个操作是一个补偿操作[2]，即隐式确认，明确取消。而 Cancel 阶段就是补偿操作里的补偿部分。一个现实中的例子是，企业通过电话要求客户忽略该信件可以补偿给客户的邮寄信件。</p>
 <p>Try/ Confirm/ Cancel 三个阶段对应的数据库操作可以参考下面这个简单的例子：</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># try</span><br><span class="line"><span class="keyword">INSERT</span> RESERVATION</span><br><span class="line"></span><br><span class="line"># <span class="keyword">confirm</span></span><br><span class="line"><span class="keyword">UPDATE</span> RESERVATION <span class="keyword">SET</span> <span class="keyword">STATUS</span>=<span class="string">'CONFIRMED'</span></span><br><span class="line"></span><br><span class="line"># <span class="keyword">cancel</span></span><br><span class="line"><span class="keyword">UPDATE</span> RESERVATION <span class="keyword">SET</span> <span class="keyword">STATUS</span>=<span class="string">'CANCELED'</span></span><br></pre></td></tr></table></figure>
-<h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><p>阿里的实现是增加一个事务管理器，先由主业务发起主事务，然后向每个子业务（远程服务）发起 Try 确认资源。如果资源确认通过的话，再把 Confirm 和 Cancel 的请求代码交给事务管理器，由事务管理器完成后续工作。参考下面这张图：
-<img src="https://ask.qcloudimg.com/http-save/yehe-1305760/jvxyvzes5j.jpeg?imageView2/2/w/1620" alt="TCC实现"></p>
+<h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><p>阿里的实现是增加一个事务管理器，先由主业务发起主事务，然后向每个子业务（远程服务）发起 Try 确认资源。如果资源确认通过的话，再把 Confirm 和 Cancel 的请求代码交给事务管理器，由事务管理器完成后续工作。参考下面这张图：<br><img src="https://ask.qcloudimg.com/http-save/yehe-1305760/jvxyvzes5j.jpeg?imageView2/2/w/1620" alt="TCC实现"></p>
 <h1 id="实现难点"><a href="#实现难点" class="headerlink" title="实现难点"></a>实现难点</h1><ol>
 <li>因为完全用业务逻辑实现，每个子事务都要提供三个接口，代码量稍大；</li>
 <li>事务要求隔离性（Isolation），即一个事务进行的时候，其他请求读到的应该是原来的数据，这个可以用冗余数据增加版本号来解决；</li>
@@ -195,7 +194,7 @@
 
         
         <li>
-            <a target="_blank"  href="https://github.com/questionlin">
+            <a target="_blank" href="https://github.com/questionlin">
                             <span class="fa-stack fa-lg">
                                 <i class="iconfont icon-github"></i>
                             </span>
