@@ -138,8 +138,17 @@
     </div>
     <div class="post-content no-indent">
         <h1 id="HTTP-报文内容"><a href="#HTTP-报文内容" class="headerlink" title="HTTP 报文内容"></a>HTTP 报文内容</h1><p>HTTP 报文是由一行一行的简单纯文本字符串组成的，不是二进制代码。下面是一个简单例子：</p>
-<p>请求：<br>.|内容<br>-|-<br>起始行(start line) | GET /test/hi-there.php HTTP/1.0<br>首部(header) | Accept: text/*<br>Accept-Language: en,zh</p>
-<p>响应：<br>.|内容<br>-|-<br>起始行(start line) | HTTP/1.0 200 OK<br>首部(header) | Content-type: text/plain<br>Content-length: 19<br>主体(body)   | Hi! I’m a message!</p>
+<p>请求：
+.|内容
+-|-
+起始行(start line) | GET /test/hi-there.php HTTP/1.0
+首部(header) | Accept: text/*<br>Accept-Language: en,zh</p>
+<p>响应：
+.|内容
+-|-
+起始行(start line) | HTTP/1.0 200 OK
+首部(header) | Content-type: text/plain<br>Content-length: 19
+主体(body)   | Hi! I’m a message!</p>
 <p>起始行和首部，由一个回车符（ASCII 13）和一个换行符（ASCII 10）作为结束。</p>
 <h1 id="起始行"><a href="#起始行" class="headerlink" title="起始行"></a>起始行</h1><h2 id="常用-HTTP-方法"><a href="#常用-HTTP-方法" class="headerlink" title="常用 HTTP 方法"></a>常用 HTTP 方法</h2><p>请求报文起始行里的 <em>GET</em> 就是 HTTP 方法，其余方法参考下表：</p>
 <table>
@@ -312,7 +321,9 @@
 <p>另外说明一个，Age（秒）, Cache-Control, Expire（日期） 是设定为计算缓存生命周期的，但现在更好的做法是永久缓存，然后给 URL 加版本号的方法更新文件。</p>
 <h1 id="HTTP-与-WebSocket"><a href="#HTTP-与-WebSocket" class="headerlink" title="HTTP 与 WebSocket"></a>HTTP 与 WebSocket</h1><p>WebSocket 是在 HTTP 基础上的协议，需要浏览器支持。WebSocket 允许客户端和服务器通过长链接双工通信，即两边可以不断的向另一边发送信息而不用重新连接。没有 WebSocket 协议之前如果服务器要不断向浏览器发送信息，就要打开长链接（Connection: Keep-Alive，默认打开），而且只能服务器向浏览器发送。而且由于服务端保持长链接开销很大，通常通过客户端隔一段时间请求来实现。</p>
 <hr>
-<p>参考资料：<br>《HTTP权威指南》<br>http状态码：<a href="https://baike.baidu.com/item/HTTP状态码/5053660?fr=aladdin" target="_blank" rel="noopener">https://baike.baidu.com/item/HTTP状态码/5053660?fr=aladdin</a></p>
+<p>参考资料：
+《HTTP权威指南》
+http状态码：<a href="https://baike.baidu.com/item/HTTP状态码/5053660?fr=aladdin" target="_blank" rel="noopener">https://baike.baidu.com/item/HTTP状态码/5053660?fr=aladdin</a></p>
 
         
         <div id="comment-container">
