@@ -137,7 +137,12 @@
 
     </div>
     <div class="post-content no-indent">
-        <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ tar cvf etcbak.tar etc/  <span class="comment"># 把 etc/ 打包成一个tar</span></span><br><span class="line">$ tar xvf etcbak.tar         <span class="comment"># 解开一个tar</span></span><br><span class="line">$ tar cvzf etcbak.tar.gz etc/ <span class="comment"># 把 etc/ 打包压缩一个 tar</span></span><br><span class="line">$ tar zxvf etcbak.tar.gz  <span class="comment"># 解压一个tar</span></span><br></pre></td></tr></table></figure>
+        <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ tar cf etcbak.tar etc/  <span class="comment"># 把 etc/ 打包成一个tar</span></span><br><span class="line">$ tar xf etcbak.tar -C ./        <span class="comment"># 解开一个tar 到当前目录</span></span><br><span class="line">$ tar czf etcbak.tar.gz etc/ <span class="comment"># 把 etc/ 打包压缩一个 tar</span></span><br><span class="line">$ tar zxf etcbak.tar.gz -C ./  <span class="comment"># 解压一个tar 到当前目录</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>v 显示详情。例如：cvf, zxvf</li>
+<li>C 指定目录。不加默认当前目录</li>
+</ul>
+
         
         <div id="comment-container">
         </div>
