@@ -11,7 +11,7 @@
 
     <title>
         
-        PHP event 和 libevent 扩展的关系 - 我的博客
+        百度地图全国市区商圈和地铁线路 - 我的博客
         
     </title>
 
@@ -119,15 +119,15 @@
 
 <div class="post-container">
     <div class="post-title">
-        PHP event 和 libevent 扩展的关系
+        百度地图全国市区商圈和地铁线路
     </div>
 
     <div class="post-meta">
-        <span class="attr">发布于：<span>2018-07-18 20:46:55</span></span>
+        <span class="attr">发布于：<span>2018-11-23 10:41:11</span></span>
         
         <span class="attr">标签：/
         
-        <a class="tag" href="/tags/#php" title="php">php</a>
+        <a class="tag" href="/tags/#数据" title="数据">数据</a>
         <span>/</span>
         
         
@@ -137,34 +137,40 @@
 
     </div>
     <div class="post-content no-indent">
-        <p>PHP event 和 libevent 扩展都是对 libevent 的封装，前者有 stable 版本且一直在更新而后者只有 beta 版本。本来肯定要选 event 扩展，可是它的 pecl 页面上赫然写着依赖 libevent 扩展。陷入混乱的我给作者写了封邮件，<strong>结论是：大胆选 event 扩展</strong>。以下是邮件原文：</p>
-<blockquote>
-<p>Hi,</p>
-<p>event extension is an alternative to libevent extension.</p>
-<p>You can see “libevent” package listed as a dependency on
-<a href="https://pecl.php.net/package/event" target="_blank" rel="noopener">https://pecl.php.net/package/event</a>, but in reality “libevent”
-extension is declared as <strong>conflicting</strong> package in package.xml:</p>
-<pre><code>&lt;package&gt;
-  &lt;name&gt;libevent&lt;/name&gt;
-  &lt;channel&gt;pecl.php.net&lt;/channel&gt;
-  &lt;min&gt;0.0.2&lt;/min&gt;
-  &lt;conflicts/&gt;
-  &lt;providesextension&gt;libevent&lt;/providesextension&gt;
-&lt;/package&gt;
-</code></pre><p>I can’t recall why. But you definitely don’t need libevent extension
-in order to use “event”.</p>
-<p>On Wed, 18 Jul 2018 11:28:21 +0800 (CST)
-“Simon Lin” <a href="mailto:&#x62;&#111;&#121;&#113;&#x75;&#101;&#x73;&#x74;&#x69;&#111;&#110;&#x40;&#49;&#x36;&#x33;&#x2e;&#x63;&#111;&#109;" target="_blank" rel="noopener">&#x62;&#111;&#121;&#113;&#x75;&#101;&#x73;&#x74;&#x69;&#111;&#110;&#x40;&#49;&#x36;&#x33;&#x2e;&#x63;&#111;&#109;</a> wrote:</p>
-<p>Hi,</p>
-<p>I’m just confused that what is the relation between event package and
-libevent package? The pecl page shows event package has stable
-versions while libevent package does not. If event package depends on
-libevent package, is event package still stable?</p>
-<p>Sincerely,
-Simon Lin</p>
-<p>– 
-Ruslan Osmanov</p>
-</blockquote>
+        <p>从百度地图和高德地图中提炼出了对应的接口，方便iOS直接调用。</p>
+<p>1.获取全国地铁城市：</p>
+<p><a href="http://map.baidu.com/?qt=subwayscity&amp;t=123457788" target="_blank" rel="noopener">http://map.baidu.com/?qt=subwayscity&amp;t=123457788</a></p>
+<p>2.根据获取的城市code查询地铁线路详情</p>
+<p><a href="http://map.baidu.com/?qt=bsi&amp;c=citycode&amp;t=123457788" target="_blank" rel="noopener">http://map.baidu.com/?qt=bsi&amp;c=citycode&amp;t=123457788</a></p>
+<p>3.百度地图行政区及商圈接口分析：
+参数： 
+qt=sub_area_list  固定参数
+ext=1  固定参数 
+areacode 地区代码(中国是1，湖北省是15，武汉市是218，武昌区是2788)
+level 查询深度 1 2 3
+business_flag 是否查商圈（注意，这个参数只有在areacode为区时查商圈时传1；其它情况传0，否则查询不到数据）</p>
+<p>所有 省-市县-区<br><a href="http://api.map.baidu.com/shangquan/forward/?qt=sub_area_list&amp;ext=1&amp;level=3&amp;areacode=1&amp;business_flag=0" target="_blank" rel="noopener">http://api.map.baidu.com/shangquan/forward/?qt=sub_area_list&amp;ext=1&amp;level=3&amp;areacode=1&amp;business_flag=0</a></p>
+<p>武汉市的区
+<a href="http://api.map.baidu.com/shangquan/forward/?qt=sub_area_list&amp;ext=1&amp;level=1&amp;areacode=218&amp;business_flag=0" target="_blank" rel="noopener">http://api.map.baidu.com/shangquan/forward/?qt=sub_area_list&amp;ext=1&amp;level=1&amp;areacode=218&amp;business_flag=0</a></p>
+<p>洪山区的商圈
+<a href="http://api.map.baidu.com/shangquan/forward/?qt=sub_area_list&amp;ext=1&amp;level=1&amp;areacode=2403&amp;business_flag=1" target="_blank" rel="noopener">http://api.map.baidu.com/shangquan/forward/?qt=sub_area_list&amp;ext=1&amp;level=1&amp;areacode=2403&amp;business_flag=1</a></p>
+<p>弊端：
+1.此接口返回的数据始终有一些冗余的热门城市数据。
+2.查商圈的时候返回了商圈的区域坐标，数据量大，废流量。
+3.无法同时返回某个市的所有区的商圈，只能一个区一个区的查询。</p>
+<p>高德地图行政区与商圈API分析：
+参数：
+subdistrict  期望返回多少级下级行政区信息，可选值：0、1、2、3
+key 申请的数据接口密钥
+s=rsv3  不知道干嘛，不能缺
+output  返回数据类型，默认是 json ，不传也可以
+keywords  搜索关键字</p>
+<p>武汉市的所有区
+<a href="http://restapi.amap.com/v3/config/district?subdistrict=2&amp;key=778e8bd7e977163d8b3ded18de20099c&amp;s=rsv3&amp;output=json&amp;keywords=武汉市" target="_blank" rel="noopener">http://restapi.amap.com/v3/config/district?subdistrict=2&amp;key=778e8bd7e977163d8b3ded18de20099c&amp;s=rsv3&amp;output=json&amp;keywords=武汉市</a></p>
+<p>高的获取商圈
+<a href="http://report.amap.com/ajax/districtRank.do?linksType=3&amp;cityCode=110000" target="_blank" rel="noopener">http://report.amap.com/ajax/districtRank.do?linksType=3&amp;cityCode=110000</a></p>
+<hr>
+<p>参考资料：<br><a href="https://blog.csdn.net/tanqian351/article/details/80509942" target="_blank" rel="noopener">https://blog.csdn.net/tanqian351/article/details/80509942</a><br><a href="https://blog.csdn.net/qq_912917507/article/details/81085535" target="_blank" rel="noopener">https://blog.csdn.net/qq_912917507/article/details/81085535</a></p>
 
         
         <div id="comment-container">
