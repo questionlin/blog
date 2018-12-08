@@ -11,7 +11,7 @@
 
     <title>
         
-        我的博客
+        lumen和event扩展冲突 - 我的博客
         
     </title>
 
@@ -53,7 +53,7 @@
     </div>
     <div class="contents" id="nav-content">
         <ul>
-            <li class="active">
+            <li>
                 <a href="/">
                     <i class="iconfont icon-shouye1"></i>
                     <span>主页</span>
@@ -88,6 +88,10 @@
         </ul>
     </div>
     
+        <div id="toc" class="toc-article">
+    
+</div>
+    
 </div>
 
 
@@ -111,81 +115,42 @@
     <div class="index-middle">
         <!-- Main Content -->
         
-<div class="post-preview-container" style="min-height: 576px">
-    
-    <div class="post-preview">
-        <div class="post-time">2018-06-01</div>
-        <div class="post-info">
-            <a href="/posts/1528164430/">
-                <h3>
-                    redis sentinel主从模式
-                </h3>
-            </a>
-            <p>
-                
-                <span>/</span>
-                
-                <a class="tag" href="/tags/#redis" title="redis">redis</a>
-                <span>/</span>
-                
-                
-            </p>
-        </div>
-    </div>
-    
-    <div class="post-preview">
-        <div class="post-time">2018-06-01</div>
-        <div class="post-info">
-            <a href="/posts/1528164421/">
-                <h3>
-                    用人话教你设计模式
-                </h3>
-            </a>
-            <p>
-                
-                <span>/</span>
-                
-                <a class="tag" href="/tags/#php" title="php">php</a>
-                <span>/</span>
-                
-                
-            </p>
-        </div>
-    </div>
-    
-    <div class="post-preview">
-        <div class="post-time">2018-06-01</div>
-        <div class="post-info">
-            <a href="/posts/1528164408/">
-                <h3>
-                    hexo+github搭建博客最佳实践
-                </h3>
-            </a>
-            <p>
-                
-                <span>/</span>
-                
-                <a class="tag" href="/tags/#最佳实践" title="最佳实践">最佳实践</a>
-                <span>/</span>
-                
-                <a class="tag" href="/tags/#hexo" title="hexo">hexo</a>
-                <span>/</span>
-                
-                
-            </p>
-        </div>
-    </div>
-    
-</div>
-<ul class="pager">
-    
-    <li class="previous">
-        <a href="/page/5/">&larr; Newer Posts</a>
-    </li>
-    
-    
-</ul>
 
+
+<div class="post-container">
+    <div class="post-title">
+        lumen和event扩展冲突
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2018-12-08 15:44:55</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#php" title="php">php</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+
+    </div>
+    <div class="post-content no-indent">
+        <p>如果系统里安装了 event 扩展，Lumen 在使用 artisan 或者 bootstrap/app.php 里打开了 $app-&gt;withFacades()，那么系统会报</p>
+<blockquote>
+<p>Cannot declare class Event, because the name is already in use
+Laravel 不知道会不会报错，估计也会。</p>
+</blockquote>
+<p>这时候在 Console/Kernel.php 里加入
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">protected</span> $aliases = <span class="keyword">false</span>;</span><br></pre></td></tr></table></figure></p>
+<p>就可以了。代价是不能使用 Facades 了。</p>
+
+        
+        <div id="comment-container">
+        </div>
+    </div>
+</div>
     </div>
 </div>
 
@@ -248,7 +213,7 @@
     // We expose some of the variables needed by the front end
     window.hexo_search_path = "search.json"
     window.hexo_root = "/"
-    window.isPost = false
+    window.isPost = true
 </script>
 <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
 <script src="/js/index.js"></script>
