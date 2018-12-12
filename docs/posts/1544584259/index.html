@@ -11,7 +11,7 @@
 
     <title>
         
-        我的博客
+        我的PHP编译参数 - 我的博客
         
     </title>
 
@@ -53,7 +53,7 @@
     </div>
     <div class="contents" id="nav-content">
         <ul>
-            <li class="active">
+            <li>
                 <a href="/">
                     <i class="iconfont icon-shouye1"></i>
                     <span>主页</span>
@@ -88,6 +88,10 @@
         </ul>
     </div>
     
+        <div id="toc" class="toc-article">
+    
+</div>
+    
 </div>
 
 
@@ -111,101 +115,35 @@
     <div class="index-middle">
         <!-- Main Content -->
         
-<div class="post-preview-container" style="min-height: 576px">
-    
-    <div class="post-preview">
-        <div class="post-time">2018-06-01</div>
-        <div class="post-info">
-            <a href="/posts/1528164430/">
-                <h3>
-                    redis sentinel主从模式
-                </h3>
-            </a>
-            <p>
-                
-                <span>/</span>
-                
-                <a class="tag" href="/tags/#redis" title="redis">redis</a>
-                <span>/</span>
-                
-                
-            </p>
-        </div>
-    </div>
-    
-    <div class="post-preview">
-        <div class="post-time">2018-06-01</div>
-        <div class="post-info">
-            <a href="/posts/1528164421/">
-                <h3>
-                    用人话教你设计模式
-                </h3>
-            </a>
-            <p>
-                
-                <span>/</span>
-                
-                <a class="tag" href="/tags/#php" title="php">php</a>
-                <span>/</span>
-                
-                
-            </p>
-        </div>
-    </div>
-    
-    <div class="post-preview">
-        <div class="post-time">2018-06-01</div>
-        <div class="post-info">
-            <a href="/posts/1528164408/">
-                <h3>
-                    hexo+github搭建博客最佳实践
-                </h3>
-            </a>
-            <p>
-                
-                <span>/</span>
-                
-                <a class="tag" href="/tags/#最佳实践" title="最佳实践">最佳实践</a>
-                <span>/</span>
-                
-                <a class="tag" href="/tags/#hexo" title="hexo">hexo</a>
-                <span>/</span>
-                
-                
-            </p>
-        </div>
-    </div>
-    
-    <div class="post-preview">
-        <div class="post-time">2018-05-31</div>
-        <div class="post-info">
-            <a href="/posts/1528164216/">
-                <h3>
-                    Hello World
-                </h3>
-            </a>
-            <p>
-                
-                <span>/</span>
-                
-                <a class="tag" href="/tags/#hexo" title="hexo">hexo</a>
-                <span>/</span>
-                
-                
-            </p>
-        </div>
-    </div>
-    
-</div>
-<ul class="pager">
-    
-    <li class="previous">
-        <a href="/page/5/">&larr; Newer Posts</a>
-    </li>
-    
-    
-</ul>
 
+
+<div class="post-container">
+    <div class="post-title">
+        我的PHP编译参数
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2018-12-12 11:10:08</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#php" title="php">php</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+
+    </div>
+    <div class="post-content no-indent">
+        <p>由于 PHP 高度依赖第三方插件，导致编译 PHP 变成一个难题。线上环境要求一致，不允许使用 yum 或 apt 来安装，只能在编译环境编译好后复制到线上，因此没一个 PHP 程序员都应该有一份自己的编译参数。这篇文章介绍我的参数。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 首先编译环境要先安装好</span></span><br><span class="line">$ yum install lib-curl-devel libjpeg-turbo-devel libpng-devel libwebp-devel libxml2-devel libwebp-devel libXpm-devel openssl-devel zlib-devel</span><br><span class="line"></span><br><span class="line"><span class="comment"># 然后开始编译安装</span></span><br><span class="line"><span class="comment"># --prefix 是安装的目录</span></span><br><span class="line">$ ./configure --prefix=/data/server/php \</span><br><span class="line">--<span class="built_in">enable</span>-fpm \</span><br><span class="line">--<span class="built_in">enable</span>-ftp \</span><br><span class="line">--<span class="built_in">enable</span>-pcntl \</span><br><span class="line">--<span class="built_in">enable</span>-mbstring \</span><br><span class="line">--<span class="built_in">enable</span>-sockets \</span><br><span class="line">--<span class="built_in">enable</span>-sysvmsg \</span><br><span class="line">--<span class="built_in">enable</span>-sysvsem \</span><br><span class="line">--<span class="built_in">enable</span>-sysvshm \</span><br><span class="line">--<span class="built_in">enable</span>-shmop \</span><br><span class="line">--<span class="built_in">enable</span>-pdo \</span><br><span class="line">--<span class="built_in">enable</span>-opcache \</span><br><span class="line">--with-curl \</span><br><span class="line">--with-openssl \</span><br><span class="line">--with-jpeg-dir \</span><br><span class="line">--with-webp-dir \</span><br><span class="line">--with-xpm-dir \</span><br><span class="line">--with-gd \</span><br><span class="line">--with-pdo-mysql \</span><br><span class="line">--with-zlib \</span><br><span class="line"></span><br><span class="line">$ make &amp;&amp; make install</span><br><span class="line">$ pecl install event</span><br><span class="line">$ pecl install redis</span><br></pre></td></tr></table></figure>
+        
+        <div id="comment-container">
+        </div>
+    </div>
+</div>
     </div>
 </div>
 
@@ -268,7 +206,7 @@
     // We expose some of the variables needed by the front end
     window.hexo_search_path = "search.json"
     window.hexo_root = "/"
-    window.isPost = false
+    window.isPost = true
 </script>
 <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
 <script src="/js/index.js"></script>

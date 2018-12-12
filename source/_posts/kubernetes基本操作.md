@@ -15,7 +15,7 @@ kubernetes 官方提供了非常好的交互学习平台 https://kubernetes.io/d
 
 # 创建集群
 ```sh
-kubernetes start # 创建集群
+minikube start # 创建集群
 
 $ kubectl get nodes # 查看所有 nodes
 NAME       STATUS    ROLES     AGE       VERSION
