@@ -157,8 +157,14 @@
 <h1 id="更新应用"><a href="#更新应用" class="headerlink" title="更新应用"></a>更新应用</h1><h2 id="替换镜像"><a href="#替换镜像" class="headerlink" title="替换镜像"></a>替换镜像</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">$ kubectl <span class="built_in">set</span> image deployments/kubernetes-bootcamp kubernetes-bootcamp=jocatalin/kubernetes-bootcamp:v2 <span class="comment"># 换镜像</span></span><br><span class="line"></span><br><span class="line">$ kubectl rollout status deployments/kubernetes-bootcamp <span class="comment"># 查看新镜像配置状态</span></span><br><span class="line">deployment <span class="string">"kubernetes-bootcamp"</span> successfully rolled out</span><br><span class="line"></span><br><span class="line">$ kubectl describe pods</span><br><span class="line">Name:           kubernetes-bootcamp-7799cbcb86-prj8w</span><br><span class="line">Namespace:      default</span><br><span class="line">Node:           minikube/172.17.0.81</span><br><span class="line">Start Time:     Wed, 05 Dec 2018 06:33:29 +0000</span><br><span class="line">Labels:         pod-template-hash=3355767642</span><br><span class="line">                run=kubernetes-bootcamp</span><br><span class="line">Annotations:    &lt;none&gt;</span><br><span class="line">Status:         Running</span><br><span class="line">IP:             172.18.0.9</span><br><span class="line">Controlled By:  ReplicaSet/kubernetes-bootcamp-7799cbcb86</span><br><span class="line">Containers:</span><br><span class="line">  kubernetes-bootcamp:</span><br><span class="line">    Container ID:   docker://76d31785dc318d21ba1c822c64f24c7f58701dfe761d2c1cb8df03002d568732</span><br><span class="line">    Image:          jocatalin/kubernetes-bootcamp:v2 <span class="comment"># 镜像已经替换</span></span><br><span class="line">    Image ID:       docker-pullable://jocatalin/kubernetes-bootcamp@sha256:fb1a3ced00cecfc1f83f18ab5cd14199e30adc1b49aa4244f5d65ad3f5feb2a5</span><br><span class="line">.</span><br><span class="line">.</span><br><span class="line">.</span><br></pre></td></tr></table></figure>
 <h2 id="回滚"><a href="#回滚" class="headerlink" title="回滚"></a>回滚</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ kubectl rollout undo deployments/kubernetes-bootcamp <span class="comment"># 回滚</span></span><br></pre></td></tr></table></figure>
         
+        <br>
         <div id="comment-container">
         </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
     </div>
 </div>
     </div>
@@ -227,6 +233,9 @@
 </script>
 <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
 <script src="/js/index.js"></script>
-<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
 
 </html>

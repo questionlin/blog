@@ -140,8 +140,14 @@
         <p>由于 PHP 高度依赖第三方插件，导致编译 PHP 变成一个难题。线上环境要求一致，不允许使用 yum 或 apt 来安装，只能在编译环境编译好后复制到线上，因此每一个 PHP 程序员都应该有一份自己的编译参数。这篇文章介绍我的参数。</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 首先编译环境要先安装好</span></span><br><span class="line">$ yum install lib-curl-devel libjpeg-turbo-devel libpng-devel libwebp-devel libxml2-devel libwebp-devel libXpm-devel openssl-devel zlib-devel</span><br><span class="line"></span><br><span class="line"><span class="comment"># 然后开始编译安装</span></span><br><span class="line"><span class="comment"># --prefix 是安装的目录</span></span><br><span class="line">$ ./configure --prefix=/data/server/php \</span><br><span class="line">--<span class="built_in">enable</span>-fpm \</span><br><span class="line">--<span class="built_in">enable</span>-ftp \</span><br><span class="line">--<span class="built_in">enable</span>-pcntl \</span><br><span class="line">--<span class="built_in">enable</span>-mbstring \</span><br><span class="line">--<span class="built_in">enable</span>-sockets \</span><br><span class="line">--<span class="built_in">enable</span>-sysvmsg \</span><br><span class="line">--<span class="built_in">enable</span>-sysvsem \</span><br><span class="line">--<span class="built_in">enable</span>-sysvshm \</span><br><span class="line">--<span class="built_in">enable</span>-shmop \</span><br><span class="line">--<span class="built_in">enable</span>-pdo \</span><br><span class="line">--<span class="built_in">enable</span>-opcache \</span><br><span class="line">--with-curl \</span><br><span class="line">--with-openssl \</span><br><span class="line">--with-jpeg-dir \</span><br><span class="line">--with-webp-dir \</span><br><span class="line">--with-xpm-dir \</span><br><span class="line">--with-gd \</span><br><span class="line">--with-pdo-mysql \</span><br><span class="line">--with-zlib \</span><br><span class="line"></span><br><span class="line">$ make &amp;&amp; make install</span><br><span class="line">$ pecl install event</span><br><span class="line">$ pecl install redis</span><br></pre></td></tr></table></figure>
         
+        <br>
         <div id="comment-container">
         </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
     </div>
 </div>
     </div>
@@ -210,6 +216,9 @@
 </script>
 <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
 <script src="/js/index.js"></script>
-<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
 
 </html>
