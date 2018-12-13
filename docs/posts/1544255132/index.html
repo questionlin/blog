@@ -139,9 +139,9 @@
     <div class="post-content no-indent">
         <p>如果系统里安装了 event 扩展，Lumen 在使用 artisan 或者 bootstrap/app.php 里打开了 $app-&gt;withFacades()，那么系统会报</p>
 <blockquote>
-<p>Cannot declare class Event, because the name is already in use
-Laravel 不知道会不会报错，估计也会。</p>
+<p>Cannot declare class Event, because the name is already in use</p>
 </blockquote>
+<p>Laravel 不知道会不会报错，估计也会。</p>
 <p>这时候在 Console/Kernel.php 里加入
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">protected</span> $aliases = <span class="keyword">false</span>;</span><br></pre></td></tr></table></figure></p>
 <p>就可以了。代价是不能使用 Facades 了。</p>
