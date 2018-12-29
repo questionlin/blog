@@ -11,7 +11,7 @@
 
     <title>
         
-        豆瓣API - 我的博客
+        豆瓣API - ljj的博客
         
     </title>
 
@@ -89,7 +89,7 @@
     </div>
     
         <div id="toc" class="toc-article">
-    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#图书"><span class="toc-text">图书</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#搜索图书"><span class="toc-text">搜索图书</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#根据-id-获取图书信息"><span class="toc-text">根据 id 获取图书信息</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#通过-isbn-获取图书信息"><span class="toc-text">通过 isbn 获取图书信息</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#电影"><span class="toc-text">电影</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#搜索电影"><span class="toc-text">搜索电影</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#通过-id-获取电影"><span class="toc-text">通过 id 获取电影</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#通过-imdb-获取电影"><span class="toc-text">通过 imdb 获取电影</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#音乐"><span class="toc-text">音乐</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#搜索音乐"><span class="toc-text">搜索音乐</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#获取音乐信息"><span class="toc-text">获取音乐信息</span></a></li></ol></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#图书"><span class="toc-text">图书</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#搜索图书"><span class="toc-text">搜索图书</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#根据-id-获取图书信息"><span class="toc-text">根据 id 获取图书信息</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#通过-isbn-获取图书信息"><span class="toc-text">通过 isbn 获取图书信息</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#电影"><span class="toc-text">电影</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#搜索电影"><span class="toc-text">搜索电影</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#通过-id-获取电影"><span class="toc-text">通过 id 获取电影</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#通过-imdb-获取电影"><span class="toc-text">通过 imdb 获取电影</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#音乐"><span class="toc-text">音乐</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#搜索音乐"><span class="toc-text">搜索音乐</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#获取音乐信息"><span class="toc-text">获取音乐信息</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#小组"><span class="toc-text">小组</span></a></li></ol></li></ol>
 </div>
     
 </div>
@@ -246,6 +246,17 @@
 <figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"start"</span>: <span class="number">0</span>,</span><br><span class="line">    <span class="attr">"count"</span>: <span class="number">10</span>,</span><br><span class="line">    <span class="attr">"total"</span>: <span class="number">30</span>,</span><br><span class="line">    <span class="attr">"musics"</span> : [Music, ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <h2 id="获取音乐信息"><a href="#获取音乐信息" class="headerlink" title="获取音乐信息"></a>获取音乐信息</h2><p>GET  <a href="https://api.douban.com/v2/music/:id" target="_blank" rel="noopener">https://api.douban.com/v2/music/:id</a></p>
 <p>返回音乐信息，返回status=200</p>
+<h2 id="小组"><a href="#小组" class="headerlink" title="小组"></a>小组</h2><ol start="0">
+<li>请求的前缀是： <a href="https://api.douban.com/v2" target="_blank" rel="noopener">https://api.douban.com/v2</a> </li>
+<li>获取小组基本信息：/group/:id 
+如：<a href="https://api.douban.com/v2/group/husttgeek/" target="_blank" rel="noopener">https://api.douban.com/v2/group/husttgeek/</a> </li>
+<li>获取话题列表： /group/:id/topics 
+如：<a href="https://api.douban.com/v2/group/husttgeek/topics" target="_blank" rel="noopener">https://api.douban.com/v2/group/husttgeek/topics</a> </li>
+<li>新发话题估计是POST到上面那个地址，没测试 </li>
+<li>获取某话题评论列表： /group/topic/:id/comments 
+如：<a href="https://api.douban.com/v2/group/topic/33488193/comments" target="_blank" rel="noopener">https://api.douban.com/v2/group/topic/33488193/comments</a> </li>
+<li>发表评论估计是POST到上面那个地址，没测试 </li>
+</ol>
 <hr>
 <p>参考：<br>豆瓣官方客户端：<a href="https://github.com/douban/douban-client" target="_blank" rel="noopener">https://github.com/douban/douban-client</a></p>
 

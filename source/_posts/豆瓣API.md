@@ -112,6 +112,17 @@ GET  https://api.douban.com/v2/music/:id
 
 返回音乐信息，返回status=200
 
+## 小组
+0. 请求的前缀是： https://api.douban.com/v2 
+1. 获取小组基本信息：/group/:id 
+如：https://api.douban.com/v2/group/husttgeek/ 
+2. 获取话题列表： /group/:id/topics 
+如：https://api.douban.com/v2/group/husttgeek/topics 
+3. 新发话题估计是POST到上面那个地址，没测试 
+4. 获取某话题评论列表： /group/topic/:id/comments 
+如：https://api.douban.com/v2/group/topic/33488193/comments 
+5. 发表评论估计是POST到上面那个地址，没测试 
+
 ------------------------------
 参考：  
 豆瓣官方客户端：https://github.com/douban/douban-client

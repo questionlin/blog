@@ -3,17 +3,17 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: 我的博客
+title: ljj的博客
 subtitle:
 description: 
-keywords: php, python, javascript, nodejs, redis, mysql, linux
+keywords: php, python, javascript, nodejs, redis, mysql
 author: ljj
 language: zh
 timezone: Asia/Shanghai
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-url: http://ljj.pub
+url: http://b.ljj.pub
 root: /
 permalink: posts/:id/
 permalink_defaults:
@@ -86,7 +86,7 @@ deploy:
 
 # Site settings
 # 网站综合内容设置:
-SEOTitle: 我的博客
+SEOTitle: ljj的博客
 header-img: img/avatar.jpeg
 email: boyquestion@163.com
 
