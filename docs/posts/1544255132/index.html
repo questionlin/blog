@@ -11,7 +11,7 @@
 
     <title>
         
-        lumen和event扩展冲突 - ljj的博客
+        lumen和workerman结合会遇到的问题 - ljj的博客
         
     </title>
 
@@ -89,7 +89,7 @@
     </div>
     
         <div id="toc" class="toc-article">
-    
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#FILE"><span class="toc-text">$_FILE</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#报错"><span class="toc-text">报错</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Auth-Guard-保留登录信息"><span class="toc-text">Auth Guard 保留登录信息</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#lumen和event扩展冲突"><span class="toc-text">lumen和event扩展冲突</span></a></li></ol>
 </div>
     
 </div>
@@ -119,7 +119,7 @@
 
 <div class="post-container">
     <div class="post-title">
-        lumen和event扩展冲突
+        lumen和workerman结合会遇到的问题
     </div>
 
     <div class="post-meta">
@@ -137,7 +137,33 @@
 
     </div>
     <div class="post-content no-indent">
-        <p>如果系统里安装了 event 扩展，Lumen 在使用 artisan 或者 bootstrap/app.php 里打开了 $app-&gt;withFacades()，那么系统会报</p>
+        <h1 id="FILE"><a href="#FILE" class="headerlink" title="$_FILE"></a>$_FILE</h1><p>CLI 模式不支持 move_uploaded_file() 函数，因此 $_FILE 内容会和默认的不一样，需要手动处理。参考 <a href="http://doc.workerman.net/web-server.html" target="_blank" rel="noopener">http://doc.workerman.net/web-server.html</a></p>
+<h1 id="报错"><a href="#报错" class="headerlink" title="报错"></a>报错</h1><p>由于 CLI 模式不支持 header() 函数，需要使用 WorkerMan 自带的 Http::header() 代替。我的做法是在</p>
+<blockquote>
+<p>app/Exceptions/Handler.php</p>
+</blockquote>
+<p>render() 函数加上 Http::header()</p>
+<h1 id="Auth-Guard-保留登录信息"><a href="#Auth-Guard-保留登录信息" class="headerlink" title="Auth Guard 保留登录信息"></a>Auth Guard 保留登录信息</h1><p>如果使用了 Auth 中间件，程序会一直保留登录信息，不管谁登录都返回第一个用户。我的做法是复制默认的 RequestGuard.php 到</p>
+<blockquote>
+<p>app/Services/Auth/RequestGuard.php</p>
+</blockquote>
+<p>并增加函数
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">logout</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">$this</span>-&gt;user = <span class="keyword">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>然后在</p>
+<blockquote>
+<p>app/Providers/AuthServiceProvider.php</p>
+</blockquote>
+<p>里增加这个 guard
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">boot</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">$this</span>-&gt;app[<span class="string">'auth'</span>]-&gt;extend(<span class="string">'api'</span>, <span class="function"><span class="keyword">function</span><span class="params">($app, $name, array $config)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> RequestGuard(<span class="function"><span class="keyword">function</span> <span class="params">($request)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">if</span> ($request-&gt;input(<span class="string">'apiToken'</span>)) &#123;</span><br><span class="line">                $user = <span class="keyword">new</span> User;</span><br><span class="line">                <span class="keyword">return</span> $user-&gt;getByApiToken($request-&gt;input(<span class="string">'apiToken'</span>));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        $app[<span class="string">'request'</span>],</span><br><span class="line">        $app[<span class="string">'auth'</span>]-&gt;createUserProvider());</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>然后修改</p>
+<blockquote>
+<p>app/Http/Middleware/Authenticate.php</p>
+</blockquote>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">handle</span><span class="params">($request, Closure $next, $guard = null)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    $guard = <span class="keyword">$this</span>-&gt;auth-&gt;guard($guard);</span><br><span class="line">    $guard-&gt;setRequest($request); <span class="comment">// 这里是为了每次请求都重新设置一遍参数</span></span><br><span class="line">    <span class="keyword">if</span> ($guard-&gt;guest()) &#123;</span><br><span class="line">        <span class="keyword">return</span> response(<span class="string">'Unauthorized.'</span>, <span class="number">401</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> $next($request);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>最后在每次请求完后执行一次
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">app(<span class="string">'auth'</span>)-&gt;logout();</span><br></pre></td></tr></table></figure></p>
+<p>清理登录信息</p>
+<h1 id="lumen和event扩展冲突"><a href="#lumen和event扩展冲突" class="headerlink" title="lumen和event扩展冲突"></a>lumen和event扩展冲突</h1><p>如果系统里安装了 event 扩展，Lumen 在使用 artisan 或者 bootstrap/app.php 里打开了 $app-&gt;withFacades()，那么系统会报</p>
 <blockquote>
 <p>Cannot declare class Event, because the name is already in use</p>
 </blockquote>
