@@ -8,7 +8,7 @@ id: 1544584259
 
 ```sh
 # 首先编译环境要先安装好
-$ yum install libcurl-devel libjpeg-turbo-devel libpng-devel libwebp-devel libxml2-devel libwebp-devel libXpm-devel openssl-devel zlib-devel
+$ yum install libcurl-devel libjpeg-turbo-devel libpng-devel libwebp-devel libxml2-devel libXpm-devel openssl-devel zlib-devel
 
 # 然后开始编译安装
 # --prefix 是安装的目录
@@ -23,7 +23,6 @@ $ ./configure --prefix=/data/server/php \
 --enable-sysvshm \
 --enable-shmop \
 --enable-pdo \
---enable-opcache \
 --with-curl \
 --with-openssl \
 --with-jpeg-dir \

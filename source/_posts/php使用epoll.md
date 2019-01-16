@@ -4,7 +4,7 @@ date: 2018-06-20 16:25:24
 tags: php
 id: 1529483141
 ---
-之前[这篇](https://ljj.pub/posts/1528164527/)文章介绍了select, poll, epoll 的区别，已经知道 epoll 是最佳选择，也知道了 libevent 是对这三者的封装。这篇文章介绍怎么用 php 和 libevent 来实现一个 epoll 程序。
+之前[这篇](/posts/1528164527/)文章介绍了select, poll, epoll 的区别，已经知道 epoll 是最佳选择，也知道了 libevent 是对这三者的封装。这篇文章介绍怎么用 php 和 libevent 来实现一个 epoll 程序。
 
 首先是必要的扩展
 1. php 要支持 pcntl
