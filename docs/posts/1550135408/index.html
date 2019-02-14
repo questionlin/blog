@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keyword" content="">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        用ulimit增加fd以提升服务连接数 - ljj的博客
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i>  </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/img/avatar.jpeg">
+        </div>
+        <div class="name">
+            <i>ljj</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li>
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li>
+                <a href="/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#推荐的-unlimit-设置"><span class="toc-text">推荐的 unlimit 设置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用-Upstart-的-linux"><span class="toc-text">使用 Upstart 的 linux</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用-ststemd-的-linux"><span class="toc-text">使用 ststemd 的 linux</span></a></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input">
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i>  </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        用ulimit增加fd以提升服务连接数
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2019-02-14 17:09:43</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#运维" title="运维">运维</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+
+    </div>
+    <div class="post-content no-indent">
+        <p>之前的文章<a href="/posts/1547608999/">《php异步编程》</a>中介绍了 php 在常驻系统的情况下，怎么通过异步操作来减少等待时间，增加并发数。但是系统不管是接受客户端的长链接请求（web socket）还是建立上游的链接，都需要打开 file descriptors（文件描述符，简称fd）。系统对 fd 数量是有限制的，增加 fd 数量，就能显著增加并发数。</p>
+<p>ulimit 命令可以查看和修改每个用户对系统使用的指标，先来看一下 ulimit 怎么使用</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">ulimit</span> -a</span><br><span class="line">-t: cpu time (seconds)         unlimited</span><br><span class="line">-f: file size (blocks)         unlimited</span><br><span class="line">-d: data seg size (kbytes)     unlimited</span><br><span class="line">-s: stack size (kbytes)        8192</span><br><span class="line">-c: core file size (blocks)    0</span><br><span class="line">-m: resident <span class="built_in">set</span> size (kbytes) unlimited</span><br><span class="line">-u: processes                  192276</span><br><span class="line">-n: file descriptors           21000</span><br><span class="line">-l: locked-in-memory size (kb) unlimited</span><br><span class="line">-v: address space (kb)         unlimited</span><br><span class="line">-x: file locks                 unlimited</span><br><span class="line">-i: pending signals            192276</span><br><span class="line">-q: bytes <span class="keyword">in</span> POSIX msg queues  819200</span><br><span class="line">-e: max nice                   30</span><br><span class="line">-r: max rt priority            65</span><br><span class="line">-N 15:                         unlimited</span><br></pre></td></tr></table></figure>
+<h2 id="推荐的-unlimit-设置"><a href="#推荐的-unlimit-设置" class="headerlink" title="推荐的 unlimit 设置"></a>推荐的 unlimit 设置</h2><p>ulimit 分为“硬”和“软”两个指标，“硬”指标限制用户可以开启的进程数，“软”指标限制实际处理运行的进程数（我也不是太清除）。用 -H 和 -S 来查看和修改。下面是 MongoDB 推荐的设置：</p>
+<ul>
+<li>-f (file size): unlimited</li>
+<li>-t (cpu time): unlimited</li>
+<li>-v (virtual memory): unlimited</li>
+<li>-l (locked-in-memory size): unlimited</li>
+<li>-n (open files): 64000</li>
+<li>-m (memory size): unlimited</li>
+<li>-u (processes/threads): 64000</li>
+</ul>
+<p>大部分参数都是不限制，只给了我们最关心的 open files 和 processes/threads 限制，因此是比较通用的。linux 默认的 open files 只有1000，加大是非常有必要的。至于64000是不是最合适的值，还需要压测后才能知道。</p>
+<h2 id="使用-Upstart-的-linux"><a href="#使用-Upstart-的-linux" class="headerlink" title="使用 Upstart 的 linux"></a>使用 Upstart 的 linux</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">limit</span> fsize unlimited unlimited    <span class="comment"># (file size)</span></span><br><span class="line"><span class="built_in">limit</span> cpu unlimited unlimited      <span class="comment"># (cpu time)</span></span><br><span class="line"><span class="built_in">limit</span> as unlimited unlimited       <span class="comment"># (virtual memory size)</span></span><br><span class="line"><span class="built_in">limit</span> memlock unlimited unlimited  <span class="comment"># (locked-in-memory size)</span></span><br><span class="line"><span class="built_in">limit</span> nofile 64000 64000           <span class="comment"># (open files)</span></span><br><span class="line"><span class="built_in">limit</span> nproc 64000 64000            <span class="comment"># (processes/threads)</span></span><br></pre></td></tr></table></figure>
+<h2 id="使用-ststemd-的-linux"><a href="#使用-ststemd-的-linux" class="headerlink" title="使用 ststemd 的 linux"></a>使用 ststemd 的 linux</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">[Service]</span><br><span class="line"><span class="comment"># Other directives omitted</span></span><br><span class="line"><span class="comment"># (file size)</span></span><br><span class="line">LimitFSIZE=infinity</span><br><span class="line"><span class="comment"># (cpu time)</span></span><br><span class="line">LimitCPU=infinity</span><br><span class="line"><span class="comment"># (virtual memory size)</span></span><br><span class="line">LimitAS=infinity</span><br><span class="line"><span class="comment"># (locked-in-memory size)</span></span><br><span class="line">LimitMEMLOCK=infinity</span><br><span class="line"><span class="comment"># (open files)</span></span><br><span class="line">LimitNOFILE=64000</span><br><span class="line"><span class="comment"># (processes/threads)</span></span><br><span class="line">LimitNPROC=64000</span><br></pre></td></tr></table></figure>
+<p>修改后记得重启服务或系统</p>
+<hr>
+<p>参考资料<br><a href="https://docs.mongodb.com/manual/reference/ulimit/" target="_blank" rel="noopener">https://docs.mongodb.com/manual/reference/ulimit/</a></p>
+
+        
+        <br>
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+        <li>
+            <a target="_blank" href="https://www.zhihu.com/people/simonlin">
+                            <span class="fa-stack fa-lg">
+                                 <i class="iconfont icon-zhihu"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <li>
+            <a target="_blank" href="http://weibo.com/1919879611">
+                            <span class="fa-stack fa-lg">
+                                  <i class="iconfont icon-weibo"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+
+        
+        <li>
+            <a target="_blank" href="https://github.com/questionlin">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-github"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>
