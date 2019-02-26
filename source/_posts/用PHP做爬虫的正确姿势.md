@@ -28,3 +28,8 @@ dom-crawler 来自 php 宝库 symfony，底层依赖他们的另一个库 [css-s
 - UI 状态: :invalid, :indeterminate (但是， :enabled, :disabled, :checked 和 :unchecked 是可用的)
 - 伪元素: (:before, :after, :first-line, :first-letter)
 - 带星号的: \*:first-of-type, \*:last-of-type, \*:nth-of-type, \*:nth-last-of-type, \*:only-of-type. (带元素名是可以的 (例如 li:first-of-type) 但带 \* 的不行.
+
+再加一个封装好的数据库接口[Medoo](https://medoo.in/)，支持多种数据库，小巧方便。
+```sh
+composer require catfan/medoo
+```
