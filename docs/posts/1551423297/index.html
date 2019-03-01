@@ -11,7 +11,7 @@
 
     <title>
         
-        一种带权重的随机选择 - ljj的博客
+        用javascript做爬虫的正确姿势 - ljj的博客
         
     </title>
 
@@ -119,15 +119,18 @@
 
 <div class="post-container">
     <div class="post-title">
-        一种带权重的随机选择
+        用javascript做爬虫的正确姿势
     </div>
 
     <div class="post-meta">
-        <span class="attr">发布于：<span>2018-07-26 15:57:19</span></span>
+        <span class="attr">发布于：<span>2019-03-01 14:53:55</span></span>
         
         <span class="attr">标签：/
         
-        <a class="tag" href="/tags/#算法" title="算法">算法</a>
+        <a class="tag" href="/tags/#最佳实践" title="最佳实践">最佳实践</a>
+        <span>/</span>
+        
+        <a class="tag" href="/tags/#javascript" title="javascript">javascript</a>
         <span>/</span>
         
         
@@ -137,41 +140,11 @@
 
     </div>
     <div class="post-content no-indent">
-        <p>之前有过这样的需求，抽奖活动，奖品按一定权重随机抽取，例如：</p>
-<table>
-<thead>
-<tr>
-<th>奖品</th>
-<th>a</th>
-<th>b</th>
-<th>c</th>
-<th>d</th>
-<th>e</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>权重</td>
-<td>12</td>
-<td>32</td>
-<td>32</td>
-<td>12</td>
-<td>12</td>
-</tr>
-</tbody>
-</table>
-<p>之前的做法是把每个奖品按照权重，重复加进一个数据，即：
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[a,a,a,a...b,b,b,b,b...c,c,c,c,c...d,d,d,d...e,e,e...]</span><br></pre></td></tr></table></figure></p>
-<p>里面有12个a,32个b以此类推。然后用 array_rand() 选出一个。</p>
-<p>这种方法首先会的到一个很大的数组，然后循环添加奖品也很费时。今天重新思考这个问题，可以用下面的方法：</p>
-<ol>
-<li>将所有权重相加得到总和</li>
-<li>以总和为最大值得到一个随机数</li>
-<li>循环查找随机数在数组里的区间，进而得到结果</li>
-</ol>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">$gift = [<span class="string">'a'</span>=&gt;<span class="number">12</span>,<span class="string">'b'</span>=&gt;<span class="number">32</span>,<span class="string">'c'</span>=&gt;<span class="number">32</span>,<span class="string">'d'</span>=&gt;<span class="number">12</span>,<span class="string">'e'</span>=&gt;<span class="number">12</span>];</span><br><span class="line">$sum = array_sum($gift);</span><br><span class="line">$rand = mt_rand(<span class="number">1</span>,$sum);</span><br><span class="line">$i=<span class="number">0</span>;</span><br><span class="line">$the_gift=<span class="string">''</span>;</span><br><span class="line"><span class="keyword">foreach</span>($gift <span class="keyword">as</span> $key=&gt;$weight)&#123;</span><br><span class="line">    $i += $weight;</span><br><span class="line">    <span class="keyword">if</span>($rand &lt; $i)&#123;</span><br><span class="line">        $the_gift = $key;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">var_dump($the_gift);</span><br></pre></td></tr></table></figure>
-<p>虽然这个算法里也有循环，但是通常礼物不会很多，计算量非常小。</p>
-<p>最后给一个用 map 实现的方法，缺点是要用权重作为key，所以每个权重不能相同。<a href="https://www.cnblogs.com/exmyth/p/7100749.html" target="_blank" rel="noopener">https://www.cnblogs.com/exmyth/p/7100749.html</a></p>
+        <p>之前写过<a href="/posts/1538110935/">用PHP做爬虫的正确姿势</a>和<a href="/posts/1529320519/">用python做爬虫的正确姿势</a>。但是从上一篇文章<a href="/posts/1547608999/">php异步编程</a>我们知道，在有大量的网络请求等待的情况下，异步是提高系统并发能力的手段。爬虫由于有大量的网络请求，nodejs 天然的异步成为了做爬虫的最佳选择。这篇文章介绍相应的库。</p>
+<p>第一个是请求库，我选择的是<a href="https://github.com/request/request" target="_blank" rel="noopener">request</a>。</p>
+<p>第二个是dom解析库<a href="https://github.com/cheeriojs/cheerio" target="_blank" rel="noopener">cheerio</a>。这个基本就是 jQuery 的翻版。由于 jQuery 本身也是 javascript 实现的，所以 cheerio 比之前的 PHP 和 python 版本实现的更好。</p>
+<hr>
+<p>篇外废话：现在的后端架构基本上是一个比较简单的语言来实现应用层，加一个速度快的语言来实现数据层。javascript 因为跟 php 差不多简单，再加上本身就是异步，实现了高效的io，是比 php 更好的应用层选择。</p>
 
         
         <br>
