@@ -121,6 +121,37 @@ mysql> SELECT * FROM articles WHERE MATCH (title,body)
 - '"some words"'  
 匹配完整的词，例如匹配"some words of wisdom"，但不匹配"some noise words"
 
+## with Query Expansion
+with Query Expansion 表示联想词。如果用户给的关键词太少，MySQL 会自动联想出其他关键词，例如如果用户搜索'database'，MySQL 会自动匹配 'MySQL', 'Oracle', 'DB2'和'RDBMS'，使用如下
+
+```sql
+mysql> SELECT * FROM articles
+    WHERE MATCH (title,body)
+    AGAINST ('database' IN NATURAL LANGUAGE MODE);
++----+-------------------+------------------------------------------+
+| id | title             | body                                     |
++----+-------------------+------------------------------------------+
+|  1 | MySQL Tutorial    | DBMS stands for DataBase ...             |
+|  5 | MySQL vs. YourSQL | In the following database comparison ... |
++----+-------------------+------------------------------------------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT * FROM articles
+    WHERE MATCH (title,body)
+    AGAINST ('database' WITH QUERY EXPANSION);
++----+-----------------------+------------------------------------------+
+| id | title                 | body                                     |
++----+-----------------------+------------------------------------------+
+|  5 | MySQL vs. YourSQL     | In the following database comparison ... |
+|  1 | MySQL Tutorial        | DBMS stands for DataBase ...             |
+|  3 | Optimizing MySQL      | In this tutorial we will show ...        |
+|  6 | MySQL Security        | When configured properly, MySQL ...      |
+|  2 | How To Use MySQL Well | After you went through a ...             |
+|  4 | 1001 MySQL Tricks     | 1. Never run mysqld as root. 2. ...      |
++----+-----------------------+------------------------------------------+
+6 rows in set (0.00 sec)
+```
+
 # 最佳实践
 1. 如果索引是 (title,body)，则不能只搜索 title 或 body
 2. 有时候我们要去掉表里的某一行，不是删除，而是做一个标记，例如 isDeleted。由于全文索引是单独的索引，不能同时包含 isDeleted 列，所以数据量大的话，建议单独建表来存放，而不是在原表上建立索引
