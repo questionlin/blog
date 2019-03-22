@@ -11,7 +11,7 @@
 
     <title>
         
-        mysql运维 - ljj的博客
+        前端axios踩坑 - ljj的博客
         
     </title>
 
@@ -89,7 +89,7 @@
     </div>
     
         <div id="toc" class="toc-article">
-    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#备份与还原"><span class="toc-text">备份与还原</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#状态查看"><span class="toc-text">状态查看</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#SHOW-STATUS"><span class="toc-text">SHOW STATUS</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SHOW-ENGINE-INNODB-STATUS"><span class="toc-text">SHOW ENGINE INNODB STATUS</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SHOW-PROCESSLIST"><span class="toc-text">SHOW PROCESSLIST</span></a></li></ol></li></ol>
+    
 </div>
     
 </div>
@@ -119,18 +119,15 @@
 
 <div class="post-container">
     <div class="post-title">
-        mysql运维
+        前端axios踩坑
     </div>
 
     <div class="post-meta">
-        <span class="attr">发布于：<span>2018-06-19 14:17:44</span></span>
+        <span class="attr">发布于：<span>2019-03-22 16:05:46</span></span>
         
         <span class="attr">标签：/
         
-        <a class="tag" href="/tags/#mysql" title="mysql">mysql</a>
-        <span>/</span>
-        
-        <a class="tag" href="/tags/#运维" title="运维">运维</a>
+        <a class="tag" href="/tags/#javascript" title="javascript">javascript</a>
         <span>/</span>
         
         
@@ -140,40 +137,13 @@
 
     </div>
     <div class="post-content no-indent">
-        <h1 id="备份与还原"><a href="#备份与还原" class="headerlink" title="备份与还原"></a>备份与还原</h1><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 备份数据库</span></span><br><span class="line">mysqldump [-h主机名 -p端口] -u用户名 -p密码 数据库名 [表名]&gt; 文件名.sql</span><br><span class="line"></span><br><span class="line"><span class="comment"># 还原</span></span><br><span class="line">mysql [-h主机名] -u用户名 -p密码 数据库名 &lt; 文件名.sql</span><br></pre></td></tr></table></figure>
-<h1 id="状态查看"><a href="#状态查看" class="headerlink" title="状态查看"></a>状态查看</h1><h2 id="SHOW-STATUS"><a href="#SHOW-STATUS" class="headerlink" title="SHOW STATUS"></a>SHOW STATUS</h2><p>show status 命令会显示每个服务器变量和值，可以执行以下命令单个查看：
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show status where Variable_name like &apos;Conne%&apos;</span><br></pre></td></tr></table></figure></p>
-<p>以下是一些重要的：</p>
-<ol>
-<li>线程和连接统计</li>
-</ol>
-<ul>
-<li>Connections, Max_used_connections, Threads_connected</li>
-<li>Aborted_clients, Aborted_connects</li>
-<li>Bytes_received, Bytes_sent</li>
-<li>Slow_lanuch_threads, Threads_cached, Threads_created,
-Threads_running</li>
-</ul>
-<p>如果Aborted_connects不为0，可能意味着网络有问题或某人尝试连接但失败（可能用户指定了错误的密码或无效的数据库，或某个监控系统正在打开TCP的3306端口来检测服务器是否活着）。如果这个值太高，可能有严重的副作用：导致MySQL阻塞一个主机。</p>
-<ol start="2">
-<li><p>二进制日志状态
-Binlog_cache_use和Binlog_cache_disk_use状态变量显示了在二进制日志缓存中有多少事务被存储过，以及多少事务因超过二进制日志缓存而必须存储到一个临时文件中。</p>
-</li>
-<li><p>SELECT类型
-Select_* 变量是特定类型 SELECT 查询的计数器。其中Select_scan表示全表扫描，Select_range_check 和 Select_full_join 表示无索引的联接。这三个开销较大。</p>
-</li>
-<li><p>表锁
-Table_locks_immediate和Table_locks_waited变量可告诉你有多少锁被立即授权，有多少锁需要等待。但请注意，它们只是展示了服务器级别锁的统计，并不是存储引擎级的锁统计。</p>
-</li>
-</ol>
-<h2 id="SHOW-ENGINE-INNODB-STATUS"><a href="#SHOW-ENGINE-INNODB-STATUS" class="headerlink" title="SHOW ENGINE INNODB STATUS"></a>SHOW ENGINE INNODB STATUS</h2><p>显示 InnoDB 引擎的信息，只有一列。因为不是专业运维，这里只介绍几个需要了解的段。</p>
-<ol>
-<li>LATEST DETECTED DEADLOCK
-只有当前服务器内有死锁时才会出现，内容是死锁的上下文</li>
-</ol>
-<h2 id="SHOW-PROCESSLIST"><a href="#SHOW-PROCESSLIST" class="headerlink" title="SHOW PROCESSLIST"></a>SHOW PROCESSLIST</h2><p>进程列表是当前连接到MySQL的连接或线程的清单。<strong>这个命令可以看哪些线程持有锁</strong></p>
-<hr>
-<p>参考资料：《高性能MySQL》</p>
+        <p>axios 库是前端非常流行的网络请求库，下面是我刚使用的时候遇到的坑</p>
+<p>本地开发跨域问题（CORS），首先在服务端要接受跨域
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">header(<span class="string">"Access-Control-Allow-Origin: *"</span>);</span><br></pre></td></tr></table></figure></p>
+<p>这个时候 axios 在 post/put 的时候会先发起 option 请求。如果服务器不支持，则返回失败。为了避免这个，要避免 json 请求。qs 库可以把 json 解析成 www-form 的样子，即 a=1&amp;b=2</p>
+<p>axios 有两个数据参数 params 和 data，params 会被放到 url 里，data 会被放到 body 里</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> qs = <span class="built_in">require</span>(<span class="string">'qs'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(param.method)&#123;</span><br><span class="line">  <span class="keyword">let</span> method = param.method.toUpperCase()</span><br><span class="line">  <span class="keyword">if</span>(method == <span class="string">'POST'</span> || method == <span class="string">'PUT'</span>)&#123;</span><br><span class="line">    param.headers = &#123;</span><br><span class="line">        <span class="string">'Content-type'</span>: <span class="string">'application/x-www-form-urlencoded;charset=utf-8'</span></span><br><span class="line">    &#125;</span><br><span class="line">    param.data = qs.stringify(param.data, &#123;<span class="attr">arrayFormat</span>: <span class="string">'brackets'</span>&#125;)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span>(method == <span class="string">'DELETE'</span>)&#123;</span><br><span class="line">    param.paramsSerializer = <span class="function"><span class="params">params</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> qs.stringify(params, &#123;<span class="attr">arrayFormat</span>: <span class="string">'brackets'</span>&#125;)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">  param.paramsSerializer = <span class="function"><span class="params">params</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> qs.stringify(params, &#123;<span class="attr">arrayFormat</span>: <span class="string">'brackets'</span>&#125;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">axios(param)</span><br></pre></td></tr></table></figure>
+<p>像上面这样修改后，浏览器就不会报跨域错误了，而且服务端还能获得 form 参数，而不是 json。</p>
 
         
         <br>
