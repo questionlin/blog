@@ -18,25 +18,18 @@ axios 有两个数据参数 params 和 data，params 会被放到 url 里，data
 ```js
 const qs = require('qs')
 
-if(param.method){
-  let method = param.method.toUpperCase()
+  param.headers = {
+    'Content-type': 'application/x-www-form-urlencoded;charset=utf-8'
+  }
+  let method = param.method ? param.method.toUpperCase() : 'GET'
   if(method == 'POST' || method == 'PUT'){
-    param.headers = {
-        'Content-type': 'application/x-www-form-urlencoded;charset=utf-8'
-    }
     param.data = qs.stringify(param.data, {arrayFormat: 'brackets'})
-  }
-
-  if(method == 'DELETE'){
+  } else {
+    param.params = param.data
     param.paramsSerializer = params => {
-        return qs.stringify(params, {arrayFormat: 'brackets'})
+      return qs.stringify(params, {arrayFormat: 'brackets'})
     }
   }
-}else{
-  param.paramsSerializer = params => {
-    return qs.stringify(params, {arrayFormat: 'brackets'})
-  }
-}
 axios(param)
 ```
 
