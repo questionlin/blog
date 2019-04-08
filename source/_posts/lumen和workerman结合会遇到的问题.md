@@ -13,6 +13,17 @@ CLI 模式不支持 move_uploaded_file() 函数，因此 $_FILE 内容会和默�
 
 render() 函数加上 Http::header()
 
+# Authentiate 中间件
+默认的 app/Http/Middleware/Authentiate.php 出错会返回
+```php
+return response('Unauthorized.', 401);
+```
+改成
+```php
+abort(401);
+```
+即可
+
 # Auth Guard 保留登录信息
 如果使用了 Auth 中间件，程序会一直保留登录信息，不管谁登录都返回第一个用户。我的做法是复制默认的 RequestGuard.php 到
 > app/Services/Auth/RequestGuard.php

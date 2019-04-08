@@ -89,7 +89,7 @@
     </div>
     
         <div id="toc" class="toc-article">
-    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#FILE"><span class="toc-text">$_FILE</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#报错"><span class="toc-text">报错</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Auth-Guard-保留登录信息"><span class="toc-text">Auth Guard 保留登录信息</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#lumen和event扩展冲突"><span class="toc-text">lumen和event扩展冲突</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#FILE"><span class="toc-text">$_FILE</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#报错"><span class="toc-text">报错</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Authentiate-中间件"><span class="toc-text">Authentiate 中间件</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Auth-Guard-保留登录信息"><span class="toc-text">Auth Guard 保留登录信息</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#lumen和event扩展冲突"><span class="toc-text">lumen和event扩展冲突</span></a></li></ol>
 </div>
     
 </div>
@@ -143,6 +143,11 @@
 <p>app/Exceptions/Handler.php</p>
 </blockquote>
 <p>render() 函数加上 Http::header()</p>
+<h1 id="Authentiate-中间件"><a href="#Authentiate-中间件" class="headerlink" title="Authentiate 中间件"></a>Authentiate 中间件</h1><p>默认的 app/Http/Middleware/Authentiate.php 出错会返回
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> response(<span class="string">'Unauthorized.'</span>, <span class="number">401</span>);</span><br></pre></td></tr></table></figure></p>
+<p>改成
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">abort(<span class="number">401</span>);</span><br></pre></td></tr></table></figure></p>
+<p>即可</p>
 <h1 id="Auth-Guard-保留登录信息"><a href="#Auth-Guard-保留登录信息" class="headerlink" title="Auth Guard 保留登录信息"></a>Auth Guard 保留登录信息</h1><p>如果使用了 Auth 中间件，程序会一直保留登录信息，不管谁登录都返回第一个用户。我的做法是复制默认的 RequestGuard.php 到</p>
 <blockquote>
 <p>app/Services/Auth/RequestGuard.php</p>
