@@ -8,7 +8,7 @@ id: 1544584259
 
 ```sh
 # 首先编译环境要先安装好
-$ yum install libcurl-devel libjpeg-turbo-devel libpng-devel libwebp-devel libxml2-devel libXpm-devel openssl-devel zlib-devel
+$ yum install libcurl-devel libjpeg-turbo-devel libpng-devel libxml2-devel openssl-devel zlib-devel
 
 # 然后开始编译安装
 # --prefix 是安装的目录
@@ -26,13 +26,20 @@ $ ./configure --prefix=/data/server/php \
 --with-curl \
 --with-openssl \
 --with-jpeg-dir \
---with-webp-dir \
---with-xpm-dir \
 --with-gd \
 --with-pdo-mysql \
---with-zlib \
+--with-zlib
 
 $ make && make install
 $ pecl install event
 $ pecl install redis
+```
+
+其他选项
+```php
+$ yum install libwebp-devel libXpm-devel
+$ ./configure \
+--enable-embed \ # 允许打包进别的程序
+--with-webp-dir \ # 支持webp图片格式
+--with-xpm-dir \ # 支持xpm图片格式
 ```
