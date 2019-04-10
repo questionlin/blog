@@ -9,7 +9,7 @@ id: 1531467381
 这篇文章的意义一来是给写 API 一个参考，二来是紧急情况控制台排查。因为浏览器和 postman 都不支持 GET 后面跟数据，所以所有命令都以 curl 形式给出。
 
 # 安装
-详细的安装过程就不写了，无非安装 java 后安装 elasticsearch。这里提一下，可以使用清华的镜像（https://mirrors.tuna.tsinghua.edu.cn/elasticstack/6.x/yum/6.3.1/elasticsearch-6.3.1.rpm）。如果你的开发机内存小，修改 /etc/elasticsearch/jvm.option 以下两项：
+详细的安装过程就不写了，无非安装 java 后安装 elasticsearch。这里提一下，可以使用清华的镜像（https://mirrors.tuna.tsinghua.edu.cn/elasticstack/6.x/yum/6.3.1/elasticsearch-6.3.1.rpm） 。如果你的开发机内存小，修改 /etc/elasticsearch/jvm.option 以下两项：
 ```
 -Xms128m
 -Xmx128m
