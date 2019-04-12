@@ -11,7 +11,7 @@
 
     <title>
         
-        ljj的博客
+        zookeeper怎么用 - ljj的博客
         
     </title>
 
@@ -53,7 +53,7 @@
     </div>
     <div class="contents" id="nav-content">
         <ul>
-            <li class="active">
+            <li>
                 <a href="/">
                     <i class="iconfont icon-shouye1"></i>
                     <span>主页</span>
@@ -88,6 +88,10 @@
         </ul>
     </div>
     
+        <div id="toc" class="toc-article">
+    
+</div>
+    
 </div>
 
 
@@ -111,135 +115,46 @@
     <div class="index-middle">
         <!-- Main Content -->
         
-<div class="post-preview-container" style="min-height: 576px">
-    
-    <div class="post-preview">
-        <div class="post-time">2018-06-01</div>
-        <div class="post-info">
-            <a href="/posts/1528164457/">
-                <h3>
-                    javascript阻止网页操作完成后自动跳转
-                </h3>
-            </a>
-            <p>
-                
-                <span>/</span>
-                
-                <a class="tag" href="/tags/#javascript" title="javascript">javascript</a>
-                <span>/</span>
-                
-                
-            </p>
-        </div>
-    </div>
-    
-    <div class="post-preview">
-        <div class="post-time">2018-06-01</div>
-        <div class="post-info">
-            <a href="/posts/1528164446/">
-                <h3>
-                    打包网页完整内容的一个方法
-                </h3>
-            </a>
-            <p>
-                
-            </p>
-        </div>
-    </div>
-    
-    <div class="post-preview">
-        <div class="post-time">2018-06-01</div>
-        <div class="post-info">
-            <a href="/posts/1528164430/">
-                <h3>
-                    redis sentinel主从模式
-                </h3>
-            </a>
-            <p>
-                
-                <span>/</span>
-                
-                <a class="tag" href="/tags/#redis" title="redis">redis</a>
-                <span>/</span>
-                
-                
-            </p>
-        </div>
-    </div>
-    
-    <div class="post-preview">
-        <div class="post-time">2018-06-01</div>
-        <div class="post-info">
-            <a href="/posts/1528164421/">
-                <h3>
-                    用人话教你设计模式
-                </h3>
-            </a>
-            <p>
-                
-                <span>/</span>
-                
-                <a class="tag" href="/tags/#php" title="php">php</a>
-                <span>/</span>
-                
-                
-            </p>
-        </div>
-    </div>
-    
-    <div class="post-preview">
-        <div class="post-time">2018-06-01</div>
-        <div class="post-info">
-            <a href="/posts/1528164408/">
-                <h3>
-                    hexo+github搭建博客最佳实践
-                </h3>
-            </a>
-            <p>
-                
-                <span>/</span>
-                
-                <a class="tag" href="/tags/#最佳实践" title="最佳实践">最佳实践</a>
-                <span>/</span>
-                
-                <a class="tag" href="/tags/#hexo" title="hexo">hexo</a>
-                <span>/</span>
-                
-                
-            </p>
-        </div>
-    </div>
-    
-    <div class="post-preview">
-        <div class="post-time">2018-05-31</div>
-        <div class="post-info">
-            <a href="/posts/1528164216/">
-                <h3>
-                    Hello World
-                </h3>
-            </a>
-            <p>
-                
-                <span>/</span>
-                
-                <a class="tag" href="/tags/#hexo" title="hexo">hexo</a>
-                <span>/</span>
-                
-                
-            </p>
-        </div>
-    </div>
-    
-</div>
-<ul class="pager">
-    
-    <li class="previous">
-        <a href="/page/6/">&larr; Newer Posts</a>
-    </li>
-    
-    
-</ul>
 
+
+<div class="post-container">
+    <div class="post-title">
+        zookeeper怎么用
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2019-04-12 17:16:29</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#分布式" title="分布式">分布式</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+
+    </div>
+    <div class="post-content no-indent">
+        <p>这篇文章有点水，不过 zookeeper 在分布式系统中很有分量，所以有必要水一篇。</p>
+<p>zookeeper 的功能非常简单，就是一个 k-v 数据库。</p>
+<p>下载解压包后，如下操作：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$ cp conf/zoo_example.cfg conf/zoo.cfg <span class="comment">#里面的 tickTime=2000 表示2秒检查一次，分布式锁可以以此作为过期时间</span></span><br><span class="line">$ bin/zkServer.sh start</span><br><span class="line">$ bin/zkCli.sh -server 127.0.0.1:2181</span><br><span class="line"></span><br><span class="line"><span class="built_in">help</span> <span class="comment">#查看帮助</span></span><br><span class="line">create /foo bar <span class="comment">#创建数据</span></span><br><span class="line"><span class="built_in">set</span> /foo b <span class="comment">#修改数据</span></span><br><span class="line">create -s /foo bar <span class="comment">#得到 /foo0000000001</span></span><br><span class="line">create -s /foo bar <span class="comment">#得到 /foo0000000002</span></span><br><span class="line">create -e /foo1 bar <span class="comment">#得到临时key</span></span><br></pre></td></tr></table></figure>
+<p>可以看到用 create -s 时可以用来做递增 id 生成器，create -e 可以用来做分布式锁。</p>
+<p>zookeeper功能简单，但是原理非常复杂。是一个每个节点都可读可写的集群，内部用 paxos 算法实现数据同步。因为每个节点都可写，所以性能非常好。</p>
+
+        
+        <br>
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
     </div>
 </div>
 
@@ -302,7 +217,7 @@
     // We expose some of the variables needed by the front end
     window.hexo_search_path = "search.json"
     window.hexo_root = "/"
-    window.isPost = false
+    window.isPost = true
 </script>
 <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
 <script src="/js/index.js"></script>
