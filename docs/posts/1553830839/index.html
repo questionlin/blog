@@ -149,10 +149,14 @@
 <p>参考资料[1]介绍了一种 php 的 snowflake id 生成算法。</p>
 <h1 id="资源服务器"><a href="#资源服务器" class="headerlink" title="资源服务器"></a>资源服务器</h1><p>资源服务器指的是数据库或者缓存。这里的着重点是如何分布式存储数据，即每台服务器内容不同。</p>
 <h2 id="取模"><a href="#取模" class="headerlink" title="取模"></a>取模</h2><p>获得业务服务器生成的id后，为了存储在不同的服务器，可以将id取模。比如我们有4台服务器，那么 id%4 的到的余数就是我们要的机器id，然后就可以存储到对应的数据库了。但是如果服务器数量增加或者减少，取模后的到的余数就不能对应到原来的机器id，原来的数据也就不能正常取出了。</p>
-<h2 id="一致性哈希算法"><a href="#一致性哈希算法" class="headerlink" title="一致性哈希算法"></a>一致性哈希算法</h2><p>一致性哈希算法有点复杂，简单的来说就是先把主机id（IP或主机名或关键字）哈希后存储在一个被分成2^32部分的圆中，然后对获得的id进行2^32取模。由于空间非常大，老服务器的剔除和新服务器的进入几乎不会在圆上同一个点，因此不会有原始的取模那样的问题。</p>
-<p>参考资料[3]介绍了一种 php 的一致性哈希算法。</p>
+<h2 id="一致性哈希算法"><a href="#一致性哈希算法" class="headerlink" title="一致性哈希算法"></a>一致性哈希算法</h2><p>简单的来说，一致性哈希算法就是把数据 id 和 服务器 id 进行相同的哈希，然后存储在一个被分成 2^32 部分的圆中，存取的时候找到离数据右边最近的服务器。比如服务器id “S1”, “S2” 哈希后投射到圆上的两个点，把这两个点中间的所有点取出来，就是下面这段</p>
+<p>S1——————-S2</p>
+<p>这时有个数据id，哈希后的值落在 S1 S2 之间，会被存储在 S2 里。这时增加服务器 S3</p>
+<p>S1———S3———-S2</p>
+<p>这时数据id哈希后落在 S1~S3 会存储在S3中，S3~S2 会存储在S2中。这里需要手动把S2里面应该落在S3的数据（永久缓存）手动转移到S3中。</p>
+<p>参考资料[3][4]介绍了一种 php 的一致性哈希算法。</p>
 <hr>
-<p>参考资料：<br>[1]<a href="https://huoding.com/2016/11/03/552" target="_blank" rel="noopener">https://huoding.com/2016/11/03/552</a><br>[2]<a href="https://blog.csdn.net/bntX2jSQfEHy7/article/details/79549368" target="_blank" rel="noopener">https://blog.csdn.net/bntX2jSQfEHy7/article/details/79549368</a><br>[3]<a href="https://blog.csdn.net/jt521xlg/article/details/49360895" target="_blank" rel="noopener">https://blog.csdn.net/jt521xlg/article/details/49360895</a></p>
+<p>参考资料：<br>[1]<a href="https://huoding.com/2016/11/03/552" target="_blank" rel="noopener">https://huoding.com/2016/11/03/552</a><br>[2]<a href="https://blog.csdn.net/bntX2jSQfEHy7/article/details/79549368" target="_blank" rel="noopener">https://blog.csdn.net/bntX2jSQfEHy7/article/details/79549368</a><br>[3]<a href="https://blog.csdn.net/jt521xlg/article/details/49360895" target="_blank" rel="noopener">https://blog.csdn.net/jt521xlg/article/details/49360895</a><br>[4]<a href="http://www.cnblogs.com/phpfans/p/4641490.html" target="_blank" rel="noopener">http://www.cnblogs.com/phpfans/p/4641490.html</a></p>
 
         
         <br>
