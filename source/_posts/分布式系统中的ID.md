@@ -43,6 +43,29 @@ S1---------S3----------S2
 
 参考资料[3][4]介绍了一种 php 的一致性哈希算法。
 
+### 一致性哈希最佳实践
+一般用time33 和 crc32 作为哈希算法。但是由于我们起的原始ID不够离散，很容易只落在几个服务器上，所以建议在哈希之前再加一层md5。下面是time32的算法
+```php
+function time33($str) {
+    // hash(i) = hash(i-1) * 33 + str[i]
+    $hash = 0;
+    $s    = md5($str); //让id更加离散
+    $seed = 5;
+    $len  = 32;
+    for ($i = 0; $i < $len; $i++) {
+        // (hash << 5) + hash 相当于 hash * 33
+        //$hash = sprintf("%u", $hash * 33) + ord($s{$i});
+        //$hash = ($hash * 33 + ord($s{$i})) & 0x7FFFFFFF;
+        $hash = ($hash << $seed) + $hash + ord($s{$i});
+    }
+ 
+    return $hash & 0x7FFFFFFF;
+}
+ 
+//echo myHash("却道天凉好个秋~");
+echo "key1: " . myHash("key1") . "\n";
+```
+
 ------------------------------
 参考资料：  
 [1]https://huoding.com/2016/11/03/552  
