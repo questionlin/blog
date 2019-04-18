@@ -50,7 +50,7 @@ limit nofile 64000 64000           # (open files)
 limit nproc 64000 64000            # (processes/threads)
 ```
 
-## 使用 ststemd 的 linux
+## 使用 systemd 的 linux
 ```sh
 [Service]
 # Other directives omitted

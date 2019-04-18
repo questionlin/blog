@@ -138,17 +138,48 @@
     </div>
     <div class="post-content no-indent">
         <h1 id="HTTP-报文内容"><a href="#HTTP-报文内容" class="headerlink" title="HTTP 报文内容"></a>HTTP 报文内容</h1><p>HTTP 报文是由一行一行的简单纯文本字符串组成的，不是二进制代码。下面是一个简单例子：</p>
-<p>请求：
-.|内容
--|-
-起始行(start line) | GET /test/hi-there.php HTTP/1.0
-首部(header) | Accept: text/*<br>Accept-Language: en,zh</p>
-<p>响应：
-.|内容
--|-
-起始行(start line) | HTTP/1.0 200 OK
-首部(header) | Content-type: text/plain<br>Content-length: 19
-主体(body)   | Hi! I’m a message!</p>
+<p>请求：</p>
+<table>
+<thead>
+<tr>
+<th>.</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>起始行(start line)</td>
+<td>GET /test/hi-there.php HTTP/1.0</td>
+</tr>
+<tr>
+<td>首部(header)</td>
+<td>Accept: text/*<br>Accept-Language: en,zh</td>
+</tr>
+</tbody>
+</table>
+<p>响应：</p>
+<table>
+<thead>
+<tr>
+<th>.</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>起始行(start line)</td>
+<td>HTTP/1.0 200 OK</td>
+</tr>
+<tr>
+<td>首部(header)</td>
+<td>Content-type: text/plain<br>Content-length: 19</td>
+</tr>
+<tr>
+<td>主体(body)</td>
+<td>Hi! I’m a message!</td>
+</tr>
+</tbody>
+</table>
 <p>起始行和首部，由一个回车符（ASCII 13）和一个换行符（ASCII 10）作为结束。</p>
 <h1 id="起始行"><a href="#起始行" class="headerlink" title="起始行"></a>起始行</h1><h2 id="常用-HTTP-方法"><a href="#常用-HTTP-方法" class="headerlink" title="常用 HTTP 方法"></a>常用 HTTP 方法</h2><p>请求报文起始行里的 <em>GET</em> 就是 HTTP 方法，其余方法参考下表：</p>
 <table>
@@ -156,7 +187,7 @@
 <tr>
 <th>方法</th>
 <th>描述</th>
-<th>是否包含主题</th>
+<th>是否包含主体</th>
 </tr>
 </thead>
 <tbody>
