@@ -11,7 +11,7 @@
 
     <title>
         
-        PHP event 和 libevent 扩展的关系 - ljj的博客
+        用supervisor做高可用 - ljj的博客
         
     </title>
 
@@ -89,7 +89,7 @@
     </div>
     
         <div id="toc" class="toc-article">
-    
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#安装-Supervisor"><span class="toc-text">安装 Supervisor</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#配置-Supervisor"><span class="toc-text">配置 Supervisor</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#启动-Supervisor"><span class="toc-text">启动 Supervisor</span></a></li></ol>
 </div>
     
 </div>
@@ -119,15 +119,15 @@
 
 <div class="post-container">
     <div class="post-title">
-        PHP event 和 libevent 扩展的关系
+        用supervisor做高可用
     </div>
 
     <div class="post-meta">
-        <span class="attr">发布于：<span>2018-07-18 20:46:55</span></span>
+        <span class="attr">发布于：<span>2019-06-03 10:24:28</span></span>
         
         <span class="attr">标签：/
         
-        <a class="tag" href="/tags/#php" title="php">php</a>
+        <a class="tag" href="/tags/#运维" title="运维">运维</a>
         <span>/</span>
         
         
@@ -137,34 +137,15 @@
 
     </div>
     <div class="post-content no-indent">
-        <p>PHP event 和 libevent 扩展都是对 libevent 的封装，前者有 stable 版本且一直在更新而后者只有 beta 版本。本来肯定要选 event 扩展，可是它的 pecl 页面上赫然写着依赖 libevent 扩展。陷入混乱的我给作者写了封邮件，<strong>结论是：大胆选 event 扩展</strong>。以下是邮件原文：</p>
-<blockquote>
-<p>Hi,</p>
-<p>event extension is an alternative to libevent extension.</p>
-<p>You can see “libevent” package listed as a dependency on
-<a href="https://pecl.php.net/package/event" target="_blank" rel="noopener">https://pecl.php.net/package/event</a>, but in reality “libevent”
-extension is declared as <strong>conflicting</strong> package in package.xml:</p>
-<pre><code>&lt;package&gt;
-  &lt;name&gt;libevent&lt;/name&gt;
-  &lt;channel&gt;pecl.php.net&lt;/channel&gt;
-  &lt;min&gt;0.0.2&lt;/min&gt;
-  &lt;conflicts/&gt;
-  &lt;providesextension&gt;libevent&lt;/providesextension&gt;
-&lt;/package&gt;
-</code></pre><p>I can’t recall why. But you definitely don’t need libevent extension
-in order to use “event”.</p>
-<p>On Wed, 18 Jul 2018 11:28:21 +0800 (CST)
-“Simon Lin” <a href="mailto:&#98;&#111;&#121;&#x71;&#117;&#x65;&#115;&#x74;&#x69;&#111;&#x6e;&#x40;&#49;&#x36;&#51;&#x2e;&#x63;&#111;&#x6d;" target="_blank" rel="noopener">&#98;&#111;&#121;&#x71;&#117;&#x65;&#115;&#x74;&#x69;&#111;&#x6e;&#x40;&#49;&#x36;&#51;&#x2e;&#x63;&#111;&#x6d;</a> wrote:</p>
-<p>Hi,</p>
-<p>I’m just confused that what is the relation between event package and
-libevent package? The pecl page shows event package has stable
-versions while libevent package does not. If event package depends on
-libevent package, is event package still stable?</p>
-<p>Sincerely,
-Simon Lin</p>
-<p>– 
-Ruslan Osmanov</p>
-</blockquote>
+        <p>Supervisor 是 Linux 系统中常用的进程守护程序。它会执行一段 shell 脚本，如果脚本中断，则会自动重新执行。</p>
+<h1 id="安装-Supervisor"><a href="#安装-Supervisor" class="headerlink" title="安装 Supervisor"></a>安装 Supervisor</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install supervisor</span><br></pre></td></tr></table></figure>
+<h1 id="配置-Supervisor"><a href="#配置-Supervisor" class="headerlink" title="配置 Supervisor"></a>配置 Supervisor</h1><p>Supervisor 配置文件通常存放在 /etc/supervisor/conf.d 目录，在该目录下，可以创建多个配置文件指示 Supervisor 如何监视进程，例如，让我们创建一个开启并监视 queue:work 进程的 laravel-worker.conf 文件：
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[program:laravel-worker]</span><br><span class="line">process_name=%(program_name)s_%(process_num)02d</span><br><span class="line">command=php /home/forge/app.com/artisan queue:work sqs --sleep=3 --tries=3</span><br><span class="line">autostart=true</span><br><span class="line">autorestart=true</span><br><span class="line">user=forge</span><br><span class="line">numprocs=8</span><br><span class="line">redirect_stderr=true</span><br><span class="line">stdout_logfile=/home/forge/app.com/worker.log</span><br></pre></td></tr></table></figure></p>
+<p>在本例中，numprocs 指令让 Supervisor 运行 8 个 queue:work 进程并监视它们，如果失败的话自动重启。当然，你需要修改 queue:work sqs 的 command 指令来映射你的队列连接。</p>
+<h1 id="启动-Supervisor"><a href="#启动-Supervisor" class="headerlink" title="启动 Supervisor"></a>启动 Supervisor</h1><p>当成功创建配置文件后，需要刷新 Supervisor 的配置信息并使用如下命令启动进程:
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo supervisorctl reread</span><br><span class="line">sudo supervisorctl update</span><br><span class="line">sudo supervisorctl start laravel-worker:*</span><br></pre></td></tr></table></figure></p>
+<hr>
+<p>转自：<a href="https://laravelacademy.org/post/19516.html#toc_19" target="_blank" rel="noopener">https://laravelacademy.org/post/19516.html#toc_19</a><br>Supervisor 官方文档：<a href="http://supervisord.org/index.html" target="_blank" rel="noopener">http://supervisord.org/index.html</a></p>
 
         
         <br>
