@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="keyword" content="">
+    <meta name="description" content>
+    <meta name="keyword" content>
     <link rel="shortcut icon" href="/img/favicon.ico">
 
     <title>
@@ -45,7 +45,7 @@
 <div class="nav" id="nav">
     <div class="avatar-name">
         <div class="avatar">
-            <img src="/img/avatar.jpeg">
+            <img src="/img/avatar.jpeg" />
         </div>
         <div class="name">
             <i>ljj</i>
@@ -53,25 +53,25 @@
     </div>
     <div class="contents" id="nav-content">
         <ul>
-            <li>
+            <li >
                 <a href="/">
                     <i class="iconfont icon-shouye1"></i>
                     <span>主页</span>
                 </a>
             </li>
-            <li>
+            <li >
                 <a href="/tags">
                     <i class="iconfont icon-biaoqian1"></i>
                     <span>标签</span>
                 </a>
             </li>
-            <li>
+            <li >
                 <a href="/archives">
                     <i class="iconfont icon-guidang2"></i>
                     <span>存档</span>
                 </a>
             </li>
-            <li>
+            <li >
                 <a href="/about/">
                     <i class="iconfont icon-guanyu2"></i>
                     <span>关于</span>
@@ -99,7 +99,7 @@
     <div class="search-container">
         <div class="search-input">
             <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
-            <input id="search-input">
+            <input id="search-input"/>
             <span id="begin-search">搜索</span>
         </div>
         <div class="search-result-container" id="search-result-container">
@@ -134,22 +134,26 @@
         </span>
         <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
 </span>
-
+</span>
     </div>
     <div class="post-content no-indent">
         <p>大多数现在语言都有自己的包管理器，比如 php 的 composer，和 nodejs 的 npm。但是如果语言没有包管理器，或者想要的库没有打包，又不想手动更新，该怎么办呢？答案是 git 子模块。下面来一步一步建一个子模块。</p>
 <h1 id="添加子模块"><a href="#添加子模块" class="headerlink" title="添加子模块"></a>添加子模块</h1><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 首先建一个仓库</span></span><br><span class="line">$ mkdir ljj_test</span><br><span class="line">$ <span class="built_in">cd</span> ljj_test</span><br><span class="line">$ git init</span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加一个子模块</span></span><br><span class="line">$ git submodule add https://github.com/questionlin/php-view.git</span><br><span class="line">Cloning into <span class="string">'/Users/simonlin/Documents/workshop/ljj_test/php-view'</span>...</span><br><span class="line">remote: Enumerating objects: 46, <span class="keyword">done</span>.</span><br><span class="line">remote: Total 46 (delta 0), reused 0 (delta 0), pack-reused 46</span><br><span class="line">Unpacking objects: 100% (46/46), <span class="keyword">done</span>.</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看一下</span></span><br><span class="line">$ git status</span><br><span class="line">On branch master</span><br><span class="line"></span><br><span class="line">No commits yet</span><br><span class="line"></span><br><span class="line">Changes to be committed:</span><br><span class="line">  (use <span class="string">"git rm --cached &lt;file&gt;..."</span> to unstage)</span><br><span class="line"></span><br><span class="line">	new file:   .gitmodules</span><br><span class="line">	new file:   php-view</span><br></pre></td></tr></table></figure>
+
 <p>这时目录下会多出我们的子模块 php-view 和一个 .gitmodules 文件，这个文件里保存了子模块的映射关系。<strong>这个操作在子目录下也可行。</strong></p>
 <h1 id="使用子模块"><a href="#使用子模块" class="headerlink" title="使用子模块"></a>使用子模块</h1><h2 id="下载子模块"><a href="#下载子模块" class="headerlink" title="下载子模块"></a>下载子模块</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 进入到 git 仓库目录</span></span><br><span class="line">$ <span class="built_in">cd</span> ljj_test</span><br><span class="line">$ git submodule init</span><br><span class="line"><span class="comment"># 下载文件</span></span><br><span class="line">$ git submodule update</span><br><span class="line"></span><br><span class="line"><span class="comment"># 或者也可以用命令</span></span><br><span class="line">$ git <span class="built_in">clone</span> --recursive https://github.com/chaconinc/MainProject</span><br></pre></td></tr></table></figure>
+
 <h2 id="切换分支"><a href="#切换分支" class="headerlink" title="切换分支"></a>切换分支</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git config -f .gitmodules submodule.php-view.branch (branch name)</span><br></pre></td></tr></table></figure>
+
 <h2 id="更新"><a href="#更新" class="headerlink" title="更新"></a>更新</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git submodule update --remote (module name)</span><br></pre></td></tr></table></figure>
+
 <p>这个命令会更新所有子模块，如果只想更新特定子模块，后面加上子模块名称</p>
 <h2 id="删除子模块"><a href="#删除子模块" class="headerlink" title="删除子模块"></a>删除子模块</h2><p>删除子模块的代码，然后删除 .gitmodules 里面的相关信息。</p>
 <hr>
 <p>参考资料：<br><a href="https://git-scm.com/book/zh/v2/Git-工具-子模块" target="_blank" rel="noopener">https://git-scm.com/book/zh/v2/Git-工具-子模块</a></p>
 
         
-        <br>
+        <br />
         <div id="comment-container">
         </div>
         <div id="disqus_thread"></div>
@@ -190,7 +194,7 @@
 
         
         <li>
-            <a target="_blank" href="https://github.com/questionlin">
+            <a target="_blank"  href="https://github.com/questionlin">
                             <span class="fa-stack fa-lg">
                                 <i class="iconfont icon-github"></i>
                             </span>
@@ -229,5 +233,24 @@
 
 
 
+
+    <script type="text/javascript">
+       (function() {
+           if (typeof LivereTower === 'function') { return; }
+
+           var j, d = document.getElementById('lv-container');
+
+           d.setAttribute('data-id','city');
+           d.setAttribute('data-uid' , 'MTAyMC80NDc4OC8yMTMwOQ==');
+
+           j = document.createElement('script');
+           j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+           j.async = true;
+
+           d.appendChild(j);
+       })();
+    </script>
+    <noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+    </div>
 
 </html>

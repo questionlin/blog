@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="keyword" content="">
+    <meta name="description" content>
+    <meta name="keyword" content>
     <link rel="shortcut icon" href="/img/favicon.ico">
 
     <title>
@@ -45,7 +45,7 @@
 <div class="nav" id="nav">
     <div class="avatar-name">
         <div class="avatar">
-            <img src="/img/avatar.jpeg">
+            <img src="/img/avatar.jpeg" />
         </div>
         <div class="name">
             <i>ljj</i>
@@ -53,25 +53,25 @@
     </div>
     <div class="contents" id="nav-content">
         <ul>
-            <li>
+            <li >
                 <a href="/">
                     <i class="iconfont icon-shouye1"></i>
                     <span>主页</span>
                 </a>
             </li>
-            <li>
+            <li >
                 <a href="/tags">
                     <i class="iconfont icon-biaoqian1"></i>
                     <span>标签</span>
                 </a>
             </li>
-            <li>
+            <li >
                 <a href="/archives">
                     <i class="iconfont icon-guidang2"></i>
                     <span>存档</span>
                 </a>
             </li>
-            <li>
+            <li >
                 <a href="/about/">
                     <i class="iconfont icon-guanyu2"></i>
                     <span>关于</span>
@@ -99,7 +99,7 @@
     <div class="search-container">
         <div class="search-input">
             <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
-            <input id="search-input">
+            <input id="search-input"/>
             <span id="begin-search">搜索</span>
         </div>
         <div class="search-result-container" id="search-result-container">
@@ -134,7 +134,7 @@
         </span>
         <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
 </span>
-
+</span>
     </div>
     <div class="post-content no-indent">
         <h1 id="HTTP-报文内容"><a href="#HTTP-报文内容" class="headerlink" title="HTTP 报文内容"></a>HTTP 报文内容</h1><p>HTTP 报文是由一行一行的简单纯文本字符串组成的，不是二进制代码。下面是一个简单例子：</p>
@@ -146,8 +146,7 @@
 <th>内容</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td>起始行(start line)</td>
 <td>GET /test/hi-there.php HTTP/1.0</td>
 </tr>
@@ -155,8 +154,7 @@
 <td>首部(header)</td>
 <td>Accept: text/*<br>Accept-Language: en,zh</td>
 </tr>
-</tbody>
-</table>
+</tbody></table>
 <p>响应：</p>
 <table>
 <thead>
@@ -165,8 +163,7 @@
 <th>内容</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td>起始行(start line)</td>
 <td>HTTP/1.0 200 OK</td>
 </tr>
@@ -178,8 +175,7 @@
 <td>主体(body)</td>
 <td>Hi! I’m a message!</td>
 </tr>
-</tbody>
-</table>
+</tbody></table>
 <p>起始行和首部，由一个回车符（ASCII 13）和一个换行符（ASCII 10）作为结束。</p>
 <h1 id="起始行"><a href="#起始行" class="headerlink" title="起始行"></a>起始行</h1><h2 id="常用-HTTP-方法"><a href="#常用-HTTP-方法" class="headerlink" title="常用 HTTP 方法"></a>常用 HTTP 方法</h2><p>请求报文起始行里的 <em>GET</em> 就是 HTTP 方法，其余方法参考下表：</p>
 <table>
@@ -190,8 +186,7 @@
 <th>是否包含主体</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td>GET</td>
 <td>从服务器获取一份文档</td>
 <td>否</td>
@@ -226,8 +221,7 @@
 <td>从服务器上删除一份文档</td>
 <td>否</td>
 </tr>
-</tbody>
-</table>
+</tbody></table>
 <h2 id="HTTP-状态码"><a href="#HTTP-状态码" class="headerlink" title="HTTP 状态码"></a>HTTP 状态码</h2><p>响应报文起始行里的 <em>200</em> 就是 HTTP 状态吗，其他状态码参考下表：</p>
 <table>
 <thead>
@@ -238,8 +232,7 @@
 <th>描述</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td>100 ~ 199</td>
 <td>100 ~ 101</td>
 <td>信息提示</td>
@@ -269,8 +262,7 @@
 <td>服务端错误</td>
 <td>这类状态码代表了服务器在处理请求的过程中有错误或者异常状态发生，也有可能是服务器意识到以当前的软硬件资源无法完成对请求的处理。</td>
 </tr>
-</tbody>
-</table>
+</tbody></table>
 <h1 id="首部"><a href="#首部" class="headerlink" title="首部"></a>首部</h1><p>HTTP 首部字段有很多，而且可以添加自定义的字段，这里只列几个比较常见或重要的。</p>
 <p>首先要说明很多字段值可以加一个质量值 <strong>“q”</strong>，定义各个值的权重，例如这个首部：</p>
 <blockquote>
@@ -280,7 +272,7 @@
 <h2 id="Accept"><a href="#Accept" class="headerlink" title="Accept"></a>Accept</h2><p>客户端用 Accept 首部来通知服务器可以接受哪些媒体类型。</p>
 <ul>
 <li><strong>类型</strong>：请求首部</li>
-<li><strong>注释</strong>：可以用”<em>“通配符。例如”</em>/<em>“,”image/</em>“</li>
+<li><strong>注释</strong>：可以用”*”通配符。例如”<em>/</em>“,”image/*”</li>
 <li><strong>举例</strong>：Accept: text/<em>, image/</em></li>
 </ul>
 <h2 id="Accept-Charset"><a href="#Accept-Charset" class="headerlink" title="Accept-Charset"></a>Accept-Charset</h2><p>客户端用 Accept-Charset 通知服务器可以接受哪些字符集。</p>
@@ -357,7 +349,7 @@
 http状态码：<a href="https://baike.baidu.com/item/HTTP状态码/5053660?fr=aladdin" target="_blank" rel="noopener">https://baike.baidu.com/item/HTTP状态码/5053660?fr=aladdin</a></p>
 
         
-        <br>
+        <br />
         <div id="comment-container">
         </div>
         <div id="disqus_thread"></div>
@@ -398,7 +390,7 @@ http状态码：<a href="https://baike.baidu.com/item/HTTP状态码/5053660?fr=a
 
         
         <li>
-            <a target="_blank" href="https://github.com/questionlin">
+            <a target="_blank"  href="https://github.com/questionlin">
                             <span class="fa-stack fa-lg">
                                 <i class="iconfont icon-github"></i>
                             </span>
@@ -437,5 +429,24 @@ http状态码：<a href="https://baike.baidu.com/item/HTTP状态码/5053660?fr=a
 
 
 
+
+    <script type="text/javascript">
+       (function() {
+           if (typeof LivereTower === 'function') { return; }
+
+           var j, d = document.getElementById('lv-container');
+
+           d.setAttribute('data-id','city');
+           d.setAttribute('data-uid' , 'MTAyMC80NDc4OC8yMTMwOQ==');
+
+           j = document.createElement('script');
+           j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+           j.async = true;
+
+           d.appendChild(j);
+       })();
+    </script>
+    <noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+    </div>
 
 </html>

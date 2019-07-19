@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="keyword" content="">
+    <meta name="description" content>
+    <meta name="keyword" content>
     <link rel="shortcut icon" href="/img/favicon.ico">
 
     <title>
@@ -45,7 +45,7 @@
 <div class="nav" id="nav">
     <div class="avatar-name">
         <div class="avatar">
-            <img src="/img/avatar.jpeg">
+            <img src="/img/avatar.jpeg" />
         </div>
         <div class="name">
             <i>ljj</i>
@@ -53,25 +53,25 @@
     </div>
     <div class="contents" id="nav-content">
         <ul>
-            <li>
+            <li >
                 <a href="/">
                     <i class="iconfont icon-shouye1"></i>
                     <span>主页</span>
                 </a>
             </li>
-            <li>
+            <li >
                 <a href="/tags">
                     <i class="iconfont icon-biaoqian1"></i>
                     <span>标签</span>
                 </a>
             </li>
-            <li>
+            <li >
                 <a href="/archives">
                     <i class="iconfont icon-guidang2"></i>
                     <span>存档</span>
                 </a>
             </li>
-            <li>
+            <li >
                 <a href="/about/">
                     <i class="iconfont icon-guanyu2"></i>
                     <span>关于</span>
@@ -99,7 +99,7 @@
     <div class="search-container">
         <div class="search-input">
             <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
-            <input id="search-input">
+            <input id="search-input"/>
             <span id="begin-search">搜索</span>
         </div>
         <div class="search-result-container" id="search-result-container">
@@ -134,7 +134,7 @@
         </span>
         <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
 </span>
-
+</span>
     </div>
     <div class="post-content no-indent">
         <p>在分布式系统中，为了适应可能有多台主（写）服务器，任何时刻都可能有服务器加进来或者去掉这种情况，就不能用传统的数据库自增ID方案。这篇文章介绍几个在分布式系统中用的ID生成方案。</p>
@@ -153,10 +153,11 @@
 <p>S1——————-S2</p>
 <p>这时有个数据id，哈希后的值落在 S1 S2 之间，会被存储在 S2 里。这时增加服务器 S3</p>
 <p>S1———S3———-S2</p>
-<p>这时数据id哈希后落在 S1~S3 会存储在S3中，S3~S2 会存储在S2中。这里需要手动把S2里面应该落在S3的数据（永久缓存）手动转移到S3中。</p>
+<p>这时数据id哈希后落在 S1<del>S3 会存储在S3中，S3</del>S2 会存储在S2中。这里需要手动把S2里面应该落在S3的数据（永久缓存）手动转移到S3中。</p>
 <p>参考资料[3][4]介绍了一种 php 的一致性哈希算法。</p>
-<h3 id="算法最佳实践"><a href="#算法最佳实践" class="headerlink" title="算法最佳实践"></a>算法最佳实践</h3><p>一般用time33 和 crc32 作为哈希算法。但是由于我们起的原始ID不够离散，很容易只落在几个服务器上，所以建议在哈希之前再加一层md5。下面是time32的算法
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">time33</span><span class="params">($str)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// hash(i) = hash(i-1) * 33 + str[i]</span></span><br><span class="line">    $hash = <span class="number">0</span>;</span><br><span class="line">    $s    = md5($str); <span class="comment">//让id更加离散</span></span><br><span class="line">    $seed = <span class="number">5</span>;</span><br><span class="line">    $len  = <span class="number">32</span>;</span><br><span class="line">    <span class="keyword">for</span> ($i = <span class="number">0</span>; $i &lt; $len; $i++) &#123;</span><br><span class="line">        <span class="comment">// (hash &lt;&lt; 5) + hash 相当于 hash * 33</span></span><br><span class="line">        <span class="comment">//$hash = sprintf("%u", $hash * 33) + ord($s&#123;$i&#125;);</span></span><br><span class="line">        <span class="comment">//$hash = ($hash * 33 + ord($s&#123;$i&#125;)) &amp; 0x7FFFFFFF;</span></span><br><span class="line">        $hash = ($hash &lt;&lt; $seed) + $hash + ord($s&#123;$i&#125;);</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">return</span> $hash &amp; <span class="number">0x7FFFFFFF</span>;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="comment">//echo myHash("却道天凉好个秋~");</span></span><br><span class="line"><span class="keyword">echo</span> <span class="string">"key1: "</span> . myHash(<span class="string">"key1"</span>) . <span class="string">"\n"</span>;</span><br></pre></td></tr></table></figure></p>
+<h3 id="算法最佳实践"><a href="#算法最佳实践" class="headerlink" title="算法最佳实践"></a>算法最佳实践</h3><p>一般用time33 和 crc32 作为哈希算法。但是由于我们起的原始ID不够离散，很容易只落在几个服务器上，所以建议在哈希之前再加一层md5。下面是time32的算法</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">time33</span><span class="params">($str)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// hash(i) = hash(i-1) * 33 + str[i]</span></span><br><span class="line">    $hash = <span class="number">0</span>;</span><br><span class="line">    $s    = md5($str); <span class="comment">//让id更加离散</span></span><br><span class="line">    $seed = <span class="number">5</span>;</span><br><span class="line">    $len  = <span class="number">32</span>;</span><br><span class="line">    <span class="keyword">for</span> ($i = <span class="number">0</span>; $i &lt; $len; $i++) &#123;</span><br><span class="line">        <span class="comment">// (hash &lt;&lt; 5) + hash 相当于 hash * 33</span></span><br><span class="line">        <span class="comment">//$hash = sprintf("%u", $hash * 33) + ord($s&#123;$i&#125;);</span></span><br><span class="line">        <span class="comment">//$hash = ($hash * 33 + ord($s&#123;$i&#125;)) &amp; 0x7FFFFFFF;</span></span><br><span class="line">        $hash = ($hash &lt;&lt; $seed) + $hash + ord($s&#123;$i&#125;);</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">return</span> $hash &amp; <span class="number">0x7FFFFFFF</span>;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="comment">//echo myHash("却道天凉好个秋~");</span></span><br><span class="line"><span class="keyword">echo</span> <span class="string">"key1: "</span> . myHash(<span class="string">"key1"</span>) . <span class="string">"\n"</span>;</span><br></pre></td></tr></table></figure>
+
 <h3 id="业务最佳实践"><a href="#业务最佳实践" class="headerlink" title="业务最佳实践"></a>业务最佳实践</h3><p>另一个业务上的最佳实践是，不一定按照ID进行哈希。比如我们有一个论坛，访问量最大的就是按板块分的帖子页，即需要一次性取出一个板块里面的一批帖子。我们希望这些帖子是在一台服务器上的，那么就不能按照帖子id哈希，而要按照板块id哈希。</p>
 <p>如果这时我们有其他列表业务，比如一个用户的所有帖子。我的建议是缓存一个用户的前1000个帖子id到 redis。</p>
 <h1 id="对外混淆"><a href="#对外混淆" class="headerlink" title="对外混淆"></a>对外混淆</h1><p>对于对外接口，要将ID混淆，避免关键信息暴露，这种情况可以使用 <a href="hashids.org">hashids</a>。这个库可以将数字id可逆的转成字符串。</p>
@@ -164,7 +165,7 @@
 <p>参考资料：<br>[1]<a href="https://huoding.com/2016/11/03/552" target="_blank" rel="noopener">https://huoding.com/2016/11/03/552</a><br>[2]<a href="https://blog.csdn.net/bntX2jSQfEHy7/article/details/79549368" target="_blank" rel="noopener">https://blog.csdn.net/bntX2jSQfEHy7/article/details/79549368</a><br>[3]<a href="https://blog.csdn.net/jt521xlg/article/details/49360895" target="_blank" rel="noopener">https://blog.csdn.net/jt521xlg/article/details/49360895</a><br>[4]<a href="http://www.cnblogs.com/phpfans/p/4641490.html" target="_blank" rel="noopener">http://www.cnblogs.com/phpfans/p/4641490.html</a></p>
 
         
-        <br>
+        <br />
         <div id="comment-container">
         </div>
         <div id="disqus_thread"></div>
@@ -205,7 +206,7 @@
 
         
         <li>
-            <a target="_blank" href="https://github.com/questionlin">
+            <a target="_blank"  href="https://github.com/questionlin">
                             <span class="fa-stack fa-lg">
                                 <i class="iconfont icon-github"></i>
                             </span>
@@ -244,5 +245,24 @@
 
 
 
+
+    <script type="text/javascript">
+       (function() {
+           if (typeof LivereTower === 'function') { return; }
+
+           var j, d = document.getElementById('lv-container');
+
+           d.setAttribute('data-id','city');
+           d.setAttribute('data-uid' , 'MTAyMC80NDc4OC8yMTMwOQ==');
+
+           j = document.createElement('script');
+           j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+           j.async = true;
+
+           d.appendChild(j);
+       })();
+    </script>
+    <noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+    </div>
 
 </html>

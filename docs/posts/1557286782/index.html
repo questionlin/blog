@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="keyword" content="">
+    <meta name="description" content>
+    <meta name="keyword" content>
     <link rel="shortcut icon" href="/img/favicon.ico">
 
     <title>
@@ -45,7 +45,7 @@
 <div class="nav" id="nav">
     <div class="avatar-name">
         <div class="avatar">
-            <img src="/img/avatar.jpeg">
+            <img src="/img/avatar.jpeg" />
         </div>
         <div class="name">
             <i>ljj</i>
@@ -53,25 +53,25 @@
     </div>
     <div class="contents" id="nav-content">
         <ul>
-            <li>
+            <li >
                 <a href="/">
                     <i class="iconfont icon-shouye1"></i>
                     <span>主页</span>
                 </a>
             </li>
-            <li>
+            <li >
                 <a href="/tags">
                     <i class="iconfont icon-biaoqian1"></i>
                     <span>标签</span>
                 </a>
             </li>
-            <li>
+            <li >
                 <a href="/archives">
                     <i class="iconfont icon-guidang2"></i>
                     <span>存档</span>
                 </a>
             </li>
-            <li>
+            <li >
                 <a href="/about/">
                     <i class="iconfont icon-guanyu2"></i>
                     <span>关于</span>
@@ -99,7 +99,7 @@
     <div class="search-container">
         <div class="search-input">
             <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
-            <input id="search-input">
+            <input id="search-input"/>
             <span id="begin-search">搜索</span>
         </div>
         <div class="search-result-container" id="search-result-container">
@@ -134,13 +134,15 @@
         </span>
         <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
 </span>
-
+</span>
     </div>
     <div class="post-content no-indent">
-        <h1 id="首先要先区分-form-data-和-x-www-form-urlencoded"><a href="#首先要先区分-form-data-和-x-www-form-urlencoded" class="headerlink" title="首先要先区分 form-data 和 x-www-form-urlencoded"></a>首先要先区分 form-data 和 x-www-form-urlencoded</h1><p>在 postman 里面，我们可以看到 form-data 的源代码类似
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">POST /api/order?ab=ab HTTP/1.1</span><br><span class="line">Host: localhost:8081</span><br><span class="line">Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW</span><br><span class="line">cache-control: no-cache</span><br><span class="line">Postman-Token: 07d87f1e-94fd-4656-881c-898cfc66be36</span><br><span class="line"></span><br><span class="line">Content-Disposition: form-data; name=&quot;goodsId&quot;</span><br><span class="line"></span><br><span class="line">1</span><br><span class="line"></span><br><span class="line">Content-Disposition: form-data; name=&quot;num&quot;</span><br><span class="line"></span><br><span class="line">1</span><br><span class="line"></span><br><span class="line">Content-Disposition: form-data; name=&quot;skuMapIndex&quot;</span><br><span class="line"></span><br><span class="line">黄色&gt;M</span><br><span class="line"></span><br><span class="line">Content-Disposition: form-data; name=&quot;addressId&quot;</span><br><span class="line"></span><br><span class="line">1</span><br><span class="line"></span><br><span class="line">------WebKitFormBoundary7MA4YWxkTrZu0gW--</span><br></pre></td></tr></table></figure></p>
-<p>x-www-form-urlencoded 的源代码类似
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">POST /api/order?ab=ab HTTP/1.1</span><br><span class="line">Host: localhost:8081</span><br><span class="line">Content-Type: application/x-www-form-urlencoded</span><br><span class="line">cache-control: no-cache</span><br><span class="line">Postman-Token: 92f20568-aad7-445d-aaae-e949db87c53d</span><br><span class="line">%08apiToken=ljjljja=b</span><br></pre></td></tr></table></figure></p>
+        <h1 id="首先要先区分-form-data-和-x-www-form-urlencoded"><a href="#首先要先区分-form-data-和-x-www-form-urlencoded" class="headerlink" title="首先要先区分 form-data 和 x-www-form-urlencoded"></a>首先要先区分 form-data 和 x-www-form-urlencoded</h1><p>在 postman 里面，我们可以看到 form-data 的源代码类似</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">POST /api/order?ab=ab HTTP/1.1</span><br><span class="line">Host: localhost:8081</span><br><span class="line">Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW</span><br><span class="line">cache-control: no-cache</span><br><span class="line">Postman-Token: 07d87f1e-94fd-4656-881c-898cfc66be36</span><br><span class="line"></span><br><span class="line">Content-Disposition: form-data; name=&quot;goodsId&quot;</span><br><span class="line"></span><br><span class="line">1</span><br><span class="line"></span><br><span class="line">Content-Disposition: form-data; name=&quot;num&quot;</span><br><span class="line"></span><br><span class="line">1</span><br><span class="line"></span><br><span class="line">Content-Disposition: form-data; name=&quot;skuMapIndex&quot;</span><br><span class="line"></span><br><span class="line">黄色&gt;M</span><br><span class="line"></span><br><span class="line">Content-Disposition: form-data; name=&quot;addressId&quot;</span><br><span class="line"></span><br><span class="line">1</span><br><span class="line"></span><br><span class="line">------WebKitFormBoundary7MA4YWxkTrZu0gW--</span><br></pre></td></tr></table></figure>
+
+<p>x-www-form-urlencoded 的源代码类似</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">POST /api/order?ab=ab HTTP/1.1</span><br><span class="line">Host: localhost:8081</span><br><span class="line">Content-Type: application/x-www-form-urlencoded</span><br><span class="line">cache-control: no-cache</span><br><span class="line">Postman-Token: 92f20568-aad7-445d-aaae-e949db87c53d</span><br><span class="line">%08apiToken=ljjljja=b</span><br></pre></td></tr></table></figure>
+
 <p>x-www-form-urlencoded 优点：</p>
 <ol>
 <li>使用&amp;连接的k=v字符串，更简洁</li>
@@ -154,7 +156,7 @@
 <p>但是实际项目中，即使 post 也不会用来更新全部内容，比如 created_time 就一定是服务器端生成，而不是客户端上传。因此这三者更实用上的区别是：<strong>PUT、PATCH 不支持 form-data</strong></p>
 
         
-        <br>
+        <br />
         <div id="comment-container">
         </div>
         <div id="disqus_thread"></div>
@@ -195,7 +197,7 @@
 
         
         <li>
-            <a target="_blank" href="https://github.com/questionlin">
+            <a target="_blank"  href="https://github.com/questionlin">
                             <span class="fa-stack fa-lg">
                                 <i class="iconfont icon-github"></i>
                             </span>
@@ -234,5 +236,24 @@
 
 
 
+
+    <script type="text/javascript">
+       (function() {
+           if (typeof LivereTower === 'function') { return; }
+
+           var j, d = document.getElementById('lv-container');
+
+           d.setAttribute('data-id','city');
+           d.setAttribute('data-uid' , 'MTAyMC80NDc4OC8yMTMwOQ==');
+
+           j = document.createElement('script');
+           j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+           j.async = true;
+
+           d.appendChild(j);
+       })();
+    </script>
+    <noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+    </div>
 
 </html>

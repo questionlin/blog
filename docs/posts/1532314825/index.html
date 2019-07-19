@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="keyword" content="">
+    <meta name="description" content>
+    <meta name="keyword" content>
     <link rel="shortcut icon" href="/img/favicon.ico">
 
     <title>
@@ -45,7 +45,7 @@
 <div class="nav" id="nav">
     <div class="avatar-name">
         <div class="avatar">
-            <img src="/img/avatar.jpeg">
+            <img src="/img/avatar.jpeg" />
         </div>
         <div class="name">
             <i>ljj</i>
@@ -53,25 +53,25 @@
     </div>
     <div class="contents" id="nav-content">
         <ul>
-            <li>
+            <li >
                 <a href="/">
                     <i class="iconfont icon-shouye1"></i>
                     <span>主页</span>
                 </a>
             </li>
-            <li>
+            <li >
                 <a href="/tags">
                     <i class="iconfont icon-biaoqian1"></i>
                     <span>标签</span>
                 </a>
             </li>
-            <li>
+            <li >
                 <a href="/archives">
                     <i class="iconfont icon-guidang2"></i>
                     <span>存档</span>
                 </a>
             </li>
-            <li>
+            <li >
                 <a href="/about/">
                     <i class="iconfont icon-guanyu2"></i>
                     <span>关于</span>
@@ -99,7 +99,7 @@
     <div class="search-container">
         <div class="search-input">
             <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
-            <input id="search-input">
+            <input id="search-input"/>
             <span id="begin-search">搜索</span>
         </div>
         <div class="search-result-container" id="search-result-container">
@@ -134,7 +134,7 @@
         </span>
         <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
 </span>
-
+</span>
     </div>
     <div class="post-content no-indent">
         <p>这里只按照我所知道的最大型架构来。</p>
@@ -148,19 +148,33 @@
 <th>-</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td><a href="##DNS负载均衡">DNS负载均衡</a></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
 </tr>
 <tr>
 <td><a href="##负载分发">负载分发</a></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
 </tr>
 <tr>
 <td><a href="##网关+web/API服务器">网关 + web/API 服务器</a></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
 </tr>
 <tr>
 <td>RPC服务器</td>
 <td><a href="##服务注册">服务注册</a></td>
+<td></td>
+<td></td>
+<td></td>
 </tr>
 <tr>
 <td><a href="##数据库">数据库</a></td>
@@ -171,9 +185,12 @@
 </tr>
 <tr>
 <td><a href="##日志收集">日志收集</a></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
 </tr>
-</tbody>
-</table>
+</tbody></table>
 <h2 id="DNS负载均衡"><a href="#DNS负载均衡" class="headerlink" title="DNS负载均衡"></a>DNS负载均衡</h2><p>DNS 负载均衡是把多个 A/CNAME 记录配置在 DNS 服务器上的一种均衡的办法。优点是不用另外配置服务器，缺点是规则生效慢，不宜多配。例如阿里巴巴华东节点就只配了4条记录。</p>
 <h2 id="负载分发"><a href="#负载分发" class="headerlink" title="负载分发"></a>负载分发</h2><p>将请求分发到各台服务器的主力服务器。常见的负载分发服务器有 HAProxy, nginx, LVS。</p>
 <p>通过负载分发出去的请求，为了保留用户 SESSION，一种方法是对用户id hash/取模，同一个用户的请求一直导向同一台服务器。但这种方法经常造成服务器使用不均，极不推荐。推荐的做法是把 SESSION 放在缓存服务器上，请求携带 token 一路往下传。</p>
@@ -202,8 +219,7 @@
 <th>8-1</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td>示例</td>
 <td>20180101</td>
 <td>1</td>
@@ -225,8 +241,7 @@
 <td>用户分片位</td>
 <td>sequence空间，可支持每天每个分表1亿笔业务，循环使用</td>
 </tr>
-</tbody>
-</table>
+</tbody></table>
 <p>对于超大型服务，MySQL 的主从复制速度不能满足的情况下，可以考虑 OceanBase / PhxSQL，他们用 paxos 算法实现了分布式情况下数据库的快速同步。</p>
 <h2 id="消息队列"><a href="#消息队列" class="headerlink" title="消息队列"></a>消息队列</h2><p>队列服务器有两种用处：</p>
 <ol>
@@ -238,7 +253,7 @@
 <h2 id="日志收集"><a href="#日志收集" class="headerlink" title="日志收集"></a>日志收集</h2><p>Elastic Stack(ELK) 是现在市面上最方便的日志收集和查询的工具。日志收集除了能做产品分析外，还能给新服务上线做蓝绿测试。即先在一台权重比较低的服务器上线新版，一段时间后如果日志没有报错，再在其他服务器上新。报警服务也可以架设在日志收集服务之上。</p>
 
         
-        <br>
+        <br />
         <div id="comment-container">
         </div>
         <div id="disqus_thread"></div>
@@ -279,7 +294,7 @@
 
         
         <li>
-            <a target="_blank" href="https://github.com/questionlin">
+            <a target="_blank"  href="https://github.com/questionlin">
                             <span class="fa-stack fa-lg">
                                 <i class="iconfont icon-github"></i>
                             </span>
@@ -318,5 +333,24 @@
 
 
 
+
+    <script type="text/javascript">
+       (function() {
+           if (typeof LivereTower === 'function') { return; }
+
+           var j, d = document.getElementById('lv-container');
+
+           d.setAttribute('data-id','city');
+           d.setAttribute('data-uid' , 'MTAyMC80NDc4OC8yMTMwOQ==');
+
+           j = document.createElement('script');
+           j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+           j.async = true;
+
+           d.appendChild(j);
+       })();
+    </script>
+    <noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+    </div>
 
 </html>

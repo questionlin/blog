@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="keyword" content="">
+    <meta name="description" content>
+    <meta name="keyword" content>
     <link rel="shortcut icon" href="/img/favicon.ico">
 
     <title>
@@ -45,7 +45,7 @@
 <div class="nav" id="nav">
     <div class="avatar-name">
         <div class="avatar">
-            <img src="/img/avatar.jpeg">
+            <img src="/img/avatar.jpeg" />
         </div>
         <div class="name">
             <i>ljj</i>
@@ -53,25 +53,25 @@
     </div>
     <div class="contents" id="nav-content">
         <ul>
-            <li>
+            <li >
                 <a href="/">
                     <i class="iconfont icon-shouye1"></i>
                     <span>主页</span>
                 </a>
             </li>
-            <li>
+            <li >
                 <a href="/tags">
                     <i class="iconfont icon-biaoqian1"></i>
                     <span>标签</span>
                 </a>
             </li>
-            <li>
+            <li >
                 <a href="/archives">
                     <i class="iconfont icon-guidang2"></i>
                     <span>存档</span>
                 </a>
             </li>
-            <li>
+            <li >
                 <a href="/about/">
                     <i class="iconfont icon-guanyu2"></i>
                     <span>关于</span>
@@ -99,7 +99,7 @@
     <div class="search-container">
         <div class="search-input">
             <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
-            <input id="search-input">
+            <input id="search-input"/>
             <span id="begin-search">搜索</span>
         </div>
         <div class="search-result-container" id="search-result-container">
@@ -134,7 +134,7 @@
         </span>
         <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
 </span>
-
+</span>
     </div>
     <div class="post-content no-indent">
         <p>使用SQL的好处是当我们的需求改变的时候，不用改程序，只用改SQL语句即可。但单体sql引擎无法满足大数据的实时计算，这里介绍几种可行的方案。</p>
@@ -163,8 +163,7 @@
 <th>说明</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td>DESC table</td>
 <td>用来描述索引的字段属性</td>
 </tr>
@@ -180,23 +179,23 @@
 <td>SELECT .. FROM table_name WHERE .. GROUP BY .. HAVING .. ORDER BY .. LIMIT ..</td>
 <td>用来执行查询的命令</td>
 </tr>
-</tbody>
-</table>
-<p>现在试试看，先建一条数据
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">POST twitter/doc/</span><br><span class="line">&#123;</span><br><span class="line">  &quot;name&quot;:&quot;medcl&quot;,</span><br><span class="line">  &quot;twitter&quot;:&quot;sql is awesome&quot;,</span><br><span class="line">  &quot;date&quot;:&quot;2018-07-27&quot;,</span><br><span class="line">  &quot;id&quot;:123</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>然后查询
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">POST /_xpack/sql?format=txt</span><br><span class="line">&#123;</span><br><span class="line">    &quot;query&quot;: &quot;SELECT * FROM twitter&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+</tbody></table>
+<p>现在试试看，先建一条数据</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">POST twitter/doc/</span><br><span class="line">&#123;</span><br><span class="line">  &quot;name&quot;:&quot;medcl&quot;,</span><br><span class="line">  &quot;twitter&quot;:&quot;sql is awesome&quot;,</span><br><span class="line">  &quot;date&quot;:&quot;2018-07-27&quot;,</span><br><span class="line">  &quot;id&quot;:123</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后查询</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">POST /_xpack/sql?format=txt</span><br><span class="line">&#123;</span><br><span class="line">    &quot;query&quot;: &quot;SELECT * FROM twitter&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p><strong>因为 SQL 特性是 xpack 的免费功能，所以是在 _xpack 这个路径下面，我们只需要把 SQL 语句传给 query 字段就行了，注意最后面不要加上 ; 结尾，注意是不要！</strong></p>
 <p>下面是比较常用的函数</p>
 <table>
 <thead>
 <tr>
 <th>name</th>
-<th>type      </th>
+<th>type</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td>AVG</td>
 <td>AGGREGATE</td>
 </tr>
@@ -246,210 +245,209 @@
 </tr>
 <tr>
 <td>DAY_OF_MONTH</td>
-<td>SCALAR   </td>
+<td>SCALAR</td>
 </tr>
 <tr>
 <td>DAY</td>
-<td>SCALAR   </td>
+<td>SCALAR</td>
 </tr>
 <tr>
 <td>DOM</td>
-<td>SCALAR   </td>
+<td>SCALAR</td>
 </tr>
 <tr>
 <td>DAY_OF_WEEK</td>
-<td>SCALAR   </td>
+<td>SCALAR</td>
 </tr>
 <tr>
 <td>DOW</td>
-<td>SCALAR   </td>
+<td>SCALAR</td>
 </tr>
 <tr>
 <td>DAY_OF_YEAR</td>
-<td>SCALAR   </td>
+<td>SCALAR</td>
 </tr>
 <tr>
 <td>DOY</td>
-<td>SCALAR   </td>
+<td>SCALAR</td>
 </tr>
 <tr>
 <td>HOUR_OF_DAY</td>
-<td>SCALAR   </td>
+<td>SCALAR</td>
 </tr>
 <tr>
 <td>HOUR</td>
-<td>SCALAR   </td>
+<td>SCALAR</td>
 </tr>
 <tr>
 <td>MINUTE_OF_DAY</td>
-<td>SCALAR   </td>
+<td>SCALAR</td>
 </tr>
 <tr>
 <td>MINUTE_OF_HOUR</td>
-<td>SCALAR   </td>
+<td>SCALAR</td>
 </tr>
 <tr>
 <td>MINUTE</td>
-<td>SCALAR   </td>
+<td>SCALAR</td>
 </tr>
 <tr>
 <td>SECOND_OF_MINUTE</td>
-<td>SCALAR   </td>
+<td>SCALAR</td>
 </tr>
 <tr>
 <td>SECOND</td>
-<td>SCALAR   </td>
+<td>SCALAR</td>
 </tr>
 <tr>
 <td>MONTH_OF_YEAR</td>
-<td>SCALAR   </td>
+<td>SCALAR</td>
 </tr>
 <tr>
 <td>MONTH</td>
-<td>SCALAR   </td>
+<td>SCALAR</td>
 </tr>
 <tr>
 <td>YEAR</td>
-<td>SCALAR   </td>
+<td>SCALAR</td>
 </tr>
 <tr>
 <td>WEEK_OF_YEAR</td>
-<td>SCALAR   </td>
+<td>SCALAR</td>
 </tr>
 <tr>
 <td>WEEK</td>
-<td>SCALAR   </td>
+<td>SCALAR</td>
 </tr>
 <tr>
 <td>ABS</td>
-<td>SCALAR   </td>
+<td>SCALAR</td>
 </tr>
 <tr>
 <td>ACOS</td>
-<td>SCALAR   </td>
+<td>SCALAR</td>
 </tr>
 <tr>
 <td>ASIN</td>
-<td>SCALAR   </td>
+<td>SCALAR</td>
 </tr>
 <tr>
 <td>ATAN</td>
-<td>SCALAR   </td>
+<td>SCALAR</td>
 </tr>
 <tr>
 <td>ATAN2</td>
-<td>SCALAR   </td>
+<td>SCALAR</td>
 </tr>
 <tr>
 <td>CBRT</td>
-<td>SCALAR   </td>
+<td>SCALAR</td>
 </tr>
 <tr>
 <td>CEIL</td>
-<td>SCALAR   </td>
+<td>SCALAR</td>
 </tr>
 <tr>
 <td>CEILING</td>
-<td>SCALAR   </td>
+<td>SCALAR</td>
 </tr>
 <tr>
 <td>COS</td>
-<td>SCALAR   </td>
+<td>SCALAR</td>
 </tr>
 <tr>
 <td>COSH</td>
-<td>SCALAR   </td>
+<td>SCALAR</td>
 </tr>
 <tr>
 <td>COT</td>
-<td>SCALAR   </td>
+<td>SCALAR</td>
 </tr>
 <tr>
 <td>DEGREES</td>
-<td>SCALAR   </td>
+<td>SCALAR</td>
 </tr>
 <tr>
 <td>E</td>
-<td>SCALAR   </td>
+<td>SCALAR</td>
 </tr>
 <tr>
 <td>EXP</td>
-<td>SCALAR   </td>
+<td>SCALAR</td>
 </tr>
 <tr>
 <td>EXPM1</td>
-<td>SCALAR   </td>
+<td>SCALAR</td>
 </tr>
 <tr>
 <td>FLOOR</td>
-<td>SCALAR   </td>
+<td>SCALAR</td>
 </tr>
 <tr>
 <td>LOG</td>
-<td>SCALAR   </td>
+<td>SCALAR</td>
 </tr>
 <tr>
 <td>LOG10</td>
-<td>SCALAR   </td>
+<td>SCALAR</td>
 </tr>
 <tr>
 <td>MOD</td>
-<td>SCALAR   </td>
+<td>SCALAR</td>
 </tr>
 <tr>
 <td>PI</td>
-<td>SCALAR   </td>
+<td>SCALAR</td>
 </tr>
 <tr>
 <td>POWER</td>
-<td>SCALAR   </td>
+<td>SCALAR</td>
 </tr>
 <tr>
 <td>RADIANS</td>
-<td>SCALAR   </td>
+<td>SCALAR</td>
 </tr>
 <tr>
 <td>RANDOM</td>
-<td>SCALAR   </td>
+<td>SCALAR</td>
 </tr>
 <tr>
 <td>RAND</td>
-<td>SCALAR   </td>
+<td>SCALAR</td>
 </tr>
 <tr>
 <td>ROUND</td>
-<td>SCALAR   </td>
+<td>SCALAR</td>
 </tr>
 <tr>
 <td>SIGN</td>
-<td>SCALAR   </td>
+<td>SCALAR</td>
 </tr>
 <tr>
 <td>SIGNUM</td>
-<td>SCALAR   </td>
+<td>SCALAR</td>
 </tr>
 <tr>
 <td>SIN</td>
-<td>SCALAR   </td>
+<td>SCALAR</td>
 </tr>
 <tr>
 <td>SINH</td>
-<td>SCALAR   </td>
+<td>SCALAR</td>
 </tr>
 <tr>
 <td>SQRT</td>
-<td>SCALAR   </td>
+<td>SCALAR</td>
 </tr>
 <tr>
 <td>TAN</td>
-<td>SCALAR   </td>
+<td>SCALAR</td>
 </tr>
 <tr>
 <td>SCORE</td>
-<td>SCORE    </td>
+<td>SCORE</td>
 </tr>
-</tbody>
-</table>
+</tbody></table>
 <h1 id="Hadoop-Hive（非实时）"><a href="#Hadoop-Hive（非实时）" class="headerlink" title="Hadoop + Hive（非实时）"></a>Hadoop + Hive（非实时）</h1><p>Hadoop 由于是 MapReduce 方案，无法保证实时，但是 Hadoop 生态非常大，可能有实时方案，姑且介绍一下。</p>
 <p>Hadoop + Hive 方案是最早的方案，Hadoop 负责存储和分发数据，Hive 负责解析SQL和处理数据。其中 Hive 支持作为 thrift 服务，能够很好的融入到微服务系统中。</p>
 <p><strong>优点</strong></p>
@@ -465,7 +463,7 @@
 <p>这里有一份<a href="https://chu888chu888.gitbooks.io/hadoopstudy/" target="_blank" rel="noopener">大数据学习笔记</a> 介绍框架的搭建方案。</p>
 
         
-        <br>
+        <br />
         <div id="comment-container">
         </div>
         <div id="disqus_thread"></div>
@@ -506,7 +504,7 @@
 
         
         <li>
-            <a target="_blank" href="https://github.com/questionlin">
+            <a target="_blank"  href="https://github.com/questionlin">
                             <span class="fa-stack fa-lg">
                                 <i class="iconfont icon-github"></i>
                             </span>
@@ -545,5 +543,24 @@
 
 
 
+
+    <script type="text/javascript">
+       (function() {
+           if (typeof LivereTower === 'function') { return; }
+
+           var j, d = document.getElementById('lv-container');
+
+           d.setAttribute('data-id','city');
+           d.setAttribute('data-uid' , 'MTAyMC80NDc4OC8yMTMwOQ==');
+
+           j = document.createElement('script');
+           j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+           j.async = true;
+
+           d.appendChild(j);
+       })();
+    </script>
+    <noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+    </div>
 
 </html>

@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="keyword" content="">
+    <meta name="description" content>
+    <meta name="keyword" content>
     <link rel="shortcut icon" href="/img/favicon.ico">
 
     <title>
@@ -45,7 +45,7 @@
 <div class="nav" id="nav">
     <div class="avatar-name">
         <div class="avatar">
-            <img src="/img/avatar.jpeg">
+            <img src="/img/avatar.jpeg" />
         </div>
         <div class="name">
             <i>ljj</i>
@@ -53,25 +53,25 @@
     </div>
     <div class="contents" id="nav-content">
         <ul>
-            <li>
+            <li >
                 <a href="/">
                     <i class="iconfont icon-shouye1"></i>
                     <span>主页</span>
                 </a>
             </li>
-            <li>
+            <li >
                 <a href="/tags">
                     <i class="iconfont icon-biaoqian1"></i>
                     <span>标签</span>
                 </a>
             </li>
-            <li>
+            <li >
                 <a href="/archives">
                     <i class="iconfont icon-guidang2"></i>
                     <span>存档</span>
                 </a>
             </li>
-            <li>
+            <li >
                 <a href="/about/">
                     <i class="iconfont icon-guanyu2"></i>
                     <span>关于</span>
@@ -99,7 +99,7 @@
     <div class="search-container">
         <div class="search-input">
             <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
-            <input id="search-input">
+            <input id="search-input"/>
             <span id="begin-search">搜索</span>
         </div>
         <div class="search-result-container" id="search-result-container">
@@ -134,24 +134,30 @@
         </span>
         <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
 </span>
-
+</span>
     </div>
     <div class="post-content no-indent">
         <h1 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h1><p>Elasticsearch 是全文搜索的首选，但是对于资金没有那么充足，或者数据量没有那么多的团队，MySQL 提供的全文搜索已经可以满足需求。</p>
 <p>MySQL 的全文搜索默认不支持中文，如果要支持中文，要在配置里加入</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[mysqld]</span><br><span class="line">ngram_token_size=2</span><br></pre></td></tr></table></figure>
+
 <p>这个时候 MySQL 可以搜索至少两个字的关键词，1个字还是不能搜索的。然后在建索引的时候要设置 WITH PARSER ngram</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; USE test;</span><br><span class="line"></span><br><span class="line">mysql&gt; CREATE TABLE articles (</span><br><span class="line">      id INT UNSIGNED AUTO_INCREMENT NOT NULL PRIMARY KEY,</span><br><span class="line">      title VARCHAR(200),</span><br><span class="line">      body TEXT,</span><br><span class="line">      FULLTEXT (title,body) WITH PARSER ngram</span><br><span class="line">    ) ENGINE=InnoDB CHARACTER <span class="keyword">SET</span> utf8mb4;</span><br><span class="line"></span><br><span class="line">mysql&gt; SET NAMES utf8mb4;</span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> articles (title,<span class="keyword">body</span>) <span class="keyword">VALUES</span></span><br><span class="line">    (<span class="string">'数据库管理'</span>,<span class="string">'在本教程中我将向你展示如何管理数据库'</span>),</span><br><span class="line">    (<span class="string">'数据库应用开发'</span>,<span class="string">'学习开发数据库应用程序'</span>);</span><br></pre></td></tr></table></figure>
-<p>对于已存在的表，这样建立索引
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> articles (</span><br><span class="line">      <span class="keyword">id</span> <span class="built_in">INT</span> <span class="keyword">UNSIGNED</span> AUTO_INCREMENT <span class="keyword">NOT</span> <span class="literal">NULL</span> PRIMARY <span class="keyword">KEY</span>,</span><br><span class="line">      title <span class="built_in">VARCHAR</span>(<span class="number">200</span>),</span><br><span class="line">      <span class="keyword">body</span> <span class="built_in">TEXT</span></span><br><span class="line">     ) <span class="keyword">ENGINE</span>=<span class="keyword">InnoDB</span> <span class="built_in">CHARACTER</span> <span class="keyword">SET</span> utf8;</span><br><span class="line"></span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> articles <span class="keyword">ADD</span> FULLTEXT <span class="keyword">INDEX</span> ft_index (title,<span class="keyword">body</span>) <span class="keyword">WITH</span> PARSER ngram;</span><br><span class="line"></span><br><span class="line"># Or:</span><br><span class="line"></span><br><span class="line"><span class="keyword">CREATE</span> FULLTEXT <span class="keyword">INDEX</span> ft_index <span class="keyword">ON</span> articles (title,<span class="keyword">body</span>) <span class="keyword">WITH</span> PARSER ngram;</span><br></pre></td></tr></table></figure></p>
-<p>现在可以这样搜索
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> articles <span class="keyword">WHERE</span> <span class="keyword">MATCH</span>(title,<span class="keyword">body</span>) AGAINST(<span class="string">'数据库教程'</span>);</span><br></pre></td></tr></table></figure></p>
+
+<p>对于已存在的表，这样建立索引</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> articles (</span><br><span class="line">      <span class="keyword">id</span> <span class="built_in">INT</span> <span class="keyword">UNSIGNED</span> AUTO_INCREMENT <span class="keyword">NOT</span> <span class="literal">NULL</span> PRIMARY <span class="keyword">KEY</span>,</span><br><span class="line">      title <span class="built_in">VARCHAR</span>(<span class="number">200</span>),</span><br><span class="line">      <span class="keyword">body</span> <span class="built_in">TEXT</span></span><br><span class="line">     ) <span class="keyword">ENGINE</span>=<span class="keyword">InnoDB</span> <span class="built_in">CHARACTER</span> <span class="keyword">SET</span> utf8;</span><br><span class="line"></span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> articles <span class="keyword">ADD</span> FULLTEXT <span class="keyword">INDEX</span> ft_index (title,<span class="keyword">body</span>) <span class="keyword">WITH</span> PARSER ngram;</span><br><span class="line"></span><br><span class="line"># Or:</span><br><span class="line"></span><br><span class="line"><span class="keyword">CREATE</span> FULLTEXT <span class="keyword">INDEX</span> ft_index <span class="keyword">ON</span> articles (title,<span class="keyword">body</span>) <span class="keyword">WITH</span> PARSER ngram;</span><br></pre></td></tr></table></figure>
+
+<p>现在可以这样搜索</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> articles <span class="keyword">WHERE</span> <span class="keyword">MATCH</span>(title,<span class="keyword">body</span>) AGAINST(<span class="string">'数据库教程'</span>);</span><br></pre></td></tr></table></figure>
+
 <p>注意这里不管是索引还是关键词“数据库教程”，我都没有做分词，MySQL都自动处理了。</p>
-<h1 id="高级"><a href="#高级" class="headerlink" title="高级"></a>高级</h1><h2 id="IN-NATURAL-LANGUAGE-MODE"><a href="#IN-NATURAL-LANGUAGE-MODE" class="headerlink" title="IN NATURAL LANGUAGE MODE"></a>IN NATURAL LANGUAGE MODE</h2><p>默认的搜索方式是 IN NATURAL LANGUAGE MODE，即全部匹配关键词，使用如下
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; SELECT * FROM articles</span><br><span class="line">    WHERE MATCH (title,body)</span><br><span class="line">    AGAINST ('database' IN NATURAL LANGUAGE MODE);</span><br><span class="line">+<span class="comment">----+-------------------+------------------------------------------+</span></span><br><span class="line">| id | title             | body                                     |</span><br><span class="line">+<span class="comment">----+-------------------+------------------------------------------+</span></span><br><span class="line">|  1 | MySQL Tutorial    | DBMS stands for DataBase ...             |</span><br><span class="line">|  5 | MySQL vs. YourSQL | In the following database comparison ... |</span><br><span class="line">+<span class="comment">----+-------------------+------------------------------------------+</span></span><br><span class="line">2 rows in <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure></p>
+<h1 id="高级"><a href="#高级" class="headerlink" title="高级"></a>高级</h1><h2 id="IN-NATURAL-LANGUAGE-MODE"><a href="#IN-NATURAL-LANGUAGE-MODE" class="headerlink" title="IN NATURAL LANGUAGE MODE"></a>IN NATURAL LANGUAGE MODE</h2><p>默认的搜索方式是 IN NATURAL LANGUAGE MODE，即全部匹配关键词，使用如下</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; SELECT * FROM articles</span><br><span class="line">    WHERE MATCH (title,body)</span><br><span class="line">    AGAINST ('database' IN NATURAL LANGUAGE MODE);</span><br><span class="line">+<span class="comment">----+-------------------+------------------------------------------+</span></span><br><span class="line">| id | title             | body                                     |</span><br><span class="line">+<span class="comment">----+-------------------+------------------------------------------+</span></span><br><span class="line">|  1 | MySQL Tutorial    | DBMS stands for DataBase ...             |</span><br><span class="line">|  5 | MySQL vs. YourSQL | In the following database comparison ... |</span><br><span class="line">+<span class="comment">----+-------------------+------------------------------------------+</span></span><br><span class="line">2 rows in <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure>
+
 <p>即使不加 IN NATURAL LANGUAGE MODE 也是这个结果</p>
-<h2 id="IN-BOOLEAN-MODE"><a href="#IN-BOOLEAN-MODE" class="headerlink" title="IN BOOLEAN MODE"></a>IN BOOLEAN MODE</h2><p>BOOLEAN MODE 提供高级搜索方法，使用如下
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; SELECT * FROM articles WHERE MATCH (title,body)</span><br><span class="line">    AGAINST ('+MySQL -YourSQL' IN BOOLEAN MODE);</span><br><span class="line">+<span class="comment">----+-----------------------+-------------------------------------+</span></span><br><span class="line">| id | title                 | body                                |</span><br><span class="line">+<span class="comment">----+-----------------------+-------------------------------------+</span></span><br><span class="line">|  1 | MySQL Tutorial        | DBMS stands for DataBase ...        |</span><br><span class="line">|  2 | How To <span class="keyword">Use</span> MySQL Well | <span class="keyword">After</span> you went <span class="keyword">through</span> a ...        |</span><br><span class="line">|  <span class="number">3</span> | Optimizing MySQL      | <span class="keyword">In</span> this tutorial we will <span class="keyword">show</span> ...   |</span><br><span class="line">|  <span class="number">4</span> | <span class="number">1001</span> MySQL Tricks     | <span class="number">1.</span> <span class="keyword">Never</span> run mysqld <span class="keyword">as</span> root. <span class="number">2.</span> ... |</span><br><span class="line">|  <span class="number">6</span> | MySQL <span class="keyword">Security</span>        | <span class="keyword">When</span> configured properly, MySQL ... |</span><br><span class="line">+<span class="comment">----+-----------------------+-------------------------------------+</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="IN-BOOLEAN-MODE"><a href="#IN-BOOLEAN-MODE" class="headerlink" title="IN BOOLEAN MODE"></a>IN BOOLEAN MODE</h2><p>BOOLEAN MODE 提供高级搜索方法，使用如下</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; SELECT * FROM articles WHERE MATCH (title,body)</span><br><span class="line">    AGAINST ('+MySQL -YourSQL' IN BOOLEAN MODE);</span><br><span class="line">+<span class="comment">----+-----------------------+-------------------------------------+</span></span><br><span class="line">| id | title                 | body                                |</span><br><span class="line">+<span class="comment">----+-----------------------+-------------------------------------+</span></span><br><span class="line">|  1 | MySQL Tutorial        | DBMS stands for DataBase ...        |</span><br><span class="line">|  2 | How To <span class="keyword">Use</span> MySQL Well | <span class="keyword">After</span> you went <span class="keyword">through</span> a ...        |</span><br><span class="line">|  <span class="number">3</span> | Optimizing MySQL      | <span class="keyword">In</span> this tutorial we will <span class="keyword">show</span> ...   |</span><br><span class="line">|  <span class="number">4</span> | <span class="number">1001</span> MySQL Tricks     | <span class="number">1.</span> <span class="keyword">Never</span> run mysqld <span class="keyword">as</span> root. <span class="number">2.</span> ... |</span><br><span class="line">|  <span class="number">6</span> | MySQL <span class="keyword">Security</span>        | <span class="keyword">When</span> configured properly, MySQL ... |</span><br><span class="line">+<span class="comment">----+-----------------------+-------------------------------------+</span></span><br></pre></td></tr></table></figure>
+
 <p>这里关键词里面的</p>
 <ul>
 <li>+表示必须有</li>
@@ -185,6 +191,7 @@
 </ul>
 <h2 id="with-Query-Expansion"><a href="#with-Query-Expansion" class="headerlink" title="with Query Expansion"></a>with Query Expansion</h2><p>with Query Expansion 表示联想词。如果用户给的关键词太少，MySQL 会自动联想出其他关键词，例如如果用户搜索’database’，MySQL 会自动匹配 ‘MySQL’, ‘Oracle’, ‘DB2’和’RDBMS’，使用如下</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; SELECT * FROM articles</span><br><span class="line">    WHERE MATCH (title,body)</span><br><span class="line">    AGAINST ('database' IN NATURAL LANGUAGE MODE);</span><br><span class="line">+<span class="comment">----+-------------------+------------------------------------------+</span></span><br><span class="line">| id | title             | body                                     |</span><br><span class="line">+<span class="comment">----+-------------------+------------------------------------------+</span></span><br><span class="line">|  1 | MySQL Tutorial    | DBMS stands for DataBase ...             |</span><br><span class="line">|  5 | MySQL vs. YourSQL | In the following database comparison ... |</span><br><span class="line">+<span class="comment">----+-------------------+------------------------------------------+</span></span><br><span class="line">2 rows in <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; <span class="keyword">SELECT</span> * <span class="keyword">FROM</span> articles</span><br><span class="line">    <span class="keyword">WHERE</span> <span class="keyword">MATCH</span> (title,<span class="keyword">body</span>)</span><br><span class="line">    AGAINST (<span class="string">'database'</span> <span class="keyword">WITH</span> <span class="keyword">QUERY</span> EXPANSION);</span><br><span class="line">+<span class="comment">----+-----------------------+------------------------------------------+</span></span><br><span class="line">| id | title                 | body                                     |</span><br><span class="line">+<span class="comment">----+-----------------------+------------------------------------------+</span></span><br><span class="line">|  5 | MySQL vs. YourSQL     | In the following database comparison ... |</span><br><span class="line">|  1 | MySQL Tutorial        | DBMS stands for DataBase ...             |</span><br><span class="line">|  3 | Optimizing MySQL      | In this tutorial we will <span class="keyword">show</span> ...        |</span><br><span class="line">|  <span class="number">6</span> | MySQL <span class="keyword">Security</span>        | <span class="keyword">When</span> configured properly, MySQL ...      |</span><br><span class="line">|  <span class="number">2</span> | How <span class="keyword">To</span> <span class="keyword">Use</span> MySQL Well | <span class="keyword">After</span> you went <span class="keyword">through</span> a ...             |</span><br><span class="line">|  <span class="number">4</span> | <span class="number">1001</span> MySQL Tricks     | <span class="number">1.</span> <span class="keyword">Never</span> run mysqld <span class="keyword">as</span> root. <span class="number">2.</span> ...      |</span><br><span class="line">+<span class="comment">----+-----------------------+------------------------------------------+</span></span><br><span class="line"><span class="number">6</span> <span class="keyword">rows</span> <span class="keyword">in</span> <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure>
+
 <h1 id="最佳实践"><a href="#最佳实践" class="headerlink" title="最佳实践"></a>最佳实践</h1><ol>
 <li>如果索引是 (title,body)，则不能只搜索 title 或 body</li>
 <li>有时候我们要去掉表里的某一行，不是删除，而是做一个标记，例如 isDeleted。由于全文索引是单独的索引，不能同时包含 isDeleted 列，所以数据量大的话，建议单独建表来存放，而不是在原表上建立索引</li>
@@ -193,7 +200,7 @@
 <p>参考资料：<br>MySQL中文支持设置 <a href="https://dev.mysql.com/doc/refman/5.7/en/fulltext-search-ngram.html" target="_blank" rel="noopener">https://dev.mysql.com/doc/refman/5.7/en/fulltext-search-ngram.html</a><br>BOOLEAN MODE <a href="https://dev.mysql.com/doc/refman/5.7/en/fulltext-boolean.html" target="_blank" rel="noopener">https://dev.mysql.com/doc/refman/5.7/en/fulltext-boolean.html</a></p>
 
         
-        <br>
+        <br />
         <div id="comment-container">
         </div>
         <div id="disqus_thread"></div>
@@ -234,7 +241,7 @@
 
         
         <li>
-            <a target="_blank" href="https://github.com/questionlin">
+            <a target="_blank"  href="https://github.com/questionlin">
                             <span class="fa-stack fa-lg">
                                 <i class="iconfont icon-github"></i>
                             </span>
@@ -273,5 +280,24 @@
 
 
 
+
+    <script type="text/javascript">
+       (function() {
+           if (typeof LivereTower === 'function') { return; }
+
+           var j, d = document.getElementById('lv-container');
+
+           d.setAttribute('data-id','city');
+           d.setAttribute('data-uid' , 'MTAyMC80NDc4OC8yMTMwOQ==');
+
+           j = document.createElement('script');
+           j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+           j.async = true;
+
+           d.appendChild(j);
+       })();
+    </script>
+    <noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+    </div>
 
 </html>

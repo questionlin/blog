@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="keyword" content="">
+    <meta name="description" content>
+    <meta name="keyword" content>
     <link rel="shortcut icon" href="/img/favicon.ico">
 
     <title>
@@ -45,7 +45,7 @@
 <div class="nav" id="nav">
     <div class="avatar-name">
         <div class="avatar">
-            <img src="/img/avatar.jpeg">
+            <img src="/img/avatar.jpeg" />
         </div>
         <div class="name">
             <i>ljj</i>
@@ -53,25 +53,25 @@
     </div>
     <div class="contents" id="nav-content">
         <ul>
-            <li>
+            <li >
                 <a href="/">
                     <i class="iconfont icon-shouye1"></i>
                     <span>主页</span>
                 </a>
             </li>
-            <li>
+            <li >
                 <a href="/tags">
                     <i class="iconfont icon-biaoqian1"></i>
                     <span>标签</span>
                 </a>
             </li>
-            <li>
+            <li >
                 <a href="/archives">
                     <i class="iconfont icon-guidang2"></i>
                     <span>存档</span>
                 </a>
             </li>
-            <li>
+            <li >
                 <a href="/about/">
                     <i class="iconfont icon-guanyu2"></i>
                     <span>关于</span>
@@ -99,7 +99,7 @@
     <div class="search-container">
         <div class="search-input">
             <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
-            <input id="search-input">
+            <input id="search-input"/>
             <span id="begin-search">搜索</span>
         </div>
         <div class="search-result-container" id="search-result-container">
@@ -134,12 +134,13 @@
         </span>
         <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
 </span>
-
+</span>
     </div>
     <div class="post-content no-indent">
         <h2 id="B-Tree-索引"><a href="#B-Tree-索引" class="headerlink" title="B-Tree 索引"></a>B-Tree 索引</h2><p>InnoDB 使用的是B+Tree，即每一个叶子结点都包含指向下一个叶子节点的指针，从而方便叶子节点的范围遍历。B-Tree通常意味着所有的值都是按<strong>顺序</strong>存储在叶子节点的，并且每一个叶子页到根的距离相同。</p>
-<p>假设有如下数据表：
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> People (</span><br><span class="line">    last_name <span class="built_in">varchar</span>(<span class="number">50</span>)    <span class="keyword">not</span> <span class="literal">null</span>,</span><br><span class="line">    first_name <span class="built_in">varchar</span>(<span class="number">50</span>)   <span class="keyword">not</span> <span class="literal">null</span>,</span><br><span class="line">    dob <span class="built_in">date</span>                 <span class="keyword">not</span> <span class="literal">null</span>,</span><br><span class="line">    gender enum(<span class="string">'m'</span>, <span class="string">'f'</span>)  <span class="keyword">not</span> <span class="literal">null</span>,</span><br><span class="line">    <span class="keyword">key</span>(last_name, first_name, dob)</span><br><span class="line">);</span><br></pre></td></tr></table></figure></p>
+<p>假设有如下数据表：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> People (</span><br><span class="line">    last_name <span class="built_in">varchar</span>(<span class="number">50</span>)    <span class="keyword">not</span> <span class="literal">null</span>,</span><br><span class="line">    first_name <span class="built_in">varchar</span>(<span class="number">50</span>)   <span class="keyword">not</span> <span class="literal">null</span>,</span><br><span class="line">    dob <span class="built_in">date</span>                 <span class="keyword">not</span> <span class="literal">null</span>,</span><br><span class="line">    gender enum(<span class="string">'m'</span>, <span class="string">'f'</span>)  <span class="keyword">not</span> <span class="literal">null</span>,</span><br><span class="line">    <span class="keyword">key</span>(last_name, first_name, dob)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
 <p>可以使用B-Tree索引的查询类型。B-Tree索引适用于全键值、键值范围或键前缀查找。<strong>其中键前缀查找只适用于根据最左前缀的查找</strong>。此索引对如下类型的查询有效。</p>
 <ul>
 <li>全值匹配<br>全值匹配指的是和索引中的所有列进行匹配，例如前面提到的索引可用于查找 last_name 为 Allen, first_name 为 Cuba 、出生于1960-01-01的人。</li>
@@ -154,25 +155,31 @@
 <li>如果查询中有某个列的范围查询，则其右边所有列都无法使用索引优化查找。例如有查询WHERE last_name=’Smith’ AND frst_name LIKE ‘J％’ AND dob=’1976-12-23’，这个查询只能使用索引的前两列，因为这里LIKE是一个范围条件（但是服务器可以把其余列用于其他目的）。如果范围查询列值的数量有限，那么可以通过使用多个等于条件来代替范围条件。在本章的索引案例学习部分，我们将演示一个详细的案例。</li>
 </ul>
 <p>到这里读者应该可以明白，前面提到的索引列的顺序是多么的重要：这些限制都和索引列的顺序有关。在优化性能的时候，可能需要使用相同的列但顺序不同的索引来满足不同类型的查询需求。</p>
-<h2 id="高性能索引策略"><a href="#高性能索引策略" class="headerlink" title="高性能索引策略"></a>高性能索引策略</h2><h3 id="独立的列"><a href="#独立的列" class="headerlink" title="独立的列"></a>独立的列</h3><p><strong>索引列不能是表达式的一部分，也不能是函数的参数。</strong> 以下是失败例子：
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; SELECT actor_id FROM sakila.actor WHERE actor_id + 1 = 5;</span><br><span class="line">mysql&gt; SELECT ... WHERE TO_DAYS(CURRENT_DATE) - TO_DAYS(date_col) &lt;= 10;</span><br></pre></td></tr></table></figure></p>
-<h3 id="前缀索引和索引选择性"><a href="#前缀索引和索引选择性" class="headerlink" title="前缀索引和索引选择性"></a>前缀索引和索引选择性</h3><p>有时候需要索引很长的字符列，这会让索引变得大且慢。诀窍在于要选择足够长的前缀以保证较高的选择性，同时又不能太长。<br>现在我们有如下数据集
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt;SELECT COUNT(*) AS cnt, city FROM city GROUP BY city ORDER BY cnt DESC LIMIT 10;</span><br><span class="line">-------------------------------------</span><br><span class="line">| cnt | city|</span><br><span class="line">+-----+-----+</span><br><span class="line">| 65 | London |</span><br><span class="line">| 49 | Hiroshima |</span><br><span class="line">| 48 | Teboksary |</span><br><span class="line">| 48 | Pak Kret |</span><br><span class="line">| 48 | Yaound |</span><br><span class="line">| 47 | Tel Aviv-Jaffa |</span><br><span class="line">| 47 | Shimoga |</span><br><span class="line">| 45 | Cabuyao |</span><br><span class="line">| 45 | Callao |</span><br><span class="line">| 45 | Bislig |</span><br></pre></td></tr></table></figure></p>
-<p>注意到，上面每个值都出现了45～65次。现在查找到最频繁出现的城市前缀，先从3个前缀字母开始：
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt;SELECT COUNT(*) AS cnt, LEFT(city, 3) AS pref FROM city GROUP BY pref ORDER BY cnt DESC LIMIT 10;</span><br><span class="line">| cnt | pref |</span><br><span class="line">+-----+------+</span><br><span class="line">| 483 | San |</span><br><span class="line">| 195 | Cha |</span><br><span class="line">| 177 | Tan |</span><br><span class="line">| 167 | Sou |</span><br><span class="line">| 163 | al- |</span><br><span class="line">| 163 | Sal |</span><br><span class="line">| 146 | Shi |</span><br><span class="line">| 136 | Hal |</span><br><span class="line">| 130 | Val |</span><br><span class="line">| 129 | Bat |</span><br></pre></td></tr></table></figure></p>
-<p>每个前缀都比原来的城市出现的次数更多，因此唯一前缀比唯一城市要少得多。然后我们增加前缀长度，直到这个前缀的选择性接近完整列的选择性。经过实验后发现前缀长度为7时比较合适：
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt;SELECT COUNT(*) AS cnt, LEFT(city, 3) AS pref FROM city GROUP BY pref ORDER BY cnt DESC LIMIT 10;</span><br><span class="line">| cnt | pref |</span><br><span class="line">+-----+------+</span><br><span class="line">| 70 | Santiag |</span><br><span class="line">| 68 | San Fel |</span><br><span class="line">| 65 | London |</span><br><span class="line">| 61 | Valle d |</span><br><span class="line">| 49 | Hiroshi |</span><br><span class="line">| 48 | Teboksa |</span><br><span class="line">| 48 | Pak Kre |</span><br><span class="line">| 48 | Yaound |</span><br><span class="line">| 47 | Tel Avi |</span><br><span class="line">| 47 | Shimoga |</span><br></pre></td></tr></table></figure></p>
-<p>计算合适的前缀长度的另外一个办法就是计算完整列的选择性，并使前缀的选择性接近于完整列的选择性。下面显示如何计算完整列的选择性：
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; SELECT COUNT(DISTINCT LEFT(city, 7))/COUNT(*) FROM city;</span><br><span class="line">| COUNT(DISTINCT city)/COUNT(*) |</span><br><span class="line">+-------------------------------+</span><br><span class="line">| 0.0310 |</span><br></pre></td></tr></table></figure></p>
+<h2 id="高性能索引策略"><a href="#高性能索引策略" class="headerlink" title="高性能索引策略"></a>高性能索引策略</h2><h3 id="独立的列"><a href="#独立的列" class="headerlink" title="独立的列"></a>独立的列</h3><p><strong>索引列不能是表达式的一部分，也不能是函数的参数。</strong> 以下是失败例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; SELECT actor_id FROM sakila.actor WHERE actor_id + 1 = 5;</span><br><span class="line">mysql&gt; SELECT ... WHERE TO_DAYS(CURRENT_DATE) - TO_DAYS(date_col) &lt;= 10;</span><br></pre></td></tr></table></figure>
+
+<h3 id="前缀索引和索引选择性"><a href="#前缀索引和索引选择性" class="headerlink" title="前缀索引和索引选择性"></a>前缀索引和索引选择性</h3><p>有时候需要索引很长的字符列，这会让索引变得大且慢。诀窍在于要选择足够长的前缀以保证较高的选择性，同时又不能太长。<br>现在我们有如下数据集</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt;SELECT COUNT(*) AS cnt, city FROM city GROUP BY city ORDER BY cnt DESC LIMIT 10;</span><br><span class="line">-------------------------------------</span><br><span class="line">| cnt | city|</span><br><span class="line">+-----+-----+</span><br><span class="line">| 65 | London |</span><br><span class="line">| 49 | Hiroshima |</span><br><span class="line">| 48 | Teboksary |</span><br><span class="line">| 48 | Pak Kret |</span><br><span class="line">| 48 | Yaound |</span><br><span class="line">| 47 | Tel Aviv-Jaffa |</span><br><span class="line">| 47 | Shimoga |</span><br><span class="line">| 45 | Cabuyao |</span><br><span class="line">| 45 | Callao |</span><br><span class="line">| 45 | Bislig |</span><br></pre></td></tr></table></figure>
+
+<p>注意到，上面每个值都出现了45～65次。现在查找到最频繁出现的城市前缀，先从3个前缀字母开始：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt;SELECT COUNT(*) AS cnt, LEFT(city, 3) AS pref FROM city GROUP BY pref ORDER BY cnt DESC LIMIT 10;</span><br><span class="line">| cnt | pref |</span><br><span class="line">+-----+------+</span><br><span class="line">| 483 | San |</span><br><span class="line">| 195 | Cha |</span><br><span class="line">| 177 | Tan |</span><br><span class="line">| 167 | Sou |</span><br><span class="line">| 163 | al- |</span><br><span class="line">| 163 | Sal |</span><br><span class="line">| 146 | Shi |</span><br><span class="line">| 136 | Hal |</span><br><span class="line">| 130 | Val |</span><br><span class="line">| 129 | Bat |</span><br></pre></td></tr></table></figure>
+
+<p>每个前缀都比原来的城市出现的次数更多，因此唯一前缀比唯一城市要少得多。然后我们增加前缀长度，直到这个前缀的选择性接近完整列的选择性。经过实验后发现前缀长度为7时比较合适：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt;SELECT COUNT(*) AS cnt, LEFT(city, 3) AS pref FROM city GROUP BY pref ORDER BY cnt DESC LIMIT 10;</span><br><span class="line">| cnt | pref |</span><br><span class="line">+-----+------+</span><br><span class="line">| 70 | Santiag |</span><br><span class="line">| 68 | San Fel |</span><br><span class="line">| 65 | London |</span><br><span class="line">| 61 | Valle d |</span><br><span class="line">| 49 | Hiroshi |</span><br><span class="line">| 48 | Teboksa |</span><br><span class="line">| 48 | Pak Kre |</span><br><span class="line">| 48 | Yaound |</span><br><span class="line">| 47 | Tel Avi |</span><br><span class="line">| 47 | Shimoga |</span><br></pre></td></tr></table></figure>
+
+<p>计算合适的前缀长度的另外一个办法就是计算完整列的选择性，并使前缀的选择性接近于完整列的选择性。下面显示如何计算完整列的选择性：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; SELECT COUNT(DISTINCT LEFT(city, 7))/COUNT(*) FROM city;</span><br><span class="line">| COUNT(DISTINCT city)/COUNT(*) |</span><br><span class="line">+-------------------------------+</span><br><span class="line">| 0.0310 |</span><br></pre></td></tr></table></figure>
+
 <p>通常来说（尽管也有例外情况），这个例子中如果前缀的选择性能够接近0.031，基本上就可用了。</p>
-<p>在上面的示例中，已经找到了合适的前缀长度，下面演示一下如何创建前缀索引：
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; ALTER TABLE sakila.city_demo ADD KEY (city(7));</span><br></pre></td></tr></table></figure></p>
+<p>在上面的示例中，已经找到了合适的前缀长度，下面演示一下如何创建前缀索引：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; ALTER TABLE sakila.city_demo ADD KEY (city(7));</span><br></pre></td></tr></table></figure>
+
 <p>前缀索引是一种能使索引更小、更快的有效办法，但另一方面也有其缺点：MySQL无法使用前缀索引做ORDER BY和GROUP BY，也无法使用前缀索引做覆盖扫描。</p>
 <hr>
 <p>参考资料：《高性能MySQL》</p>
 
         
-        <br>
+        <br />
         <div id="comment-container">
         </div>
         <div id="disqus_thread"></div>
@@ -213,7 +220,7 @@
 
         
         <li>
-            <a target="_blank" href="https://github.com/questionlin">
+            <a target="_blank"  href="https://github.com/questionlin">
                             <span class="fa-stack fa-lg">
                                 <i class="iconfont icon-github"></i>
                             </span>
@@ -252,5 +259,24 @@
 
 
 
+
+    <script type="text/javascript">
+       (function() {
+           if (typeof LivereTower === 'function') { return; }
+
+           var j, d = document.getElementById('lv-container');
+
+           d.setAttribute('data-id','city');
+           d.setAttribute('data-uid' , 'MTAyMC80NDc4OC8yMTMwOQ==');
+
+           j = document.createElement('script');
+           j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+           j.async = true;
+
+           d.appendChild(j);
+       })();
+    </script>
+    <noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+    </div>
 
 </html>

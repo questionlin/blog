@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="keyword" content="">
+    <meta name="description" content>
+    <meta name="keyword" content>
     <link rel="shortcut icon" href="/img/favicon.ico">
 
     <title>
@@ -45,7 +45,7 @@
 <div class="nav" id="nav">
     <div class="avatar-name">
         <div class="avatar">
-            <img src="/img/avatar.jpeg">
+            <img src="/img/avatar.jpeg" />
         </div>
         <div class="name">
             <i>ljj</i>
@@ -53,25 +53,25 @@
     </div>
     <div class="contents" id="nav-content">
         <ul>
-            <li>
+            <li >
                 <a href="/">
                     <i class="iconfont icon-shouye1"></i>
                     <span>主页</span>
                 </a>
             </li>
-            <li>
+            <li >
                 <a href="/tags">
                     <i class="iconfont icon-biaoqian1"></i>
                     <span>标签</span>
                 </a>
             </li>
-            <li>
+            <li >
                 <a href="/archives">
                     <i class="iconfont icon-guidang2"></i>
                     <span>存档</span>
                 </a>
             </li>
-            <li>
+            <li >
                 <a href="/about/">
                     <i class="iconfont icon-guanyu2"></i>
                     <span>关于</span>
@@ -99,7 +99,7 @@
     <div class="search-container">
         <div class="search-input">
             <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
-            <input id="search-input">
+            <input id="search-input"/>
             <span id="begin-search">搜索</span>
         </div>
         <div class="search-result-container" id="search-result-container">
@@ -134,7 +134,7 @@
         </span>
         <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
 </span>
-
+</span>
     </div>
     <div class="post-content no-indent">
         <p>之前有过这样的需求，抽奖活动，奖品按一定权重随机抽取，例如：</p>
@@ -149,8 +149,7 @@
 <th>e</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td>权重</td>
 <td>12</td>
 <td>32</td>
@@ -158,10 +157,10 @@
 <td>12</td>
 <td>12</td>
 </tr>
-</tbody>
-</table>
-<p>之前的做法是把每个奖品按照权重，重复加进一个数据，即：
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[a,a,a,a...b,b,b,b,b...c,c,c,c,c...d,d,d,d...e,e,e...]</span><br></pre></td></tr></table></figure></p>
+</tbody></table>
+<p>之前的做法是把每个奖品按照权重，重复加进一个数据，即：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[a,a,a,a...b,b,b,b,b...c,c,c,c,c...d,d,d,d...e,e,e...]</span><br></pre></td></tr></table></figure>
+
 <p>里面有12个a,32个b以此类推。然后用 array_rand() 选出一个。</p>
 <p>这种方法首先会的到一个很大的数组，然后循环添加奖品也很费时。今天重新思考这个问题，可以用下面的方法：</p>
 <ol>
@@ -170,11 +169,12 @@
 <li>循环查找随机数在数组里的区间，进而得到结果</li>
 </ol>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">$gift = [<span class="string">'a'</span>=&gt;<span class="number">12</span>,<span class="string">'b'</span>=&gt;<span class="number">32</span>,<span class="string">'c'</span>=&gt;<span class="number">32</span>,<span class="string">'d'</span>=&gt;<span class="number">12</span>,<span class="string">'e'</span>=&gt;<span class="number">12</span>];</span><br><span class="line">$sum = array_sum($gift);</span><br><span class="line">$rand = mt_rand(<span class="number">1</span>,$sum);</span><br><span class="line">$i=<span class="number">0</span>;</span><br><span class="line">$the_gift=<span class="string">''</span>;</span><br><span class="line"><span class="keyword">foreach</span>($gift <span class="keyword">as</span> $key=&gt;$weight)&#123;</span><br><span class="line">    $i += $weight;</span><br><span class="line">    <span class="keyword">if</span>($rand &lt; $i)&#123;</span><br><span class="line">        $the_gift = $key;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">var_dump($the_gift);</span><br></pre></td></tr></table></figure>
+
 <p>虽然这个算法里也有循环，但是通常礼物不会很多，计算量非常小。</p>
 <p>最后给一个用 map 实现的方法，缺点是要用权重作为key，所以每个权重不能相同。<a href="https://www.cnblogs.com/exmyth/p/7100749.html" target="_blank" rel="noopener">https://www.cnblogs.com/exmyth/p/7100749.html</a></p>
 
         
-        <br>
+        <br />
         <div id="comment-container">
         </div>
         <div id="disqus_thread"></div>
@@ -215,7 +215,7 @@
 
         
         <li>
-            <a target="_blank" href="https://github.com/questionlin">
+            <a target="_blank"  href="https://github.com/questionlin">
                             <span class="fa-stack fa-lg">
                                 <i class="iconfont icon-github"></i>
                             </span>
@@ -254,5 +254,24 @@
 
 
 
+
+    <script type="text/javascript">
+       (function() {
+           if (typeof LivereTower === 'function') { return; }
+
+           var j, d = document.getElementById('lv-container');
+
+           d.setAttribute('data-id','city');
+           d.setAttribute('data-uid' , 'MTAyMC80NDc4OC8yMTMwOQ==');
+
+           j = document.createElement('script');
+           j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+           j.async = true;
+
+           d.appendChild(j);
+       })();
+    </script>
+    <noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+    </div>
 
 </html>

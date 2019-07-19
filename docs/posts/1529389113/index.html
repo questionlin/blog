@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="keyword" content="">
+    <meta name="description" content>
+    <meta name="keyword" content>
     <link rel="shortcut icon" href="/img/favicon.ico">
 
     <title>
@@ -45,7 +45,7 @@
 <div class="nav" id="nav">
     <div class="avatar-name">
         <div class="avatar">
-            <img src="/img/avatar.jpeg">
+            <img src="/img/avatar.jpeg" />
         </div>
         <div class="name">
             <i>ljj</i>
@@ -53,25 +53,25 @@
     </div>
     <div class="contents" id="nav-content">
         <ul>
-            <li>
+            <li >
                 <a href="/">
                     <i class="iconfont icon-shouye1"></i>
                     <span>主页</span>
                 </a>
             </li>
-            <li>
+            <li >
                 <a href="/tags">
                     <i class="iconfont icon-biaoqian1"></i>
                     <span>标签</span>
                 </a>
             </li>
-            <li>
+            <li >
                 <a href="/archives">
                     <i class="iconfont icon-guidang2"></i>
                     <span>存档</span>
                 </a>
             </li>
-            <li>
+            <li >
                 <a href="/about/">
                     <i class="iconfont icon-guanyu2"></i>
                     <span>关于</span>
@@ -99,7 +99,7 @@
     <div class="search-container">
         <div class="search-input">
             <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
-            <input id="search-input">
+            <input id="search-input"/>
             <span id="begin-search">搜索</span>
         </div>
         <div class="search-result-container" id="search-result-container">
@@ -137,12 +137,14 @@
         </span>
         <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
 </span>
-
+</span>
     </div>
     <div class="post-content no-indent">
         <h1 id="备份与还原"><a href="#备份与还原" class="headerlink" title="备份与还原"></a>备份与还原</h1><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 备份数据库</span></span><br><span class="line">mysqldump [-h主机名 -p端口] -u用户名 -p密码 数据库名 [表名]&gt; 文件名.sql</span><br><span class="line"></span><br><span class="line"><span class="comment"># 还原</span></span><br><span class="line">mysql [-h主机名] -u用户名 -p密码 数据库名 &lt; 文件名.sql</span><br></pre></td></tr></table></figure>
-<h1 id="状态查看"><a href="#状态查看" class="headerlink" title="状态查看"></a>状态查看</h1><h2 id="SHOW-STATUS"><a href="#SHOW-STATUS" class="headerlink" title="SHOW STATUS"></a>SHOW STATUS</h2><p>show status 命令会显示每个服务器变量和值，可以执行以下命令单个查看：
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show status where Variable_name like &apos;Conne%&apos;</span><br></pre></td></tr></table></figure></p>
+
+<h1 id="状态查看"><a href="#状态查看" class="headerlink" title="状态查看"></a>状态查看</h1><h2 id="SHOW-STATUS"><a href="#SHOW-STATUS" class="headerlink" title="SHOW STATUS"></a>SHOW STATUS</h2><p>show status 命令会显示每个服务器变量和值，可以执行以下命令单个查看：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show status where Variable_name like &apos;Conne%&apos;</span><br></pre></td></tr></table></figure>
+
 <p>以下是一些重要的：</p>
 <ol>
 <li>线程和连接统计</li>
@@ -176,7 +178,7 @@ Table_locks_immediate和Table_locks_waited变量可告诉你有多少锁被立�
 <p>参考资料：《高性能MySQL》</p>
 
         
-        <br>
+        <br />
         <div id="comment-container">
         </div>
         <div id="disqus_thread"></div>
@@ -217,7 +219,7 @@ Table_locks_immediate和Table_locks_waited变量可告诉你有多少锁被立�
 
         
         <li>
-            <a target="_blank" href="https://github.com/questionlin">
+            <a target="_blank"  href="https://github.com/questionlin">
                             <span class="fa-stack fa-lg">
                                 <i class="iconfont icon-github"></i>
                             </span>
@@ -256,5 +258,24 @@ Table_locks_immediate和Table_locks_waited变量可告诉你有多少锁被立�
 
 
 
+
+    <script type="text/javascript">
+       (function() {
+           if (typeof LivereTower === 'function') { return; }
+
+           var j, d = document.getElementById('lv-container');
+
+           d.setAttribute('data-id','city');
+           d.setAttribute('data-uid' , 'MTAyMC80NDc4OC8yMTMwOQ==');
+
+           j = document.createElement('script');
+           j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+           j.async = true;
+
+           d.appendChild(j);
+       })();
+    </script>
+    <noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+    </div>
 
 </html>

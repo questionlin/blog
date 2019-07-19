@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="keyword" content="">
+    <meta name="description" content>
+    <meta name="keyword" content>
     <link rel="shortcut icon" href="/img/favicon.ico">
 
     <title>
@@ -45,7 +45,7 @@
 <div class="nav" id="nav">
     <div class="avatar-name">
         <div class="avatar">
-            <img src="/img/avatar.jpeg">
+            <img src="/img/avatar.jpeg" />
         </div>
         <div class="name">
             <i>ljj</i>
@@ -53,25 +53,25 @@
     </div>
     <div class="contents" id="nav-content">
         <ul>
-            <li>
+            <li >
                 <a href="/">
                     <i class="iconfont icon-shouye1"></i>
                     <span>主页</span>
                 </a>
             </li>
-            <li>
+            <li >
                 <a href="/tags">
                     <i class="iconfont icon-biaoqian1"></i>
                     <span>标签</span>
                 </a>
             </li>
-            <li>
+            <li >
                 <a href="/archives">
                     <i class="iconfont icon-guidang2"></i>
                     <span>存档</span>
                 </a>
             </li>
-            <li>
+            <li >
                 <a href="/about/">
                     <i class="iconfont icon-guanyu2"></i>
                     <span>关于</span>
@@ -99,7 +99,7 @@
     <div class="search-container">
         <div class="search-input">
             <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
-            <input id="search-input">
+            <input id="search-input"/>
             <span id="begin-search">搜索</span>
         </div>
         <div class="search-result-container" id="search-result-container">
@@ -134,32 +134,42 @@
         </span>
         <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
 </span>
-
+</span>
     </div>
     <div class="post-content no-indent">
-        <h1 id="Docker"><a href="#Docker" class="headerlink" title="Docker"></a>Docker</h1><h2 id="镜像"><a href="#镜像" class="headerlink" title="镜像"></a>镜像</h2><p>镜像是大家制作的程序包，里面可以只有 linux 环境，也可以包含特定的软件。
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ docker image ls <span class="comment"># 列出本地所有镜像</span></span><br><span class="line">$ docker image rm [imageName] <span class="comment"># 删除制定镜像</span></span><br><span class="line">$ docker image pull hello-world <span class="comment"># 下载镜像到本地</span></span><br></pre></td></tr></table></figure></p>
-<h2 id="容器"><a href="#容器" class="headerlink" title="容器"></a>容器</h2><p>容器是运行中的镜像。docker 会把镜像复制一份，然后运行。
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker container run hello-world</span><br></pre></td></tr></table></figure></p>
+        <h1 id="Docker"><a href="#Docker" class="headerlink" title="Docker"></a>Docker</h1><h2 id="镜像"><a href="#镜像" class="headerlink" title="镜像"></a>镜像</h2><p>镜像是大家制作的程序包，里面可以只有 linux 环境，也可以包含特定的软件。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ docker image ls <span class="comment"># 列出本地所有镜像</span></span><br><span class="line">$ docker image rm [imageName] <span class="comment"># 删除制定镜像</span></span><br><span class="line">$ docker image pull hello-world <span class="comment"># 下载镜像到本地</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="容器"><a href="#容器" class="headerlink" title="容器"></a>容器</h2><p>容器是运行中的镜像。docker 会把镜像复制一份，然后运行。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker container run hello-world</span><br></pre></td></tr></table></figure>
+
 <p>hello-world 是 docker 官方的镜像。如果没有执行 image pull，会自动下载。</p>
-<p>因为容器是镜像复制出来的，所以一旦运行后，也会有文件生成
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ docker container ls <span class="comment"># 列出运行中的容器</span></span><br><span class="line">$ docker container ls --all <span class="comment"># 包括没在运行的容器</span></span><br><span class="line">$ docker container rm [containerId] <span class="comment"># 删除容器文件</span></span><br></pre></td></tr></table></figure></p>
+<p>因为容器是镜像复制出来的，所以一旦运行后，也会有文件生成</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ docker container ls <span class="comment"># 列出运行中的容器</span></span><br><span class="line">$ docker container ls --all <span class="comment"># 包括没在运行的容器</span></span><br><span class="line">$ docker container rm [containerId] <span class="comment"># 删除容器文件</span></span><br></pre></td></tr></table></figure>
+
 <h2 id="开一个可交互的-nginx-容器"><a href="#开一个可交互的-nginx-容器" class="headerlink" title="开一个可交互的 nginx 容器"></a>开一个可交互的 nginx 容器</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ docker container run \</span><br><span class="line">  -d \ <span class="comment"># 后台运行</span></span><br><span class="line">  -p 127.0.0.1:8080:80 \ <span class="comment"># 容器内的 80 端口映射到本地8080端口</span></span><br><span class="line">  -p 127.0.0.1:8081:443 \ <span class="comment"># 容器内的 443 端口映射到本地8081端口</span></span><br><span class="line">  --rm \ <span class="comment"># 停止运行后删除容器</span></span><br><span class="line">  --name mynginx \ <span class="comment">#容器命名为mynginx</span></span><br><span class="line">  --volume <span class="string">"<span class="variable">$PWD</span>/html"</span>:/usr/share/nginx/html \ <span class="comment">#映射文件目录到本地</span></span><br><span class="line">  --volume <span class="string">"<span class="variable">$PWD</span>/conf"</span>:/etc/nginx \ <span class="comment">#映射配置文件到本地</span></span><br><span class="line">  nginx</span><br></pre></td></tr></table></figure>
+
 <h2 id="针对-linux"><a href="#针对-linux" class="headerlink" title="针对 linux"></a>针对 linux</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ sudo groupadd docker <span class="comment"># 添加 docker 组</span></span><br><span class="line">$ sudo usermod -aG docker <span class="variable">$USER</span> <span class="comment"># 将用户添加到 docker 组</span></span><br><span class="line">$ sudo systemctl start docker <span class="comment"># systemctl 开启服务</span></span><br><span class="line">$ sudo service docker start <span class="comment"># 或者 service 开启服务</span></span><br></pre></td></tr></table></figure>
-<h1 id="Dockerfile"><a href="#Dockerfile" class="headerlink" title="Dockerfile"></a>Dockerfile</h1><p>下面来做一个 swoole 本地开发 dockerfile
-<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在 PHP 官方镜像基础上构建</span></span><br><span class="line"><span class="keyword">FROM</span> php:<span class="number">7.2</span>-cli</span><br><span class="line"></span><br><span class="line"><span class="comment"># 复制本地文件到 /tmp</span></span><br><span class="line"><span class="keyword">COPY</span><span class="bash"> swoole.tar.gz /tmp</span></span><br><span class="line"><span class="bash"></span></span><br><span class="line"><span class="bash"><span class="comment"># 指定接下来的工作目录</span></span></span><br><span class="line"><span class="bash">WORKDIR /app</span></span><br><span class="line"><span class="bash"></span></span><br><span class="line"><span class="bash">RUN tar -xzf /tmp/swoole.tar.gz -C /tmp/swoole --strip-components=1 \</span></span><br><span class="line"><span class="bash">  &amp;&amp; phpize \</span></span><br><span class="line"><span class="bash">  &amp;&amp; ./configure \</span></span><br><span class="line"><span class="bash">  &amp;&amp; make \</span></span><br><span class="line"><span class="bash">  &amp;&amp; make install \</span></span><br><span class="line"><span class="bash">  &amp;&amp; docker-php-ext-enable \</span></span><br><span class="line"><span class="bash">  &amp;&amp; rm -f /tmp/swoole.tar.gz \</span></span><br><span class="line"><span class="bash">  &amp;&amp; rm -f /tmp/swoole \</span></span><br><span class="line"><span class="bash"></span></span><br><span class="line"><span class="bash"><span class="comment"># 映射文件</span></span></span><br><span class="line"><span class="bash">VOLUME [<span class="string">"/app"</span>,<span class="string">"/www"</span>]</span></span><br><span class="line"><span class="bash"></span></span><br><span class="line"><span class="bash"><span class="comment"># 暴露 8081 端口</span></span></span><br><span class="line"><span class="bash">EXPOSE 8081</span></span><br></pre></td></tr></table></figure></p>
-<p>编译运行
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ docker image build -t swoole-dev . <span class="comment"># -t 后面跟镜像的名字</span></span><br><span class="line">$ docker container run -p 8000:3000 swoole-dev</span><br></pre></td></tr></table></figure></p>
-<h1 id="Docker-Compose"><a href="#Docker-Compose" class="headerlink" title="Docker Compose"></a>Docker Compose</h1><p>如果我们有多个服务，比如 wordpress + mysql，这个时候要先启动 mysql，然后根据 mysql 的 ip，改变 wordpress 的配置。这种情况，就要用到 docker compose 了。下面是一个例子
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 文件 docker-compose.yml</span></span><br><span class="line"><span class="attr">mysql:</span></span><br><span class="line"><span class="attr">    image:</span> <span class="attr">mysql:5.7</span></span><br><span class="line"><span class="attr">    environment:</span></span><br><span class="line"><span class="bullet">        -</span> <span class="string">MYSQL_ROOT_PASSWOD=123456</span></span><br><span class="line"><span class="bullet">        -</span> <span class="string">MYSQL_DATABASE=wordpress</span></span><br><span class="line"><span class="attr">web:</span></span><br><span class="line"><span class="attr">    image:</span> <span class="string">wordpress</span></span><br><span class="line"><span class="attr">    links:</span></span><br><span class="line"><span class="bullet">        -</span> <span class="string">mysql</span></span><br><span class="line"><span class="attr">    environment:</span></span><br><span class="line"><span class="bullet">        -</span> <span class="string">WORDPRESS_DB_PASSWORD=123456</span></span><br><span class="line"><span class="attr">    ports:</span></span><br><span class="line"><span class="bullet">        -</span> <span class="string">"127.0.0.1:8080:80"</span></span><br><span class="line"><span class="attr">    working_dir:</span> <span class="string">/var/www/html</span></span><br><span class="line"><span class="attr">    volumes:</span></span><br><span class="line"><span class="attr">        - wordpress:</span> <span class="string">/var/www/html</span></span><br></pre></td></tr></table></figure></p>
-<p>执行
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ docker-compose up <span class="comment"># 启动所有服务</span></span><br><span class="line">$ docker-compose stop <span class="comment"># 关闭所有服务</span></span><br><span class="line">$ docker-compose rm <span class="comment"># 删除容器</span></span><br></pre></td></tr></table></figure></p>
+
+<h1 id="Dockerfile"><a href="#Dockerfile" class="headerlink" title="Dockerfile"></a>Dockerfile</h1><p>下面来做一个 swoole 本地开发 dockerfile</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在 PHP 官方镜像基础上构建</span></span><br><span class="line"><span class="keyword">FROM</span> php:<span class="number">7.2</span>-cli</span><br><span class="line"></span><br><span class="line"><span class="comment"># 复制本地文件到 /tmp</span></span><br><span class="line"><span class="keyword">COPY</span><span class="bash"> swoole.tar.gz /tmp</span></span><br><span class="line"><span class="bash"></span></span><br><span class="line"><span class="bash"><span class="comment"># 指定接下来的工作目录</span></span></span><br><span class="line"><span class="bash">WORKDIR /app</span></span><br><span class="line"><span class="bash"></span></span><br><span class="line"><span class="bash">RUN tar -xzf /tmp/swoole.tar.gz -C /tmp/swoole --strip-components=1 \</span></span><br><span class="line"><span class="bash">  &amp;&amp; phpize \</span></span><br><span class="line"><span class="bash">  &amp;&amp; ./configure \</span></span><br><span class="line"><span class="bash">  &amp;&amp; make \</span></span><br><span class="line"><span class="bash">  &amp;&amp; make install \</span></span><br><span class="line"><span class="bash">  &amp;&amp; docker-php-ext-enable \</span></span><br><span class="line"><span class="bash">  &amp;&amp; rm -f /tmp/swoole.tar.gz \</span></span><br><span class="line"><span class="bash">  &amp;&amp; rm -f /tmp/swoole \</span></span><br><span class="line"><span class="bash"></span></span><br><span class="line"><span class="bash"><span class="comment"># 映射文件</span></span></span><br><span class="line"><span class="bash">VOLUME [<span class="string">"/app"</span>,<span class="string">"/www"</span>]</span></span><br><span class="line"><span class="bash"></span></span><br><span class="line"><span class="bash"><span class="comment"># 暴露 8081 端口</span></span></span><br><span class="line"><span class="bash">EXPOSE 8081</span></span><br></pre></td></tr></table></figure>
+
+<p>编译运行</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ docker image build -t swoole-dev . <span class="comment"># -t 后面跟镜像的名字</span></span><br><span class="line">$ docker container run -p 8000:3000 swoole-dev</span><br></pre></td></tr></table></figure>
+
+<h1 id="Docker-Compose"><a href="#Docker-Compose" class="headerlink" title="Docker Compose"></a>Docker Compose</h1><p>如果我们有多个服务，比如 wordpress + mysql，这个时候要先启动 mysql，然后根据 mysql 的 ip，改变 wordpress 的配置。这种情况，就要用到 docker compose 了。下面是一个例子</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 文件 docker-compose.yml</span></span><br><span class="line"><span class="attr">mysql:</span></span><br><span class="line"><span class="attr">    image:</span> <span class="attr">mysql:5.7</span></span><br><span class="line"><span class="attr">    environment:</span></span><br><span class="line"><span class="bullet">        -</span> <span class="string">MYSQL_ROOT_PASSWOD=123456</span></span><br><span class="line"><span class="bullet">        -</span> <span class="string">MYSQL_DATABASE=wordpress</span></span><br><span class="line"><span class="attr">web:</span></span><br><span class="line"><span class="attr">    image:</span> <span class="string">wordpress</span></span><br><span class="line"><span class="attr">    links:</span></span><br><span class="line"><span class="bullet">        -</span> <span class="string">mysql</span></span><br><span class="line"><span class="attr">    environment:</span></span><br><span class="line"><span class="bullet">        -</span> <span class="string">WORDPRESS_DB_PASSWORD=123456</span></span><br><span class="line"><span class="attr">    ports:</span></span><br><span class="line"><span class="bullet">        -</span> <span class="string">"127.0.0.1:8080:80"</span></span><br><span class="line"><span class="attr">    working_dir:</span> <span class="string">/var/www/html</span></span><br><span class="line"><span class="attr">    volumes:</span></span><br><span class="line"><span class="attr">        - wordpress:</span> <span class="string">/var/www/html</span></span><br></pre></td></tr></table></figure>
+
+<p>执行</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ docker-compose up <span class="comment"># 启动所有服务</span></span><br><span class="line">$ docker-compose stop <span class="comment"># 关闭所有服务</span></span><br><span class="line">$ docker-compose rm <span class="comment"># 删除容器</span></span><br></pre></td></tr></table></figure>
+
 <h1 id="其他有用的命令"><a href="#其他有用的命令" class="headerlink" title="其他有用的命令"></a>其他有用的命令</h1><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ docker container start [containerId] <span class="comment">#启动容器</span></span><br><span class="line">$ docker container stop [containerId] <span class="comment">#停止容器，先发出 SIGTERM 信号，然后发出 SIGKILL 信号</span></span><br><span class="line">$ docker container <span class="built_in">kill</span> [containerId] <span class="comment"># 杀死运行中的容器，发出 SIGKILL 信号</span></span><br><span class="line">$ docker container logs [containerId] <span class="comment"># 查看 shell 输出</span></span><br><span class="line">$ docker container <span class="built_in">exec</span> -it [containerId] /bin/bash <span class="comment"># 进入到容器内部 linux 环境</span></span><br><span class="line">$ docker container cp [containerId]:[/path/to/file] <span class="comment"># 复制容器</span></span><br><span class="line">$ docker container inspect [containerId] <span class="comment"># 查看容器 IP 地址</span></span><br></pre></td></tr></table></figure>
+
 <hr>
 <p>参考资料：<br><a href="http://www.ruanyifeng.com/blog/2018/02/docker-tutorial.html" target="_blank" rel="noopener">http://www.ruanyifeng.com/blog/2018/02/docker-tutorial.html</a><br><a href="http://www.ruanyifeng.com/blog/2018/02/docker-wordpress-tutorial.html" target="_blank" rel="noopener">http://www.ruanyifeng.com/blog/2018/02/docker-wordpress-tutorial.html</a><br><a href="http://www.ruanyifeng.com/blog/2018/02/nginx-docker.html" target="_blank" rel="noopener">http://www.ruanyifeng.com/blog/2018/02/nginx-docker.html</a></p>
 
         
-        <br>
+        <br />
         <div id="comment-container">
         </div>
         <div id="disqus_thread"></div>
@@ -200,7 +210,7 @@
 
         
         <li>
-            <a target="_blank" href="https://github.com/questionlin">
+            <a target="_blank"  href="https://github.com/questionlin">
                             <span class="fa-stack fa-lg">
                                 <i class="iconfont icon-github"></i>
                             </span>
@@ -239,5 +249,24 @@
 
 
 
+
+    <script type="text/javascript">
+       (function() {
+           if (typeof LivereTower === 'function') { return; }
+
+           var j, d = document.getElementById('lv-container');
+
+           d.setAttribute('data-id','city');
+           d.setAttribute('data-uid' , 'MTAyMC80NDc4OC8yMTMwOQ==');
+
+           j = document.createElement('script');
+           j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+           j.async = true;
+
+           d.appendChild(j);
+       })();
+    </script>
+    <noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+    </div>
 
 </html>

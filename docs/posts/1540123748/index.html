@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="keyword" content="">
+    <meta name="description" content>
+    <meta name="keyword" content>
     <link rel="shortcut icon" href="/img/favicon.ico">
 
     <title>
@@ -45,7 +45,7 @@
 <div class="nav" id="nav">
     <div class="avatar-name">
         <div class="avatar">
-            <img src="/img/avatar.jpeg">
+            <img src="/img/avatar.jpeg" />
         </div>
         <div class="name">
             <i>ljj</i>
@@ -53,25 +53,25 @@
     </div>
     <div class="contents" id="nav-content">
         <ul>
-            <li>
+            <li >
                 <a href="/">
                     <i class="iconfont icon-shouye1"></i>
                     <span>主页</span>
                 </a>
             </li>
-            <li>
+            <li >
                 <a href="/tags">
                     <i class="iconfont icon-biaoqian1"></i>
                     <span>标签</span>
                 </a>
             </li>
-            <li>
+            <li >
                 <a href="/archives">
                     <i class="iconfont icon-guidang2"></i>
                     <span>存档</span>
                 </a>
             </li>
-            <li>
+            <li >
                 <a href="/about/">
                     <i class="iconfont icon-guanyu2"></i>
                     <span>关于</span>
@@ -99,7 +99,7 @@
     <div class="search-container">
         <div class="search-input">
             <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
-            <input id="search-input">
+            <input id="search-input"/>
             <span id="begin-search">搜索</span>
         </div>
         <div class="search-result-container" id="search-result-container">
@@ -134,17 +134,18 @@
         </span>
         <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
 </span>
-
+</span>
     </div>
     <div class="post-content no-indent">
         <p><a href="https://github.com/fxsjy/jieba" target="_blank" rel="noopener">结巴分词</a>是一个非常好用的分词组件。但是只支持 python 语言。其他语言想要使用的话，只能使用第三方开发的版本。由于第三方的版本不是没有实现全部功能，就是文档不全，不然就是版本落后，非要使用的话，其实不是特别有安全感。</p>
-<p>鉴于结巴分词的接口非常简单，常用的函数只有4个，于是我用 Flask 实现了一个分词的 http 服务，地址在 <a href="https://github.com/questionlin/jiebahttp" target="_blank" rel="noopener">jiebahttp</a>。提供下面4个接口：
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">/cut?sentence=&amp;cut_all=&amp;HMM=</span><br><span class="line">/cut_for_search?sentence=&amp;HMM=</span><br><span class="line">/posseg_cut?sentence=&amp;HMM=</span><br><span class="line">/tokenize?sentence=&amp;mode=&amp;HMM</span><br></pre></td></tr></table></figure></p>
+<p>鉴于结巴分词的接口非常简单，常用的函数只有4个，于是我用 Flask 实现了一个分词的 http 服务，地址在 <a href="https://github.com/questionlin/jiebahttp" target="_blank" rel="noopener">jiebahttp</a>。提供下面4个接口：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">/cut?sentence=&amp;cut_all=&amp;HMM=</span><br><span class="line">/cut_for_search?sentence=&amp;HMM=</span><br><span class="line">/posseg_cut?sentence=&amp;HMM=</span><br><span class="line">/tokenize?sentence=&amp;mode=&amp;HMM</span><br></pre></td></tr></table></figure>
+
 <p>分别对应结巴的 cut, cut_for_search, posseg.cut, tokenize 4 个函数。同时支持 GET 和 POST 请求。有了 jiebahttp，其他语言就不用引入不放心的第三方库，也能方便的使用了。</p>
 <p>题外话，Elastic Stack 和 MongoDB 的成功早就告诉我们，一个开源库想要真正好用，不能依赖第三方来实现跨语言版本，而是要自己实现远程调用服务。</p>
 
         
-        <br>
+        <br />
         <div id="comment-container">
         </div>
         <div id="disqus_thread"></div>
@@ -185,7 +186,7 @@
 
         
         <li>
-            <a target="_blank" href="https://github.com/questionlin">
+            <a target="_blank"  href="https://github.com/questionlin">
                             <span class="fa-stack fa-lg">
                                 <i class="iconfont icon-github"></i>
                             </span>
@@ -224,5 +225,24 @@
 
 
 
+
+    <script type="text/javascript">
+       (function() {
+           if (typeof LivereTower === 'function') { return; }
+
+           var j, d = document.getElementById('lv-container');
+
+           d.setAttribute('data-id','city');
+           d.setAttribute('data-uid' , 'MTAyMC80NDc4OC8yMTMwOQ==');
+
+           j = document.createElement('script');
+           j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+           j.async = true;
+
+           d.appendChild(j);
+       })();
+    </script>
+    <noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+    </div>
 
 </html>

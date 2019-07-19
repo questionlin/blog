@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="keyword" content="">
+    <meta name="description" content>
+    <meta name="keyword" content>
     <link rel="shortcut icon" href="/img/favicon.ico">
 
     <title>
@@ -45,7 +45,7 @@
 <div class="nav" id="nav">
     <div class="avatar-name">
         <div class="avatar">
-            <img src="/img/avatar.jpeg">
+            <img src="/img/avatar.jpeg" />
         </div>
         <div class="name">
             <i>ljj</i>
@@ -53,25 +53,25 @@
     </div>
     <div class="contents" id="nav-content">
         <ul>
-            <li>
+            <li >
                 <a href="/">
                     <i class="iconfont icon-shouye1"></i>
                     <span>主页</span>
                 </a>
             </li>
-            <li>
+            <li >
                 <a href="/tags">
                     <i class="iconfont icon-biaoqian1"></i>
                     <span>标签</span>
                 </a>
             </li>
-            <li>
+            <li >
                 <a href="/archives">
                     <i class="iconfont icon-guidang2"></i>
                     <span>存档</span>
                 </a>
             </li>
-            <li>
+            <li >
                 <a href="/about/">
                     <i class="iconfont icon-guanyu2"></i>
                     <span>关于</span>
@@ -99,7 +99,7 @@
     <div class="search-container">
         <div class="search-input">
             <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
-            <input id="search-input">
+            <input id="search-input"/>
             <span id="begin-search">搜索</span>
         </div>
         <div class="search-result-container" id="search-result-container">
@@ -134,7 +134,7 @@
         </span>
         <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
 </span>
-
+</span>
     </div>
     <div class="post-content no-indent">
         <p>kubernetes 官方提供了非常好的交互学习平台 <a href="https://kubernetes.io/docs/tutorials/" target="_blank" rel="noopener">https://kubernetes.io/docs/tutorials/</a> ，这篇文章是当作一个命令参考，毕竟这些命令不常用，容易忘。</p>
@@ -146,18 +146,27 @@
 <li>Service deployment 暴露出来的服务，内置了负载分发</li>
 </ul>
 <h1 id="创建集群"><a href="#创建集群" class="headerlink" title="创建集群"></a>创建集群</h1><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">minikube start <span class="comment"># 创建集群</span></span><br><span class="line"></span><br><span class="line">$ kubectl get nodes <span class="comment"># 查看所有 nodes</span></span><br><span class="line">NAME       STATUS    ROLES     AGE       VERSION</span><br><span class="line">minikube   Ready     &lt;none&gt;    19s       v1.10.0</span><br></pre></td></tr></table></figure>
+
 <h1 id="发布应用"><a href="#发布应用" class="headerlink" title="发布应用"></a>发布应用</h1><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ kubectl run kubernetes-bootcamp --image=gcr.io/google-samples/kubernetes-bootcamp:v1 --port=8080 <span class="comment"># 启动一个应用</span></span><br><span class="line">deployment.apps/kubernetes-bootcamp created</span><br><span class="line"></span><br><span class="line">$ kubectl get deployments <span class="comment"># 查看所有应用</span></span><br><span class="line">NAME                  DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE</span><br><span class="line">kubernetes-bootcamp   1         1         1            1           50s</span><br><span class="line"></span><br><span class="line">$ kubectl proxy <span class="comment"># 转发本地端口到 pod 的端口</span></span><br></pre></td></tr></table></figure>
+
 <h1 id="查看应用"><a href="#查看应用" class="headerlink" title="查看应用"></a>查看应用</h1><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">$ kubectl get pods <span class="comment"># 查看所有 pods</span></span><br><span class="line">NAME                                   READY     STATUS    RESTARTS   AGE</span><br><span class="line">kubernetes-bootcamp-5c69669756-85r9w   0/1       Pending   0          1s</span><br><span class="line"></span><br><span class="line">$ kubectl describe pods <span class="comment"># 查看 pods 详情</span></span><br><span class="line">Name:           kubernetes-bootcamp-5c69669756-85r9w</span><br><span class="line">Namespace:      default</span><br><span class="line">Node:           minikube/172.17.0.11</span><br><span class="line">Start Time:     Wed, 05 Dec 2018 05:55:14 +0000</span><br><span class="line">Labels:         pod-template-hash=1725225312</span><br><span class="line">                run=kubernetes-bootcamp</span><br><span class="line">Annotations:    &lt;none&gt;</span><br><span class="line">Status:         Running</span><br><span class="line">IP:             172.18.0.4</span><br><span class="line">Controlled By:  ReplicaSet/kubernetes-bootcamp-5c69669756</span><br><span class="line">Containers:</span><br><span class="line">  kubernetes-bootcamp:</span><br><span class="line">    Container ID:   docker://a7a117005de01756ff3eb0800b91ef089810db413961c86d14fdf9cd8c451754</span><br><span class="line">    Image:          gcr.io/google-samples/kubernetes-bootcamp:v1</span><br><span class="line">    Image ID:       docker-pullable://gcr.io/google-samples/kubernetes-bootcamp@sha256:0d6b8ee63bb57c5f5b6156f446b3bc3b3c143d233037f3a2f00e279c8fcc64af</span><br><span class="line">    Port:           8080/TCP</span><br><span class="line">    Host Port:      0/TCP</span><br><span class="line">    State:          Running</span><br><span class="line">  .</span><br><span class="line">  .</span><br><span class="line">  .</span><br><span class="line"></span><br><span class="line">$ kubectl logs kubernetes-bootcamp-5c69669756-85r9w <span class="comment"># pod 的访问日志</span></span><br><span class="line">$ kubectl <span class="built_in">exec</span> kubernetes-bootcamp-5c69669756-85r9w env <span class="comment"># 在 pod 里执行 shell（查看环境变量）</span></span><br><span class="line">$ kubectl <span class="built_in">exec</span> -ti kubernetes-bootcamp-5c69669756-85r9w bash <span class="comment"># 登录到 pod 里</span></span><br></pre></td></tr></table></figure>
+
 <h1 id="暴露应用"><a href="#暴露应用" class="headerlink" title="暴露应用"></a>暴露应用</h1><h2 id="创建服务"><a href="#创建服务" class="headerlink" title="创建服务"></a>创建服务</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">$ kubectl expose deployment/kubernetes-bootcamp --<span class="built_in">type</span>=<span class="string">"NodePort"</span> --port 8080 <span class="comment"># 暴露服务</span></span><br><span class="line"></span><br><span class="line">$ kubectl get services</span><br><span class="line">NAME                  TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)          AGE</span><br><span class="line">kubernetes            ClusterIP   10.96.0.1        &lt;none&gt;        443/TCP          5m</span><br><span class="line">kubernetes-bootcamp   NodePort    10.102.235.226   &lt;none&gt;        8080:32115/TCP   4m</span><br><span class="line"></span><br><span class="line">$ kubectl describe services/kubernetes-bootcamp <span class="comment"># 查看服务详情</span></span><br><span class="line">Name:                     kubernetes-bootcamp</span><br><span class="line">Namespace:                default</span><br><span class="line">Labels:                   run=kubernetes-bootcamp</span><br><span class="line">Annotations:              &lt;none&gt;</span><br><span class="line">Selector:                 run=kubernetes-bootcamp</span><br><span class="line">Type:                     NodePort</span><br><span class="line">IP:                       10.102.235.226</span><br><span class="line">Port:                     &lt;<span class="built_in">unset</span>&gt;  8080/TCP</span><br><span class="line">TargetPort:               8080/TCP</span><br><span class="line">NodePort:                 &lt;<span class="built_in">unset</span>&gt;  32115/TCP</span><br><span class="line">Endpoints:                172.18.0.4:8080</span><br><span class="line">Session Affinity:         None</span><br><span class="line">External Traffic Policy:  Cluster</span><br><span class="line">Events:                   &lt;none&gt;</span><br><span class="line"></span><br><span class="line"><span class="variable">$curl</span> 172.17.0.49:32115 <span class="comment"># 服务已经暴露在32115端口</span></span><br><span class="line">Hello Kubernetes bootcamp! | Running on: kubernetes-bootcamp-5c69669756-hh4k7 | v=1</span><br></pre></td></tr></table></figure>
+
 <h2 id="使用-label"><a href="#使用-label" class="headerlink" title="使用 label"></a>使用 label</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">$ kubectl describe deployment <span class="comment"># 查看服务发布</span></span><br><span class="line">Name:                   kubernetes-bootcamp</span><br><span class="line">Namespace:              default</span><br><span class="line">CreationTimestamp:      Wed, 05 Dec 2018 06:07:06 +0000</span><br><span class="line">Labels:                 run=kubernetes-bootcamp</span><br><span class="line">Annotations:            deployment.kubernetes.io/revision=1</span><br><span class="line">Selector:               run=kubernetes-bootcamp</span><br><span class="line">Replicas:               1 desired | 1 updated | 1 total | 1 available | 0 unavailable</span><br><span class="line">StrategyType:           RollingUpdate</span><br><span class="line">MinReadySeconds:        0</span><br><span class="line">RollingUpdateStrategy:  25% max unavailable, 25% max surge</span><br><span class="line">Pod Template:</span><br><span class="line">  Labels:  run=kubernetes-bootcamp</span><br><span class="line">  Containers:</span><br><span class="line">   kubernetes-bootcamp:</span><br><span class="line">    Image:        gcr.io/google-samples/kubernetes-bootcamp:v1</span><br><span class="line">    Port:         8080/TCP</span><br><span class="line">.</span><br><span class="line">.</span><br><span class="line">.</span><br><span class="line"></span><br><span class="line">$ kubectl get pods -l run=kubernetes-bootcamp <span class="comment"># 只列出某个 label 的 pods</span></span><br><span class="line">$ kubectl get services -l run=kubernetes-bootcamp <span class="comment"># 只列出某个 label 的 services</span></span><br><span class="line">$ kubectl label pod <span class="variable">$POD_NAME</span> app=v1 <span class="comment"># 给 deployment 改 label</span></span><br></pre></td></tr></table></figure>
+
 <h2 id="删除-services"><a href="#删除-services" class="headerlink" title="删除 services"></a>删除 services</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ kubectl delete service -l run=kubernetes-bootcamp <span class="comment"># 删除 services</span></span><br></pre></td></tr></table></figure>
+
 <p>删除 services 只会删除转发，其对应的 pod 还在运行，还可以用 kubectl exec 进行交互</p>
 <h1 id="扩展应用"><a href="#扩展应用" class="headerlink" title="扩展应用"></a>扩展应用</h1><h2 id="扩展发布"><a href="#扩展发布" class="headerlink" title="扩展发布"></a>扩展发布</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">$ kubectl scale deployments/kubernetes-bootcamp --replicas=4 <span class="comment"># 把 deployment 扩展为4个实例</span></span><br><span class="line"></span><br><span class="line">$ kubectl get deployments</span><br><span class="line">NAME                  DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE</span><br><span class="line">kubernetes-bootcamp   4         4         4            4           3m</span><br><span class="line"></span><br><span class="line">$ kubectl get pods -o wide</span><br><span class="line">NAME                                   READY     STATUS    RESTARTS   AGE       IP           NODE</span><br><span class="line">kubernetes-bootcamp-5c69669756-4lzwf   1/1       Running   0          2m        172.18.0.7   minikube</span><br><span class="line">kubernetes-bootcamp-5c69669756-hbrb8   1/1       Running   0          3m        172.18.0.3   minikube</span><br><span class="line">kubernetes-bootcamp-5c69669756-rr92t   1/1       Running   0          2m        172.18.0.6   minikube</span><br><span class="line">kubernetes-bootcamp-5c69669756-z4ld6   1/1       Running   0          2m        172.18.0.5   minikube</span><br></pre></td></tr></table></figure>
+
 <h2 id="缩减发布"><a href="#缩减发布" class="headerlink" title="缩减发布"></a>缩减发布</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ kubectl scale deployments/kubernetes-bootcamp --replicas=2 <span class="comment"># 把 deployment 缩减为2个实例</span></span><br></pre></td></tr></table></figure>
+
 <h1 id="更新应用"><a href="#更新应用" class="headerlink" title="更新应用"></a>更新应用</h1><h2 id="替换镜像"><a href="#替换镜像" class="headerlink" title="替换镜像"></a>替换镜像</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">$ kubectl <span class="built_in">set</span> image deployments/kubernetes-bootcamp kubernetes-bootcamp=jocatalin/kubernetes-bootcamp:v2 <span class="comment"># 换镜像</span></span><br><span class="line"></span><br><span class="line">$ kubectl rollout status deployments/kubernetes-bootcamp <span class="comment"># 查看新镜像配置状态</span></span><br><span class="line">deployment <span class="string">"kubernetes-bootcamp"</span> successfully rolled out</span><br><span class="line"></span><br><span class="line">$ kubectl describe pods</span><br><span class="line">Name:           kubernetes-bootcamp-7799cbcb86-prj8w</span><br><span class="line">Namespace:      default</span><br><span class="line">Node:           minikube/172.17.0.81</span><br><span class="line">Start Time:     Wed, 05 Dec 2018 06:33:29 +0000</span><br><span class="line">Labels:         pod-template-hash=3355767642</span><br><span class="line">                run=kubernetes-bootcamp</span><br><span class="line">Annotations:    &lt;none&gt;</span><br><span class="line">Status:         Running</span><br><span class="line">IP:             172.18.0.9</span><br><span class="line">Controlled By:  ReplicaSet/kubernetes-bootcamp-7799cbcb86</span><br><span class="line">Containers:</span><br><span class="line">  kubernetes-bootcamp:</span><br><span class="line">    Container ID:   docker://76d31785dc318d21ba1c822c64f24c7f58701dfe761d2c1cb8df03002d568732</span><br><span class="line">    Image:          jocatalin/kubernetes-bootcamp:v2 <span class="comment"># 镜像已经替换</span></span><br><span class="line">    Image ID:       docker-pullable://jocatalin/kubernetes-bootcamp@sha256:fb1a3ced00cecfc1f83f18ab5cd14199e30adc1b49aa4244f5d65ad3f5feb2a5</span><br><span class="line">.</span><br><span class="line">.</span><br><span class="line">.</span><br></pre></td></tr></table></figure>
+
 <h2 id="回滚"><a href="#回滚" class="headerlink" title="回滚"></a>回滚</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ kubectl rollout undo deployments/kubernetes-bootcamp <span class="comment"># 回滚</span></span><br></pre></td></tr></table></figure>
         
-        <br>
+        <br />
         <div id="comment-container">
         </div>
         <div id="disqus_thread"></div>
@@ -198,7 +207,7 @@
 
         
         <li>
-            <a target="_blank" href="https://github.com/questionlin">
+            <a target="_blank"  href="https://github.com/questionlin">
                             <span class="fa-stack fa-lg">
                                 <i class="iconfont icon-github"></i>
                             </span>
@@ -237,5 +246,24 @@
 
 
 
+
+    <script type="text/javascript">
+       (function() {
+           if (typeof LivereTower === 'function') { return; }
+
+           var j, d = document.getElementById('lv-container');
+
+           d.setAttribute('data-id','city');
+           d.setAttribute('data-uid' , 'MTAyMC80NDc4OC8yMTMwOQ==');
+
+           j = document.createElement('script');
+           j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+           j.async = true;
+
+           d.appendChild(j);
+       })();
+    </script>
+    <noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+    </div>
 
 </html>
