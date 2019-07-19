@@ -110,11 +110,6 @@ search:
 post_style:
   indent: 
 
-# Comment
-comment:
-  type: livere
-  livere_id: 'city'
-  livere_uid: 'MTAyMC80NDc4OC8yMTMwOQ=='
 #Custom Setting End
 
 # 内嵌<table>自动添加<br>bug https://github.com/hexojs/hexo/issues/1388
