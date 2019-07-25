@@ -32,7 +32,7 @@ $ diskutil list
 ```
 diskutil eraseDisk ExFAT "WINDOWS10" MBRFormat disk2
 ```
-这里比如指定 ExFAT 格式，因为 install.wim 文件大于 4GB，其他教材用的 MS-DOS(FAT32) 格式不能保存
+这里必须指定 ExFAT 格式，因为有些版本的 install.wim 文件大于 4GB，其他教材用的 MS-DOS(FAT32) 格式不能保存
 
 ```
 $ hdiutil mount cn_windows_10_enterprise_ltsc_2019_x64_dvd_9c09ff24.iso
