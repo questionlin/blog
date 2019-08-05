@@ -11,7 +11,7 @@
 
     <title>
         
-        PHP event 和 libevent 扩展的关系 - ljj的博客
+        php面试题 - ljj的博客
         
     </title>
 
@@ -89,7 +89,7 @@
     </div>
     
         <div id="toc" class="toc-article">
-    
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#php7-为什么比-php5-快"><span class="toc-text">php7 为什么比 php5 快</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#php-的变量以什么数据结构保存在内存里"><span class="toc-text">php 的变量以什么数据结构保存在内存里</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#redis-跳表的数据结构"><span class="toc-text">redis 跳表的数据结构</span></a></li></ol>
 </div>
     
 </div>
@@ -119,11 +119,11 @@
 
 <div class="post-container">
     <div class="post-title">
-        PHP event 和 libevent 扩展的关系
+        php面试题
     </div>
 
     <div class="post-meta">
-        <span class="attr">发布于：<span>2018-07-18 20:46:55</span></span>
+        <span class="attr">发布于：<span>2019-08-05 11:50:39</span></span>
         
         <span class="attr">标签：/
         
@@ -137,33 +137,14 @@
 </span>
     </div>
     <div class="post-content no-indent">
-        <p>PHP event 和 libevent 扩展都是对 libevent 的封装，前者有 stable 版本且一直在更新而后者只有 beta 版本。本来肯定要选 event 扩展，可是它的 pecl 页面上赫然写着依赖 libevent 扩展。陷入混乱的我给作者写了封邮件，<strong>结论是：大胆选 event 扩展</strong>。以下是邮件原文：</p>
-<blockquote>
-<p>Hi,</p>
-<p>event extension is an alternative to libevent extension.</p>
-<p>You can see “libevent” package listed as a dependency on
-<a href="https://pecl.php.net/package/event" target="_blank" rel="noopener">https://pecl.php.net/package/event</a>, but in reality “libevent”
-extension is declared as <strong>conflicting</strong> package in package.xml:</p>
-<pre><code>&lt;package&gt;
-  &lt;name&gt;libevent&lt;/name&gt;
-  &lt;channel&gt;pecl.php.net&lt;/channel&gt;
-  &lt;min&gt;0.0.2&lt;/min&gt;
-  &lt;conflicts/&gt;
-  &lt;providesextension&gt;libevent&lt;/providesextension&gt;
-&lt;/package&gt;</code></pre><p>I can’t recall why. But you definitely don’t need libevent extension
-in order to use “event”.</p>
-<p>On Wed, 18 Jul 2018 11:28:21 +0800 (CST)
-“Simon Lin” <a href="mailto:&#x62;&#111;&#121;&#113;&#117;&#x65;&#x73;&#x74;&#105;&#x6f;&#x6e;&#64;&#49;&#54;&#51;&#x2e;&#x63;&#111;&#x6d;" target="_blank" rel="noopener">&#x62;&#111;&#121;&#113;&#117;&#x65;&#x73;&#x74;&#105;&#x6f;&#x6e;&#64;&#49;&#54;&#51;&#x2e;&#x63;&#111;&#x6d;</a> wrote:</p>
-<p>Hi,</p>
-<p>I’m just confused that what is the relation between event package and
-libevent package? The pecl page shows event package has stable
-versions while libevent package does not. If event package depends on
-libevent package, is event package still stable?</p>
-<p>Sincerely,
-Simon Lin</p>
-<p>– 
-Ruslan Osmanov</p>
-</blockquote>
+        <h1 id="php7-为什么比-php5-快"><a href="#php7-为什么比-php5-快" class="headerlink" title="php7 为什么比 php5 快"></a>php7 为什么比 php5 快</h1><p>减少内存分配次数，多使用栈内存，缓存数组hash值，字符串解析成参数改为宏展开，使用大块连续内存代替小块碎片内存等等。</p>
+<p>PHP7卓越性能背后的原理有哪些？ - 韩天峰的回答 - 知乎
+<a href="https://www.zhihu.com/question/38148900/answer/75115687" target="_blank" rel="noopener">https://www.zhihu.com/question/38148900/answer/75115687</a></p>
+<h1 id="php-的变量以什么数据结构保存在内存里"><a href="#php-的变量以什么数据结构保存在内存里" class="headerlink" title="php 的变量以什么数据结构保存在内存里"></a>php 的变量以什么数据结构保存在内存里</h1><p>php 内存分为堆内存、栈内存、代码段、初始化静态段。</p>
+<p><strong>堆空间段：</strong>是存储占用相同空间长度并且占用空间小的数据类型的地方，比如说整型1，10，100，1000，10000，100000 等等，在内存里面占用空间是等长的，都是64 位4 个字节。存储的都是局部变量，凡是定义在方法中的都是局部变量（方法外的是全局变量），变量有自己的作用域，一旦离开作用域，变量就会被释放。栈内存的更新速度很快，因为局部变量的生命周期都很短。所以在栈空间的数据都是可以通过代码手动进行释放。</p>
+<p><strong>栈内存段：</strong>数据长度不定长，而且占有空间很大的数据类型的数据。在堆内存是里是不可以直接存取的内存，堆内存存储的是数组和对象（其实数组就是对象）。凡是new建立的都是在堆中，堆中存放的都是实体（对象），实体用于封装数据，而且是封装多个（实体的多个属性），如果一个数据消失，这个实体也没有消失，还可以用，所以堆是不会随时释放的，但是栈不一样，栈里存放的都是单个变量，变量被释放了，那就没有了。堆里的实体虽然不会被释放，但是会被当成垃圾，最后通过垃圾回收机制去实现垃圾回收。对于我们的对象来数就是一种大的数据类型而且是占用空间不定长的类型，所以说对象是放在堆里面的，但对象名称是放在栈里面的，这样通过对象名称就可以使用对象。</p>
+<p><a href="https://cloud.tencent.com/developer/article/1162322" target="_blank" rel="noopener">https://cloud.tencent.com/developer/article/1162322</a></p>
+<h1 id="redis-跳表的数据结构"><a href="#redis-跳表的数据结构" class="headerlink" title="redis 跳表的数据结构"></a>redis 跳表的数据结构</h1><p><a href="https://www.jianshu.com/p/d12389b80a19" target="_blank" rel="noopener">https://www.jianshu.com/p/d12389b80a19</a></p>
 
         
         <br />
