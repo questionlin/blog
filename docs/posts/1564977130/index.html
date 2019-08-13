@@ -89,7 +89,7 @@
     </div>
     
         <div id="toc" class="toc-article">
-    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#php7-为什么比-php5-快"><span class="toc-text">php7 为什么比 php5 快</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#php-的变量以什么数据结构保存在内存里"><span class="toc-text">php 的变量以什么数据结构保存在内存里</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#redis-跳表的数据结构"><span class="toc-text">redis 跳表的数据结构</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#php7-为什么比-php5-快"><span class="toc-text">php7 为什么比 php5 快</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#php-的变量以什么数据结构保存在内存里"><span class="toc-text">php 的变量以什么数据结构保存在内存里</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#redis-跳表的数据结构"><span class="toc-text">redis 跳表的数据结构</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#有一个活动预计1000万用户参与，总计10小时，问怎么部署软硬件"><span class="toc-text">有一个活动预计1000万用户参与，总计10小时，问怎么部署软硬件</span></a></li></ol>
 </div>
     
 </div>
@@ -144,7 +144,15 @@
 <p><strong>堆空间段：</strong>是存储占用相同空间长度并且占用空间小的数据类型的地方，比如说整型1，10，100，1000，10000，100000 等等，在内存里面占用空间是等长的，都是64 位4 个字节。存储的都是局部变量，凡是定义在方法中的都是局部变量（方法外的是全局变量），变量有自己的作用域，一旦离开作用域，变量就会被释放。栈内存的更新速度很快，因为局部变量的生命周期都很短。所以在栈空间的数据都是可以通过代码手动进行释放。</p>
 <p><strong>栈内存段：</strong>数据长度不定长，而且占有空间很大的数据类型的数据。在堆内存是里是不可以直接存取的内存，堆内存存储的是数组和对象（其实数组就是对象）。凡是new建立的都是在堆中，堆中存放的都是实体（对象），实体用于封装数据，而且是封装多个（实体的多个属性），如果一个数据消失，这个实体也没有消失，还可以用，所以堆是不会随时释放的，但是栈不一样，栈里存放的都是单个变量，变量被释放了，那就没有了。堆里的实体虽然不会被释放，但是会被当成垃圾，最后通过垃圾回收机制去实现垃圾回收。对于我们的对象来数就是一种大的数据类型而且是占用空间不定长的类型，所以说对象是放在堆里面的，但对象名称是放在栈里面的，这样通过对象名称就可以使用对象。</p>
 <p><a href="https://cloud.tencent.com/developer/article/1162322" target="_blank" rel="noopener">https://cloud.tencent.com/developer/article/1162322</a></p>
-<h1 id="redis-跳表的数据结构"><a href="#redis-跳表的数据结构" class="headerlink" title="redis 跳表的数据结构"></a>redis 跳表的数据结构</h1><p><a href="https://www.jianshu.com/p/d12389b80a19" target="_blank" rel="noopener">https://www.jianshu.com/p/d12389b80a19</a></p>
+<h1 id="redis-跳表的数据结构"><a href="#redis-跳表的数据结构" class="headerlink" title="redis 跳表的数据结构"></a>redis 跳表的数据结构</h1><p>简单的来说就是自带了一个跳跃的索引，比如数据是123456789，那么跳表的一级索引可以是148，二级索引是14</p>
+<p><a href="https://www.jianshu.com/p/d12389b80a19" target="_blank" rel="noopener">https://www.jianshu.com/p/d12389b80a19</a></p>
+<h1 id="有一个活动预计1000万用户参与，总计10小时，问怎么部署软硬件"><a href="#有一个活动预计1000万用户参与，总计10小时，问怎么部署软硬件" class="headerlink" title="有一个活动预计1000万用户参与，总计10小时，问怎么部署软硬件"></a>有一个活动预计1000万用户参与，总计10小时，问怎么部署软硬件</h1><ol>
+<li>假设是一个力度大的活动，80%流量落在前10分钟，即1.4万qps。然后根据压测数据申请服务器，注意预留30%性能</li>
+<li>如果不是秒杀场景，可以用令牌桶算法限流。秒杀场景由于是先到先得，可以用消息队列缓存</li>
+<li>可以参加活动的用户和活动奖品可以预先保存在缓存或消息队列里，数据库只保存最终结果</li>
+<li>可以用一致性哈希算法对用户token进行计算，那么特定用户只会访问特定业务服务器，这时可以把用户抽奖次数缓存在那台业务服务器上，减轻缓存服务器压力。页面固定数据也可以缓存在各台业务服务器上，避免单key压力</li>
+<li>缓存和数据库采用集群缓解压力</li>
+</ol>
 
         
         <br />
