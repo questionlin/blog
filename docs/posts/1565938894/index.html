@@ -11,7 +11,7 @@
 
     <title>
         
-        PHP event 和 libevent 扩展的关系 - ljj的博客
+        谷歌Colaboraty使用介绍 - ljj的博客
         
     </title>
 
@@ -119,17 +119,11 @@
 
 <div class="post-container">
     <div class="post-title">
-        PHP event 和 libevent 扩展的关系
+        谷歌Colaboraty使用介绍
     </div>
 
     <div class="post-meta">
-        <span class="attr">发布于：<span>2018-07-18 20:46:55</span></span>
-        
-        <span class="attr">标签：/
-        
-        <a class="tag" href="/tags/#php" title="php">php</a>
-        <span>/</span>
-        
+        <span class="attr">发布于：<span>2019-08-16 15:01:05</span></span>
         
         </span>
         <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
@@ -137,33 +131,16 @@
 </span>
     </div>
     <div class="post-content no-indent">
-        <p>PHP event 和 libevent 扩展都是对 libevent 的封装，前者有 stable 版本且一直在更新而后者只有 beta 版本。本来肯定要选 event 扩展，可是它的 pecl 页面上赫然写着依赖 libevent 扩展。陷入混乱的我给作者写了封邮件，<strong>结论是：大胆选 event 扩展</strong>。以下是邮件原文：</p>
-<blockquote>
-<p>Hi,</p>
-<p>event extension is an alternative to libevent extension.</p>
-<p>You can see “libevent” package listed as a dependency on
-<a href="https://pecl.php.net/package/event" target="_blank" rel="noopener">https://pecl.php.net/package/event</a>, but in reality “libevent”
-extension is declared as <strong>conflicting</strong> package in package.xml:</p>
-<pre><code>&lt;package&gt;
-  &lt;name&gt;libevent&lt;/name&gt;
-  &lt;channel&gt;pecl.php.net&lt;/channel&gt;
-  &lt;min&gt;0.0.2&lt;/min&gt;
-  &lt;conflicts/&gt;
-  &lt;providesextension&gt;libevent&lt;/providesextension&gt;
-&lt;/package&gt;</code></pre><p>I can’t recall why. But you definitely don’t need libevent extension
-in order to use “event”.</p>
-<p>On Wed, 18 Jul 2018 11:28:21 +0800 (CST)
-“Simon Lin” <a href="mailto:&#x62;&#111;&#121;&#x71;&#x75;&#x65;&#x73;&#x74;&#x69;&#x6f;&#x6e;&#x40;&#49;&#x36;&#51;&#46;&#x63;&#x6f;&#109;" target="_blank" rel="noopener">&#x62;&#111;&#121;&#x71;&#x75;&#x65;&#x73;&#x74;&#x69;&#x6f;&#x6e;&#x40;&#49;&#x36;&#51;&#46;&#x63;&#x6f;&#109;</a> wrote:</p>
-<p>Hi,</p>
-<p>I’m just confused that what is the relation between event package and
-libevent package? The pecl page shows event package has stable
-versions while libevent package does not. If event package depends on
-libevent package, is event package still stable?</p>
-<p>Sincerely,
-Simon Lin</p>
-<p>– 
-Ruslan Osmanov</p>
-</blockquote>
+        <p><a href="https://colab.research.google.com" target="_blank" rel="noopener">谷歌Colaboraty</a>是谷歌推出的 python 练习工具，因为提供 GPU 和可以连接谷歌硬盘，非常方便。下面介绍几个常用使用方法。</p>
+<ol>
+<li>你想直接解压谷歌硬盘上的zip文件，而不是下下来，或者用第三方服务解压（不支持大文件）<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 连接谷歌硬盘</span></span><br><span class="line"><span class="keyword">from</span> google.colab <span class="keyword">import</span> drive</span><br><span class="line">drive.mount(<span class="string">'/content/drive'</span>, force_remount=<span class="keyword">True</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 进入目录</span></span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line">os.chdir(<span class="string">"/content/drive/My Drive/"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 解压</span></span><br><span class="line">!zip filename.zip</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<p>上面看到，行首加上“!”就可以执行 linux 命令</p>
+<ol start="2">
+<li>运行 github 上的项目<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">!git clone https://github.com/Puzer/stylegan-encoder.git</span><br><span class="line"></span><br><span class="line"><span class="comment"># 升级 tensorflow 版本</span></span><br><span class="line">!pip install --upgrade tensorflow-gpu</span><br><span class="line"></span><br><span class="line"><span class="comment"># 执行文件</span></span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line">os.chdir(<span class="string">"stylegan-encoder"</span>)</span><br><span class="line"></span><br><span class="line">!python train.py</span><br></pre></td></tr></table></figure></li>
+</ol>
 
         
         <br />
