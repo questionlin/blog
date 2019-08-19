@@ -1,7 +1,7 @@
 ---
 title: 谷歌Colaboraty使用介绍
 date: 2019-08-16 15:01:05
-tags:
+tags: 在线工具
 id: 1565938894
 ---
 [谷歌Colaboraty](https://colab.research.google.com)是谷歌推出的 python 练习工具，因为提供 GPU 和可以连接谷歌硬盘，非常方便。下面介绍几个常用使用方法。

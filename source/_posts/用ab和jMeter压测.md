@@ -1,7 +1,7 @@
 ---
 title: 用ab和jMeter压测
 date: 2019-08-13 15:39:10
-tags:
+tags: 运维
 id: 1565682061
 ---
 # ab
