@@ -89,7 +89,7 @@
     </div>
     
         <div id="toc" class="toc-article">
-    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#php7-为什么比-php5-快"><span class="toc-text">php7 为什么比 php5 快</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#php-的变量以什么数据结构保存在内存里"><span class="toc-text">php 的变量以什么数据结构保存在内存里</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#redis-跳表的数据结构"><span class="toc-text">redis 跳表的数据结构</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#有一个活动预计1000万用户参与，总计10小时，问怎么部署软硬件"><span class="toc-text">有一个活动预计1000万用户参与，总计10小时，问怎么部署软硬件</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#php7-为什么比-php5-快"><span class="toc-text">php7 为什么比 php5 快</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#php-的变量以什么数据结构保存在内存里"><span class="toc-text">php 的变量以什么数据结构保存在内存里</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#redis-跳表的数据结构"><span class="toc-text">redis 跳表的数据结构</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#聚簇索引和非聚簇索引的区别"><span class="toc-text">聚簇索引和非聚簇索引的区别</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#有一个活动预计1000万用户参与，总计10小时，问怎么部署软硬件"><span class="toc-text">有一个活动预计1000万用户参与，总计10小时，问怎么部署软硬件</span></a></li></ol>
 </div>
     
 </div>
@@ -146,6 +146,7 @@
 <p><a href="https://cloud.tencent.com/developer/article/1162322" target="_blank" rel="noopener">https://cloud.tencent.com/developer/article/1162322</a></p>
 <h1 id="redis-跳表的数据结构"><a href="#redis-跳表的数据结构" class="headerlink" title="redis 跳表的数据结构"></a>redis 跳表的数据结构</h1><p>简单的来说就是自带了一个跳跃的索引，比如数据是123456789，那么跳表的一级索引可以是148，二级索引是14</p>
 <p><a href="https://www.jianshu.com/p/d12389b80a19" target="_blank" rel="noopener">https://www.jianshu.com/p/d12389b80a19</a></p>
+<h1 id="聚簇索引和非聚簇索引的区别"><a href="#聚簇索引和非聚簇索引的区别" class="headerlink" title="聚簇索引和非聚簇索引的区别"></a>聚簇索引和非聚簇索引的区别</h1><p>innodb 数据是一个b+数，即所有的枝干是主键索引，所有的叶子是数据，叶子和叶子之间首尾连接。这种索引和数据放在一起的结构叫聚簇索引。非主键索引放在另一个文件，枝干是索引，叶子是主键索引。这种索引是一个单独文件的结构，叫非聚簇索引。</p>
 <h1 id="有一个活动预计1000万用户参与，总计10小时，问怎么部署软硬件"><a href="#有一个活动预计1000万用户参与，总计10小时，问怎么部署软硬件" class="headerlink" title="有一个活动预计1000万用户参与，总计10小时，问怎么部署软硬件"></a>有一个活动预计1000万用户参与，总计10小时，问怎么部署软硬件</h1><ol>
 <li>假设是一个力度大的活动，80%流量落在前10分钟，即1.4万qps。然后根据压测数据申请服务器，注意预留30%性能</li>
 <li>如果不是秒杀场景，可以用令牌桶算法限流。秒杀场景由于是先到先得，可以用消息队列缓存</li>
