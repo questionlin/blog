@@ -89,7 +89,7 @@
     </div>
     
         <div id="toc" class="toc-article">
-    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#php"><span class="toc-text">php</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#php7-为什么比-php5-快"><span class="toc-text">php7 为什么比 php5 快</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#php-的变量以什么数据结构保存在内存里"><span class="toc-text">php 的变量以什么数据结构保存在内存里</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#php的垃圾回收"><span class="toc-text">php的垃圾回收</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#数据库"><span class="toc-text">数据库</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#redis-跳表的数据结构"><span class="toc-text">redis 跳表的数据结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#聚簇索引和非聚簇索引的区别"><span class="toc-text">聚簇索引和非聚簇索引的区别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#mysql的4种隔离级别"><span class="toc-text">mysql的4种隔离级别</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#综合"><span class="toc-text">综合</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#有一个活动预计1000万用户参与，总计10小时，问怎么部署软硬件"><span class="toc-text">有一个活动预计1000万用户参与，总计10小时，问怎么部署软硬件</span></a></li></ol></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#php"><span class="toc-text">php</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#php7-为什么比-php5-快"><span class="toc-text">php7 为什么比 php5 快</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#php-的变量以什么数据结构保存在内存里"><span class="toc-text">php 的变量以什么数据结构保存在内存里</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#php的垃圾回收"><span class="toc-text">php的垃圾回收</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#数据库"><span class="toc-text">数据库</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#redis-跳表的数据结构"><span class="toc-text">redis 跳表的数据结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#聚簇索引和非聚簇索引的区别"><span class="toc-text">聚簇索引和非聚簇索引的区别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#mysql的4种隔离级别"><span class="toc-text">mysql的4种隔离级别</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#安全"><span class="toc-text">安全</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#常见攻击防御"><span class="toc-text">常见攻击防御</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#综合"><span class="toc-text">综合</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#有一个活动预计1000万用户参与，总计10小时，问怎么部署软硬件"><span class="toc-text">有一个活动预计1000万用户参与，总计10小时，问怎么部署软硬件</span></a></li></ol></li></ol>
 </div>
     
 </div>
@@ -155,6 +155,21 @@
 <li>串行化（一次只执行一个事务）</li>
 </ol>
 <p><a href="/posts/1528164495">参考</a></p>
+<h1 id="安全"><a href="#安全" class="headerlink" title="安全"></a>安全</h1><h2 id="常见攻击防御"><a href="#常见攻击防御" class="headerlink" title="常见攻击防御"></a>常见攻击防御</h2><ol>
+<li><p>sql注入
+原理：<br>用户提交sql语句，比如 ‘;update user’，那么后台的sql语句会变成select user ‘’;update user ‘’
+防御：<br>php使用pdo</p>
+</li>
+<li><p>xss攻击
+原理：<br>用户上传js脚本，比如商品详情里上传<script></script>
+防御：<br>php使用htmlspecialchars()转换字符</p>
+</li>
+<li><p>csrf攻击
+原理：<br>黑客模仿（引导）用户身份发出跨站请求
+防御：<br>每次请求由服务端先给出token，请求必须验证token</p>
+</li>
+</ol>
+<p><a href="https://segmentfault.com/a/1190000018004657" target="_blank" rel="noopener">https://segmentfault.com/a/1190000018004657</a></p>
 <h1 id="综合"><a href="#综合" class="headerlink" title="综合"></a>综合</h1><h2 id="有一个活动预计1000万用户参与，总计10小时，问怎么部署软硬件"><a href="#有一个活动预计1000万用户参与，总计10小时，问怎么部署软硬件" class="headerlink" title="有一个活动预计1000万用户参与，总计10小时，问怎么部署软硬件"></a>有一个活动预计1000万用户参与，总计10小时，问怎么部署软硬件</h2><ol>
 <li>假设是一个力度大的活动，80%流量落在前10分钟，即1.4万qps。然后根据压测数据申请服务器，注意预留30%性能</li>
 <li>如果不是秒杀场景，可以用令牌桶算法限流。秒杀场景由于是先到先得，可以用消息队列缓存</li>
