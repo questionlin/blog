@@ -89,7 +89,7 @@
     </div>
     
         <div id="toc" class="toc-article">
-    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#php"><span class="toc-text">php</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#php7-为什么比-php5-快"><span class="toc-text">php7 为什么比 php5 快</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#php-的变量以什么数据结构保存在内存里"><span class="toc-text">php 的变量以什么数据结构保存在内存里</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#php的垃圾回收"><span class="toc-text">php的垃圾回收</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#数据库"><span class="toc-text">数据库</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#redis-跳表的数据结构"><span class="toc-text">redis 跳表的数据结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#聚簇索引和非聚簇索引的区别"><span class="toc-text">聚簇索引和非聚簇索引的区别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#mysql的4种隔离级别"><span class="toc-text">mysql的4种隔离级别</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#安全"><span class="toc-text">安全</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#常见攻击防御"><span class="toc-text">常见攻击防御</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#综合"><span class="toc-text">综合</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#有一个活动预计1000万用户参与，总计10小时，问怎么部署软硬件"><span class="toc-text">有一个活动预计1000万用户参与，总计10小时，问怎么部署软硬件</span></a></li></ol></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#php"><span class="toc-text">php</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#php7-为什么比-php5-快"><span class="toc-text">php7 为什么比 php5 快</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#php-的变量以什么数据结构保存在内存里"><span class="toc-text">php 的变量以什么数据结构保存在内存里</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#php的垃圾回收"><span class="toc-text">php的垃圾回收</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#数据库"><span class="toc-text">数据库</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#redis-跳表的数据结构"><span class="toc-text">redis 跳表的数据结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#聚簇索引和非聚簇索引的区别"><span class="toc-text">聚簇索引和非聚簇索引的区别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#mysql的4种隔离级别"><span class="toc-text">mysql的4种隔离级别</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#安全"><span class="toc-text">安全</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#常见攻击防御"><span class="toc-text">常见攻击防御</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#综合"><span class="toc-text">综合</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#有一个活动预计1000万用户参与，总计10小时，问怎么部署软硬件"><span class="toc-text">有一个活动预计1000万用户参与，总计10小时，问怎么部署软硬件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#nginx-last-和-break-有什么区别"><span class="toc-text">nginx last 和 break 有什么区别</span></a></li></ol></li></ol>
 </div>
     
 </div>
@@ -174,10 +174,12 @@
 <li>假设是一个力度大的活动，80%流量落在前10分钟，即1.4万qps。然后根据压测数据申请服务器，注意预留30%性能</li>
 <li>如果不是秒杀场景，可以用令牌桶算法限流。秒杀场景由于是先到先得，可以用消息队列缓存</li>
 <li>有资格参加活动的用户和活动奖品可以预先保存在缓存或消息队列里，数据库只保存最终结果</li>
-<li>可以用一致性哈希算法对用户token进行计算，那么特定用户只会访问特定业务服务器，这时可以把用户抽奖次数缓存在那台业务服务器上，减轻缓存服务器压力。页面固定数据也可以缓存在各台业务服务器上，避免单key压力</li>
+<li>可以用一致性哈希算法对用户token进行计算，那么特定用户只会访问特定业务服务器，用户数据和页面固定数据可以缓存在各台业务服务器上，避免单key压力</li>
 <li>缓存和数据库采用集群缓解压力</li>
 </ol>
-
+<h2 id="nginx-last-和-break-有什么区别"><a href="#nginx-last-和-break-有什么区别" class="headerlink" title="nginx last 和 break 有什么区别"></a>nginx last 和 break 有什么区别</h2><p>两者都是停止后续匹配，last 会重新发起请求，而 break 不会</p>
+<p>break 通常用于判断如果真实存在的文件,则用break语句停止rewrite检查</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">if (-f $request_filename) &#123;</span><br><span class="line">break;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
         
         <br />
         <div id="comment-container">
