@@ -1,7 +1,7 @@
 ---
 title: 我的linux命令别名
 date: 2019-09-03 14:01:46
-tags:
+tags: 常用命令
 id: 1567490532
 ---
 在~/.bash_profile里面添加
