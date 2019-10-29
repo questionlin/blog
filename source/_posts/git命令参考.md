@@ -58,30 +58,33 @@ git checkout <stash@n> -- <file-name> #从stash中拿出某个文件的修改
 
 # 查看 commit/reflog 之间的文件区别
 ```sh
-git diff #查看当前修改和上一次提交的区别
-git diff -- <file-name> #指定文件和上一次修改的区别
-git diff <commit-id>/<reflog-id> <commit-id>/reflog-id> #查看提交/操作之间的区别
-git diff <commit-id>/<reflog-id> -- <file-name> #指定文件提交/操作之间的区别
+$ git diff #查看当前修改和上一次提交的区别
+$ git diff -- <file-name> #指定文件和上一次修改的区别
+$ git diff <commit-id>/<reflog-id> <commit-id>/reflog-id> #查看提交/操作之间的区别
+$ git diff <commit-id>/<reflog-id> -- <file-name> #指定文件提交/操作之间的区别
 ```
 
 # 在当前分支基础上新建分支
 ```sh
-git checkout -b <branch-name>
+$ git checkout -b <branch-name>
 ```
 
 # 拉取远程分支
 ```sh
-git checkout -b <本地分支名> origin/<远程分支名>
+$ git checkout -b <本地分支名> origin/<远程分支名>
 ```
 
 # 删除分支
 ```sh
-git branch -d <branch-name>
+# 本地
+$ git branch -d <branch-name>
+# 远程
+$ git push origin --delete <branch-name>
 ```
 
 # 合并分支
 ```sh
-git merge <branch-name>
+$ git merge <branch-name>
 ```
 
 --------------------------
