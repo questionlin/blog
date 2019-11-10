@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content>
+    <meta name="keyword" content>
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        服务器动态扩容与php-fpm配置 - ljj的博客
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i>  </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar ">
+            <img src="/img/avatar.jpeg" />
+        </div>
+        <div class="name">
+            <i>ljj</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li >
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li >
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li >
+                <a href="/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li >
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input"/>
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+
+        <div class="index-about-mobile">
+            <i>  </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        服务器动态扩容与php-fpm配置
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2018-08-19 17:38:38</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#运维" title="运维">运维</a>
+        <span>/</span>
+        
+        <a class="tag" href="/tags/#php" title="php">php</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
+    </div>
+    <div class="post-content no-indent">
+        <p>对于非 sass 类的应用的容量规划，参考底部《服务器容量规划》。简单的说就是估出总量，然后根据80%的压力落在20%时间的原则，估出QPS，然后给每台机器留30%计算能力，最后得出需要的总机器数。但是对于 sass 应用，商家即使告诉你什么时候会有大活动，他们也估不出会有多少点击量。这个时候就需要另一套配置方法。这套方法是建立在云服务上的，毕竟大部分公司不但不起7x24小时维护。</p>
+<p>首先要配置出尽量多的服务器，然后关闭这些服务器。对于很多云服务商来说，这些离线的主机是不收费的。</p>
+<p>然后需要一个报警功能，当现存的服务器压力达到预警值的时候或可以自动启动上面关着的服务器，或向运维发出告警，由运维来启动。一些云服务器有告警功能，没有的话只能由本地脚本来完成。因为对外部检测服务来说服务器还是可访问的，而对日志收集器来说，出现错误日志可能已经晚了。</p>
+<p>然后就是要评估出服务行业的压力普遍集中的时间，比如出行行业是上下班，周末则要往后延。</p>
+<p>下面给一个 php-fpm 配置压力部分的说明（也是一般服务唯一需要配置的部分），详细的说明看底部官方中文文档</p>
+<blockquote>
+<p>pm<br>设置进程管理器如何管理子进程。可用值：static，ondemand，dynamic。必须设置。</p>
+<p>static - 子进程的数量是固定的（pm.max_children）。</p>
+<p>ondemand - 进程在有需求时才产生（当请求时才启动。与 dynamic 相反，在服务启动时 pm.start_servers 就启动了。</p>
+<p>dynamic - 子进程的数量在下面配置的基础上动态设置：pm.max_children，pm.start_servers，pm.min_spare_servers，pm.max_spare_servers。</p>
+</blockquote>
+<p><strong>对于 pm，如果服务器没有弹性扩容方案，也不用给其他程序预留容量的话，选择”static”这个最合适。而”ondemand”最不推荐，因为等到有请求再新建进程，请求会等待较长时间。</strong></p>
+<blockquote>
+<p>pm.max_children<br>pm 设置为 static 时表示创建的子进程的数量，pm 设置为 dynamic 时表示最大可创建的子进程的数量。必须设置。</p>
+<p>该选项设置可以同时提供服务的请求数限制。类似 Apache 的 mpm_prefork 中 MaxClients 的设置和 普通PHP FastCGI中的 PHP_FCGI_CHILDREN 环境变量。</p>
+<p>pm.start_servers<br>设置启动时创建的子进程数目。仅在 pm 设置为 dynamic 时使用。默认值：min_spare_servers + (max_spare_servers - min_spare_servers) / 2。</p>
+<p>pm.min_spare_servers<br>设置空闲服务进程的最低数目。仅在 pm 设置为 dynamic 时使用。必须设置。</p>
+<p>pm.max_spare_servers<br>设置空闲服务进程的最大数目。仅在 pm 设置为 dynamic 时使用。必须设置。</p>
+<p>pm.max_request<br>设置每个子进程重生之前服务的请求数。对于可能存在内存泄漏的第三方模块来说是非常有用的。如果设置为 ‘0’ 则一直接受请求，等同于 PHP_FCGI_MAX_REQUESTS 环境变量。默认值：0。</p>
+</blockquote>
+<p><strong>由于php是有内存垃圾回收机制的，所以这个值是可以设的比较大，不过具体还是要看项目。</strong></p>
+<blockquote>
+<p>request_terminate_timeout<br>设置单个请求的超时中止时间。该选项可能会对 php.ini 设置中的 ‘max_execution_time’ 因为某些特殊原因没有中止运行的脚本有用。设置为 ‘0’ 表示 ‘Off’。可用单位：s（秒），m（分），h（小时）或者 d（天）。默认单位：s（秒）。默认值：0（关闭）。</p>
+</blockquote>
+<p><strong>默认不限时间是不合理的。如果一个进程花掉太长时间执行，即使程序没有出错，也会很快耗尽服务器资源。这里推荐的是 30s</strong></p>
+<hr>
+<p>参考资料：<br>服务器容量规划：<a href="https://ljj.pub/posts/1531898775/" target="_blank" rel="noopener">https://ljj.pub/posts/1531898775/</a><br>php-fpm配置说明：<a href="http://php.net/manual/zh/install.fpm.configuration.php" target="_blank" rel="noopener">http://php.net/manual/zh/install.fpm.configuration.php</a></p>
+
+        
+        <br />
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+        <li>
+            <a target="_blank" href="https://www.zhihu.com/people/simonlin">
+                            <span class="fa-stack fa-lg">
+                                 <i class="iconfont icon-zhihu"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <li>
+            <a target="_blank" href="http://weibo.com/1919879611">
+                            <span class="fa-stack fa-lg">
+                                  <i class="iconfont icon-weibo"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+
+        
+        <li>
+            <a target="_blank"  href="https://github.com/questionlin">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-github"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>

@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content>
+    <meta name="keyword" content>
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        awk用法举例 - ljj的博客
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i>  </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar ">
+            <img src="/img/avatar.jpeg" />
+        </div>
+        <div class="name">
+            <i>ljj</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li >
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li >
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li >
+                <a href="/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li >
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#基本操作"><span class="toc-text">基本操作</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#初次尝试"><span class="toc-text">初次尝试</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#多个值"><span class="toc-text">多个值</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#扩展脚本"><span class="toc-text">扩展脚本</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#正则表达式"><span class="toc-text">正则表达式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#等式"><span class="toc-text">等式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#条件"><span class="toc-text">条件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#分隔符"><span class="toc-text">分隔符</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#列数"><span class="toc-text">列数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#行数"><span class="toc-text">行数</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#实现SQL"><span class="toc-text">实现SQL</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#where-条件过滤"><span class="toc-text">where 条件过滤</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#去重-distinct"><span class="toc-text">去重 distinct</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#排序-order-by"><span class="toc-text">排序 order by</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#limit"><span class="toc-text">limit</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#分组求和统计，关键词：group-by、having、sum、count"><span class="toc-text">分组求和统计，关键词：group by、having、sum、count</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#模糊查询，关键词：like（like属于通配，也可正则-REGEXP）"><span class="toc-text">模糊查询，关键词：like（like属于通配，也可正则 REGEXP）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#多表-join-关联查询，关键词：join"><span class="toc-text">多表 join 关联查询，关键词：join</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#多表水平联接，关键词：union-all"><span class="toc-text">多表水平联接，关键词：union all</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#随机抽样统计，关键词：order-by-rand"><span class="toc-text">随机抽样统计，关键词：order by rand()</span></a></li></ol></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input"/>
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+
+        <div class="index-about-mobile">
+            <i>  </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        awk用法举例
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2019-07-19 10:16:46</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#常用命令" title="常用命令">常用命令</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
+    </div>
+    <div class="post-content no-indent">
+        <p>awk 是用来读取文件的每一行，每一列（默认空格分开），然后打印出来的程序。基本语法是</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">awk &apos;正则表达式 &#123;操作&#125;&apos; 文件名</span><br></pre></td></tr></table></figure>
+
+<h1 id="基本操作"><a href="#基本操作" class="headerlink" title="基本操作"></a>基本操作</h1><p>下面是一些例子。先来生成一个文件a.txt，内容是</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">11 12 13 14 15</span><br><span class="line">21 22 23 24 25</span><br><span class="line">31 32 33 34 35</span><br></pre></td></tr></table></figure>
+
+<h2 id="初次尝试"><a href="#初次尝试" class="headerlink" title="初次尝试"></a>初次尝试</h2><p>print 命令表示打印，这个表达式会打印整个文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ awk &apos;&#123; print &#125;&apos; a.txt</span><br><span class="line">11 12 13 14 15</span><br><span class="line">21 22 23 24 25</span><br><span class="line">31 32 33 34 35</span><br></pre></td></tr></table></figure>
+
+<p>在 print 后面跟 $0 表示列数，$0表示整行（不分列），$1 表示第一列，这个表达式也是打印整个文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ awk &apos;&#123; print $0 &#125;&apos; a.txt</span><br><span class="line">11 12 13 14 15</span><br><span class="line">21 22 23 24 25</span><br><span class="line">31 32 33 34 35</span><br></pre></td></tr></table></figure>
+
+<p>“” 里面放的是要打印字符串，这个命令针对每一行打印 ljj</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ awk &apos;&#123; print &quot;ljj&quot; &#125;&apos; a.txt</span><br><span class="line">ljj</span><br><span class="line">ljj</span><br><span class="line">ljj</span><br></pre></td></tr></table></figure>
+
+<h2 id="多个值"><a href="#多个值" class="headerlink" title="多个值"></a>多个值</h2><p>-F后面跟分隔列的字符串，a.txt是用空格分隔，所以这里跟” “。这里打印第一列和第三列</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ awk -F&quot; &quot; &apos;&#123; print $1 $3 &#125;&apos; a.txt</span><br><span class="line">1113</span><br><span class="line">2123</span><br><span class="line">3133</span><br></pre></td></tr></table></figure>
+
+<p>上面这个把第一列和第三列连起来了，在中间加 “ “ 隔开</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ awk -F&quot; &quot; &apos;&#123; print $1 &quot; &quot; $3 &#125;&apos; a.txt</span><br><span class="line">11 13</span><br><span class="line">21 23</span><br><span class="line">31 33</span><br></pre></td></tr></table></figure>
+
+<p>添加你要的任意字符串</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ awk -F&quot; &quot; &apos;&#123; print &quot;第一列：&quot; $1 &quot; 第三列：&quot; $3 &#125;&apos; a.txt</span><br><span class="line">第一列：11 第三列：13</span><br><span class="line">第一列：21 第三列：23</span><br><span class="line">第一列：31 第三列：33</span><br></pre></td></tr></table></figure>
+
+<h2 id="扩展脚本"><a href="#扩展脚本" class="headerlink" title="扩展脚本"></a>扩展脚本</h2><p>如果你的命令很复杂，还要多次使用，那么可以保存成文件，新建一个文件 myscript.awk</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">BEGIN &#123;</span><br><span class="line">    FS=&quot; &quot;</span><br><span class="line">&#125;</span><br><span class="line">&#123; print $1 &#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后运行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ awk -f myscript.awk a.txt</span><br></pre></td></tr></table></figure>
+
+<h2 id="正则表达式"><a href="#正则表达式" class="headerlink" title="正则表达式"></a>正则表达式</h2><p>先来个简单的，打印有 foo 的行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ awk &apos;/foo/ &#123;print&#125;&apos;</span><br></pre></td></tr></table></figure>
+
+<h2 id="等式"><a href="#等式" class="headerlink" title="等式"></a>等式</h2><p>打印第一列等于 11 的行的第三列</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ awk &apos;$1 == &quot;11&quot; &#123;print $3&#125;&apos; a.txt</span><br><span class="line">13</span><br></pre></td></tr></table></figure>
+
+<p>这种等式还支持 “==”, “&lt;“, “&gt;”, “&lt;=”, “&gt;=”, 和 “!=”。此外，“<del>” 和 “!</del>” 后面可以跟正则表达式，分别表示包含和不包含</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ awk &apos;$1 ~ /11/ &#123;print $3&#125;&apos; a.txt</span><br></pre></td></tr></table></figure>
+
+<h2 id="条件"><a href="#条件" class="headerlink" title="条件"></a>条件</h2><p>类似程序代码，awk 也支持条件，比如</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123; </span><br><span class="line">  if ( $5 ~ /root/ ) &#123; </span><br><span class="line">          print $3 </span><br><span class="line">  &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>或者更复杂一点</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&#123; </span><br><span class="line">  if ( $1 == &quot;foo&quot; ) &#123; </span><br><span class="line">           if ( $2 == &quot;foo&quot; ) &#123; </span><br><span class="line">                    print &quot;uno&quot; </span><br><span class="line">           &#125; else &#123; </span><br><span class="line">                    print &quot;one&quot; </span><br><span class="line">           &#125; </span><br><span class="line">  &#125; else if ($1 == &quot;bar&quot; ) &#123; </span><br><span class="line">           print &quot;two&quot; </span><br><span class="line">  &#125; else &#123; </span><br><span class="line">           print &quot;three&quot; </span><br><span class="line">  &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>表达式还能做逻辑判断</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">( $1 == &quot;foo&quot; ) &amp;&amp; ( $2 == &quot;bar&quot; ) &#123; print &#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="分隔符"><a href="#分隔符" class="headerlink" title="分隔符"></a>分隔符</h2><p>上面用 -F” “ 表示用空格座位分隔符，其实 -F 也支持正则表达式。比如多个制表符</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-F&quot;\t+&quot;</span><br></pre></td></tr></table></figure>
+
+<p>或者别的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-F&quot;foo[0‑9][0‑9][0‑9]&quot;</span><br></pre></td></tr></table></figure>
+
+<h2 id="列数"><a href="#列数" class="headerlink" title="列数"></a>列数</h2><p>NF 表示列数（Number of fields），下面判断列数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ awk &apos;NF == 5 &#123;print&#125;&apos; a.txt</span><br><span class="line">11 12 13 14 15</span><br><span class="line">21 22 23 24 25</span><br><span class="line">31 32 33 34 35</span><br></pre></td></tr></table></figure>
+
+<p>5改成别的数字就不输出了</p>
+<h2 id="行数"><a href="#行数" class="headerlink" title="行数"></a>行数</h2><p>NR 表示行数(Number of record)，下面判断行数，排除了第2行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ awk &apos;(NR&lt;2) || (NR&gt;2) &#123;print&#125;&apos; a.txt</span><br><span class="line">11 12 13 14 15</span><br><span class="line">31 32 33 34 35</span><br></pre></td></tr></table></figure>
+
+<h1 id="实现SQL"><a href="#实现SQL" class="headerlink" title="实现SQL"></a>实现SQL</h1><p>先新建两个文件
+user，字段 id name addr</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1 zhangsan hubei</span><br><span class="line">3 lisi tianjin</span><br><span class="line">4 wangmazi guangzhou</span><br><span class="line">2 wangwu beijing</span><br></pre></td></tr></table></figure>
+
+<p>consumer，字段 id cost date</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">1 15 20121213</span><br><span class="line">2 20 20121213</span><br><span class="line">3 100 20121213</span><br><span class="line">4 99 20121213</span><br><span class="line">1 25 20121114</span><br><span class="line">2 108 20121114</span><br><span class="line">3 100 20121114</span><br><span class="line">4 66 20121114</span><br><span class="line">1 15 20121213</span><br><span class="line">1 115 20121114</span><br></pre></td></tr></table></figure>
+
+<h2 id="where-条件过滤"><a href="#where-条件过滤" class="headerlink" title="where 条件过滤"></a>where 条件过滤</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">select * from user; </span><br><span class="line">awk 1 user;</span><br><span class="line">select * from consumer where cost &gt; 100;</span><br><span class="line">awk &apos;$2&gt;100&apos; consumer</span><br></pre></td></tr></table></figure>
+
+<h2 id="去重-distinct"><a href="#去重-distinct" class="headerlink" title="去重 distinct"></a>去重 distinct</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">select distinct(date) from consumer;</span><br><span class="line">awk &apos;!a[$3]++ &#123;print $3&#125;&apos; consumer</span><br><span class="line">select distinct(*) from consumer;</span><br><span class="line">awk &apos;!a[$0]++&apos; consumer</span><br></pre></td></tr></table></figure>
+
+<p>这里新建了一个变量数组 a[]，当 a 里没有 key 的时候打印，即第一次打印，余下都跳过</p>
+<h2 id="排序-order-by"><a href="#排序-order-by" class="headerlink" title="排序 order by"></a>排序 order by</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">select id from user order by id;</span><br><span class="line">awk &apos;&#123;a[$1]&#125;END&#123;asorti(a);for(i=1;i&lt;=length(a);i++) &#123;print a[i]&#125;&#125;&apos; user</span><br></pre></td></tr></table></figure>
+
+<h2 id="limit"><a href="#limit" class="headerlink" title="limit"></a>limit</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">select * from consumer limit 2;</span><br><span class="line">awk &apos;NR&lt;=2&apos; consumer</span><br><span class="line">awk &apos;NR&gt;2&#123;exit&#125;1&apos; consumer # performance is better</span><br></pre></td></tr></table></figure>
+
+<h2 id="分组求和统计，关键词：group-by、having、sum、count"><a href="#分组求和统计，关键词：group-by、having、sum、count" class="headerlink" title="分组求和统计，关键词：group by、having、sum、count"></a>分组求和统计，关键词：group by、having、sum、count</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">select id, count(1), sum(cost) from consumer group by id having count(1) &gt; 2;</span><br><span class="line">awk &apos;&#123;a[$1]=a[$1]==&quot;&quot;?$2:a[$1]&quot;,&quot;$2&#125;END&#123;for(i in a)&#123;c=split(a[i],b,&quot;,&quot;);if(c&gt;2)&#123;sum=0;for(j in b)&#123;sum+=b[j]&#125;;print i&quot;\t&quot;c&quot;\t&quot;sum&#125;&#125;&#125;&apos; consumer</span><br></pre></td></tr></table></figure>
+
+<h2 id="模糊查询，关键词：like（like属于通配，也可正则-REGEXP）"><a href="#模糊查询，关键词：like（like属于通配，也可正则-REGEXP）" class="headerlink" title="模糊查询，关键词：like（like属于通配，也可正则 REGEXP）"></a>模糊查询，关键词：like（like属于通配，也可正则 REGEXP）</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">select name from user where name like &apos;wang%&apos;;</span><br><span class="line">awk &apos;$2 ~/^wang/&#123;print $2&#125;&apos; user</span><br><span class="line">select addr from user where addr like &apos;%bei&apos;;</span><br><span class="line">awk &apos;/.*bei$/&#123;print $3&#125;&apos; user</span><br><span class="line">select addr from user where addr like &apos;%bei%&apos;;</span><br><span class="line">awk &apos;$3 ~/bei/&#123;print $3&#125;&apos; user</span><br></pre></td></tr></table></figure>
+
+<h2 id="多表-join-关联查询，关键词：join"><a href="#多表-join-关联查询，关键词：join" class="headerlink" title="多表 join 关联查询，关键词：join"></a>多表 join 关联查询，关键词：join</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">select a.* , b.* from user a inner join consumer b  on a.id = b.id and b.id = 2;</span><br><span class="line">awk &apos;ARGIND==1&#123;a[$1]=$0;next&#125;&#123;if(($1 in a)&amp;&amp;$1==2)&#123;print a[$1]&quot;\t&quot;$2&quot;\t&quot;$3&#125;&#125;&apos; user consumer</span><br></pre></td></tr></table></figure>
+
+<h2 id="多表水平联接，关键词：union-all"><a href="#多表水平联接，关键词：union-all" class="headerlink" title="多表水平联接，关键词：union all"></a>多表水平联接，关键词：union all</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">select a.* from user a union all select b.* from user b;</span><br><span class="line">awk 1 user user</span><br><span class="line">select a.* from user a union select b.* from user b;</span><br><span class="line">awk &apos;!a[$0]++&apos; user user</span><br></pre></td></tr></table></figure>
+
+<h2 id="随机抽样统计，关键词：order-by-rand"><a href="#随机抽样统计，关键词：order-by-rand" class="headerlink" title="随机抽样统计，关键词：order by rand()"></a>随机抽样统计，关键词：order by rand()</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM consumer ORDER BY RAND() LIMIT 2;</span><br><span class="line">awk &apos;BEGIN&#123;srand();while(i&lt;2)&#123;k=int(rand()*10)+1;if(!(k in a))&#123;a[k];i++&#125;&#125;&#125;(NR in a)&apos; consumer</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>参考资料：<br><a href="https://developer.ibm.com/tutorials/l-awk1/" target="_blank" rel="noopener">https://developer.ibm.com/tutorials/l-awk1/</a><br><a href="https://my.oschina.net/leejun2005/blog/100710#OSC_h3_5" target="_blank" rel="noopener">https://my.oschina.net/leejun2005/blog/100710#OSC_h3_5</a></p>
+
+        
+        <br />
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+        <li>
+            <a target="_blank" href="https://www.zhihu.com/people/simonlin">
+                            <span class="fa-stack fa-lg">
+                                 <i class="iconfont icon-zhihu"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <li>
+            <a target="_blank" href="http://weibo.com/1919879611">
+                            <span class="fa-stack fa-lg">
+                                  <i class="iconfont icon-weibo"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+
+        
+        <li>
+            <a target="_blank"  href="https://github.com/questionlin">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-github"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>

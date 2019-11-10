@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content>
+    <meta name="keyword" content>
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        redis搭建集群 - ljj的博客
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i>  </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar ">
+            <img src="/img/avatar.jpeg" />
+        </div>
+        <div class="name">
+            <i>ljj</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li >
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li >
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li >
+                <a href="/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li >
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#集群与主从的区别"><span class="toc-text">集群与主从的区别</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#过一遍官方例子"><span class="toc-text">过一遍官方例子</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#在官网下载源码后编译"><span class="toc-text">在官网下载源码后编译</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#用客户端测试集群"><span class="toc-text">用客户端测试集群</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#最后清理现场"><span class="toc-text">最后清理现场</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#手动生成集群"><span class="toc-text">手动生成集群</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#生成实例"><span class="toc-text">生成实例</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#连接各节点"><span class="toc-text">连接各节点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#查看集群状态"><span class="toc-text">查看集群状态</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#分配哈希槽"><span class="toc-text">分配哈希槽</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#做主从映射"><span class="toc-text">做主从映射</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结"><span class="toc-text">总结</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#集群更改"><span class="toc-text">集群更改</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#转移插槽（slot）"><span class="toc-text">转移插槽（slot）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#集群扩容"><span class="toc-text">集群扩容</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#集群缩减"><span class="toc-text">集群缩减</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#集群模式的缺陷"><span class="toc-text">集群模式的缺陷</span></a></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input"/>
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+
+        <div class="index-about-mobile">
+            <i>  </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        redis搭建集群
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2018-08-30 14:22:44</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#redis" title="redis">redis</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
+    </div>
+    <div class="post-content no-indent">
+        <h1 id="集群与主从的区别"><a href="#集群与主从的区别" class="headerlink" title="集群与主从的区别"></a>集群与主从的区别</h1><p>主从模式中，客户端可以从任何一个服务端读取，分散了读的压力，但是只能对特定的一个服务端做写操作。redis 提供了 sentinel 模式监控主服务的状态，如果主服务挂了，会选择一台从服务作为主服务。可是如果住服务是因为写压力过大，那么相同配置的从服务被选为主之后，毫无疑问也会因为压力太大而挂掉。而且 redis 所有数据都是保存在内存里，如果数据太多，一台服务器放满了，也不能用主从模式。这个时候可以用集群方案来解决。</p>
+<p>redis 集群方案里，系统由多个主从服务组成，每个服务端都可以读写，服务端会根据哈希算法，分配数据到特定的服务器上。系统内不再有单点压力。</p>
+<h1 id="过一遍官方例子"><a href="#过一遍官方例子" class="headerlink" title="过一遍官方例子"></a>过一遍官方例子</h1><h2 id="在官网下载源码后编译"><a href="#在官网下载源码后编译" class="headerlink" title="在官网下载源码后编译"></a>在官网下载源码后编译</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ gem install redis <span class="comment"># 安装 ruby 依赖</span></span><br><span class="line">$ wget http://download.redis.io/releases/redis-4.0.11.tar.gz</span><br><span class="line">$ tar xzf redis-4.0.11.tar.gz</span><br><span class="line">$ <span class="built_in">cd</span> redis-4.0.11</span><br><span class="line">$ make</span><br></pre></td></tr></table></figure>
+
+<p>这里确保 src/redis-server, src/redis-cli 两个生成成功。然后进入 utils/create-cluster，执行</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ ./create-cluster start <span class="comment">#生成6个实例</span></span><br><span class="line">$ ./create-cluster create <span class="comment">#将6个实例配置为集群</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="用客户端测试集群"><a href="#用客户端测试集群" class="headerlink" title="用客户端测试集群"></a>用客户端测试集群</h2><p>官方例子生成了6个实例，分别使用 30001-30006 6个端口。</p>
+<p>开一个客户端，连接第一个端口</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ redis-cli -c -p 30001</span><br><span class="line">127.0.0.1:30001&gt; <span class="built_in">set</span> ljj 1</span><br><span class="line">OK</span><br></pre></td></tr></table></figure>
+
+<p>开另一个客户端，连接第二个端口</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ redis-cli -c -p 30002</span><br><span class="line">127.0.0.1:30002&gt; get ljj</span><br><span class="line">-&gt; Redirected to slot [1799] located at 127.0.0.1:30001</span><br><span class="line"><span class="string">"1"</span></span><br><span class="line">127.0.0.1:30001&gt; get ljj</span><br><span class="line"><span class="string">"1"</span></span><br><span class="line">127.0.0.1:30001&gt; <span class="built_in">set</span> ljj2 2</span><br><span class="line">OK</span><br></pre></td></tr></table></figure>
+
+<p>这里发现客户端已经被转到了30001这个端口。之后用客户端分别连接每个端口，执行 get 和 set 操作，发现 <strong>在任何一个客户端都是可以执行set 和 get 操作的，系统会判断值应该被存储在哪个服务，然后转接过去</strong>。</p>
+<h2 id="最后清理现场"><a href="#最后清理现场" class="headerlink" title="最后清理现场"></a>最后清理现场</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ ./create-cluster stop <span class="comment">#停止所有实例</span></span><br><span class="line">$ ./create-cluster clean <span class="comment">#删除所有生成的文件</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="手动生成集群"><a href="#手动生成集群" class="headerlink" title="手动生成集群"></a>手动生成集群</h1><h2 id="生成实例"><a href="#生成实例" class="headerlink" title="生成实例"></a>生成实例</h2><p>先来分析一下 create-cluster 的代码。当执行 start 的时候，实际上是执行了</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redis-server --port <span class="variable">$PORT</span> --cluster-enabled yes --cluster-config-file nodes-<span class="variable">$&#123;PORT&#125;</span>.conf --cluster-node-timeout 2000 --appendonly yes --appendfilename appendonly-<span class="variable">$&#123;PORT&#125;</span>.aof --dbfilename dump-<span class="variable">$&#123;PORT&#125;</span>.rdb --logfile <span class="variable">$&#123;PORT&#125;</span>.<span class="built_in">log</span> --daemonize yes</span><br></pre></td></tr></table></figure>
+
+<p>$PORT 是30001-30006。如果目录下没有 nodes-${PORT}.conf 配置文件，redis 会自己生成一个，并写入信息。现在先手动生成实例 30001-30004。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ ps aux | grep redis</span><br><span class="line">simon            52453   0.1  0.1  4301948   2232   ??  Ss   11:21上午   0:00.08 ../../src/redis-server *:30001 [cluster]</span><br><span class="line">simon            52474   0.1  0.1  4301948   2208   ??  Ss   11:21上午   0:00.02 ../../src/redis-server *:30004 [cluster]</span><br><span class="line">simon            52472   0.1  0.1  4310140   2256   ??  Ss   11:21上午   0:00.03 ../../src/redis-server *:30003 [cluster]</span><br><span class="line">simon            52470   0.1  0.1  4301948   2204   ??  Ss   11:21上午   0:00.04 ../../src/redis-server *:30002 [cluster]</span><br><span class="line">simon            52476   0.0  0.0  4267752    876 s001  S+   11:22上午   0:00.00 grep redis</span><br></pre></td></tr></table></figure>
+
+<h2 id="连接各节点"><a href="#连接各节点" class="headerlink" title="连接各节点"></a>连接各节点</h2><p>只要连接并操作一个一个服务端即可</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:30001&gt; CLUSTER MEET 127.0.0.1 30002</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:30001&gt; CLUSTER MEET 127.0.0.1 30003</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:30001&gt; CLUSTER MEET 127.0.0.1 30004</span><br><span class="line">OK</span><br></pre></td></tr></table></figure>
+
+<h2 id="查看集群状态"><a href="#查看集群状态" class="headerlink" title="查看集群状态"></a>查看集群状态</h2><p>查看集群状态</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:30001&gt; cluster info</span><br><span class="line">cluster_state:fail</span><br><span class="line">cluster_slots_assigned:0</span><br><span class="line">cluster_slots_ok:0</span><br><span class="line">cluster_slots_pfail:0</span><br><span class="line">cluster_slots_fail:0</span><br><span class="line">cluster_known_nodes:4</span><br><span class="line">cluster_size:0</span><br><span class="line">cluster_current_epoch:3</span><br><span class="line">cluster_my_epoch:1</span><br><span class="line">cluster_stats_messages_ping_sent:213</span><br><span class="line">cluster_stats_messages_pong_sent:213</span><br><span class="line">cluster_stats_messages_meet_sent:3</span><br><span class="line">cluster_stats_messages_sent:429</span><br><span class="line">cluster_stats_messages_ping_received:213</span><br><span class="line">cluster_stats_messages_pong_received:216</span><br><span class="line">cluster_stats_messages_received:429</span><br></pre></td></tr></table></figure>
+
+<p>查看集群内所有节点</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:30001&gt; cluster nodes</span><br><span class="line">735e799f68bf21aa6af679a55f28f69740e2251a 127.0.0.1:30004@40004 master - 0 1535779344092 3 connected</span><br><span class="line">69a812b0dfc02dee94bd03a8e1ff453728409e5a 127.0.0.1:30001@40001 myself,master - 0 1535779343000 1 connected 0-8192</span><br><span class="line">b2897dbc560a9774018559d49eb277ae75bd685b 127.0.0.1:30003@40003 master - 0 1535779343790 0 connected 8193-16383</span><br><span class="line">ac391224d51ccd316809f88e2d59b645213a1e66 127.0.0.1:30002@40002 master - 0 1535779343790 2 connected</span><br></pre></td></tr></table></figure>
+
+<h2 id="分配哈希槽"><a href="#分配哈希槽" class="headerlink" title="分配哈希槽"></a>分配哈希槽</h2><p>redis集群有16384个哈希槽，要把所有数据映射到16384槽，需要批量设置槽</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">redis-cli -p 30001 cluster addslots &#123;0..8192&#125;</span><br><span class="line">redis-cli -p 30003 cluster addslots &#123;8193..16383&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="做主从映射"><a href="#做主从映射" class="headerlink" title="做主从映射"></a>做主从映射</h2><p>我的配置是 30001主-&gt;30002从，30003主-&gt;30004从</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:30002&gt; CLUSTER REPLICATE 69a812b0dfc02dee94bd03a8e1ff453728409e5a</span><br><span class="line">127.0.0.1:30004&gt; CLUSTER REPLICATE b2897dbc560a9774018559d49eb277ae75bd685b</span><br></pre></td></tr></table></figure>
+
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>到此 redis 集群已经搭建好了。现在执行 cluster info，cluster_state 已经是 ok 了。</p>
+<p>看得出还是挺麻烦的，推荐使用官方的脚本 redis-trib.rb。当执行 create-cluster create 的时候，是执行了</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">../../src/redis-trib.rb create --replicas 1 127.0.0.1:30001 127.0.0.1:3002 127.0.0.1:3003 127.0.0.1:3004 127.0.0.1:3005 127.0.0.1:3006</span><br></pre></td></tr></table></figure>
+
+<p>–replicas 1 表示每个主对应一个从。</p>
+<h1 id="集群更改"><a href="#集群更改" class="headerlink" title="集群更改"></a>集群更改</h1><h2 id="转移插槽（slot）"><a href="#转移插槽（slot）" class="headerlink" title="转移插槽（slot）"></a>转移插槽（slot）</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">src/redis-trib.rb reshard 127.0.0.1:30001</span><br><span class="line">How many slots <span class="keyword">do</span> you want to move (from 1 to 16384)? 1000 <span class="comment">#转移的插槽数</span></span><br><span class="line">What is the receiving node ID? b2897dbc560a9774018559d49eb277ae75bd685b <span class="comment">#接收的节点</span></span><br><span class="line">Please enter all the <span class="built_in">source</span> node IDs. <span class="comment">#从指定节点转移还是从其他所有节点转移</span></span><br><span class="line">  Type <span class="string">'all'</span> to use all the nodes as <span class="built_in">source</span> nodes <span class="keyword">for</span> the <span class="built_in">hash</span> slots.</span><br><span class="line">  Type <span class="string">'done'</span> once you entered all the <span class="built_in">source</span> nodes IDs.</span><br><span class="line">Source node <span class="comment">#1:all</span></span><br></pre></td></tr></table></figure>
+
+<p>以上插槽就搬运好了。如果要把一个节点里的所有插槽转移到另一个节点，可以简单的执行这个命令</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./redis-trib.rb reshard --from &lt;node-id&gt; --to &lt;node-id&gt; --slots &lt;number of slots&gt; --yes &lt;host&gt;:&lt;port&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="集群扩容"><a href="#集群扩容" class="headerlink" title="集群扩容"></a>集群扩容</h2><p>首先启动两个新的服务 30005主，30006从。</p>
+<p>将30005加入集群</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">src/redis-trib.rb add-node 127.0.0.1:30005 127.0.0.1:30001 <span class="comment">#引入主节点</span></span><br><span class="line">src/redis-trib.rb add-node --slave --master-id 03ccad2ba5dd1e062464bc7590400441fafb63f2 127.0.0.1:30006 127.0.0.1:30001 <span class="comment">#引入从节点</span></span><br></pre></td></tr></table></figure>
+
+<p>其中 03ccad2ba5dd1e062464bc7590400441fafb63f2 是30005的 cluster node id。然后将其他节点的插槽转移到这个节点就好了。</p>
+<h2 id="集群缩减"><a href="#集群缩减" class="headerlink" title="集群缩减"></a>集群缩减</h2><p>将主节点的插槽全部转移到别的主节点，然后执行</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">src/redis-trib.rb del-node 127.0.0.1:30005 03ccad2ba5dd1e062464bc7590400441fafb63f2</span><br></pre></td></tr></table></figure>
+
+<p>其中 03ccad2ba5dd1e062464bc7590400441fafb63f2 是节点 cluster node id</p>
+<h1 id="集群模式的缺陷"><a href="#集群模式的缺陷" class="headerlink" title="集群模式的缺陷"></a>集群模式的缺陷</h1><ol>
+<li>键的批量操作支持有限，比如mset, mget，如果多个键映射在不同的槽，就不支持了</li>
+<li>键事务支持有限，当多个key分布在不同节点时无法使用事务，同一节点是支持事务</li>
+<li>键是数据分区的最小粒度，不能将一个很大的键值对映射到不同的节点</li>
+<li>不支持多数据库，只有0，select 0</li>
+<li>复制结构只支持单层结构，不支持树型结构。  </li>
+<li><strong>集群不能少于3个主节点，否则主从切换会失败</strong></li>
+</ol>
+<hr>
+<p>参考资料：<br>官方教程 <a href="https://redis.io/topics/cluster-tutorial" target="_blank" rel="noopener">https://redis.io/topics/cluster-tutorial</a><br>redis集群高可用 <a href="https://www.cnblogs.com/leeSmall/p/8414687.html" target="_blank" rel="noopener">https://www.cnblogs.com/leeSmall/p/8414687.html</a></p>
+
+        
+        <br />
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+        <li>
+            <a target="_blank" href="https://www.zhihu.com/people/simonlin">
+                            <span class="fa-stack fa-lg">
+                                 <i class="iconfont icon-zhihu"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <li>
+            <a target="_blank" href="http://weibo.com/1919879611">
+                            <span class="fa-stack fa-lg">
+                                  <i class="iconfont icon-weibo"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+
+        
+        <li>
+            <a target="_blank"  href="https://github.com/questionlin">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-github"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>
