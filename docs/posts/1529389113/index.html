@@ -44,7 +44,7 @@
         
 <div class="nav" id="nav">
     <div class="avatar-name">
-        <div class="avatar ">
+        <div class="avatar">
             <img src="/img/avatar.jpeg" />
         </div>
         <div class="name">
@@ -107,7 +107,6 @@
         </div>
     </div>
 </div>
-
         <div class="index-about-mobile">
             <i>  </i>
         </div>
@@ -141,7 +140,7 @@
 </span>
     </div>
     <div class="post-content no-indent">
-        <h1 id="备份与还原"><a href="#备份与还原" class="headerlink" title="备份与还原"></a>备份与还原</h1><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 备份数据库</span></span><br><span class="line">mysqldump [-h主机名 -p端口] -u用户名 -p密码 数据库名 [表名]&gt; 文件名.sql</span><br><span class="line"></span><br><span class="line"><span class="comment"># 还原</span></span><br><span class="line">mysql [-h主机名] -u用户名 -p密码 数据库名 &lt; 文件名.sql</span><br></pre></td></tr></table></figure>
+        <h1 id="备份与还原"><a href="#备份与还原" class="headerlink" title="备份与还原"></a>备份与还原</h1><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 备份数据库</span></span><br><span class="line">mysqldump [-h主机名 -P端口] -u用户名 -p密码 数据库名 [表名]&gt; 文件名.sql</span><br><span class="line"></span><br><span class="line"><span class="comment"># 还原</span></span><br><span class="line">mysql [-h主机名] -u用户名 -p密码 数据库名 &lt; 文件名.sql</span><br></pre></td></tr></table></figure>
 
 <h1 id="状态查看"><a href="#状态查看" class="headerlink" title="状态查看"></a>状态查看</h1><h2 id="SHOW-STATUS"><a href="#SHOW-STATUS" class="headerlink" title="SHOW STATUS"></a>SHOW STATUS</h2><p>show status 命令会显示每个服务器变量和值，可以执行以下命令单个查看：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show status where Variable_name like &apos;Conne%&apos;</span><br></pre></td></tr></table></figure>
@@ -189,7 +188,6 @@ Table_locks_immediate和Table_locks_waited变量可告诉你有多少锁被立�
 
     </div>
 </div>
-
     </div>
 </div>
 
