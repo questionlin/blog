@@ -23,6 +23,9 @@ $ ./configure --prefix=/data/server/php \
 --enable-sysvshm \
 --enable-shmop \
 --enable-pdo \
+--enable-bcmath \
+--enable-cli \
+--with-gmp \
 --with-curl \
 --with-openssl \
 --with-jpeg-dir \
