@@ -11,7 +11,7 @@
 
     <title>
         
-        前端axios踩坑 - ljj的博客
+        cordova项目使用appcenter实现代码热更新 - ljj的博客
         
     </title>
 
@@ -119,15 +119,15 @@
 
 <div class="post-container">
     <div class="post-title">
-        前端axios踩坑
+        cordova项目使用appcenter实现代码热更新
     </div>
 
     <div class="post-meta">
-        <span class="attr">发布于：<span>2019-03-22 16:05:46</span></span>
+        <span class="attr">发布于：<span>2019-11-21 11:40:24</span></span>
         
         <span class="attr">标签：/
         
-        <a class="tag" href="/tags/#javascript" title="javascript">javascript</a>
+        <a class="tag" href="/tags/#最佳实践" title="最佳实践">最佳实践</a>
         <span>/</span>
         
         
@@ -137,15 +137,40 @@
 </span>
     </div>
     <div class="post-content no-indent">
-        <p>axios 库是前端非常流行的网络请求库，下面是我刚使用的时候遇到的坑</p>
-<p>本地开发跨域问题（CORS），首先在服务端要接受跨域</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">header(<span class="string">"Access-Control-Allow-Origin: *"</span>);</span><br></pre></td></tr></table></figure>
+        <p>appcenter.ms 是微软的 app 管理网站，类似国内的友盟。这篇文章介绍使用 appcenter 的 codepush 功能给 cordova 项目实现代码热更新。codepush 除了支持 cordova 外，还支持 react native 等类似的项目。</p>
+<p>安装 appcenter</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install -g appcenter-cli</span><br></pre></td></tr></table></figure>
 
-<p>这个时候 axios 在 post/put 的时候会先发起 option 请求。如果服务器不支持，则返回失败。为了避免这个，要避免 json 请求。qs 库可以把 json 解析成 www-form 的样子，即 a=1&amp;b=2</p>
-<p>axios 有两个数据参数 params 和 data，params 会被放到 url 里，data 会被放到 body 里</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> qs = <span class="built_in">require</span>(<span class="string">'qs'</span>)</span><br><span class="line"></span><br><span class="line">  param.headers = &#123;</span><br><span class="line">    <span class="string">'Content-type'</span>: <span class="string">'application/x-www-form-urlencoded;charset=utf-8'</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">let</span> method = param.method ? param.method.toUpperCase() : <span class="string">'GET'</span></span><br><span class="line">  <span class="keyword">if</span>(method == <span class="string">'POST'</span> || method == <span class="string">'PUT'</span>)&#123;</span><br><span class="line">    param.data = qs.stringify(param.data, &#123;<span class="attr">arrayFormat</span>: <span class="string">'brackets'</span>&#125;)</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    param.params = param.data</span><br><span class="line">    param.paramsSerializer = <span class="function"><span class="params">params</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> qs.stringify(params, &#123;<span class="attr">arrayFormat</span>: <span class="string">'brackets'</span>&#125;)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">axios(param)</span><br></pre></td></tr></table></figure>
+<p>登录</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ appcenter login</span><br></pre></td></tr></table></figure>
 
-<p>像上面这样修改后，浏览器就不会报跨域错误了，而且服务端还能获得 form 参数，而不是 json。</p>
+<p>这里要注意，用户名既不是邮箱，也不是昵称，而是系统给你分配的用户名，在账号设置里查看。比如我的是boyquestion-163.com。</p>
+<p>安装 cordova 插件</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ cordova plugin add cordova-plugin-code-push@latest</span><br></pre></td></tr></table></figure>
+
+<p>查看自己的 key</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ appcenter codepush deployment list -a &#123;用户名&#125;/&#123;项目名&#125; --displayKeys</span><br></pre></td></tr></table></figure>
+
+<p>因为 codepush 是被收购后合并到 appcenter 的，所以这里的 key 不是 appcenter 网页上的 key。必需要使用这个命令来查看。</p>
+<p>编辑 config.xml，加入</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;platform name=&quot;android&quot;&gt;</span><br><span class="line">    &lt;preference name=&quot;CodePushDeploymentKey&quot; value=&quot;YOUR-ANDROID-DEPLOYMENT-KEY&quot; /&gt;</span><br><span class="line">&lt;/platform&gt;</span><br><span class="line">&lt;platform name=&quot;ios&quot;&gt;</span><br><span class="line">    &lt;preference name=&quot;CodePushDeploymentKey&quot; value=&quot;YOUR-IOS-DEPLOYMENT-KEY&quot; /&gt;</span><br><span class="line">&lt;/platform&gt;</span><br></pre></td></tr></table></figure>
+
+<p>如果你的 config.xml 里不是</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;access origin=&quot;*&quot; /&gt;</span><br></pre></td></tr></table></figure>
+
+<p>那么还应该加入</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;access origin=&quot;https://codepush.appcenter.ms&quot; /&gt;</span><br><span class="line">&lt;access origin=&quot;https://codepush.blob.core.windows.net&quot; /&gt;</span><br><span class="line">&lt;access origin=&quot;https://codepushupdates.azureedge.net&quot; /&gt;</span><br></pre></td></tr></table></figure>
+
+<p>在代码合适的地方加入</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">document</span>.addEventListener(<span class="string">"resume"</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    codePush.sync();</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>项目就会自动更新了</p>
+<p>下次当你编译好新的代码后只要执行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">appcenter codepush release-cordova -a &lt;ownerName&gt;/&lt;appName&gt;</span><br></pre></td></tr></table></figure>
+
+<p>就可以推送了。更详细的可以查看参考里的文档。</p>
+<hr>
+<p>参考：<br><a href="https://docs.microsoft.com/en-us/appcenter/distribution/codepush/cordova" target="_blank" rel="noopener">https://docs.microsoft.com/en-us/appcenter/distribution/codepush/cordova</a></p>
 
         
         <br />

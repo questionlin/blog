@@ -25,7 +25,6 @@ $ ./configure --prefix=/data/server/php \
 --enable-pdo \
 --enable-bcmath \
 --enable-cli \
---with-gmp \
 --with-curl \
 --with-openssl \
 --with-jpeg-dir \
