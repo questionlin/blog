@@ -54,8 +54,8 @@ document.addEventListener("resume", function () {
 ```sh
 # 测试
 $ appcenter codepush release-cordova -a <ownerName>/<appName> -d Staging
-# 生产
-$ appcenter codepush release-cordova -a <ownerName>/<appName> -d Production
+# 生产。加上 -x 表示默认不生效
+$ appcenter codepush release-cordova -a <ownerName>/<appName> -d Production -x
 ```
 就可以推送了。更详细的可以查看参考里的文档。
 
