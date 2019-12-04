@@ -158,7 +158,7 @@
 
 <p>项目就会自动更新了</p>
 <p>下次当你编译好新的代码后只要执行</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 测试</span></span><br><span class="line">$ appcenter codepush release-cordova -a &lt;ownerName&gt;/&lt;appName&gt; -d Staging</span><br><span class="line"><span class="comment"># 生产</span></span><br><span class="line">$ appcenter codepush release-cordova -a &lt;ownerName&gt;/&lt;appName&gt; -d Production</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 测试</span></span><br><span class="line">$ appcenter codepush release-cordova -a &lt;ownerName&gt;/&lt;appName&gt; -d Staging</span><br><span class="line"><span class="comment"># 生产。加上 -x 表示默认不生效</span></span><br><span class="line">$ appcenter codepush release-cordova -a &lt;ownerName&gt;/&lt;appName&gt; -d Production -x</span><br></pre></td></tr></table></figure>
 
 <p>就可以推送了。更详细的可以查看参考里的文档。</p>
 <p><strong><em>特别注意</em></strong>

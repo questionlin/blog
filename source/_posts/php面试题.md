@@ -75,7 +75,11 @@ innodb 数据是一个b+数，即所有的枝干是主键索引，所有的叶�
 
 6. CSV
 
-7. PERFORMANCE_SCHEMA  
+7. merge/mrg_myisam
+在多个相同的 myisam 表上加一层代理，可以用作水平分表
+[参考](https://www.jianshu.com/p/4320aaaec90d)
+
+8. PERFORMANCE_SCHEMA  
 该引擎主要用于收集数据库服务器性能参数。这种引擎提供以下功能：提供进程等待的详细信息，包括锁、互斥变量、文件信息；保存历史的事件汇总信息，为提供MySQL服务器性能做出详细的判断；对于新增和删除监控事件点都非常容易，并可以随意改变mysql服务器的监控周期，例如（CYCLE、MICROSECOND）。
 
 [参考1](https://blog.csdn.net/Java_fenxiang/article/details/82870335)  
