@@ -155,7 +155,7 @@ mysql> SELECT * FROM articles
 # 预先分词
 ngram 分词是按照词长度来分的，比如当 ngram_token_size=2 时，'分词是按照词长'会被分成'分词 是按 照词 长'这样。效果不是特别好我们更想要自然的分词方法。我的做法是可以先用分词器分好词，比如结巴分词的 cut_for_search，然后用空格分开后保存到专门的列里，这个列的索引使用默认英文模式就行。查询的时候也分好词，这样就能更准确的找到结果了。
 
-可以用我封装的[结巴分词服务](/posts/1540123748)来实现分词接口。不过要注意，这种索引方法同时受 ft_min_word_len 和引擎的影响。***经过我反复尝试，ft_min_word_len=2，引擎是 MyISAM 时是最好的***。ft_min_word_len=2 时，MyISAM 可以搜到两个字的词，InnoDB 搜不到。
+可以用我封装的[结巴分词服务](/posts/1540123748)来实现分词接口。***不过要注意，要设置ft_min_word_len=2（对应 MyISAM），innodb_ft_min_token_size=2（对应 InnoDB），否则两个字的词搜不到。***
 
 # 注意
 1. 如果索引是 (title,body)，则不能只搜索 title 或 body
