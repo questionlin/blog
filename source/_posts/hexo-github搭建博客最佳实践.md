@@ -17,6 +17,7 @@ hexo 不提供 markdown 编辑器，我使用 vscode，快捷键 command + k 再
 2. 然后建一个普通的项目仓库，在 settings 里的 github pages Source 选为 master branch/docs folder。这里顺便把 Custom domain 改为自己的域名。
 3. 在域名 dns 设置里面添加 cname 指向 question.github.io
 4. 在文章顶部增加 id，值为 unix 时间戳，以优化 url
+5. 图床我用的是百度云，但是百度云不提供外链，需要自己解析网页得到地址
 
 用到的插件：
 - hexo-generator-search 用来支持搜索
