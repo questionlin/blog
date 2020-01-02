@@ -21,5 +21,6 @@ hexo 不提供 markdown 编辑器，我使用 vscode，快捷键 command + k 再
 
 用到的插件：
 - hexo-generator-search 用来支持搜索
+- hexo-generator-feed 用来生成 feed
 
 到此我的 hexo 博客就建好了，[项目仓库在这里](https://github.com/questionlin/blog)。比官方的方法少了一步。
