@@ -1,0 +1,528 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>ljj的博客</title>
+  <icon>http://b.ljj.pub/img/avatar.jpeg</icon>
+  
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="http://b.ljj.pub/"/>
+  <updated>2020-01-02T02:47:01.748Z</updated>
+  <id>http://b.ljj.pub/</id>
+  
+  <author>
+    <name>ljj</name>
+    <email>boyquestion@163.com</email>
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>手机连接电脑用chrome调试网页</title>
+    <link href="http://b.ljj.pub/posts/1576983574/"/>
+    <id>http://b.ljj.pub/posts/1576983574/</id>
+    <published>2019-12-22T02:58:56.000Z</published>
+    <updated>2020-01-02T02:47:01.748Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;安卓&quot;&gt;&lt;a href=&quot;#安卓&quot; class=&quot;headerlink&quot; title=&quot;安卓&quot;&gt;&lt;/a&gt;安卓&lt;/h1&gt;&lt;h2 id=&quot;安卓打开开发者模式&quot;&gt;&lt;a href=&quot;#安卓打开开发者模式&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+    
+    
+      <category term="最佳实践" scheme="http://b.ljj.pub/tags/%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>nginx常用转发配置</title>
+    <link href="http://b.ljj.pub/posts/1576906217/"/>
+    <id>http://b.ljj.pub/posts/1576906217/</id>
+    <published>2019-12-21T02:41:21.000Z</published>
+    <updated>2020-01-02T02:47:01.748Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;http-跳转-https&quot;&gt;&lt;a href=&quot;#http-跳转-https&quot; class=&quot;headerlink&quot; title=&quot;http 跳转 https&quot;&gt;&lt;/a&gt;http 跳转 https&lt;/h1&gt;&lt;figure class=&quot;highlight
+        
+      
+    
+    </summary>
+    
+    
+    
+      <category term="最佳实践" scheme="http://b.ljj.pub/tags/%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>温州话普通话不对应的词</title>
+    <link href="http://b.ljj.pub/posts/1575601794/"/>
+    <id>http://b.ljj.pub/posts/1575601794/</id>
+    <published>2019-12-06T03:09:37.000Z</published>
+    <updated>2019-12-06T03:10:03.537Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;门头，钥匙，蝙蝠，虾姑，落班，坐月子，矮椅，闪雷，腋下，盐水，牡蛎，水姑娘，老娘客，捡拾纸，本扫堂，畚斗，除扫，水桶，脸盆，地拖，厨房间，屋灶间，阁楼，瓦片屋顶，淀粉，糖霜，叉子，筷子，物品，骂脏话，长瓢，他拉方，骷髅排，佛殿，并不是，梨，好过，突然，花路，起里丫，酒家，锈
+        
+      
+    
+    </summary>
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>希腊穿衣法</title>
+    <link href="http://b.ljj.pub/posts/1575601676/"/>
+    <id>http://b.ljj.pub/posts/1575601676/</id>
+    <published>2019-12-06T03:05:08.000Z</published>
+    <updated>2019-12-06T03:08:00.316Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;&lt;img
+        
+      
+    
+    </summary>
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>linux程序后台常驻运行</title>
+    <link href="http://b.ljj.pub/posts/1575599174/"/>
+    <id>http://b.ljj.pub/posts/1575599174/</id>
+    <published>2019-12-06T02:25:41.000Z</published>
+    <updated>2019-12-06T02:38:30.862Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;amp&quot;&gt;&lt;a href=&quot;#amp&quot; class=&quot;headerlink&quot; title=&quot;&amp;amp;&quot;&gt;&lt;/a&gt;&amp;amp;&lt;/h1&gt;&lt;p&gt;在命令后面添加 &amp;amp;，表示在后台运行。但是如果用户退出或者掉线的话，程序也会退出。&lt;/p&gt;
+&lt;h1
+        
+      
+    
+    </summary>
+    
+    
+    
+      <category term="常用命令" scheme="http://b.ljj.pub/tags/%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>cordova项目使用appcenter实现代码热更新</title>
+    <link href="http://b.ljj.pub/posts/1574307776/"/>
+    <id>http://b.ljj.pub/posts/1574307776/</id>
+    <published>2019-11-21T03:40:24.000Z</published>
+    <updated>2019-12-02T07:39:25.875Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;appcenter.ms 是微软的 app 管理网站，类似国内的友盟。这篇文章介绍使用 appcenter 的 codepush 功能给 cordova 项目实现代码热更新。codepush 除了支持 cordova 外，还支持 react
+        
+      
+    
+    </summary>
+    
+    
+    
+      <category term="最佳实践" scheme="http://b.ljj.pub/tags/%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>手把手配置cdn</title>
+    <link href="http://b.ljj.pub/posts/1572486507/"/>
+    <id>http://b.ljj.pub/posts/1572486507/</id>
+    <published>2019-10-31T01:47:51.000Z</published>
+    <updated>2019-10-31T02:08:32.022Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;初始配置&quot;&gt;&lt;a href=&quot;#初始配置&quot; class=&quot;headerlink&quot; title=&quot;初始配置&quot;&gt;&lt;/a&gt;初始配置&lt;/h1&gt;&lt;p&gt;通常 cdn
+        
+      
+    
+    </summary>
+    
+    
+    
+      <category term="最佳实践" scheme="http://b.ljj.pub/tags/%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>常用命令行处理图片</title>
+    <link href="http://b.ljj.pub/posts/1571887927/"/>
+    <id>http://b.ljj.pub/posts/1571887927/</id>
+    <published>2019-10-24T03:28:38.000Z</published>
+    <updated>2019-11-25T02:19:46.030Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;webp-转-png&quot;&gt;&lt;a href=&quot;#webp-转-png&quot; class=&quot;headerlink&quot; title=&quot;webp 转 png&quot;&gt;&lt;/a&gt;webp 转 png&lt;/h1&gt;&lt;p&gt;webp
+        
+      
+    
+    </summary>
+    
+    
+    
+      <category term="常用命令" scheme="http://b.ljj.pub/tags/%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>命令行翻墙</title>
+    <link href="http://b.ljj.pub/posts/1567490025/"/>
+    <id>http://b.ljj.pub/posts/1567490025/</id>
+    <published>2019-09-03T05:51:41.000Z</published>
+    <updated>2019-09-04T07:54:53.129Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;假设你已经有了一个ss，ss通过sock5转http帮助我们翻墙。这篇文章转如何给命令行软件设置http代理。&lt;/p&gt;
+&lt;h1 id=&quot;pip&quot;&gt;&lt;a href=&quot;#pip&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+    
+    
+      <category term="最佳实践" scheme="http://b.ljj.pub/tags/%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>谷歌Colaboraty使用介绍</title>
+    <link href="http://b.ljj.pub/posts/1565938894/"/>
+    <id>http://b.ljj.pub/posts/1565938894/</id>
+    <published>2019-08-16T07:01:05.000Z</published>
+    <updated>2019-08-16T07:16:21.268Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;&lt;a href=&quot;https://colab.research.google.com&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;谷歌Colaboraty&lt;/a&gt;是谷歌推出的 python 练习工具，因为提供 GPU
+        
+      
+    
+    </summary>
+    
+    
+    
+      <category term="在线工具" scheme="http://b.ljj.pub/tags/%E5%9C%A8%E7%BA%BF%E5%B7%A5%E5%85%B7/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>用ab和jMeter压测</title>
+    <link href="http://b.ljj.pub/posts/1565682061/"/>
+    <id>http://b.ljj.pub/posts/1565682061/</id>
+    <published>2019-08-13T07:39:10.000Z</published>
+    <updated>2019-08-16T07:16:51.993Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;ab&quot;&gt;&lt;a href=&quot;#ab&quot; class=&quot;headerlink&quot; title=&quot;ab&quot;&gt;&lt;/a&gt;ab&lt;/h1&gt;&lt;p&gt;参数说明：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;-n: 总请求数，请求结束后退出&lt;/li&gt;
+&lt;li&gt;-c:
+        
+      
+    
+    </summary>
+    
+    
+    
+      <category term="运维" scheme="http://b.ljj.pub/tags/%E8%BF%90%E7%BB%B4/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>php面试题</title>
+    <link href="http://b.ljj.pub/posts/1564977130/"/>
+    <id>http://b.ljj.pub/posts/1564977130/</id>
+    <published>2019-08-05T03:50:39.000Z</published>
+    <updated>2019-12-03T08:03:50.715Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;php&quot;&gt;&lt;a href=&quot;#php&quot; class=&quot;headerlink&quot; title=&quot;php&quot;&gt;&lt;/a&gt;php&lt;/h1&gt;&lt;h2 id=&quot;php7-为什么比-php5-快&quot;&gt;&lt;a href=&quot;#php7-为什么比-php5-快&quot;
+        
+      
+    
+    </summary>
+    
+    
+    
+      <category term="php" scheme="http://b.ljj.pub/tags/php/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>awk用法举例</title>
+    <link href="http://b.ljj.pub/posts/1563502663/"/>
+    <id>http://b.ljj.pub/posts/1563502663/</id>
+    <published>2019-07-19T02:16:46.000Z</published>
+    <updated>2019-08-22T01:37:14.688Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;awk 是用来读取文件的每一行，每一列（默认空格分开），然后打印出来的程序。基本语法是&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span
+        
+      
+    
+    </summary>
+    
+    
+    
+      <category term="常用命令" scheme="http://b.ljj.pub/tags/%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>用supervisor做高可用</title>
+    <link href="http://b.ljj.pub/posts/1559528755/"/>
+    <id>http://b.ljj.pub/posts/1559528755/</id>
+    <published>2019-06-03T02:24:28.000Z</published>
+    <updated>2019-06-03T02:32:22.659Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;Supervisor 是 Linux 系统中常用的进程守护程序。它会执行一段 shell 脚本，如果脚本中断，则会自动重新执行。&lt;/p&gt;
+&lt;h1 id=&quot;安装-Supervisor&quot;&gt;&lt;a href=&quot;#安装-Supervisor&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+    
+    
+      <category term="运维" scheme="http://b.ljj.pub/tags/%E8%BF%90%E7%BB%B4/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>尽力说清楚POST/PUT/PATCH</title>
+    <link href="http://b.ljj.pub/posts/1557286782/"/>
+    <id>http://b.ljj.pub/posts/1557286782/</id>
+    <published>2019-05-08T03:39:06.000Z</published>
+    <updated>2019-05-08T03:55:45.710Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;首先要先区分-form-data-和-x-www-form-urlencoded&quot;&gt;&lt;a href=&quot;#首先要先区分-form-data-和-x-www-form-urlencoded&quot; class=&quot;headerlink&quot; title=&quot;首先要先区分
+        
+      
+    
+    </summary>
+    
+    
+    
+      <category term="http" scheme="http://b.ljj.pub/tags/http/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>词性标注</title>
+    <link href="http://b.ljj.pub/posts/1557024483/"/>
+    <id>http://b.ljj.pub/posts/1557024483/</id>
+    <published>2019-05-05T02:47:25.000Z</published>
+    <updated>2019-10-11T06:06:14.120Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;中文词性标注：结巴分词&quot;&gt;&lt;a href=&quot;#中文词性标注：结巴分词&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+    
+    
+      <category term="机器学习" scheme="http://b.ljj.pub/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>消息队列中间件的选型</title>
+    <link href="http://b.ljj.pub/posts/1555150954/"/>
+    <id>http://b.ljj.pub/posts/1555150954/</id>
+    <published>2019-04-13T10:21:54.000Z</published>
+    <updated>2019-04-15T06:09:25.739Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;看到一篇非常好的对比 Kafka 和 RabbitMQ 的文章，简化一下写在这里。原文参考底部。&lt;/p&gt;
+&lt;h1 id=&quot;功能&quot;&gt;&lt;a href=&quot;#功能&quot; class=&quot;headerlink&quot; title=&quot;功能&quot;&gt;&lt;/a&gt;功能&lt;/h1&gt;&lt;h2
+        
+      
+    
+    </summary>
+    
+    
+    
+      <category term="分布式" scheme="http://b.ljj.pub/tags/%E5%88%86%E5%B8%83%E5%BC%8F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>zookeeper怎么用</title>
+    <link href="http://b.ljj.pub/posts/1555060655/"/>
+    <id>http://b.ljj.pub/posts/1555060655/</id>
+    <published>2019-04-12T09:16:29.000Z</published>
+    <updated>2019-04-12T09:32:52.345Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;这篇文章有点水，不过 zookeeper 在分布式系统中很有分量，所以有必要水一篇。&lt;/p&gt;
+&lt;p&gt;zookeeper 的功能非常简单，就是一个 k-v 数据库。&lt;/p&gt;
+&lt;p&gt;下载解压包后，如下操作：&lt;/p&gt;
+&lt;figure class=&quot;highlight
+        
+      
+    
+    </summary>
+    
+    
+    
+      <category term="分布式" scheme="http://b.ljj.pub/tags/%E5%88%86%E5%B8%83%E5%BC%8F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>mysql集群方案</title>
+    <link href="http://b.ljj.pub/posts/1554880199/"/>
+    <id>http://b.ljj.pub/posts/1554880199/</id>
+    <published>2019-04-10T07:09:31.000Z</published>
+    <updated>2019-04-12T02:12:49.991Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;上一篇文章提到 MySQL 集群方案，除了（&lt;a href=&quot;/posts/1553830839&quot;&gt;分布式系统的ID&lt;/a&gt;）里提到的通过 ID 分片外，官方有许多集群方案，这篇文章介绍几个。&lt;/p&gt;
+&lt;h1 id=&quot;InnoDB-Cluster-MySQL-7&quot;&gt;&lt;a
+        
+      
+    
+    </summary>
+    
+    
+    
+      <category term="mysql" scheme="http://b.ljj.pub/tags/mysql/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>实时大数据sql方案</title>
+    <link href="http://b.ljj.pub/posts/1554870854/"/>
+    <id>http://b.ljj.pub/posts/1554870854/</id>
+    <published>2019-04-10T04:33:07.000Z</published>
+    <updated>2019-04-10T09:15:02.634Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;使用SQL的好处是当我们的需求改变的时候，不用改程序，只用改SQL语句即可。但单体sql引擎无法满足大数据的实时计算，这里介绍几种可行的方案。&lt;/p&gt;
+&lt;h1 id=&quot;数据库集群&quot;&gt;&lt;a href=&quot;#数据库集群&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+    
+    
+      <category term="elasticsearch" scheme="http://b.ljj.pub/tags/elasticsearch/"/>
+    
+  </entry>
+  
+</feed>

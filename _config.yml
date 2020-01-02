@@ -81,6 +81,18 @@ theme: hexo-theme-aircloud
 deploy:
   type:
 
+feed:
+  type: atom
+  path: atom.xml
+  limit: 20
+  hub:
+  content:
+  content_limit: 140
+  content_limit_delim: ' '
+  order_by: -date
+  icon: img/avatar.jpeg
+  autodiscovery: true
+  template:
 
 # Custom Setting Start
 
@@ -110,6 +122,14 @@ search:
 post_style:
   indent: 
 
+# Friends
+# 友情链接
+friends: [
+  {
+    title: 'feed/atom/rss',
+    href: 'http://b.ljj.pub/atom.xml'
+  }
+]
 #Custom Setting End
 
 # 内嵌<table>自动添加<br>bug https://github.com/hexojs/hexo/issues/1388
