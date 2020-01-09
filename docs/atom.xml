@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://b.ljj.pub/"/>
-  <updated>2020-01-02T02:47:01.748Z</updated>
+  <updated>2020-01-09T02:35:10.464Z</updated>
   <id>http://b.ljj.pub/</id>
   
   <author>
@@ -15,6 +15,35 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>常用正则表达式</title>
+    <link href="http://b.ljj.pub/posts/1578535312/"/>
+    <id>http://b.ljj.pub/posts/1578535312/</id>
+    <published>2020-01-09T02:00:51.000Z</published>
+    <updated>2020-01-09T02:35:10.464Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;uri&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;js&lt;blockquote&gt;
+&lt;p&gt;(https?|ftp|file)://[-A-Za-z0-9+&amp;amp;@#/%?=&lt;del&gt;_|!:,.;]+[-A-Za-z0-9+&amp;amp;@#/%=&lt;/del&gt;_|]&lt;/p&gt;
+&lt;/blockqu
+        
+      
+    
+    </summary>
+    
+    
+    
+      <category term="最佳实践" scheme="http://b.ljj.pub/tags/%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/"/>
+    
+  </entry>
   
   <entry>
     <title>手机连接电脑用chrome调试网页</title>
@@ -244,7 +273,7 @@
     <link href="http://b.ljj.pub/posts/1565938894/"/>
     <id>http://b.ljj.pub/posts/1565938894/</id>
     <published>2019-08-16T07:01:05.000Z</published>
-    <updated>2019-08-16T07:16:21.268Z</updated>
+    <updated>2019-12-16T07:19:38.801Z</updated>
     
     <summary type="html">
     
@@ -496,32 +525,6 @@
     
     
       <category term="mysql" scheme="http://b.ljj.pub/tags/mysql/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>实时大数据sql方案</title>
-    <link href="http://b.ljj.pub/posts/1554870854/"/>
-    <id>http://b.ljj.pub/posts/1554870854/</id>
-    <published>2019-04-10T04:33:07.000Z</published>
-    <updated>2019-04-10T09:15:02.634Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;p&gt;使用SQL的好处是当我们的需求改变的时候，不用改程序，只用改SQL语句即可。但单体sql引擎无法满足大数据的实时计算，这里介绍几种可行的方案。&lt;/p&gt;
-&lt;h1 id=&quot;数据库集群&quot;&gt;&lt;a href=&quot;#数据库集群&quot; class=&quot;headerlink&quot;
-        
-      
-    
-    </summary>
-    
-    
-    
-      <category term="elasticsearch" scheme="http://b.ljj.pub/tags/elasticsearch/"/>
     
   </entry>
   
