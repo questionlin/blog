@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://b.ljj.pub/"/>
-  <updated>2020-01-09T02:35:10.464Z</updated>
+  <updated>2020-01-09T06:33:21.807Z</updated>
   <id>http://b.ljj.pub/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="http://b.ljj.pub/posts/1578535312/"/>
     <id>http://b.ljj.pub/posts/1578535312/</id>
     <published>2020-01-09T02:00:51.000Z</published>
-    <updated>2020-01-09T02:35:10.464Z</updated>
+    <updated>2020-01-09T06:33:21.807Z</updated>
     
     <summary type="html">
     
@@ -31,9 +31,8 @@
         
           &lt;p&gt;uri&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;js&lt;blockquote&gt;
-&lt;p&gt;(https?|ftp|file)://[-A-Za-z0-9+&amp;amp;@#/%?=&lt;del&gt;_|!:,.;]+[-A-Za-z0-9+&amp;amp;@#/%=&lt;/del&gt;_|]&lt;/p&gt;
-&lt;/blockqu
+&lt;li&gt;&lt;p&gt;js&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span
         
       
     
