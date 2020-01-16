@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://b.ljj.pub/"/>
-  <updated>2020-01-09T06:33:21.807Z</updated>
+  <updated>2020-01-16T09:23:46.210Z</updated>
   <id>http://b.ljj.pub/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>swoole扫雷</title>
+    <link href="http://b.ljj.pub/posts/1579146320/"/>
+    <id>http://b.ljj.pub/posts/1579146320/</id>
+    <published>2020-01-15T09:45:27.000Z</published>
+    <updated>2020-01-16T09:23:46.210Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;http-client&quot;&gt;&lt;a href=&quot;#http-client&quot; class=&quot;headerlink&quot; title=&quot;http/client&quot;&gt;&lt;/a&gt;http/client&lt;/h1&gt;&lt;figure class=&quot;highlight
+        
+      
+    
+    </summary>
+    
+    
+    
+      <category term="php" scheme="http://b.ljj.pub/tags/php/"/>
+    
+  </entry>
   
   <entry>
     <title>常用正则表达式</title>
@@ -498,32 +523,6 @@
     
     
       <category term="分布式" scheme="http://b.ljj.pub/tags/%E5%88%86%E5%B8%83%E5%BC%8F/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>mysql集群方案</title>
-    <link href="http://b.ljj.pub/posts/1554880199/"/>
-    <id>http://b.ljj.pub/posts/1554880199/</id>
-    <published>2019-04-10T07:09:31.000Z</published>
-    <updated>2019-04-12T02:12:49.991Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;p&gt;上一篇文章提到 MySQL 集群方案，除了（&lt;a href=&quot;/posts/1553830839&quot;&gt;分布式系统的ID&lt;/a&gt;）里提到的通过 ID 分片外，官方有许多集群方案，这篇文章介绍几个。&lt;/p&gt;
-&lt;h1 id=&quot;InnoDB-Cluster-MySQL-7&quot;&gt;&lt;a
-        
-      
-    
-    </summary>
-    
-    
-    
-      <category term="mysql" scheme="http://b.ljj.pub/tags/mysql/"/>
     
   </entry>
   
