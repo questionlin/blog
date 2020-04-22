@@ -22,7 +22,6 @@
     <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
     <!-- ga & ba script hoook -->
     <script></script>
-<link rel="alternate" href="/atom.xml" title="ljj的博客" type="application/atom+xml">
 </head>
 
 <body>
@@ -45,7 +44,7 @@
         
 <div class="nav" id="nav">
     <div class="avatar-name">
-        <div class="avatar">
+        <div class="avatar ">
             <img src="/img/avatar.jpeg" />
         </div>
         <div class="name">
@@ -108,6 +107,7 @@
         </div>
     </div>
 </div>
+
         <div class="index-about-mobile">
             <i>  </i>
         </div>
@@ -198,6 +198,7 @@
 <h1 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h1><ol>
 <li>如果索引是 (title,body)，则不能只搜索 title 或 body</li>
 <li>有时候我们要去掉表里的某一行，不是删除，而是做一个标记，例如 isDeleted。由于全文索引是单独的索引，不能同时包含 isDeleted 列，所以数据量大的话，建议单独建表来存放，而不是在原表上建立索引</li>
+<li>不要使用 MyISAM，遇到一些坑</li>
 </ol>
 <hr>
 <p>参考资料：<br>MySQL中文支持设置 <a href="https://dev.mysql.com/doc/refman/5.7/en/fulltext-search-ngram.html" target="_blank" rel="noopener">https://dev.mysql.com/doc/refman/5.7/en/fulltext-search-ngram.html</a><br>BOOLEAN MODE <a href="https://dev.mysql.com/doc/refman/5.7/en/fulltext-boolean.html" target="_blank" rel="noopener">https://dev.mysql.com/doc/refman/5.7/en/fulltext-boolean.html</a></p>
@@ -213,6 +214,7 @@
 
     </div>
 </div>
+
     </div>
 </div>
 
