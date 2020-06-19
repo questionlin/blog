@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content>
+    <meta name="keyword" content>
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        Elasticsearch搭建集群 - ljj的博客
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i>  </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar ">
+            <img src="/img/avatar.jpeg" />
+        </div>
+        <div class="name">
+            <i>ljj</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li >
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li >
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li >
+                <a href="/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li >
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#配置文件"><span class="toc-text">配置文件</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Elasticsearch-集群中的三种角色"><span class="toc-text">Elasticsearch 集群中的三种角色</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#本地第一台配置"><span class="toc-text">本地第一台配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#本地第二台配置"><span class="toc-text">本地第二台配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#检测是否生效"><span class="toc-text">检测是否生效</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#动态配置"><span class="toc-text">动态配置</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#集群健康"><span class="toc-text">集群健康</span></a></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input"/>
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+
+        <div class="index-about-mobile">
+            <i>  </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        Elasticsearch搭建集群
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2018-08-30 11:36:44</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#elasticsearch" title="elasticsearch">elasticsearch</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
+    </div>
+    <div class="post-content no-indent">
+        <h1 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h1><h2 id="Elasticsearch-集群中的三种角色"><a href="#Elasticsearch-集群中的三种角色" class="headerlink" title="Elasticsearch 集群中的三种角色"></a>Elasticsearch 集群中的三种角色</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">1. 此时节点可以成为任何角色</span><br><span class="line">node.master: true #可选为主节点</span><br><span class="line">node.data: true #可存储数据</span><br><span class="line">2. 此时节点从不选举为主节点,只用来存储数据,可作为负载器</span><br><span class="line">node.master: false</span><br><span class="line">node.data: true</span><br><span class="line">3. 此时节点成为主节点,且不存储任何数据,并保有空闲资源,可作为协调器</span><br><span class="line">node.master: true</span><br><span class="line">node.data: false</span><br><span class="line">4. 此时节点既不称为主节点,又不成为数据节点,那么可将他作为搜索器,从节点中获取数据,生成搜索结果等</span><br><span class="line">node.master: false</span><br><span class="line">node.data: false</span><br></pre></td></tr></table></figure>
+
+<h2 id="本地第一台配置"><a href="#本地第一台配置" class="headerlink" title="本地第一台配置"></a>本地第一台配置</h2><p>我的两个服务都在本地，所以要用端口来区分
+elasticsearch.yml</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">cluster.name: es-ljj</span><br><span class="line">node.name: node-1</span><br><span class="line">http.port: 9200 #搜索访问的端口</span><br><span class="line">transport.tcp.port: 9300 #节点之间通信的端口</span><br><span class="line">node.master: true</span><br><span class="line">node.data: true</span><br><span class="line">discovery.zen.ping.unicast.hosts: [&quot;127.0.0.1:9300&quot;,&quot;127.0.0.1:9301&quot;] #所有节点的地址</span><br></pre></td></tr></table></figure>
+
+<h2 id="本地第二台配置"><a href="#本地第二台配置" class="headerlink" title="本地第二台配置"></a>本地第二台配置</h2><p>elasticsearch.yml</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">cluster.name: es-ljj</span><br><span class="line">node.name: node-2</span><br><span class="line">http.port: 9201 #搜索访问的端口</span><br><span class="line">transport.tcp.port: 9301 #节点之间通信的端口</span><br><span class="line">node.master: true</span><br><span class="line">node.data: true</span><br><span class="line">discovery.zen.ping.unicast.hosts: [&quot;127.0.0.1:9300&quot;,&quot;127.0.0.1:9301&quot;] #所有节点的地址</span><br></pre></td></tr></table></figure>
+
+<h2 id="检测是否生效"><a href="#检测是否生效" class="headerlink" title="检测是否生效"></a>检测是否生效</h2><p>这里两个服务都配置了node.master: true，所以先启动的会被选为 master，而后进来的，data 目录下如果已经有其他数据，则会加入失败。</p>
+<p>这时我们对两个服务进行操作</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$curl -X PUT &apos;127.0.0.1:9200/users&apos;</span><br><span class="line">$curl -X PUT &apos;127.0.0.1:9201/pages&apos;</span><br></pre></td></tr></table></figure>
+
+<p>然后查看是否已经生效</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$curl -X GET &apos;127.0.0.1:9200/_cat/indices?v&apos;</span><br><span class="line">$curl -X GET &apos;127.0.0.1:9201/_cat/indices?v&apos;</span><br></pre></td></tr></table></figure>
+
+<p>两台返回的都是</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">health status index uuid                   pri rep docs.count docs.deleted store.size pri.store.size</span><br><span class="line">green  open   users 5JUXi3KKRtyMRvWvLlwaqg   5   1          0            0      1.2kb           650b</span><br><span class="line">green  open   pages FyR1lz32QYyhJeC-U3_UgQ   5   1          0            0       520b           260b</span><br></pre></td></tr></table></figure>
+
+<p>表示集群已经可以使用了</p>
+<h1 id="动态配置"><a href="#动态配置" class="headerlink" title="动态配置"></a>动态配置</h1><p>如果我们要在集群加入一台新服务，或者移除一个老服务，需要修改每个节点配置里的 discovery.zen.ping.unicast.hosts，然后重启每个节点。如果是希望临时修改配置配置，让新的配置马上生效，等到合适的时间再重启每个节点，可以参考 es 提供的<a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/cluster-update-settings.html" target="_blank" rel="noopener">集群配置接口</a>。</p>
+<h1 id="集群健康"><a href="#集群健康" class="headerlink" title="集群健康"></a>集群健康</h1><p>集群健康可以通过 <a href="https://github.com/mobz/elasticsearch-head" target="_blank" rel="noopener">head 插件</a>来监控，也可以使用 es 提供的<a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/cluster-state.html" target="_blank" rel="noopener">集群状态接口</a>。</p>
+<hr>
+<p>参考资料：<br>Elasticsearch5.2.1集群搭建，动态加入节点，并添加监控诊断插件 <a href="https://blog.csdn.net/gamer_gyt/article/details/59077189" target="_blank" rel="noopener">https://blog.csdn.net/gamer_gyt/article/details/59077189</a><br>集群配置接口 <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/cluster-update-settings.html" target="_blank" rel="noopener">https://www.elastic.co/guide/en/elasticsearch/reference/current/cluster-update-settings.html</a></p>
+
+        
+        <br />
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+        <li>
+            <a target="_blank" href="https://www.zhihu.com/people/simonlin">
+                            <span class="fa-stack fa-lg">
+                                 <i class="iconfont icon-zhihu"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <li>
+            <a target="_blank" href="http://weibo.com/1919879611">
+                            <span class="fa-stack fa-lg">
+                                  <i class="iconfont icon-weibo"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+
+        
+        <li>
+            <a target="_blank"  href="https://github.com/questionlin">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-github"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span>/</span>
+        
+        <span><a href="http://b.ljj.pub/atom.xml">feed/atom/rss</a></span>
+        <span>/</span>
+        
+    </p>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>

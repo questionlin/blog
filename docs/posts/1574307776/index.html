@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content>
+    <meta name="keyword" content>
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        cordova项目使用appcenter实现代码热更新 - ljj的博客
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i>  </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar ">
+            <img src="/img/avatar.jpeg" />
+        </div>
+        <div class="name">
+            <i>ljj</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li >
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li >
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li >
+                <a href="/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li >
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input"/>
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+
+        <div class="index-about-mobile">
+            <i>  </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        cordova项目使用appcenter实现代码热更新
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2019-11-21 11:40:24</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#最佳实践" title="最佳实践">最佳实践</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
+    </div>
+    <div class="post-content no-indent">
+        <p>appcenter.ms 是微软的 app 管理网站，类似国内的友盟。这篇文章介绍使用 appcenter 的 codepush 功能给 cordova 项目实现代码热更新。codepush 除了支持 cordova 外，还支持 react native。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 安装 appcenter</span></span><br><span class="line">$ npm install -g appcenter-cli</span><br><span class="line"><span class="comment"># 登录</span></span><br><span class="line">$ appcenter login</span><br><span class="line"><span class="comment"># 安装 cordova 插件</span></span><br><span class="line">$ cordova plugin add cordova-plugin-code-push@latest</span><br></pre></td></tr></table></figure>
+
+<p>查看自己的 key</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ appcenter codepush deployment list -a &#123;用户名&#125;/&#123;项目名&#125; --displayKeys</span><br></pre></td></tr></table></figure>
+
+<p>因为 codepush 是被收购后合并到 appcenter 的，所以这里的 key 不是 appcenter 网页上的 key。必需要使用这个命令来查看。这里要注意，用户名既不是邮箱，也不是昵称，而是系统给你分配的用户名，在账号设置里查看。比如我的是boyquestion-163.com。</p>
+<p>编辑 config.xml，加入</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;platform name=&quot;android&quot;&gt;</span><br><span class="line">    &lt;preference name=&quot;CodePushDeploymentKey&quot; value=&quot;YOUR-ANDROID-DEPLOYMENT-KEY&quot; /&gt;</span><br><span class="line">&lt;/platform&gt;</span><br><span class="line">&lt;platform name=&quot;ios&quot;&gt;</span><br><span class="line">    &lt;preference name=&quot;CodePushDeploymentKey&quot; value=&quot;YOUR-IOS-DEPLOYMENT-KEY&quot; /&gt;</span><br><span class="line">&lt;/platform&gt;</span><br></pre></td></tr></table></figure>
+
+<p>如果你的 config.xml 里不是</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;access origin=&quot;*&quot; /&gt;</span><br></pre></td></tr></table></figure>
+
+<p>那么还应该加入</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;access origin=&quot;https://codepush.appcenter.ms&quot; /&gt;</span><br><span class="line">&lt;access origin=&quot;https://codepush.blob.core.windows.net&quot; /&gt;</span><br><span class="line">&lt;access origin=&quot;https://codepushupdates.azureedge.net&quot; /&gt;</span><br></pre></td></tr></table></figure>
+
+<p>在代码合适的地方加入</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">document</span>.addEventListener(<span class="string">"resume"</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    codePush.sync();</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>项目就会自动更新了</p>
+<p>下次当你编译好新的代码后只要执行</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 测试</span></span><br><span class="line">$ appcenter codepush release-cordova -a &lt;ownerName&gt;/&lt;appName&gt; -d Staging</span><br><span class="line"><span class="comment"># 生产。加上 -x 表示默认不生效</span></span><br><span class="line">$ appcenter codepush release-cordova -a &lt;ownerName&gt;/&lt;appName&gt; -d Production -x</span><br></pre></td></tr></table></figure>
+
+<p>就可以推送了。更详细的可以查看参考里的文档。</p>
+<p><strong><em>特别注意</em></strong>
+每个热更新推送都有一个对应 release 版本（Target Version），这个版本对应用户的 app 版本，不同版本间不会推送。</p>
+<p>其实这很好理解，code push 只会更新 web 文件，不会更新插件对应的二进制文件，因此不同版本间的热更新可能会导致插件调用失败。</p>
+<p>但是这种更新方式导致除了要维护 app 版本外，还要维护热更新版本。第一次使用的时候令我非常迷惑。</p>
+<hr>
+<p>参考：<br><a href="https://docs.microsoft.com/en-us/appcenter/distribution/codepush/cordova" target="_blank" rel="noopener">https://docs.microsoft.com/en-us/appcenter/distribution/codepush/cordova</a></p>
+
+        
+        <br />
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+        <li>
+            <a target="_blank" href="https://www.zhihu.com/people/simonlin">
+                            <span class="fa-stack fa-lg">
+                                 <i class="iconfont icon-zhihu"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <li>
+            <a target="_blank" href="http://weibo.com/1919879611">
+                            <span class="fa-stack fa-lg">
+                                  <i class="iconfont icon-weibo"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+
+        
+        <li>
+            <a target="_blank"  href="https://github.com/questionlin">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-github"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span>/</span>
+        
+        <span><a href="http://b.ljj.pub/atom.xml">feed/atom/rss</a></span>
+        <span>/</span>
+        
+    </p>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>

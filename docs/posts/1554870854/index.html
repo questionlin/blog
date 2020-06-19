@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content>
+    <meta name="keyword" content>
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        实时大数据sql方案 - ljj的博客
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i>  </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar ">
+            <img src="/img/avatar.jpeg" />
+        </div>
+        <div class="name">
+            <i>ljj</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li >
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li >
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li >
+                <a href="/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li >
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#数据库集群"><span class="toc-text">数据库集群</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ElasticSearch-SQL"><span class="toc-text">ElasticSearch SQL</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Hadoop-Hive（非实时）"><span class="toc-text">Hadoop + Hive（非实时）</span></a></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input"/>
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+
+        <div class="index-about-mobile">
+            <i>  </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        实时大数据sql方案
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2019-04-10 12:33:07</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#elasticsearch" title="elasticsearch">elasticsearch</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
+    </div>
+    <div class="post-content no-indent">
+        <p>使用SQL的好处是当我们的需求改变的时候，不用改程序，只用改SQL语句即可。但单体sql引擎无法满足大数据的实时计算，这里介绍几种可行的方案。</p>
+<h1 id="数据库集群"><a href="#数据库集群" class="headerlink" title="数据库集群"></a>数据库集群</h1><p>如果系统数据库已经采用了分片集群，那么可以采用分而治之的方案，从各个集群中先统计出部分数据，再归总。</p>
+<p><strong>优点</strong></p>
+<ul>
+<li>不用新建系统</li>
+<li>速度快</li>
+</ul>
+<p><strong>缺点</strong></p>
+<ul>
+<li>如果数据库不是集群，则要新建系统</li>
+<li>无法分而治之的情况不能适用</li>
+</ul>
+<h1 id="ElasticSearch-SQL"><a href="#ElasticSearch-SQL" class="headerlink" title="ElasticSearch SQL"></a>ElasticSearch SQL</h1><p>ES 最近公布了新的 SQL 功能，给开发者带来了福音。三个方案里首选的就是这个，因为搭建方便</p>
+<p><strong>优点</strong></p>
+<ul>
+<li>搭建简单</li>
+</ul>
+<p><strong>缺点</strong></p>
+<p>现在没有修改的功能，下面是支持的语句</p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>DESC table</td>
+<td>用来描述索引的字段属性</td>
+</tr>
+<tr>
+<td>SHOW COLUMNS</td>
+<td>功能同上，只是别名</td>
+</tr>
+<tr>
+<td>SHOW FUNCTIONS</td>
+<td>列出支持的函数列表，例如count(), sum()，支持通配符过滤</td>
+</tr>
+<tr>
+<td>SELECT .. FROM table_name WHERE .. GROUP BY .. HAVING .. ORDER BY .. LIMIT ..</td>
+<td>用来执行查询的命令</td>
+</tr>
+</tbody></table>
+<p>现在试试看，先建一条数据</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">POST twitter/doc/</span><br><span class="line">&#123;</span><br><span class="line">  &quot;name&quot;:&quot;medcl&quot;,</span><br><span class="line">  &quot;twitter&quot;:&quot;sql is awesome&quot;,</span><br><span class="line">  &quot;date&quot;:&quot;2018-07-27&quot;,</span><br><span class="line">  &quot;id&quot;:123</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后查询</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">POST /_xpack/sql?format=txt</span><br><span class="line">&#123;</span><br><span class="line">    &quot;query&quot;: &quot;SELECT * FROM twitter&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>因为 SQL 特性是 xpack 的免费功能，所以是在 _xpack 这个路径下面，我们只需要把 SQL 语句传给 query 字段就行了，注意最后面不要加上 ; 结尾，注意是不要！</strong></p>
+<p>下面是比较常用的函数</p>
+<table>
+<thead>
+<tr>
+<th>name</th>
+<th>type</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>AVG</td>
+<td>AGGREGATE</td>
+</tr>
+<tr>
+<td>COUNT</td>
+<td>AGGREGATE</td>
+</tr>
+<tr>
+<td>MAX</td>
+<td>AGGREGATE</td>
+</tr>
+<tr>
+<td>MIN</td>
+<td>AGGREGATE</td>
+</tr>
+<tr>
+<td>SUM</td>
+<td>AGGREGATE</td>
+</tr>
+<tr>
+<td>STDDEV_POP</td>
+<td>AGGREGATE</td>
+</tr>
+<tr>
+<td>VAR_POP</td>
+<td>AGGREGATE</td>
+</tr>
+<tr>
+<td>PERCENTILE</td>
+<td>AGGREGATE</td>
+</tr>
+<tr>
+<td>PERCENTILE_RANK</td>
+<td>AGGREGATE</td>
+</tr>
+<tr>
+<td>SUM_OF_SQUARES</td>
+<td>AGGREGATE</td>
+</tr>
+<tr>
+<td>SKEWNESS</td>
+<td>AGGREGATE</td>
+</tr>
+<tr>
+<td>KURTOSIS</td>
+<td>AGGREGATE</td>
+</tr>
+<tr>
+<td>DAY_OF_MONTH</td>
+<td>SCALAR</td>
+</tr>
+<tr>
+<td>DAY</td>
+<td>SCALAR</td>
+</tr>
+<tr>
+<td>DOM</td>
+<td>SCALAR</td>
+</tr>
+<tr>
+<td>DAY_OF_WEEK</td>
+<td>SCALAR</td>
+</tr>
+<tr>
+<td>DOW</td>
+<td>SCALAR</td>
+</tr>
+<tr>
+<td>DAY_OF_YEAR</td>
+<td>SCALAR</td>
+</tr>
+<tr>
+<td>DOY</td>
+<td>SCALAR</td>
+</tr>
+<tr>
+<td>HOUR_OF_DAY</td>
+<td>SCALAR</td>
+</tr>
+<tr>
+<td>HOUR</td>
+<td>SCALAR</td>
+</tr>
+<tr>
+<td>MINUTE_OF_DAY</td>
+<td>SCALAR</td>
+</tr>
+<tr>
+<td>MINUTE_OF_HOUR</td>
+<td>SCALAR</td>
+</tr>
+<tr>
+<td>MINUTE</td>
+<td>SCALAR</td>
+</tr>
+<tr>
+<td>SECOND_OF_MINUTE</td>
+<td>SCALAR</td>
+</tr>
+<tr>
+<td>SECOND</td>
+<td>SCALAR</td>
+</tr>
+<tr>
+<td>MONTH_OF_YEAR</td>
+<td>SCALAR</td>
+</tr>
+<tr>
+<td>MONTH</td>
+<td>SCALAR</td>
+</tr>
+<tr>
+<td>YEAR</td>
+<td>SCALAR</td>
+</tr>
+<tr>
+<td>WEEK_OF_YEAR</td>
+<td>SCALAR</td>
+</tr>
+<tr>
+<td>WEEK</td>
+<td>SCALAR</td>
+</tr>
+<tr>
+<td>ABS</td>
+<td>SCALAR</td>
+</tr>
+<tr>
+<td>ACOS</td>
+<td>SCALAR</td>
+</tr>
+<tr>
+<td>ASIN</td>
+<td>SCALAR</td>
+</tr>
+<tr>
+<td>ATAN</td>
+<td>SCALAR</td>
+</tr>
+<tr>
+<td>ATAN2</td>
+<td>SCALAR</td>
+</tr>
+<tr>
+<td>CBRT</td>
+<td>SCALAR</td>
+</tr>
+<tr>
+<td>CEIL</td>
+<td>SCALAR</td>
+</tr>
+<tr>
+<td>CEILING</td>
+<td>SCALAR</td>
+</tr>
+<tr>
+<td>COS</td>
+<td>SCALAR</td>
+</tr>
+<tr>
+<td>COSH</td>
+<td>SCALAR</td>
+</tr>
+<tr>
+<td>COT</td>
+<td>SCALAR</td>
+</tr>
+<tr>
+<td>DEGREES</td>
+<td>SCALAR</td>
+</tr>
+<tr>
+<td>E</td>
+<td>SCALAR</td>
+</tr>
+<tr>
+<td>EXP</td>
+<td>SCALAR</td>
+</tr>
+<tr>
+<td>EXPM1</td>
+<td>SCALAR</td>
+</tr>
+<tr>
+<td>FLOOR</td>
+<td>SCALAR</td>
+</tr>
+<tr>
+<td>LOG</td>
+<td>SCALAR</td>
+</tr>
+<tr>
+<td>LOG10</td>
+<td>SCALAR</td>
+</tr>
+<tr>
+<td>MOD</td>
+<td>SCALAR</td>
+</tr>
+<tr>
+<td>PI</td>
+<td>SCALAR</td>
+</tr>
+<tr>
+<td>POWER</td>
+<td>SCALAR</td>
+</tr>
+<tr>
+<td>RADIANS</td>
+<td>SCALAR</td>
+</tr>
+<tr>
+<td>RANDOM</td>
+<td>SCALAR</td>
+</tr>
+<tr>
+<td>RAND</td>
+<td>SCALAR</td>
+</tr>
+<tr>
+<td>ROUND</td>
+<td>SCALAR</td>
+</tr>
+<tr>
+<td>SIGN</td>
+<td>SCALAR</td>
+</tr>
+<tr>
+<td>SIGNUM</td>
+<td>SCALAR</td>
+</tr>
+<tr>
+<td>SIN</td>
+<td>SCALAR</td>
+</tr>
+<tr>
+<td>SINH</td>
+<td>SCALAR</td>
+</tr>
+<tr>
+<td>SQRT</td>
+<td>SCALAR</td>
+</tr>
+<tr>
+<td>TAN</td>
+<td>SCALAR</td>
+</tr>
+<tr>
+<td>SCORE</td>
+<td>SCORE</td>
+</tr>
+</tbody></table>
+<h1 id="Hadoop-Hive（非实时）"><a href="#Hadoop-Hive（非实时）" class="headerlink" title="Hadoop + Hive（非实时）"></a>Hadoop + Hive（非实时）</h1><p>Hadoop 由于是 MapReduce 方案，无法保证实时，但是 Hadoop 生态非常大，可能有实时方案，姑且介绍一下。</p>
+<p>Hadoop + Hive 方案是最早的方案，Hadoop 负责存储和分发数据，Hive 负责解析SQL和处理数据。其中 Hive 支持作为 thrift 服务，能够很好的融入到微服务系统中。</p>
+<p><strong>优点</strong></p>
+<ul>
+<li>节点数和数据量没有限制</li>
+<li>在SQL无法满足的情况下可以自己写程序弥补</li>
+</ul>
+<p><strong>缺点</strong></p>
+<ul>
+<li>搭建困难</li>
+<li>不是实时</li>
+</ul>
+<p>这里有一份<a href="https://chu888chu888.gitbooks.io/hadoopstudy/" target="_blank" rel="noopener">大数据学习笔记</a> 介绍框架的搭建方案。</p>
+
+        
+        <br />
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+        <li>
+            <a target="_blank" href="https://www.zhihu.com/people/simonlin">
+                            <span class="fa-stack fa-lg">
+                                 <i class="iconfont icon-zhihu"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <li>
+            <a target="_blank" href="http://weibo.com/1919879611">
+                            <span class="fa-stack fa-lg">
+                                  <i class="iconfont icon-weibo"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+
+        
+        <li>
+            <a target="_blank"  href="https://github.com/questionlin">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-github"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span>/</span>
+        
+        <span><a href="http://b.ljj.pub/atom.xml">feed/atom/rss</a></span>
+        <span>/</span>
+        
+    </p>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>

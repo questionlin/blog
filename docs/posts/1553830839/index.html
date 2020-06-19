@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content>
+    <meta name="keyword" content>
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        分布式系统的ID - ljj的博客
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i>  </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar ">
+            <img src="/img/avatar.jpeg" />
+        </div>
+        <div class="name">
+            <i>ljj</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li >
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li >
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li >
+                <a href="/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li >
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#业务服务器"><span class="toc-text">业务服务器</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#自增"><span class="toc-text">自增</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#有序uuid"><span class="toc-text">有序uuid</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#snowflake"><span class="toc-text">snowflake</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#资源服务器"><span class="toc-text">资源服务器</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#取模"><span class="toc-text">取模</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#一致性哈希算法"><span class="toc-text">一致性哈希算法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#算法最佳实践"><span class="toc-text">算法最佳实践</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#业务最佳实践"><span class="toc-text">业务最佳实践</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#对外混淆"><span class="toc-text">对外混淆</span></a></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input"/>
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+
+        <div class="index-about-mobile">
+            <i>  </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        分布式系统的ID
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2019-03-29 11:40:02</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#分布式" title="分布式">分布式</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
+    </div>
+    <div class="post-content no-indent">
+        <p>在分布式系统中，为了适应可能有多台主（写）服务器，任何时刻都可能有服务器加进来或者去掉这种情况，就不能用传统的数据库自增ID方案。这篇文章介绍几个在分布式系统中用的ID生成方案。</p>
+<h1 id="业务服务器"><a href="#业务服务器" class="headerlink" title="业务服务器"></a>业务服务器</h1><p>业务服务器指的是我们写的后端服务器。这里的着重点是自己生成id，不需要数据库自己给出一个自增id。</p>
+<h2 id="自增"><a href="#自增" class="headerlink" title="自增"></a>自增</h2><p>自增ID是最简单的方案，数据库自己提供了这个功能。但是一旦有多台写服务器就不能适用了。而且自增ID会影响写性能，在数据库的写性能是整个系统性能瓶颈的情况下，能减轻一点压力都是好的。</p>
+<h2 id="有序uuid"><a href="#有序uuid" class="headerlink" title="有序uuid"></a>有序uuid</h2><p>uuid是一个32位的字符串ID，在服务器本地生成，可以保证单机生成的ID在整个系统中独立。原始版本的uuid是无序的，这在数据库取出一系列有序数据时非常影响性能。幸好现在已经有了可以生成有序uuid的算法，比如 Laravel 的 Str::orderedUuid()。但是由于uuid是32位字符串，依然影响性能。</p>
+<h2 id="snowflake"><a href="#snowflake" class="headerlink" title="snowflake"></a>snowflake</h2><p>之前的文章<a href="/posts/1532314825">大型服务器的架构</a>中描述了蚂蚁金服的id生成方案，即是一种类snowflake结构。原始的snowflake结构是</p>
+<blockquote>
+<p>41位时间+10位机器编号+12位自增序列号</p>
+</blockquote>
+<p>因为id中包含了机器号，所以能保证绝对不会和其他服务器生成的id重复。但是这要求机器自己知道自己的id，比如在初始化的时候从管理服务处获得，或者有一个独立的id生成服务器。</p>
+<p>参考资料[1]介绍了一种 php 的 snowflake id 生成算法。</p>
+<h1 id="资源服务器"><a href="#资源服务器" class="headerlink" title="资源服务器"></a>资源服务器</h1><p>资源服务器指的是数据库或者缓存。这里的着重点是如何分布式存储数据，即每台服务器内容不同。</p>
+<h2 id="取模"><a href="#取模" class="headerlink" title="取模"></a>取模</h2><p>获得业务服务器生成的id后，为了存储在不同的服务器，可以将id取模。比如我们有4台服务器，那么 id%4 的到的余数就是我们要的机器id，然后就可以存储到对应的数据库了。但是如果服务器数量增加或者减少，取模后的到的余数就不能对应到原来的机器id，原来的数据也就不能正常取出了。</p>
+<h2 id="一致性哈希算法"><a href="#一致性哈希算法" class="headerlink" title="一致性哈希算法"></a>一致性哈希算法</h2><p>简单的来说，一致性哈希算法就是把数据 id 和 服务器 id 进行相同的哈希，然后存储在一个被分成 2^32 部分的圆中，存取的时候找到离数据右边最近的服务器。比如服务器id “S1”, “S2” 哈希后投射到圆上的两个点，把这两个点中间的所有点取出来，就是下面这段</p>
+<p>S1——————-S2</p>
+<p>这时有个数据id，哈希后的值落在 S1 S2 之间，会被存储在 S2 里。这时增加服务器 S3</p>
+<p>S1———S3———-S2</p>
+<p>这时数据id哈希后落在 S1<del>S3 会存储在S3中，S3</del>S2 会存储在S2中。这里需要手动把S2里面应该落在S3的数据（永久缓存）手动转移到S3中。</p>
+<p>参考资料[3][4]介绍了一种 php 的一致性哈希算法。</p>
+<h3 id="算法最佳实践"><a href="#算法最佳实践" class="headerlink" title="算法最佳实践"></a>算法最佳实践</h3><p>一般用time33 和 crc32 作为哈希算法。但是由于我们起的原始ID不够离散，很容易只落在几个服务器上，所以建议在哈希之前再加一层md5。下面是time32的算法</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">time33</span><span class="params">($str)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// hash(i) = hash(i-1) * 33 + str[i]</span></span><br><span class="line">    $hash = <span class="number">0</span>;</span><br><span class="line">    $s    = md5($str); <span class="comment">//让id更加离散</span></span><br><span class="line">    $seed = <span class="number">5</span>;</span><br><span class="line">    $len  = <span class="number">32</span>;</span><br><span class="line">    <span class="keyword">for</span> ($i = <span class="number">0</span>; $i &lt; $len; $i++) &#123;</span><br><span class="line">        <span class="comment">// (hash &lt;&lt; 5) + hash 相当于 hash * 33</span></span><br><span class="line">        <span class="comment">//$hash = sprintf("%u", $hash * 33) + ord($s&#123;$i&#125;);</span></span><br><span class="line">        <span class="comment">//$hash = ($hash * 33 + ord($s&#123;$i&#125;)) &amp; 0x7FFFFFFF;</span></span><br><span class="line">        $hash = ($hash &lt;&lt; $seed) + $hash + ord($s&#123;$i&#125;);</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">return</span> $hash &amp; <span class="number">0x7FFFFFFF</span>;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="comment">//echo myHash("却道天凉好个秋~");</span></span><br><span class="line"><span class="keyword">echo</span> <span class="string">"key1: "</span> . myHash(<span class="string">"key1"</span>) . <span class="string">"\n"</span>;</span><br></pre></td></tr></table></figure>
+
+<h3 id="业务最佳实践"><a href="#业务最佳实践" class="headerlink" title="业务最佳实践"></a>业务最佳实践</h3><p>另一个业务上的最佳实践是，不一定按照ID进行哈希。比如我们有一个论坛，访问量最大的就是按板块分的帖子页，即需要一次性取出一个板块里面的一批帖子。我们希望这些帖子是在一台服务器上的，那么就不能按照帖子id哈希，而要按照板块id哈希。</p>
+<p>如果这时我们有其他列表业务，比如一个用户的所有帖子。我的建议是缓存一个用户的前1000个帖子id到 redis。</p>
+<h1 id="对外混淆"><a href="#对外混淆" class="headerlink" title="对外混淆"></a>对外混淆</h1><p>对于对外接口，要将ID混淆，避免关键信息暴露，这种情况可以使用 <a href="hashids.org">hashids</a>。这个库可以将数字id可逆的转成字符串。</p>
+<hr>
+<p>参考资料：<br>[1]<a href="https://huoding.com/2016/11/03/552" target="_blank" rel="noopener">https://huoding.com/2016/11/03/552</a><br>[2]<a href="https://blog.csdn.net/bntX2jSQfEHy7/article/details/79549368" target="_blank" rel="noopener">https://blog.csdn.net/bntX2jSQfEHy7/article/details/79549368</a><br>[3]<a href="https://blog.csdn.net/jt521xlg/article/details/49360895" target="_blank" rel="noopener">https://blog.csdn.net/jt521xlg/article/details/49360895</a><br>[4]<a href="http://www.cnblogs.com/phpfans/p/4641490.html" target="_blank" rel="noopener">http://www.cnblogs.com/phpfans/p/4641490.html</a></p>
+
+        
+        <br />
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+        <li>
+            <a target="_blank" href="https://www.zhihu.com/people/simonlin">
+                            <span class="fa-stack fa-lg">
+                                 <i class="iconfont icon-zhihu"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <li>
+            <a target="_blank" href="http://weibo.com/1919879611">
+                            <span class="fa-stack fa-lg">
+                                  <i class="iconfont icon-weibo"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+
+        
+        <li>
+            <a target="_blank"  href="https://github.com/questionlin">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-github"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span>/</span>
+        
+        <span><a href="http://b.ljj.pub/atom.xml">feed/atom/rss</a></span>
+        <span>/</span>
+        
+    </p>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>

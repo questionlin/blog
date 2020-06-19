@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content>
+    <meta name="keyword" content>
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        大型服务器的架构 - ljj的博客
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i>  </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar ">
+            <img src="/img/avatar.jpeg" />
+        </div>
+        <div class="name">
+            <i>ljj</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li >
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li >
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li >
+                <a href="/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li >
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#DNS负载均衡"><span class="toc-text">DNS负载均衡</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#负载分发"><span class="toc-text">负载分发</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#网关-web-API服务器"><span class="toc-text">网关+web/API服务器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#服务注册"><span class="toc-text">服务注册</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数据库"><span class="toc-text">数据库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#消息队列"><span class="toc-text">消息队列</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第三方接口"><span class="toc-text">第三方接口</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#日志收集"><span class="toc-text">日志收集</span></a></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input"/>
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+
+        <div class="index-about-mobile">
+            <i>  </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        大型服务器的架构
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2018-07-23 10:59:33</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#分布式" title="分布式">分布式</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
+    </div>
+    <div class="post-content no-indent">
+        <p>这里只按照我所知道的最大型架构来。</p>
+<table>
+<thead>
+<tr>
+<th>-</th>
+<th>-</th>
+<th>-</th>
+<th>-</th>
+<th>-</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a href="##DNS负载均衡">DNS负载均衡</a></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="##负载分发">负载分发</a></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="##网关+web/API服务器">网关 + web/API 服务器</a></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>RPC服务器</td>
+<td><a href="##服务注册">服务注册</a></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="##数据库">数据库</a></td>
+<td>缓存</td>
+<td><a href="##消息队列">消息队列</a></td>
+<td>搜索引擎</td>
+<td><a href="##第三方接口">第三方接口</a></td>
+</tr>
+<tr>
+<td><a href="##日志收集">日志收集</a></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<h2 id="DNS负载均衡"><a href="#DNS负载均衡" class="headerlink" title="DNS负载均衡"></a>DNS负载均衡</h2><p>DNS 负载均衡是把多个 A/CNAME 记录配置在 DNS 服务器上的一种均衡的办法。优点是不用另外配置服务器，缺点是规则生效慢，不宜多配。例如阿里巴巴华东节点就只配了4条记录。</p>
+<h2 id="负载分发"><a href="#负载分发" class="headerlink" title="负载分发"></a>负载分发</h2><p>将请求分发到各台服务器的主力服务器。常见的负载分发服务器有 HAProxy, nginx, LVS。</p>
+<p>通过负载分发出去的请求，为了保留用户 SESSION，一种方法是对用户id hash/取模，同一个用户的请求一直导向同一台服务器。但这种方法经常造成服务器使用不均，极不推荐。推荐的做法是把 SESSION 放在缓存服务器上，请求携带 token 一路往下传。</p>
+<p>负载分发服务器虽然可以通过检测下游服务是否可用来动态更新分发规则，但本身有单点问题虽然可以用脚本和 keepalived 灾后抢救，但仍不能保证完全高可用。不知道有什么更好的替代。</p>
+<h2 id="网关-web-API服务器"><a href="#网关-web-API服务器" class="headerlink" title="网关+web/API服务器"></a>网关+web/API服务器</h2><p>web/API服务器是放业务逻辑代码的地方，可以在上层放一层网关，也可以把网关代码和应用代码放一起。由于 API 是对外的，尤其是有第三方使用的情况下，除了要检查数据正确性外，还要注意 API 请求本身。网关应该拦截过于频繁的请求。如果有携带 token，且 token 随时间变化的话，一样的 token 可只放行第一个。</p>
+<p>由于要经常改动，此层最合适的语言是 PHP 和 javascript(nodejs)。</p>
+<h2 id="服务注册"><a href="#服务注册" class="headerlink" title="服务注册"></a>服务注册</h2><p>从 web 服务器到 RPC 服务器的请求有三种分发策略：</p>
+<ol>
+<li>直接把 IP 写在配置里，优点是不用另外服务器，缺点是没有高可用可言，而且增减服务器很麻烦，适合小项目</li>
+<li>用负载分发，优点是配置很快，有一定高可用，缺点是本身有单点问题，适合中等项目</li>
+<li>服务注册，有以上所有优点，缺点是理论上需要5台以上服务，适合大型项目</li>
+</ol>
+<p>服务注册服务本身是个 kv 数据库，内部使用选举算法保证各台服务之间数据同步，挂掉几台也没有关系。RPC 服务器投入使用时先注册服务，web 服务器获取地址后按照一定规则直接向 RPC 服务器发起请求。web 服务器发现有网络错误时降低权重，之所以不直接去除是为了在服务重新可用时重新提权。市场上比较成熟的有 zookeeper, etcd, consul，前两者只是 kv 数据库，后者本身实现了注册的接口。</p>
+<h2 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h2><p>在 MySQL 正式支持集群以前，还是只能搭建主从服务器，然后用一定的算法生成 id。常见的 id 生成算法是数据库id+时间哈希，是情况还可以增加 RPC id、版本号等信息。集群会失去顺序，这个时候可以考虑同一个用户的数据只写入同一台服务器。下面贴一个蚂蚁金服的 id 生成策略：</p>
+<table>
+<thead>
+<tr>
+<th>位置</th>
+<th>1-8</th>
+<th>9</th>
+<th>10</th>
+<th>11-13</th>
+<th>14-16</th>
+<th>…</th>
+<th>10-9</th>
+<th>8-1</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>示例</td>
+<td>20180101</td>
+<td>1</td>
+<td>1</td>
+<td>001</td>
+<td>001</td>
+<td>…</td>
+<td>00</td>
+<td>12345678</td>
+</tr>
+<tr>
+<td>说明</td>
+<td>8位日期</td>
+<td>数据版本</td>
+<td>系统版本</td>
+<td>系统标识码</td>
+<td>业务标识码</td>
+<td>自定义扩展位</td>
+<td>用户分片位</td>
+<td>sequence空间，可支持每天每个分表1亿笔业务，循环使用</td>
+</tr>
+</tbody></table>
+<p>对于超大型服务，MySQL 的主从复制速度不能满足的情况下，可以考虑 OceanBase / PhxSQL，他们用 paxos 算法实现了分布式情况下数据库的快速同步。</p>
+<h2 id="消息队列"><a href="#消息队列" class="headerlink" title="消息队列"></a>消息队列</h2><p>队列服务器有两种用处：</p>
+<ol>
+<li>把耗时多的服务放在队列里，由另一个服务异步运行</li>
+<li>有些数据对顺序要求很高，放在队列里，把并行转为串行</li>
+</ol>
+<p>常见的队列服务有 kafka / RabbitMQ / RocketMQ，新版的 redis 也提供队列服务。</p>
+<h2 id="第三方接口"><a href="#第三方接口" class="headerlink" title="第三方接口"></a>第三方接口</h2><p>第三方接口由于在异地，经常会出现请求错误。这时如果时间允许的话可以睡眠若干秒后直接重试，否则放入消息队列。</p>
+<h2 id="日志收集"><a href="#日志收集" class="headerlink" title="日志收集"></a>日志收集</h2><p>Elastic Stack(ELK) 是现在市面上最方便的日志收集和查询的工具。日志收集除了能做产品分析外，还能给新服务上线做蓝绿测试。即先在一台权重比较低的服务器上线新版，一段时间后如果日志没有报错，再在其他服务器上新。报警服务也可以架设在日志收集服务之上。</p>
+
+        
+        <br />
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+        <li>
+            <a target="_blank" href="https://www.zhihu.com/people/simonlin">
+                            <span class="fa-stack fa-lg">
+                                 <i class="iconfont icon-zhihu"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <li>
+            <a target="_blank" href="http://weibo.com/1919879611">
+                            <span class="fa-stack fa-lg">
+                                  <i class="iconfont icon-weibo"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+
+        
+        <li>
+            <a target="_blank"  href="https://github.com/questionlin">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-github"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span>/</span>
+        
+        <span><a href="http://b.ljj.pub/atom.xml">feed/atom/rss</a></span>
+        <span>/</span>
+        
+    </p>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>
