@@ -38,11 +38,6 @@ https://cloud.tencent.com/developer/article/1162322
 - protect 外部不能调用，子类可调用
 - private 外部不能调用，子类不能调用
 
-## php 数组是基于哈希表的，那么怎么解决哈希冲突的问题
-相同哈希的 key 会组成一个链表
-
-https://www.laruence.com/2011/12/30/2435.html
-
 # 数据库
 ## redis 跳表的数据结构
 简单的来说就是自带了一个跳跃的索引，比如数据是123456789，那么跳表的一级索引可以是148，二级索引是14
