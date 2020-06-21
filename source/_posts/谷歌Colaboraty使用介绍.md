@@ -18,6 +18,10 @@ os.chdir("/content/drive/My Drive/")
 
 # 解压
 !zip filename.zip
+
+# 复制
+from shutil import copyfile
+copyfile('source/file1', 'target/file1)
 ```
 上面看到，行首加上“!”就可以执行 linux 命令
 
@@ -27,6 +31,10 @@ os.chdir("/content/drive/My Drive/")
 
 # 升级 tensorflow 版本
 !pip install --upgrade tensorflow-gpu
+
+# 降级 tensorflow
+!pip uninstall tensorflow
+!pip install tensorflow-gpu==1.15.3
 
 # 执行文件
 import os
