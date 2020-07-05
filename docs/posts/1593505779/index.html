@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content>
+    <meta name="keyword" content>
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        服务降级 - ljj的博客
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i>  </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar ">
+            <img src="/img/avatar.jpeg" />
+        </div>
+        <div class="name">
+            <i>ljj</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li >
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li >
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li >
+                <a href="/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li >
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#降级预案"><span class="toc-text">降级预案</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#日志级别"><span class="toc-text">日志级别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#完整链路降级"><span class="toc-text">完整链路降级</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#自动降级策略"><span class="toc-text">自动降级策略</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#降级方式"><span class="toc-text">降级方式</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#限流算法"><span class="toc-text">限流算法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#限流方法对比"><span class="toc-text">限流方法对比</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#开源限流组件"><span class="toc-text">开源限流组件</span></a></li></ol></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input"/>
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+
+        <div class="index-about-mobile">
+            <i>  </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        服务降级
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2020-06-30 16:27:44</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#运维" title="运维">运维</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
+    </div>
+    <div class="post-content no-indent">
+        <h1 id="降级预案"><a href="#降级预案" class="headerlink" title="降级预案"></a>降级预案</h1><h2 id="日志级别"><a href="#日志级别" class="headerlink" title="日志级别"></a>日志级别</h2><p>需要对系统进行梳理，哪些是可以降级的，哪些是需要誓死保护的，可以参考日志级别。</p>
+<ol>
+<li>一般：有些服务因为网络抖动或者服务上线而超时，可以自动降级。</li>
+<li>警告：有些服务成功率有波动（95%-100%之间），可以自动降级或人工降级，并发送警告。</li>
+<li>错误：比如错误率低于 90%，或者数据库连接池爆了，或者访问量猛增到系统承受的最大阀值，可以根据情况自动降级或者人工降级。</li>
+<li>严重错误：特殊原因数据错误，此时需要紧急人工降级。</li>
+</ol>
+<h2 id="完整链路降级"><a href="#完整链路降级" class="headerlink" title="完整链路降级"></a>完整链路降级</h2><p>降级的功能点主要从服务端链路考虑，即根据用户访问的服务调用链路来梳理哪里需要降级</p>
+<ol>
+<li>页面降级：在大促或者某些特殊情况下，某些页面占用了一些稀缺服务资源，在紧急情况下可以对其整个降级，以达到丢卒保帅；</li>
+<li>页面片段降级：比如商品详情页中的商家部分因为数据错误了，此时需要对其进行降级；</li>
+<li>页面异步请求降级：比如商品详情页上有推荐信息/配送至等异步加载的请求，如果这些信息响应慢或者后端服务有问题，可以进行降级；</li>
+<li>服务功能降级：比如渲染商品详情页时需要调用一些不太重要的服务：相关分类、热销榜等，而这些服务在异常情况下直接不获取，即降级即可；</li>
+<li>读降级：比如多级缓存模式，如果后端服务有问题，可以降级为只读缓存，这种方式适用于对读一致性要求不高的场景；</li>
+<li>写降级：比如秒杀抢购，我们可以只进行Cache的更新，然后异步同步扣减库存到DB，保证最终一致性即可，此时可以将DB降级为Cache。</li>
+<li>爬虫降级：在大促活动时，可以将爬虫流量导向静态页或者返回空数据，从而保护后端稀缺资源。</li>
+</ol>
+<h2 id="自动降级策略"><a href="#自动降级策略" class="headerlink" title="自动降级策略"></a>自动降级策略</h2><p>自动降级是根据系统负载，资源使用情况，SLA 等指标进行降级</p>
+<ol>
+<li>超时降级：当访问的数据库/http服务/远程调用响应慢或者不响应可以设置超时自动降级。</li>
+<li>统计失败次数降级：有时候依赖一些不稳定的API，比如调用外部机票服务，当失败调用次数达到一定阀值自动降级；然后通过异步线程去探测服务是否恢复了，则取消降级。</li>
+<li>故障降级：当调用的远程服务挂掉了（网络故障，DNS 故障，http 服务返回错误的状态码，RPC 服务抛出异常），则可以直接降级。</li>
+<li>限流降级：当我们去秒杀或者抢购一些限购商品时，此时可能会因为访问量太大而导致系统崩溃，此时开发者会使用限流来进行限制访问量，当达到限流阀值，后续请求会被降级；降级后的处理方案可以是：排队页面（将用户导流到排队页面等一会重试）、无货（直接告知用户没货了）、错误页（如活动太火爆了，稍后重试）。</li>
+</ol>
+<h2 id="降级方式"><a href="#降级方式" class="headerlink" title="降级方式"></a>降级方式</h2><ol>
+<li>人工开关降级：在大促期间通过监控发现线上的一些服务存在问题，这个时候需要暂时将这些服务摘掉。</li>
+<li>读服务降级：对于读服务降级一般采用的策略有：暂时切换读（降级到读缓存、降级到走静态化）、暂时屏蔽读（屏蔽读入口、屏蔽某个读服务）。</li>
+<li>写服务降级：一刀切停止写服务，或者写入消息队列</li>
+</ol>
+<h1 id="限流算法"><a href="#限流算法" class="headerlink" title="限流算法"></a>限流算法</h1><ol>
+<li>计数器法：实现简单，精度不高，重置节点时无法处理突发请求</li>
+<li>滑动窗口：滑动窗口的窗口越小，则精度越高，相应的资源消耗也更高。</li>
+<li>漏桶算法 : 限制的是流出速率，突发请求要排队，对服务保护较好；流入随机，流出固定</li>
+<li>令牌桶算法 ：限制的是平均流入速率，允许一定程度突发请求（无需排队）。</li>
+</ol>
+<h2 id="限流方法对比"><a href="#限流方法对比" class="headerlink" title="限流方法对比"></a>限流方法对比</h2><p>计数器 VS 滑动窗口
+计数器算法是最简单的算法，可以看成是滑动窗口的低精度实现。滑动窗口由于需要存储多份的计数器（每一个格子存一份），所以滑动窗口在实现上需要更多的存储空间。也就是说，如果滑动窗口的精度越高，需要的存储空间就越大。</p>
+<p>令牌桶和漏桶对比：</p>
+<p>令牌桶是按照固定速率往桶中添加令牌，请求是否被处理需要看桶中令牌是否足够，当令牌数减为零时则拒绝新的请求；漏桶则是按照常量固定速率流出请求，流入请求速率任意，当流入的请求数累积到漏桶容量时，则新流入的请求被拒绝；
+令牌桶限制的是平均流入速率，允许一定的突发请求；而漏桶主要目的是平滑流出速率；</p>
+<h2 id="开源限流组件"><a href="#开源限流组件" class="headerlink" title="开源限流组件"></a>开源限流组件</h2><ol>
+<li><a href="https://github.com/alibaba/Sentinel" target="_blank" rel="noopener">alibaba/Sentinel</a></li>
+<li><a href="https://github.com/Netflix/Hystrix" target="_blank" rel="noopener">Netflix/Hystrix</a></li>
+</ol>
+<hr>
+<p>参考<br><a href="https://blog.csdn.net/ityouknow/article/details/81230412" target="_blank" rel="noopener">https://blog.csdn.net/ityouknow/article/details/81230412</a><br><a href="https://www.jianshu.com/p/1dbc1a19fa8c" target="_blank" rel="noopener">https://www.jianshu.com/p/1dbc1a19fa8c</a></p>
+
+        
+        <br />
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+        <li>
+            <a target="_blank" href="https://www.zhihu.com/people/simonlin">
+                            <span class="fa-stack fa-lg">
+                                 <i class="iconfont icon-zhihu"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <li>
+            <a target="_blank" href="http://weibo.com/1919879611">
+                            <span class="fa-stack fa-lg">
+                                  <i class="iconfont icon-weibo"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+
+        
+        <li>
+            <a target="_blank"  href="https://github.com/questionlin">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-github"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span>/</span>
+        
+        <span><a href="http://b.ljj.pub/atom.xml">feed/atom/rss</a></span>
+        <span>/</span>
+        
+    </p>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>
