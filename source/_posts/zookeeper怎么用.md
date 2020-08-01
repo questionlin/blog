@@ -51,6 +51,7 @@ WatchedEvent state:SyncConnected type:NodeChildrenChanged path:/namespace
 ```
 
 我们发现当客户端1退出的时候，客户端2收到了通知。这个时候客户端2只要重新从zookeeper拉取一次数据，就得到了最新的数据
+[延伸阅读1]
 
 # 分布式锁/集群选主
 当一个客户端创建了 /path 数据后，别的客户端就不能创建了。利用这个特性可以实现分布式锁。
@@ -73,12 +74,22 @@ zookeeper 的主节点退出后其他节点会拒绝所有客户端写请求，�
 3. 每次投票后，服务器都会统计投票数量，判断是否有某个节点得到半数以上的投票。如果存在这样的节点，该节点将会成为准Leader，状态变为Leading。其他节点的状态变为Following。
 
 ## 发现阶段 Discovery
-1. 为了防止某些意外情况，比如因网络原因在上一阶段产生多个Leader的情况。
+1. 为了防止某些意外情况，比如因网络原因在上一阶段产生多个Leader的情况。[延伸阅读2]
 2. Leader集思广益，接收所有Follower发来各自的最新epoch值。Leader从中选出最大的epoch，基于此值加1，生成新的epoch分发给各个Follower。
 3. 各个Follower收到全新的epoch后，返回ACK给Leader，带上各自最大的ZXID和历史事务日志。Leader选出最大的ZXID，并更新自身历史日志。
 
 ## 同步阶段 Synchronization
 Leader刚才收集得到的最新历史事务日志，同步给集群中所有的Follower。只有当半数Follower同步成功，这个准Leader才能成为正式的Leader。
+
+---------------------------
+延伸阅读
+1. 为什么 Apollo 没有使用 zookeeper?
+
+[Apollo](https://github.com/ctripcorp/apollo)使用的是 Eureka。因为 zookeeper 获得通知后要再次订阅，才能再次获得通知。
+
+2. 如果发生脑裂怎么办
+
+脑裂指的是系统彻底分成两个部分，两个部分根据选举都选出了主节点。zookeeper规定服务器必须过半，即数量不到一半的那个网络，会停止服务。
 
 ---------------------------
 参考：  
