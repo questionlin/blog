@@ -18,7 +18,7 @@ id: 1595211059
 - [nlp_chinese_corpus](https://github.com/brightmart/nlp_chinese_corpus) - 大规模中文自然语言处理语料
 - [Embedding Corpus for Chinese](https://ai.tencent.com/ailab/nlp/embedding.html) - Tencent AI Lab Embedding Corpus for Chinese Words and Phrases
 - [chinese-poetry](https://github.com/chinese-poetry/chinese-poetry) - 最全中华古诗词数据库
-- [chaotbot_corpus_Chinese](https://github.com/codemayq/chaotbot_corpus_Chinese) - 聊天语料
+- [chinese_chatbot_corpus](https://github.com/codemayq/chinese_chatbot_corpus) - 聊天语料
 - [ChineseSemanticKB](https://github.com/liuhuanyong/ChineseSemanticKB) - 词语关系列表（同义词/反义词/词分类等）
 
 ## 图像 / 视频
