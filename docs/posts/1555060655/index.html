@@ -157,7 +157,8 @@ ls -w 观察一个节点</p>
 <p>客户端2</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">WATCHER::</span><br><span class="line"></span><br><span class="line">WatchedEvent state:SyncConnected <span class="built_in">type</span>:NodeChildrenChanged path:/namespace</span><br></pre></td></tr></table></figure>
 
-<p>我们发现当客户端1退出的时候，客户端2收到了通知。这个时候客户端2只要重新从zookeeper拉取一次数据，就得到了最新的数据</p>
+<p>我们发现当客户端1退出的时候，客户端2收到了通知。这个时候客户端2只要重新从zookeeper拉取一次数据，就得到了最新的数据
+[延伸阅读1]</p>
 <h1 id="分布式锁-集群选主"><a href="#分布式锁-集群选主" class="headerlink" title="分布式锁/集群选主"></a>分布式锁/集群选主</h1><p>当一个客户端创建了 /path 数据后，别的客户端就不能创建了。利用这个特性可以实现分布式锁。</p>
 <p>如果有一个集群需要一个主节点，这个主节点退出后其他节点得到通知，创建一个临时数据作为锁，申请到的节点就自封为主节点。如果这个主节点退出，那么这个锁会一起被清除。不影响其他节点申请锁。</p>
 <h1 id="zookeeper-选举原理"><a href="#zookeeper-选举原理" class="headerlink" title="zookeeper 选举原理"></a>zookeeper 选举原理</h1><h2 id="paxos-算法"><a href="#paxos-算法" class="headerlink" title="paxos 算法"></a>paxos 算法</h2><p>paxos 算法是选举算法的一种，原理是客户端向一个节点写入数据的时候，节点把请求发给其他所有节点，如果得到了半数以上节点同意的回复，返回成功。这里同意的回复表示该节点的数据版本低于更新数据的版本。反对则表示该节点的数据也被另一个客户端改过了，版本号相同或更高。</p>
@@ -170,11 +171,21 @@ ls -w 观察一个节点</p>
 <li>每次投票后，服务器都会统计投票数量，判断是否有某个节点得到半数以上的投票。如果存在这样的节点，该节点将会成为准Leader，状态变为Leading。其他节点的状态变为Following。</li>
 </ol>
 <h2 id="发现阶段-Discovery"><a href="#发现阶段-Discovery" class="headerlink" title="发现阶段 Discovery"></a>发现阶段 Discovery</h2><ol>
-<li>为了防止某些意外情况，比如因网络原因在上一阶段产生多个Leader的情况。</li>
+<li>为了防止某些意外情况，比如因网络原因在上一阶段产生多个Leader的情况。[延伸阅读2]</li>
 <li>Leader集思广益，接收所有Follower发来各自的最新epoch值。Leader从中选出最大的epoch，基于此值加1，生成新的epoch分发给各个Follower。</li>
 <li>各个Follower收到全新的epoch后，返回ACK给Leader，带上各自最大的ZXID和历史事务日志。Leader选出最大的ZXID，并更新自身历史日志。</li>
 </ol>
 <h2 id="同步阶段-Synchronization"><a href="#同步阶段-Synchronization" class="headerlink" title="同步阶段 Synchronization"></a>同步阶段 Synchronization</h2><p>Leader刚才收集得到的最新历史事务日志，同步给集群中所有的Follower。只有当半数Follower同步成功，这个准Leader才能成为正式的Leader。</p>
+<hr>
+<p>延伸阅读</p>
+<ol>
+<li>为什么 Apollo 没有使用 zookeeper?</li>
+</ol>
+<p><a href="https://github.com/ctripcorp/apollo" target="_blank" rel="noopener">Apollo</a>使用的是 Eureka。因为 zookeeper 获得通知后要再次订阅，才能再次获得通知。</p>
+<ol start="2">
+<li>如果发生脑裂怎么办</li>
+</ol>
+<p>脑裂指的是系统彻底分成两个部分，两个部分根据选举都选出了主节点。zookeeper规定服务器必须过半，即数量不到一半的那个网络，会停止服务。</p>
 <hr>
 <p>参考：<br><a href="https://juejin.im/post/5cdbda12e51d453ccd24650f" target="_blank" rel="noopener">https://juejin.im/post/5cdbda12e51d453ccd24650f</a><br><a href="https://blog.csdn.net/u013256816/article/details/80865540" target="_blank" rel="noopener">https://blog.csdn.net/u013256816/article/details/80865540</a></p>
 
@@ -209,7 +220,7 @@ ls -w 观察一个节点</p>
 
         
         <li>
-            <a target="_blank" href="http://weibo.com/1919879611">
+            <a target="_blank" href="http://weibo.com/7453415873">
                             <span class="fa-stack fa-lg">
                                   <i class="iconfont icon-weibo"></i>
                             </span>
