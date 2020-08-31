@@ -87,6 +87,12 @@ $ git push origin --delete <branch-name>
 $ git merge <branch-name>
 ```
 
+# 只下载最新代码
+```sh
+$ git clone --depth=1 <url>
+```
+只下载最新代码而不带历史数据，加速下载
+
 --------------------------
 参考资料：  
 http://www.bootcss.com/p/git-guide/
