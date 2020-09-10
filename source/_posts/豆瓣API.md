@@ -125,4 +125,5 @@ GET  https://api.douban.com/v2/music/:id
 
 ------------------------------
 参考：  
+一个可用的 apikey=0df993c66c0c636e29ecbb5344252a4a  
 豆瓣官方客户端：https://github.com/douban/douban-client
