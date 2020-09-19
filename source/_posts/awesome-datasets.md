@@ -20,6 +20,7 @@ id: 1595211059
 - [chinese-poetry](https://github.com/chinese-poetry/chinese-poetry) - 最全中华古诗词数据库
 - [chinese_chatbot_corpus](https://github.com/codemayq/chinese_chatbot_corpus) - 聊天语料
 - [ChineseSemanticKB](https://github.com/liuhuanyong/ChineseSemanticKB) - 词语关系列表（同义词/反义词/词分类等）
+- [stopwords](https://github.com/goto456/stopwords) - 停用词词库（可以跳过的词）
 
 ## 图像 / 视频
 - [tencent-ml-images](https://github.com/Tencent/tencent-ml-images) - Largest multi-label image database; ResNet-101 model; 80.73% top-1 acc on ImageNet
