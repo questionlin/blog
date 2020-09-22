@@ -93,7 +93,10 @@ $curl '127.0.0.1:9200/users/m/id1?pretty'
 
 ## 简易查询
 ```sh
-$curl '127.0.0.1:9200/users/m/_search?q=ljj&pretty'
+# 查询
+$curl '127.0.0.1:9200/users/_search?q=ljj&pretty'
+# 统计
+$curl '127.0.0.1:9200/users/_count?q=ljj&pretty'
 $curl '127.0.0.1:9200/_search?q=name:ljj&from=1&size=1&_source=name,age'
 ```
 **q 规定了字段，from 规定偏移，size 规定返回条数，_source 规定返回的字段。**
@@ -102,7 +105,7 @@ $curl '127.0.0.1:9200/_search?q=name:ljj&from=1&size=1&_source=name,age'
 
 ## 复杂查询
 ```sh
-$curl '127.0.0.1:9200/users/m/_search' -H'Content-Type:application/json' -d '
+$curl '127.0.0.1:9200/users/_search' -H'Content-Type:application/json' -d '
 {
     "query" : {
         "match": {
@@ -133,6 +136,181 @@ name 里面的空格表示 or 的关系。如果需要 and 则使用下面的参
     }
 }
 ```
+
+## 聚合
+聚合相当于 SQL 里的 group by 语句
+
+下面给出一种特别的情况，comment_label 里面是数组，数据类似于
+```json
+{
+    "comment_obj":"58c3f340936edfa7323ec801",
+    "eval_star":4,
+    "comment_label":[
+        "aaa",
+        "bbb"
+    ]
+}
+```
+使用下面的语句查询
+```json
+{
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "term": { //精确匹配，这里用 term 而不是 match
+            "comment_obj": "58c3f340936edfa7323ec801"
+          }
+        },
+        {
+            "range": {
+                "eval_star":{
+                    "gte":3
+                }
+            }
+        }
+      ]
+    }
+  },
+  "aggs": {//使用 aggs 关键词，也可以用 aggregations
+    "comment_label": {
+      "terms": {
+        "field": "comment_label"
+      }
+    }
+  },
+  "size": 0 //size=0 表示只返回统计值，不然还会返回匹配到的文档
+}
+```
+返回的值类似
+```json
+{
+    "took":2,
+    "timed_out":false,
+    "_shards":{
+        "total":5,
+        "successful":5,
+        "skipped":0,
+        "failed":0
+    },
+    "hits":{
+        "total":{
+            "value":1,
+            "relation":"eq"
+        },
+        "max_score":null,
+        "hits":[
+
+        ]
+    },
+    "aggregations":{
+        "comment_label":{
+            "doc_count_error_upper_bound":0,
+            "sum_other_doc_count":0,
+            "buckets":[
+                {
+                    "key":"aaa",
+                    "doc_count":1
+                },
+                {
+                    "key":"bbb",
+                    "doc_count":1
+                }
+            ]
+        }
+    }
+}
+```
+已经统计出了所有 comment_obj="58c3f340936edfa7323ec801",eval_star>3 时，所有 comment_label 内值出现次数
+
+现在增加难度，语句嵌套 group by，匹配多个 comment_obj
+```json
+{
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "terms": {//匹配多个时，使用 terms
+            "comment_obj": ["58c3f340936edfa7323ec801"]
+          }
+        },
+        {
+            "range": {
+                "eval_star":{
+                    "gte":3
+                }
+            }
+        }
+      ]
+    }
+  },
+  "aggs": {
+      "comment_obj":{
+          "terms": {
+              "field": "comment_obj"
+          },
+          "aggs":{
+            "comment_label": {
+              "terms": {
+                "field": "comment_label"
+              }
+            }
+          }
+      }
+  },
+  "size": 0
+}
+```
+返回类似
+```json
+{
+    "took":142,
+    "timed_out":false,
+    "_shards":{
+        "total":5,
+        "successful":5,
+        "skipped":0,
+        "failed":0
+    },
+    "hits":{
+        "total":{
+            "value":1,
+            "relation":"eq"
+        },
+        "max_score":null,
+        "hits":[
+
+        ]
+    },
+    "aggregations":{
+        "comment_obj":{
+            "doc_count_error_upper_bound":0,
+            "sum_other_doc_count":0,
+            "buckets":[
+                {
+                    "key":"58c3f340936edfa7323ec801",
+                    "doc_count":1,
+                    "comment_label":{
+                        "doc_count_error_upper_bound":0,
+                        "sum_other_doc_count":0,
+                        "buckets":[
+                            {
+                                "key":"5f40d73b2fee3a6d338db1ba",
+                                "doc_count":1
+                            },
+                            {
+                                "key":"5f40d7452fee3a4e509130fb",
+                                "doc_count":1
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    }
+}
+```
+看到返回值已经按照 comment_obj, comment_label 两极嵌套
 
 # 诊断
 ## 集群里文档数量
