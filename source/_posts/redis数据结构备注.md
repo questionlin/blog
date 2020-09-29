@@ -61,6 +61,10 @@ HyperLogLog 的用途是输入大量的字符串，最后得到去重字符串�
 - 查看用户是否在线 SETBIT KEY $uid 1。这里 $uid 只能是数字
 - 布隆过滤器。旧版可以找插件来实现
 
+# 隐藏结构：Radix
+Radix 是 redis 内部用来存储 key 的数据结构，类似 trie 字典树，但是经过压缩（字母合并）。因此可以直接拿 redis 的 key 做字典树来用。
+
 ---------------------------
 参考资料：  
-[HyperLogLog wiki](https://en.wikipedia.org/wiki/HyperLogLog)
+[HyperLogLog wiki](https://en.wikipedia.org/wiki/HyperLogLog)  
+[steams](https://redis.io/topics/streams-intro)
