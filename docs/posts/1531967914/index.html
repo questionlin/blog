@@ -89,7 +89,7 @@
     </div>
     
         <div id="toc" class="toc-article">
-    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Geo"><span class="toc-text">Geo</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Hashes"><span class="toc-text">Hashes</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#HyperLogLog"><span class="toc-text">HyperLogLog</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Lists"><span class="toc-text">Lists</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Sets"><span class="toc-text">Sets</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Sorted-Sets"><span class="toc-text">Sorted Sets</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Streams"><span class="toc-text">Streams</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Strings"><span class="toc-text">Strings</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Bitmap"><span class="toc-text">Bitmap</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Geo"><span class="toc-text">Geo</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Hashes"><span class="toc-text">Hashes</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#HyperLogLog"><span class="toc-text">HyperLogLog</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Lists"><span class="toc-text">Lists</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Sets"><span class="toc-text">Sets</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Sorted-Sets"><span class="toc-text">Sorted Sets</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Streams"><span class="toc-text">Streams</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Strings"><span class="toc-text">Strings</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Bitmap"><span class="toc-text">Bitmap</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#隐藏结构：Radix"><span class="toc-text">隐藏结构：Radix</span></a></li></ol>
 </div>
     
 </div>
@@ -186,8 +186,9 @@
 <li>查看用户是否在线 SETBIT KEY $uid 1。这里 $uid 只能是数字</li>
 <li>布隆过滤器。旧版可以找插件来实现</li>
 </ul>
+<h1 id="隐藏结构：Radix"><a href="#隐藏结构：Radix" class="headerlink" title="隐藏结构：Radix"></a>隐藏结构：Radix</h1><p>Radix 是 redis 内部用来存储 key 的数据结构，类似 trie 字典树，但是经过压缩（字母合并）。因此可以直接拿 redis 的 key 做字典树来用。</p>
 <hr>
-<p>参考资料：<br><a href="https://en.wikipedia.org/wiki/HyperLogLog" target="_blank" rel="noopener">HyperLogLog wiki</a></p>
+<p>参考资料：<br><a href="https://en.wikipedia.org/wiki/HyperLogLog" target="_blank" rel="noopener">HyperLogLog wiki</a><br><a href="https://redis.io/topics/streams-intro" target="_blank" rel="noopener">steams</a></p>
 
         
         <br />
