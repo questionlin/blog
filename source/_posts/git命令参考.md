@@ -93,6 +93,13 @@ $ git clone --depth=1 <url>
 ```
 只下载最新代码而不带历史数据，加速下载
 
+# fork 后和原仓库同步
+```sh
+$ git remote add upstream URL # 把原仓库添加为 upstream
+$ git fetch upstream
+$ git merge upstream/master
+```
+
 --------------------------
 参考资料：  
 http://www.bootcss.com/p/git-guide/
