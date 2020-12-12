@@ -13,6 +13,7 @@ id: 1595211059
 - [Community Data](https://github.com/phpxiebin/Community-Data) - 小区数据库
 - [All The Cities](https://github.com/zeke/all-the-cities) - 世界所有人口多的城市
 - [city](https://github.com/pfinal/city) - 中华人民共和国行政区划数据：省份、城市、区县。中国省市区镇三级联动地址数据。城市经纬度数据
+- [GeoIP2-CN](https://github.com/Hackl0us/GeoIP2-CN) - 中国大陆IP地址库
 
 ## 中文
 - [nlp_chinese_corpus](https://github.com/brightmart/nlp_chinese_corpus) - 大规模中文自然语言处理语料
