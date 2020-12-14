@@ -45,3 +45,4 @@ id: 1595211059
 - [datasets](https://github.com/tensorflow/datasets) - tensorflow datasets
 - [awesome json datasets](https://github.com/jdorfman/awesome-json-datasets) - A curated list of awesome JSON datasets that don't require authentication
 - [TableBank](https://github.com/doc-analysis/TableBank)
+- [gopup](https://github.com/justinzm/gopup) - 各大网站指数数据
