@@ -89,7 +89,7 @@
     </div>
     
         <div id="toc" class="toc-article">
-    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#原理"><span class="toc-text">原理</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#实现"><span class="toc-text">实现</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#实现难点"><span class="toc-text">实现难点</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#原理"><span class="toc-text">原理</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#实现"><span class="toc-text">实现</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Try阶段"><span class="toc-text">Try阶段</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Confirm阶段"><span class="toc-text">Confirm阶段</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Cancel阶段"><span class="toc-text">Cancel阶段</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#实现难点"><span class="toc-text">实现难点</span></a></li></ol>
 </div>
     
 </div>
@@ -144,8 +144,23 @@
 <p>Try/ Confirm/ Cancel 三个阶段对应的数据库操作可以参考下面这个简单的例子：</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># try</span><br><span class="line"><span class="keyword">INSERT</span> RESERVATION</span><br><span class="line"></span><br><span class="line"># <span class="keyword">confirm</span></span><br><span class="line"><span class="keyword">UPDATE</span> RESERVATION <span class="keyword">SET</span> <span class="keyword">STATUS</span>=<span class="string">'CONFIRMED'</span></span><br><span class="line"></span><br><span class="line"># <span class="keyword">cancel</span></span><br><span class="line"><span class="keyword">UPDATE</span> RESERVATION <span class="keyword">SET</span> <span class="keyword">STATUS</span>=<span class="string">'CANCELED'</span></span><br></pre></td></tr></table></figure>
 
-<h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><p>阿里的实现是增加一个事务管理器，先由主业务发起主事务，然后向每个子业务（远程服务）发起 Try 确认资源。如果资源确认通过的话，再把 Confirm 和 Cancel 的请求代码交给事务管理器，由事务管理器完成后续工作。参考下面这张图：
-<img src="https://ask.qcloudimg.com/http-save/yehe-1305760/jvxyvzes5j.jpeg?imageView2/2/w/1620" alt="TCC实现"></p>
+<h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><p>阿里的实现是增加一个事务管理器，先由主业务发起主事务，然后向每个子业务（远程服务）发起 Try 确认资源。如果资源确认通过的话，再把 Confirm 和 Cancel 的请求代码交给事务管理器，由事务管理器完成后续工作</p>
+<p>例如我花20元下单买东西。</p>
+<h2 id="Try阶段"><a href="#Try阶段" class="headerlink" title="Try阶段"></a>Try阶段</h2><ol>
+<li>生成订单，状态为UNPAY</li>
+<li>支付过程，100-20=80，预扣字段设为20</li>
+<li>库存设置为100-1=99，预扣字段设置为1</li>
+</ol>
+<h2 id="Confirm阶段"><a href="#Confirm阶段" class="headerlink" title="Confirm阶段"></a>Confirm阶段</h2><ol>
+<li>修改订单状态为PAY</li>
+<li>修改用户账号余额，将预扣字段的20块清零</li>
+<li>将库存数量的预扣字段设置为0</li>
+</ol>
+<h2 id="Cancel阶段"><a href="#Cancel阶段" class="headerlink" title="Cancel阶段"></a>Cancel阶段</h2><ol>
+<li>修改订单状态为CANCEL</li>
+<li>把预扣的金额补回到用户的金额里面。80+20=100</li>
+<li>将库存预扣部分补回到原本的99+1=100件</li>
+</ol>
 <h1 id="实现难点"><a href="#实现难点" class="headerlink" title="实现难点"></a>实现难点</h1><ol>
 <li>因为完全用业务逻辑实现，每个子事务都要提供三个接口，代码量稍大；</li>
 <li>事务要求隔离性（Isolation），即一个事务进行的时候，其他请求读到的应该是原来的数据，这个可以用冗余数据增加版本号来解决；</li>
