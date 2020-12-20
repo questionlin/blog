@@ -11,7 +11,7 @@
 
     <title>
         
-        PHP event 和 libevent 扩展的关系 - ljj的博客
+        awesome frontend framework - ljj的博客
         
     </title>
 
@@ -89,7 +89,7 @@
     </div>
     
         <div id="toc" class="toc-article">
-    
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#PC"><span class="toc-text">PC</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#mobile"><span class="toc-text">mobile</span></a></li></ol>
 </div>
     
 </div>
@@ -120,17 +120,11 @@
 
 <div class="post-container">
     <div class="post-title">
-        PHP event 和 libevent 扩展的关系
+        awesome frontend framework
     </div>
 
     <div class="post-meta">
-        <span class="attr">发布于：<span>2018-07-18 20:46:55</span></span>
-        
-        <span class="attr">标签：/
-        
-        <a class="tag" href="/tags/#php" title="php">php</a>
-        <span>/</span>
-        
+        <span class="attr">发布于：<span>2020-12-20 12:01:23</span></span>
         
         </span>
         <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
@@ -138,33 +132,8 @@
 </span>
     </div>
     <div class="post-content no-indent">
-        <p>PHP event 和 libevent 扩展都是对 libevent 的封装，前者有 stable 版本且一直在更新而后者只有 beta 版本。本来肯定要选 event 扩展，可是它的 pecl 页面上赫然写着依赖 libevent 扩展。陷入混乱的我给作者写了封邮件，<strong>结论是：大胆选 event 扩展</strong>。以下是邮件原文：</p>
-<blockquote>
-<p>Hi,</p>
-<p>event extension is an alternative to libevent extension.</p>
-<p>You can see “libevent” package listed as a dependency on
-<a href="https://pecl.php.net/package/event" target="_blank" rel="noopener">https://pecl.php.net/package/event</a>, but in reality “libevent”
-extension is declared as <strong>conflicting</strong> package in package.xml:</p>
-<pre><code>&lt;package&gt;
-  &lt;name&gt;libevent&lt;/name&gt;
-  &lt;channel&gt;pecl.php.net&lt;/channel&gt;
-  &lt;min&gt;0.0.2&lt;/min&gt;
-  &lt;conflicts/&gt;
-  &lt;providesextension&gt;libevent&lt;/providesextension&gt;
-&lt;/package&gt;</code></pre><p>I can’t recall why. But you definitely don’t need libevent extension
-in order to use “event”.</p>
-<p>On Wed, 18 Jul 2018 11:28:21 +0800 (CST)
-“Simon Lin” <a href="mailto:&#98;&#111;&#121;&#113;&#117;&#101;&#x73;&#x74;&#x69;&#x6f;&#x6e;&#64;&#49;&#x36;&#x33;&#x2e;&#99;&#111;&#109;" target="_blank" rel="noopener">&#98;&#111;&#121;&#113;&#117;&#101;&#x73;&#x74;&#x69;&#x6f;&#x6e;&#64;&#49;&#x36;&#x33;&#x2e;&#99;&#111;&#109;</a> wrote:</p>
-<p>Hi,</p>
-<p>I’m just confused that what is the relation between event package and
-libevent package? The pecl page shows event package has stable
-versions while libevent package does not. If event package depends on
-libevent package, is event package still stable?</p>
-<p>Sincerely,
-Simon Lin</p>
-<p>– 
-Ruslan Osmanov</p>
-</blockquote>
+        <h1 id="PC"><a href="#PC" class="headerlink" title="PC"></a>PC</h1><p><a href="https://github.com/twbs/bootstrap" target="_blank" rel="noopener">bootstrap</a> - 推特的框架，生态最好，但最重。<strong><em>自适应移动端</em></strong><br><a href="https://github.com/ColorlibHQ/AdminLTE" target="_blank" rel="noopener">AdminLTE</a> - 基于 bootstrap，为后台专门优化<br><a href="https://github.com/ElemeFE/element" target="_blank" rel="noopener">element</a> - 饿了么基于 VUE 的框架<br><a href="https://github.com/PanJiaChen/vue-element-admin" target="_blank" rel="noopener">vue-element-admin</a> - 基于 element 的后台框架，自带 iframe<br><a href="https://github.com/iview/iview" target="_blank" rel="noopener">iview</a> - 基于 VUE 的框架<br><a href="https://github.com/iview/iview-admin" target="_blank" rel="noopener">iview-admin</a> - 基于 iview 的后台框架，自带 iframe<br><a href="https://github.com/sentsin/layui/" target="_blank" rel="noopener">layui</a> - 不基于任何js框架，可购买 iframe 后台，聊天界面  </p>
+<h1 id="mobile"><a href="#mobile" class="headerlink" title="mobile"></a>mobile</h1><p><a href="https://github.com/youzan/vant" target="_blank" rel="noopener">vant</a> - 有赞的框架，适合电商场景（VUE）<br><a href="https://github.com/uileader/touchui" target="_blank" rel="noopener">touchui</a> - 适合酒店订房场景<br><a href="https://github.com/didi/mand-mobile" target="_blank" rel="noopener">mand-mobile</a> - 滴滴基于 vue 的框架，适用金融场景<br><a href="https://github.com/didi/cube-ui" target="_blank" rel="noopener">cube-ui</a> - 滴滴基于 vue 的框架</p>
 
         
         <br />

@@ -113,17 +113,19 @@
         <!-- Main Content -->
         <div id='tag_cloud' class="tags">
     
+    <a href="#java" title="java" rel="1">java</a>
+    
     <a href="#elasticsearch" title="elasticsearch" rel="3">elasticsearch</a>
     
     <a href="#运维" title="运维" rel="12">运维</a>
-    
-    <a href="#java" title="java" rel="1">java</a>
     
     <a href="#mysql" title="mysql" rel="11">mysql</a>
     
     <a href="#php" title="php" rel="16">php</a>
     
     <a href="#分布式" title="分布式" rel="8">分布式</a>
+    
+    <a href="#数据" title="数据" rel="3">数据</a>
     
     <a href="#最佳实践" title="最佳实践" rel="12">最佳实践</a>
     
@@ -135,15 +137,15 @@
     
     <a href="#hexo" title="hexo" rel="2">hexo</a>
     
-    <a href="#http" title="http" rel="3">http</a>
-    
     <a href="#javascript" title="javascript" rel="3">javascript</a>
+    
+    <a href="#http" title="http" rel="3">http</a>
     
     <a href="#redis" title="redis" rel="3">redis</a>
     
-    <a href="#算法" title="算法" rel="2">算法</a>
-    
     <a href="#在线工具" title="在线工具" rel="2">在线工具</a>
+    
+    <a href="#算法" title="算法" rel="2">算法</a>
     
     <a href="#安利" title="安利" rel="2">安利</a>
     
@@ -153,12 +155,31 @@
     
     <a href="#python" title="python" rel="1">python</a>
     
-    <a href="#数据" title="数据" rel="3">数据</a>
-    
 </div>
 
 <!-- 标签列表 -->
 
+
+<div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="java">
+                    <span class="tag-text">java</span>
+                </span>
+    
+    <!-- <li class="listing-item">
+    <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+    <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+    </li> -->
+    <div class="post-preview">
+        <a href="/posts/1528196487/">
+            <h2 class="post-title">
+                JVM 垃圾处理的一些总结
+            </h2>
+            
+        </a>
+        <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+    </div>
+    
+</div>
 
 <div class="one-tag-list">
                 <span class="fa fa-tag listing-seperator" id="elasticsearch">
@@ -331,9 +352,9 @@
     <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
     </li> -->
     <div class="post-preview">
-        <a href="/posts/1565682061/">
+        <a href="/posts/1593505779/">
             <h2 class="post-title">
-                用ab和jMeter压测
+                服务降级
             </h2>
             
         </a>
@@ -345,9 +366,9 @@
     <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
     </li> -->
     <div class="post-preview">
-        <a href="/posts/1559528755/">
+        <a href="/posts/1565682061/">
             <h2 class="post-title">
-                用supervisor做高可用
+                用ab和jMeter压测
             </h2>
             
         </a>
@@ -373,30 +394,9 @@
     <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
     </li> -->
     <div class="post-preview">
-        <a href="/posts/1593505779/">
+        <a href="/posts/1559528755/">
             <h2 class="post-title">
-                服务降级
-            </h2>
-            
-        </a>
-        <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-    </div>
-    
-</div>
-
-<div class="one-tag-list">
-                <span class="fa fa-tag listing-seperator" id="java">
-                    <span class="tag-text">java</span>
-                </span>
-    
-    <!-- <li class="listing-item">
-    <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-    <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-    </li> -->
-    <div class="post-preview">
-        <a href="/posts/1528196487/">
-            <h2 class="post-title">
-                JVM 垃圾处理的一些总结
+                用supervisor做高可用
             </h2>
             
         </a>
@@ -660,23 +660,9 @@
     <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
     </li> -->
     <div class="post-preview">
-        <a href="/posts/1564977130/">
+        <a href="/posts/1579146320/">
             <h2 class="post-title">
-                php面试题
-            </h2>
-            
-        </a>
-        <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-    </div>
-    
-    <!-- <li class="listing-item">
-    <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-    <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-    </li> -->
-    <div class="post-preview">
-        <a href="/posts/1537782733/">
-            <h2 class="post-title">
-                手把手做一个php扩展
+                swoole扫雷
             </h2>
             
         </a>
@@ -691,6 +677,20 @@
         <a href="/posts/1544584259/">
             <h2 class="post-title">
                 我的PHP编译参数
+            </h2>
+            
+        </a>
+        <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+    </div>
+    
+    <!-- <li class="listing-item">
+    <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+    <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+    </li> -->
+    <div class="post-preview">
+        <a href="/posts/1537782733/">
+            <h2 class="post-title">
+                手把手做一个php扩展
             </h2>
             
         </a>
@@ -730,6 +730,20 @@
     <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
     </li> -->
     <div class="post-preview">
+        <a href="/posts/1607587289/">
+            <h2 class="post-title">
+                用xhprof监控php函数性能和调用链
+            </h2>
+            
+        </a>
+        <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+    </div>
+    
+    <!-- <li class="listing-item">
+    <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+    <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+    </li> -->
+    <div class="post-preview">
         <a href="/posts/1528164505/">
             <h2 class="post-title">
                 线上代码和rpc debug哪家强
@@ -758,37 +772,23 @@
     <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
     </li> -->
     <div class="post-preview">
+        <a href="/posts/1564977130/">
+            <h2 class="post-title">
+                php面试题
+            </h2>
+            
+        </a>
+        <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+    </div>
+    
+    <!-- <li class="listing-item">
+    <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+    <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+    </li> -->
+    <div class="post-preview">
         <a href="/posts/1528164421/">
             <h2 class="post-title">
                 用人话教你设计模式
-            </h2>
-            
-        </a>
-        <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-    </div>
-    
-    <!-- <li class="listing-item">
-    <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-    <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-    </li> -->
-    <div class="post-preview">
-        <a href="/posts/1579146320/">
-            <h2 class="post-title">
-                swoole扫雷
-            </h2>
-            
-        </a>
-        <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-    </div>
-    
-    <!-- <li class="listing-item">
-    <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-    <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-    </li> -->
-    <div class="post-preview">
-        <a href="/posts/1607587289/">
-            <h2 class="post-title">
-                用xhprof监控php函数性能和调用链
             </h2>
             
         </a>
@@ -849,9 +849,9 @@
     <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
     </li> -->
     <div class="post-preview">
-        <a href="/posts/1530843273/">
+        <a href="/posts/1529896095/">
             <h2 class="post-title">
-                分布式事务之TCC补偿型事务
+                分布式事务之mysql两阶段提交
             </h2>
             
         </a>
@@ -863,9 +863,9 @@
     <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
     </li> -->
     <div class="post-preview">
-        <a href="/posts/1529896095/">
+        <a href="/posts/1530843273/">
             <h2 class="post-title">
-                分布式事务之mysql两阶段提交
+                分布式事务之TCC补偿型事务
             </h2>
             
         </a>
@@ -908,6 +908,55 @@
         <a href="/posts/1555150954/">
             <h2 class="post-title">
                 消息队列中间件的选型
+            </h2>
+            
+        </a>
+        <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+    </div>
+    
+</div>
+
+<div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="数据">
+                    <span class="tag-text">数据</span>
+                </span>
+    
+    <!-- <li class="listing-item">
+    <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+    <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+    </li> -->
+    <div class="post-preview">
+        <a href="/posts/1595211059/">
+            <h2 class="post-title">
+                awesome datasets
+            </h2>
+            
+        </a>
+        <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+    </div>
+    
+    <!-- <li class="listing-item">
+    <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+    <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+    </li> -->
+    <div class="post-preview">
+        <a href="/posts/1542940944/">
+            <h2 class="post-title">
+                百度地图全国市区商圈和地铁线路
+            </h2>
+            
+        </a>
+        <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+    </div>
+    
+    <!-- <li class="listing-item">
+    <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+    <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+    </li> -->
+    <div class="post-preview">
+        <a href="/posts/1535854293/">
+            <h2 class="post-title">
+                豆瓣API
             </h2>
             
         </a>
@@ -996,9 +1045,9 @@
     <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
     </li> -->
     <div class="post-preview">
-        <a href="/posts/1576983574/">
+        <a href="/posts/1578535312/">
             <h2 class="post-title">
-                手机连接电脑用chrome调试网页
+                常用正则表达式
             </h2>
             
         </a>
@@ -1013,6 +1062,20 @@
         <a href="/posts/1572486507/">
             <h2 class="post-title">
                 手把手配置cdn
+            </h2>
+            
+        </a>
+        <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+    </div>
+    
+    <!-- <li class="listing-item">
+    <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+    <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+    </li> -->
+    <div class="post-preview">
+        <a href="/posts/1576983574/">
+            <h2 class="post-title">
+                手机连接电脑用chrome调试网页
             </h2>
             
         </a>
@@ -1069,20 +1132,6 @@
         <a href="/posts/1529320519/">
             <h2 class="post-title">
                 用python做爬虫的正确姿势
-            </h2>
-            
-        </a>
-        <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-    </div>
-    
-    <!-- <li class="listing-item">
-    <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-    <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-    </li> -->
-    <div class="post-preview">
-        <a href="/posts/1578535312/">
-            <h2 class="post-title">
-                常用正则表达式
             </h2>
             
         </a>
@@ -1164,9 +1213,9 @@
     <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
     </li> -->
     <div class="post-preview">
-        <a href="/posts/1530499706/">
+        <a href="/posts/1537840874/">
             <h2 class="post-title">
-                git命令参考
+                git子模块
             </h2>
             
         </a>
@@ -1178,9 +1227,9 @@
     <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
     </li> -->
     <div class="post-preview">
-        <a href="/posts/1537840874/">
+        <a href="/posts/1530499706/">
             <h2 class="post-title">
-                git子模块
+                git命令参考
             </h2>
             
         </a>
@@ -1246,55 +1295,6 @@
 </div>
 
 <div class="one-tag-list">
-                <span class="fa fa-tag listing-seperator" id="http">
-                    <span class="tag-text">http</span>
-                </span>
-    
-    <!-- <li class="listing-item">
-    <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-    <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-    </li> -->
-    <div class="post-preview">
-        <a href="/posts/1538191275/">
-            <h2 class="post-title">
-                http2与服务端配置
-            </h2>
-            
-        </a>
-        <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-    </div>
-    
-    <!-- <li class="listing-item">
-    <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-    <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-    </li> -->
-    <div class="post-preview">
-        <a href="/posts/1530930262/">
-            <h2 class="post-title">
-                http简易指南
-            </h2>
-            
-        </a>
-        <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-    </div>
-    
-    <!-- <li class="listing-item">
-    <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-    <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-    </li> -->
-    <div class="post-preview">
-        <a href="/posts/1557286782/">
-            <h2 class="post-title">
-                尽力说清楚POST/PUT/PATCH
-            </h2>
-            
-        </a>
-        <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-    </div>
-    
-</div>
-
-<div class="one-tag-list">
                 <span class="fa fa-tag listing-seperator" id="javascript">
                     <span class="tag-text">javascript</span>
                 </span>
@@ -1344,6 +1344,55 @@
 </div>
 
 <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="http">
+                    <span class="tag-text">http</span>
+                </span>
+    
+    <!-- <li class="listing-item">
+    <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+    <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+    </li> -->
+    <div class="post-preview">
+        <a href="/posts/1538191275/">
+            <h2 class="post-title">
+                http2与服务端配置
+            </h2>
+            
+        </a>
+        <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+    </div>
+    
+    <!-- <li class="listing-item">
+    <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+    <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+    </li> -->
+    <div class="post-preview">
+        <a href="/posts/1530930262/">
+            <h2 class="post-title">
+                http简易指南
+            </h2>
+            
+        </a>
+        <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+    </div>
+    
+    <!-- <li class="listing-item">
+    <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+    <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+    </li> -->
+    <div class="post-preview">
+        <a href="/posts/1557286782/">
+            <h2 class="post-title">
+                尽力说清楚POST/PUT/PATCH
+            </h2>
+            
+        </a>
+        <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+    </div>
+    
+</div>
+
+<div class="one-tag-list">
                 <span class="fa fa-tag listing-seperator" id="redis">
                     <span class="tag-text">redis</span>
                 </span>
@@ -1367,20 +1416,6 @@
     <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
     </li> -->
     <div class="post-preview">
-        <a href="/posts/1535610189/">
-            <h2 class="post-title">
-                redis搭建集群
-            </h2>
-            
-        </a>
-        <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-    </div>
-    
-    <!-- <li class="listing-item">
-    <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-    <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-    </li> -->
-    <div class="post-preview">
         <a href="/posts/1531967914/">
             <h2 class="post-title">
                 redis数据结构备注
@@ -1390,35 +1425,14 @@
         <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
     </div>
     
-</div>
-
-<div class="one-tag-list">
-                <span class="fa fa-tag listing-seperator" id="算法">
-                    <span class="tag-text">算法</span>
-                </span>
-    
     <!-- <li class="listing-item">
     <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
     <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
     </li> -->
     <div class="post-preview">
-        <a href="/posts/1532591893/">
+        <a href="/posts/1535610189/">
             <h2 class="post-title">
-                一种带权重的随机选择
-            </h2>
-            
-        </a>
-        <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-    </div>
-    
-    <!-- <li class="listing-item">
-    <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-    <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-    </li> -->
-    <div class="post-preview">
-        <a href="/posts/1531668376/">
-            <h2 class="post-title">
-                用geohash来做地理距离计算
+                redis搭建集群
             </h2>
             
         </a>
@@ -1454,6 +1468,41 @@
         <a href="/posts/1565938894/">
             <h2 class="post-title">
                 谷歌Colaboraty使用介绍
+            </h2>
+            
+        </a>
+        <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+    </div>
+    
+</div>
+
+<div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="算法">
+                    <span class="tag-text">算法</span>
+                </span>
+    
+    <!-- <li class="listing-item">
+    <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+    <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+    </li> -->
+    <div class="post-preview">
+        <a href="/posts/1532591893/">
+            <h2 class="post-title">
+                一种带权重的随机选择
+            </h2>
+            
+        </a>
+        <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+    </div>
+    
+    <!-- <li class="listing-item">
+    <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+    <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+    </li> -->
+    <div class="post-preview">
+        <a href="/posts/1531668376/">
+            <h2 class="post-title">
+                用geohash来做地理距离计算
             </h2>
             
         </a>
@@ -1580,55 +1629,6 @@
         <a href="/posts/1529320519/">
             <h2 class="post-title">
                 用python做爬虫的正确姿势
-            </h2>
-            
-        </a>
-        <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-    </div>
-    
-</div>
-
-<div class="one-tag-list">
-                <span class="fa fa-tag listing-seperator" id="数据">
-                    <span class="tag-text">数据</span>
-                </span>
-    
-    <!-- <li class="listing-item">
-    <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-    <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-    </li> -->
-    <div class="post-preview">
-        <a href="/posts/1542940944/">
-            <h2 class="post-title">
-                百度地图全国市区商圈和地铁线路
-            </h2>
-            
-        </a>
-        <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-    </div>
-    
-    <!-- <li class="listing-item">
-    <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-    <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-    </li> -->
-    <div class="post-preview">
-        <a href="/posts/1535854293/">
-            <h2 class="post-title">
-                豆瓣API
-            </h2>
-            
-        </a>
-        <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-    </div>
-    
-    <!-- <li class="listing-item">
-    <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-    <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-    </li> -->
-    <div class="post-preview">
-        <a href="/posts/1595211059/">
-            <h2 class="post-title">
-                awesome datasets
             </h2>
             
         </a>

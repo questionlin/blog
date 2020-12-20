@@ -11,7 +11,7 @@
 
     <title>
         
-        PHP event 和 libevent 扩展的关系 - ljj的博客
+        ljj的博客
         
     </title>
 
@@ -53,7 +53,7 @@
     </div>
     <div class="contents" id="nav-content">
         <ul>
-            <li >
+            <li  class=active >
                 <a href="/">
                     <i class="iconfont icon-shouye1"></i>
                     <span>主页</span>
@@ -88,10 +88,6 @@
         </ul>
     </div>
     
-        <div id="toc" class="toc-article">
-    
-</div>
-    
 </div>
 
 
@@ -116,67 +112,40 @@
     <div class="index-middle">
         <!-- Main Content -->
         
-
-
-<div class="post-container">
-    <div class="post-title">
-        PHP event 和 libevent 扩展的关系
-    </div>
-
-    <div class="post-meta">
-        <span class="attr">发布于：<span>2018-07-18 20:46:55</span></span>
-        
-        <span class="attr">标签：/
-        
-        <a class="tag" href="/tags/#php" title="php">php</a>
-        <span>/</span>
-        
-        
-        </span>
-        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
-</span>
-</span>
-    </div>
-    <div class="post-content no-indent">
-        <p>PHP event 和 libevent 扩展都是对 libevent 的封装，前者有 stable 版本且一直在更新而后者只有 beta 版本。本来肯定要选 event 扩展，可是它的 pecl 页面上赫然写着依赖 libevent 扩展。陷入混乱的我给作者写了封邮件，<strong>结论是：大胆选 event 扩展</strong>。以下是邮件原文：</p>
-<blockquote>
-<p>Hi,</p>
-<p>event extension is an alternative to libevent extension.</p>
-<p>You can see “libevent” package listed as a dependency on
-<a href="https://pecl.php.net/package/event" target="_blank" rel="noopener">https://pecl.php.net/package/event</a>, but in reality “libevent”
-extension is declared as <strong>conflicting</strong> package in package.xml:</p>
-<pre><code>&lt;package&gt;
-  &lt;name&gt;libevent&lt;/name&gt;
-  &lt;channel&gt;pecl.php.net&lt;/channel&gt;
-  &lt;min&gt;0.0.2&lt;/min&gt;
-  &lt;conflicts/&gt;
-  &lt;providesextension&gt;libevent&lt;/providesextension&gt;
-&lt;/package&gt;</code></pre><p>I can’t recall why. But you definitely don’t need libevent extension
-in order to use “event”.</p>
-<p>On Wed, 18 Jul 2018 11:28:21 +0800 (CST)
-“Simon Lin” <a href="mailto:&#98;&#111;&#121;&#113;&#117;&#101;&#x73;&#x74;&#x69;&#x6f;&#x6e;&#64;&#49;&#x36;&#x33;&#x2e;&#99;&#111;&#109;" target="_blank" rel="noopener">&#98;&#111;&#121;&#113;&#117;&#101;&#x73;&#x74;&#x69;&#x6f;&#x6e;&#64;&#49;&#x36;&#x33;&#x2e;&#99;&#111;&#109;</a> wrote:</p>
-<p>Hi,</p>
-<p>I’m just confused that what is the relation between event package and
-libevent package? The pecl page shows event package has stable
-versions while libevent package does not. If event package depends on
-libevent package, is event package still stable?</p>
-<p>Sincerely,
-Simon Lin</p>
-<p>– 
-Ruslan Osmanov</p>
-</blockquote>
-
-        
-        <br />
-        <div id="comment-container">
+<div class="post-preview-container" style="min-height: 576px">
+    
+    <div class="post-preview">
+        <div class="post-time">2018-06-01</div>
+        <div class="post-info">
+            <a href="/posts/1528164408/">
+                <h3>
+                    hexo+github搭建博客最佳实践
+                </h3>
+            </a>
+            <p>
+                
+                <span>/</span>
+                
+                <a class="tag" href="/tags/#最佳实践" title="最佳实践">最佳实践</a>
+                <span>/</span>
+                
+                <a class="tag" href="/tags/#hexo" title="hexo">hexo</a>
+                <span>/</span>
+                
+                
+            </p>
         </div>
-        <div id="disqus_thread"></div>
-
-        <div id="lv-container">
-        </div>
-
     </div>
+    
 </div>
+<ul class="pager">
+    
+    <li class="previous">
+        <a href="/page/9/">&larr; Newer Posts</a>
+    </li>
+    
+    
+</ul>
 
     </div>
 </div>
@@ -251,7 +220,7 @@ Ruslan Osmanov</p>
     // We expose some of the variables needed by the front end
     window.hexo_search_path = "search.json"
     window.hexo_root = "/"
-    window.isPost = true
+    window.isPost = false
 </script>
 <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
 <script src="/js/index.js"></script>
