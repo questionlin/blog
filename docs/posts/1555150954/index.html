@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content>
+    <meta name="keyword" content>
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        消息队列中间件的选型 - ljj的博客
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i>  </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar ">
+            <img src="/img/avatar.jpeg" />
+        </div>
+        <div class="name">
+            <i>ljj</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li >
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li >
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li >
+                <a href="/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li >
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#功能"><span class="toc-text">功能</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#优先级队列"><span class="toc-text">优先级队列</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#延迟队列"><span class="toc-text">延迟队列</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#死信队列"><span class="toc-text">死信队列</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#重试队列"><span class="toc-text">重试队列</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#消费模式"><span class="toc-text">消费模式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#广播消费"><span class="toc-text">广播消费</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#消息回溯"><span class="toc-text">消息回溯</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#消息堆积-持久化"><span class="toc-text">消息堆积+持久化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#消息追踪"><span class="toc-text">消息追踪</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#消息过滤"><span class="toc-text">消息过滤</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#多租户"><span class="toc-text">多租户</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#多协议"><span class="toc-text">多协议</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#跨语言支持"><span class="toc-text">跨语言支持</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#流量控制"><span class="toc-text">流量控制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#消息顺序性"><span class="toc-text">消息顺序性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安全机制"><span class="toc-text">安全机制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#消息幂等性"><span class="toc-text">消息幂等性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#事务性消息"><span class="toc-text">事务性消息</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#选型的建议"><span class="toc-text">选型的建议</span></a></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input"/>
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+
+        <div class="index-about-mobile">
+            <i>  </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        消息队列中间件的选型
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2019-04-13 18:21:54</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#分布式" title="分布式">分布式</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
+    </div>
+    <div class="post-content no-indent">
+        <p>看到一篇非常好的对比 Kafka 和 RabbitMQ 的文章，简化一下写在这里。原文参考底部。</p>
+<h1 id="功能"><a href="#功能" class="headerlink" title="功能"></a>功能</h1><h2 id="优先级队列"><a href="#优先级队列" class="headerlink" title="优先级队列"></a>优先级队列</h2><p>优先级队列不同于先进先出队列，优先级高的消息具备优先被消费的特权。这个优先级队列有一个前提：如果消费的速度大于生产的速度，消息无法堆积并排序，那么就不能保证优先级了。</p>
+<h2 id="延迟队列"><a href="#延迟队列" class="headerlink" title="延迟队列"></a>延迟队列</h2><p>延迟队列一个典型应用是用户下单后没有支付，一定时间后自动取消订单。延迟列队一般分两种：基于消息的延迟和基于队列的延迟。基于消息的延迟是利用优先级队列，插入后重新排序，延迟低的拍前面，每次都排序肯定会对性能造成很大的影响。实际应用中大多采用基于队列的延迟，设置不同延迟级别的队列，比如5s、10s、30s等，每个队列中消息的延迟时间都是相同的。</p>
+<h2 id="死信队列"><a href="#死信队列" class="headerlink" title="死信队列"></a>死信队列</h2><p>由于某些原因消息无法被正确的投递，为了确保消息不会被无故的丢弃，一般将其置于一个特殊角色的队列，这个队列一般称之为死信队列。与此对应的还有一个“回退队列”的概念，试想如果一个消息被消费多次都失败了，系统决定不再重试，就将其放入一个回退队列。</p>
+<h2 id="重试队列"><a href="#重试队列" class="headerlink" title="重试队列"></a>重试队列</h2><p>重试队列结合了延迟队列和回退队列。当消费失败，系统将其放入20s的延迟队列，如果再次失败，则放入20s的队列。</p>
+<h2 id="消费模式"><a href="#消费模式" class="headerlink" title="消费模式"></a>消费模式</h2><p>消费模式分为推（push）模式和拉（pull）模式。推模式是指由队列主动推送，实时性较好，不过要确保不会压垮消费端。而拉模式实时性较推模式差，但是可以根据自身的处理能力而控制拉取的消息量。</p>
+<h2 id="广播消费"><a href="#广播消费" class="headerlink" title="广播消费"></a>广播消费</h2><p>广播模式即发布/订阅(Pub/Sub)模式。队列通过推模式，将消息推送给所有订阅者。</p>
+<h2 id="消息回溯"><a href="#消息回溯" class="headerlink" title="消息回溯"></a>消息回溯</h2><p>相当于日志。消息回溯可以用于 debug 外，还有索引恢复、本地缓存重建，有些业务补偿方案也可以采用回溯的方式来实现。</p>
+<h2 id="消息堆积-持久化"><a href="#消息堆积-持久化" class="headerlink" title="消息堆积+持久化"></a>消息堆积+持久化</h2><p>流量削峰是消息中间件的一个非常重要的功能，而这个功能其实得益于其消息堆积能力。从某种意义上来讲，如果一个消息中间件不具备消息堆积的能力，那么就不能把它看做是一个合格的消息中间件。特别一提的是，由于 Kafka 是基于硬盘的，所以整个消息队列可以当成数据库来用。</p>
+<h2 id="消息追踪"><a href="#消息追踪" class="headerlink" title="消息追踪"></a>消息追踪</h2><p>对于消息追踪最通俗的理解就是要知道消息从哪来，存在哪里以及发往哪里去。基于此功能下，我们可以对发送或者消费完的消息进行链路追踪服务，进而可以进行问题的快速定位与排查。</p>
+<h2 id="消息过滤"><a href="#消息过滤" class="headerlink" title="消息过滤"></a>消息过滤</h2><p>消息过滤是指按照既定的过滤规则为下游用户提供指定类别的消息。比如 Kafka 的 topic。</p>
+<h2 id="多租户"><a href="#多租户" class="headerlink" title="多租户"></a>多租户</h2><p>各个用户看不到彼此的队列。</p>
+<h2 id="多协议"><a href="#多协议" class="headerlink" title="多协议"></a>多协议</h2><p>一般消息队列支持的协议有 AMQP、MQTT、STOMP、XMPP等</p>
+<h2 id="跨语言支持"><a href="#跨语言支持" class="headerlink" title="跨语言支持"></a>跨语言支持</h2><p>提供各种语言的客户端</p>
+<h2 id="流量控制"><a href="#流量控制" class="headerlink" title="流量控制"></a>流量控制</h2><p>流量控制（flow control）针对的是发送方和接收方速度不匹配的问题，提供一种速度匹配服务抑制发送速率使接收方应用程序的读取速率与之相适应。通常的流控方法有Stop-and-wait、滑动窗口以及令牌桶等。</p>
+<h2 id="消息顺序性"><a href="#消息顺序性" class="headerlink" title="消息顺序性"></a>消息顺序性</h2><p>必须保证消息严格有序</p>
+<h2 id="安全机制"><a href="#安全机制" class="headerlink" title="安全机制"></a>安全机制</h2><p>是否提供 TLS/SSL，密码登录等机制</p>
+<h2 id="消息幂等性"><a href="#消息幂等性" class="headerlink" title="消息幂等性"></a>消息幂等性</h2><p>对于确保消息在生产者和消费者之间进行传输而言一般有三种传输保障（delivery guarantee）：At most once，至多一次，消息可能丢失，但绝不会重复传输；At least once，至少一次，消息绝不会丢，但是可能会重复；Exactly once，精确一次，每条消息肯定会被传输一次且仅一次。对于大多数消息中间件而言，一般只提供At most once和At least once两种传输保障，对于第三种一般很难做到，由此消息幂等性也很难保证。</p>
+<p>Kafka自0.11版本开始引入了幂等性和事务，Kafka的幂等性是指单个生产者对于单分区单会话的幂等，而事务可以保证原子性地写入到多个分区，即写入到多个分区的消息要么全部成功，要么全部回滚，这两个功能加起来可以让Kafka具备EOS（Exactly Once Semantic）的能力。</p>
+<h2 id="事务性消息"><a href="#事务性消息" class="headerlink" title="事务性消息"></a>事务性消息</h2><p>即事务开始（Begin Transaction）和事务结束（End Transaction）之间执行的全体操作要么都成果，要么都失败。</p>
+<table>
+<thead>
+<tr>
+<th>功能项</th>
+<th>Kafka(1.1.0)</th>
+<th>RabbitMQ(3.6.10)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>优先级队列</td>
+<td>不支持</td>
+<td>支持</td>
+</tr>
+<tr>
+<td>延迟队列</td>
+<td>不支持</td>
+<td>支持</td>
+</tr>
+<tr>
+<td>死信队列</td>
+<td>不支持</td>
+<td>支持</td>
+</tr>
+<tr>
+<td>重试队列</td>
+<td>不支持</td>
+<td>不支持</td>
+</tr>
+<tr>
+<td>消费模式</td>
+<td>拉取</td>
+<td>推+拉</td>
+</tr>
+<tr>
+<td>广播消费</td>
+<td>支持</td>
+<td>支持</td>
+</tr>
+<tr>
+<td>消息回溯</td>
+<td>支持(offset和timestamp两种维度)</td>
+<td>不支持</td>
+</tr>
+<tr>
+<td>消息堆积</td>
+<td>支持</td>
+<td>支持（性能不如Kafka）</td>
+</tr>
+<tr>
+<td>持久化</td>
+<td>支持</td>
+<td>支持</td>
+</tr>
+<tr>
+<td>消息追踪</td>
+<td>不支持</td>
+<td>支持(Firehose)</td>
+</tr>
+<tr>
+<td>消息过滤</td>
+<td>客户端级别支持</td>
+<td>不支持</td>
+</tr>
+<tr>
+<td>多租户</td>
+<td>支持</td>
+<td>支持</td>
+</tr>
+<tr>
+<td>多协议</td>
+<td>不支持</td>
+<td>支持</td>
+</tr>
+<tr>
+<td>跨语言</td>
+<td>支持</td>
+<td>支持</td>
+</tr>
+<tr>
+<td>流量控制</td>
+<td>client和user级别</td>
+<td>支持</td>
+</tr>
+<tr>
+<td>消息顺序性</td>
+<td>单分区级别</td>
+<td>不严格</td>
+</tr>
+<tr>
+<td>安全机制</td>
+<td>（TLS/SSL、SASL）身份认证和（读写）权限控制</td>
+<td>与Kafka相似</td>
+</tr>
+<tr>
+<td>幂等性</td>
+<td>支持单个生产者单分区单会话的幂等性</td>
+<td>不支持</td>
+</tr>
+<tr>
+<td>事务性消息</td>
+<td>支持</td>
+<td>支持</td>
+</tr>
+</tbody></table>
+<h1 id="选型的建议"><a href="#选型的建议" class="headerlink" title="选型的建议"></a>选型的建议</h1><p>消息中间件选型切忌一味的追求性能或者功能，性能可以优化，功能可以二次开发。如果要在功能和性能方面做一个抉择的话，那么首选性能，因为总体上来说性能优化的空间没有功能扩展的空间大。然而对于长期发展而言，生态又比性能以及功能都要重要。</p>
+<hr>
+<p>参考：<a href="https://blog.csdn.net/u013256816/article/details/79838428" target="_blank" rel="noopener">https://blog.csdn.net/u013256816/article/details/79838428</a></p>
+
+        
+        <br />
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+        <li>
+            <a target="_blank" href="https://www.zhihu.com/people/simonlin">
+                            <span class="fa-stack fa-lg">
+                                 <i class="iconfont icon-zhihu"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <li>
+            <a target="_blank" href="http://weibo.com/7453415873">
+                            <span class="fa-stack fa-lg">
+                                  <i class="iconfont icon-weibo"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+
+        
+        <li>
+            <a target="_blank"  href="https://github.com/questionlin">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-github"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span>/</span>
+        
+        <span><a href="http://b.ljj.pub/atom.xml">feed/atom/rss</a></span>
+        <span>/</span>
+        
+        <span><a href="https://kalasearch.cn">卡拉搜索</a></span>
+        <span>/</span>
+        
+    </p>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>
