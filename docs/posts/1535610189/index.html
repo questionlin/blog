@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-<head><meta name="generator" content="Hexo 3.9.0">
+<head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content>
-    <meta name="keyword" content>
+    <meta name="description" content="">
+    <meta name="keyword"  content="">
     <link rel="shortcut icon" href="/img/favicon.ico">
 
     <title>
@@ -16,12 +16,17 @@
     </title>
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="/css/aircloud.css">
-    <link rel="stylesheet" href="/css/gitment.css">
+    
+<link rel="stylesheet" href="/css/aircloud.css">
+
+    
+<link rel="stylesheet" href="/css/gitment.css">
+
     <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
     <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
     <!-- ga & ba script hoook -->
     <script></script>
+<meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="ljj的博客" type="application/atom+xml">
 </head>
 
 <body>
@@ -44,7 +49,7 @@
         
 <div class="nav" id="nav">
     <div class="avatar-name">
-        <div class="avatar ">
+        <div class="avatar">
             <img src="/img/avatar.jpeg" />
         </div>
         <div class="name">
@@ -89,7 +94,7 @@
     </div>
     
         <div id="toc" class="toc-article">
-    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#集群与主从的区别"><span class="toc-text">集群与主从的区别</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#过一遍官方例子"><span class="toc-text">过一遍官方例子</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#在官网下载源码后编译"><span class="toc-text">在官网下载源码后编译</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#用客户端测试集群"><span class="toc-text">用客户端测试集群</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#最后清理现场"><span class="toc-text">最后清理现场</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#手动生成集群"><span class="toc-text">手动生成集群</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#生成实例"><span class="toc-text">生成实例</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#连接各节点"><span class="toc-text">连接各节点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#查看集群状态"><span class="toc-text">查看集群状态</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#分配哈希槽"><span class="toc-text">分配哈希槽</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#做主从映射"><span class="toc-text">做主从映射</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结"><span class="toc-text">总结</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#集群更改"><span class="toc-text">集群更改</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#转移插槽（slot）"><span class="toc-text">转移插槽（slot）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#集群扩容"><span class="toc-text">集群扩容</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#集群缩减"><span class="toc-text">集群缩减</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#集群模式的缺陷"><span class="toc-text">集群模式的缺陷</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%9B%86%E7%BE%A4%E4%B8%8E%E4%B8%BB%E4%BB%8E%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-text">集群与主从的区别</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%BF%87%E4%B8%80%E9%81%8D%E5%AE%98%E6%96%B9%E4%BE%8B%E5%AD%90"><span class="toc-text">过一遍官方例子</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9C%A8%E5%AE%98%E7%BD%91%E4%B8%8B%E8%BD%BD%E6%BA%90%E7%A0%81%E5%90%8E%E7%BC%96%E8%AF%91"><span class="toc-text">在官网下载源码后编译</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%A8%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%B5%8B%E8%AF%95%E9%9B%86%E7%BE%A4"><span class="toc-text">用客户端测试集群</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%80%E5%90%8E%E6%B8%85%E7%90%86%E7%8E%B0%E5%9C%BA"><span class="toc-text">最后清理现场</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%89%8B%E5%8A%A8%E7%94%9F%E6%88%90%E9%9B%86%E7%BE%A4"><span class="toc-text">手动生成集群</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%9F%E6%88%90%E5%AE%9E%E4%BE%8B"><span class="toc-text">生成实例</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%9E%E6%8E%A5%E5%90%84%E8%8A%82%E7%82%B9"><span class="toc-text">连接各节点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E9%9B%86%E7%BE%A4%E7%8A%B6%E6%80%81"><span class="toc-text">查看集群状态</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%86%E9%85%8D%E5%93%88%E5%B8%8C%E6%A7%BD"><span class="toc-text">分配哈希槽</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%81%9A%E4%B8%BB%E4%BB%8E%E6%98%A0%E5%B0%84"><span class="toc-text">做主从映射</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-text">总结</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%9B%86%E7%BE%A4%E6%9B%B4%E6%94%B9"><span class="toc-text">集群更改</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BD%AC%E7%A7%BB%E6%8F%92%E6%A7%BD%EF%BC%88slot%EF%BC%89"><span class="toc-text">转移插槽（slot）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9B%86%E7%BE%A4%E6%89%A9%E5%AE%B9"><span class="toc-text">集群扩容</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9B%86%E7%BE%A4%E7%BC%A9%E5%87%8F"><span class="toc-text">集群缩减</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%9B%86%E7%BE%A4%E6%A8%A1%E5%BC%8F%E7%9A%84%E7%BC%BA%E9%99%B7"><span class="toc-text">集群模式的缺陷</span></a></li></ol>
 </div>
     
 </div>
@@ -107,7 +112,6 @@
         </div>
     </div>
 </div>
-
         <div class="index-about-mobile">
             <i>  </i>
         </div>
@@ -217,7 +221,6 @@
 
     </div>
 </div>
-
     </div>
 </div>
 
@@ -267,7 +270,7 @@
         <span><a href="http://b.ljj.pub/atom.xml">feed/atom/rss</a></span>
         <span>/</span>
         
-        <span><a href="https://kalasearch.cn">卡拉搜索</a></span>
+        <span><a target="_blank" rel="noopener" href="https://kalasearch.cn">卡拉搜索</a></span>
         <span>/</span>
         
     </p>
@@ -279,7 +282,7 @@
         <span id="busuanzi_container_site_uv">
             <span id="busuanzi_value_site_uv"></span>UV
         </span>
-        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+        Created By <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>  Theme <a target="_blank" rel="noopener" href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
 </footer>
 
 
@@ -294,7 +297,9 @@
     window.isPost = true
 </script>
 <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+
 <script src="/js/index.js"></script>
+
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
 

@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-<head><meta name="generator" content="Hexo 3.9.0">
+<head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content>
-    <meta name="keyword" content>
+    <meta name="description" content="">
+    <meta name="keyword"  content="">
     <link rel="shortcut icon" href="/img/favicon.ico">
 
     <title>
@@ -16,12 +16,17 @@
     </title>
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="/css/aircloud.css">
-    <link rel="stylesheet" href="/css/gitment.css">
+    
+<link rel="stylesheet" href="/css/aircloud.css">
+
+    
+<link rel="stylesheet" href="/css/gitment.css">
+
     <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
     <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
     <!-- ga & ba script hoook -->
     <script></script>
+<meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="ljj的博客" type="application/atom+xml">
 </head>
 
 <body>
@@ -44,7 +49,7 @@
         
 <div class="nav" id="nav">
     <div class="avatar-name">
-        <div class="avatar ">
+        <div class="avatar">
             <img src="/img/avatar.jpeg" />
         </div>
         <div class="name">
@@ -89,7 +94,7 @@
     </div>
     
         <div id="toc" class="toc-article">
-    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#InnoDB-Cluster-MySQL-7"><span class="toc-text">InnoDB Cluster (MySQL 7+)</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#MySQL-Router"><span class="toc-text">MySQL Router</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#集群配置"><span class="toc-text">集群配置</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#NDB-Cluster"><span class="toc-text">NDB Cluster</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#InnoDB-Cluster-MySQL-7"><span class="toc-text">InnoDB Cluster (MySQL 7+)</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#MySQL-Router"><span class="toc-text">MySQL Router</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9B%86%E7%BE%A4%E9%85%8D%E7%BD%AE"><span class="toc-text">集群配置</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#NDB-Cluster"><span class="toc-text">NDB Cluster</span></a></li></ol>
 </div>
     
 </div>
@@ -107,7 +112,6 @@
         </div>
     </div>
 </div>
-
         <div class="index-about-mobile">
             <i>  </i>
         </div>
@@ -161,7 +165,7 @@
 <li>loose-group_replication_group_name使用UUID形式，集群中机器使用同一个UUID；</li>
 <li>loose-group_replication_single_primary_mode在单主模式中为ON，在多主模式中为OFF。</li>
 </ul>
-<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[mysqld]</span></span><br><span class="line"><span class="comment"># server configuration</span></span><br><span class="line"><span class="attr">pid-file</span>        = /var/run/mysqld/mysqld.pid</span><br><span class="line"><span class="attr">socket</span>          = /var/run/mysqld/mysqld.sock</span><br><span class="line"><span class="attr">datadir</span>         = /var/lib/mysql</span><br><span class="line"><span class="attr">log-error</span>       = /var/log/mysql/error.log</span><br><span class="line"><span class="attr">bind-address</span>    = <span class="number">0.0</span>.<span class="number">0.0</span></span><br><span class="line"><span class="comment"># Disabling symbolic-links is recommended to prevent assorted security risks</span></span><br><span class="line"><span class="comment">#symbolic-links = 0</span></span><br><span class="line"><span class="comment"># Replication configuration parameters</span></span><br><span class="line"><span class="attr">server_id</span> = <span class="number">1</span> #<span class="number">2</span>,<span class="number">3</span></span><br><span class="line"><span class="attr">gtid_mode</span> = <span class="literal">ON</span></span><br><span class="line"><span class="attr">enforce_gtid_consistency</span> = <span class="literal">ON</span></span><br><span class="line"><span class="attr">master_info_repository</span> = TABLE</span><br><span class="line"><span class="attr">relay_log_info_repository</span> = TABLE</span><br><span class="line"><span class="attr">transaction_write_set_extraction</span> = XXHASH64</span><br><span class="line"><span class="attr">binlog_checksum</span> = NONE</span><br><span class="line"><span class="attr">log_slave_updates</span> = <span class="literal">ON</span></span><br><span class="line"><span class="attr">log_bin</span> = binlog</span><br><span class="line"><span class="attr">binlog_format</span> = ROW</span><br><span class="line"><span class="attr">relay-log</span> = svr-relay-bin</span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># Group Replication configuration</span></span><br><span class="line"><span class="attr">loose-group_replication_group_name</span> = a38e32fd-<span class="number">5</span>fb6-<span class="number">11</span>e8-ad7a-<span class="number">00259015</span>d941</span><br><span class="line"><span class="attr">loose-group_replication_start_on_boot</span> = <span class="literal">OFF</span></span><br><span class="line"><span class="attr">loose-group_replication_local_address</span> = svr1:<span class="number">33061</span></span><br><span class="line"><span class="attr">loose-group_replication_group_seeds</span> = svr1:<span class="number">33061</span>,svr2:<span class="number">33061</span>,svr3:<span class="number">3306</span></span><br><span class="line"><span class="attr">loose-group_replication_bootstrap_group</span> = <span class="literal">OFF</span></span><br><span class="line"><span class="attr">loose-group_replication_allow_local_disjoint_gtids_join</span> = <span class="literal">ON</span></span><br><span class="line"><span class="comment"># Group Replication configuration multi-primary mode</span></span><br><span class="line"><span class="attr">loose-group_replication_single_primary_mode</span> = <span class="literal">OFF</span></span><br><span class="line"><span class="attr">loose-group_replication_enforce_update_everywhere_checks</span> = <span class="literal">ON</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[mysqld]</span></span><br><span class="line"><span class="comment"># server configuration</span></span><br><span class="line"><span class="attr">pid-file</span>        = /var/run/mysqld/mysqld.pid</span><br><span class="line"><span class="attr">socket</span>          = /var/run/mysqld/mysqld.sock</span><br><span class="line"><span class="attr">datadir</span>         = /var/lib/mysql</span><br><span class="line"><span class="attr">log-error</span>       = /var/log/mysql/error.log</span><br><span class="line"><span class="attr">bind-address</span>    = <span class="number">0.0</span>.<span class="number">0.0</span></span><br><span class="line"><span class="comment"># Disabling symbolic-links is recommended to prevent assorted security risks</span></span><br><span class="line"><span class="comment">#symbolic-links = 0</span></span><br><span class="line"><span class="comment"># Replication configuration parameters</span></span><br><span class="line"><span class="attr">server_id</span> = <span class="number">1</span> <span class="comment">#2,3</span></span><br><span class="line"><span class="attr">gtid_mode</span> = <span class="literal">ON</span></span><br><span class="line"><span class="attr">enforce_gtid_consistency</span> = <span class="literal">ON</span></span><br><span class="line"><span class="attr">master_info_repository</span> = TABLE</span><br><span class="line"><span class="attr">relay_log_info_repository</span> = TABLE</span><br><span class="line"><span class="attr">transaction_write_set_extraction</span> = XXHASH64</span><br><span class="line"><span class="attr">binlog_checksum</span> = NONE</span><br><span class="line"><span class="attr">log_slave_updates</span> = <span class="literal">ON</span></span><br><span class="line"><span class="attr">log_bin</span> = binlog</span><br><span class="line"><span class="attr">binlog_format</span> = ROW</span><br><span class="line"><span class="attr">relay-log</span> = svr-relay-bin</span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># Group Replication configuration</span></span><br><span class="line"><span class="attr">loose-group_replication_group_name</span> = a38e32fd-<span class="number">5</span>fb6-<span class="number">11</span>e8-ad7a-<span class="number">00259015</span>d941</span><br><span class="line"><span class="attr">loose-group_replication_start_on_boot</span> = <span class="literal">OFF</span></span><br><span class="line"><span class="attr">loose-group_replication_local_address</span> = svr1:<span class="number">33061</span></span><br><span class="line"><span class="attr">loose-group_replication_group_seeds</span> = svr1:<span class="number">33061</span>,svr2:<span class="number">33061</span>,svr3:<span class="number">3306</span></span><br><span class="line"><span class="attr">loose-group_replication_bootstrap_group</span> = <span class="literal">OFF</span></span><br><span class="line"><span class="attr">loose-group_replication_allow_local_disjoint_gtids_join</span> = <span class="literal">ON</span></span><br><span class="line"><span class="comment"># Group Replication configuration multi-primary mode</span></span><br><span class="line"><span class="attr">loose-group_replication_single_primary_mode</span> = <span class="literal">OFF</span></span><br><span class="line"><span class="attr">loose-group_replication_enforce_update_everywhere_checks</span> = <span class="literal">ON</span></span><br></pre></td></tr></table></figure>
 
 <p>创建集群</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">$ sudo -i mysqlsh --uri=user@svr1:3306</span><br><span class="line">mysql-js&gt; dba.checkInstanceConfiguration(<span class="string">'user@svr1:3306'</span>) <span class="comment">#检查配置</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#创建集群</span></span><br><span class="line">mysql-js&gt; var cluster = dba.createCluster(<span class="string">'mysqlCluster'</span>)  <span class="comment"># 单主模式集群</span></span><br><span class="line">mysql-js&gt; var cluster = dba.createCluster(<span class="string">'mysqlCluster'</span>, &#123;multiMaster:<span class="literal">true</span>&#125;)  <span class="comment"># 多主模式集群</span></span><br><span class="line">mysql-js&gt; cluster.addInstance(<span class="string">'user@svr2:3306'</span>)</span><br><span class="line">mysql-js&gt; cluster.addInstance(<span class="string">'user@svr3:3306'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#查看状态</span></span><br><span class="line">mysql-js&gt; var cluster = dba.getCluster()</span><br><span class="line">mysql-js&gt; cluster.status();</span><br></pre></td></tr></table></figure>
@@ -184,7 +188,6 @@
 
     </div>
 </div>
-
     </div>
 </div>
 
@@ -234,7 +237,7 @@
         <span><a href="http://b.ljj.pub/atom.xml">feed/atom/rss</a></span>
         <span>/</span>
         
-        <span><a href="https://kalasearch.cn">卡拉搜索</a></span>
+        <span><a target="_blank" rel="noopener" href="https://kalasearch.cn">卡拉搜索</a></span>
         <span>/</span>
         
     </p>
@@ -246,7 +249,7 @@
         <span id="busuanzi_container_site_uv">
             <span id="busuanzi_value_site_uv"></span>UV
         </span>
-        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+        Created By <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>  Theme <a target="_blank" rel="noopener" href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
 </footer>
 
 
@@ -261,7 +264,9 @@
     window.isPost = true
 </script>
 <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+
 <script src="/js/index.js"></script>
+
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
 

@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-<head><meta name="generator" content="Hexo 3.9.0">
+<head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content>
-    <meta name="keyword" content>
+    <meta name="description" content="">
+    <meta name="keyword"  content="">
     <link rel="shortcut icon" href="/img/favicon.ico">
 
     <title>
@@ -16,12 +16,17 @@
     </title>
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="/css/aircloud.css">
-    <link rel="stylesheet" href="/css/gitment.css">
+    
+<link rel="stylesheet" href="/css/aircloud.css">
+
+    
+<link rel="stylesheet" href="/css/gitment.css">
+
     <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
     <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
     <!-- ga & ba script hoook -->
     <script></script>
+<meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="ljj的博客" type="application/atom+xml">
 </head>
 
 <body>
@@ -44,7 +49,7 @@
         
 <div class="nav" id="nav">
     <div class="avatar-name">
-        <div class="avatar ">
+        <div class="avatar">
             <img src="/img/avatar.jpeg" />
         </div>
         <div class="name">
@@ -89,7 +94,7 @@
     </div>
     
         <div id="toc" class="toc-article">
-    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#业务服务器"><span class="toc-text">业务服务器</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#自增"><span class="toc-text">自增</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#有序uuid"><span class="toc-text">有序uuid</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#snowflake"><span class="toc-text">snowflake</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#资源服务器"><span class="toc-text">资源服务器</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#取模"><span class="toc-text">取模</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#一致性哈希算法"><span class="toc-text">一致性哈希算法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#算法最佳实践"><span class="toc-text">算法最佳实践</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#业务最佳实践"><span class="toc-text">业务最佳实践</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#对外混淆"><span class="toc-text">对外混淆</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%9A%E5%8A%A1%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="toc-text">业务服务器</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%87%AA%E5%A2%9E"><span class="toc-text">自增</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%89%E5%BA%8Fuuid"><span class="toc-text">有序uuid</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#snowflake"><span class="toc-text">snowflake</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%B5%84%E6%BA%90%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="toc-text">资源服务器</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%96%E6%A8%A1"><span class="toc-text">取模</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E8%87%B4%E6%80%A7%E5%93%88%E5%B8%8C%E7%AE%97%E6%B3%95"><span class="toc-text">一致性哈希算法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%97%E6%B3%95%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5"><span class="toc-text">算法最佳实践</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%9A%E5%8A%A1%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5"><span class="toc-text">业务最佳实践</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AF%B9%E5%A4%96%E6%B7%B7%E6%B7%86"><span class="toc-text">对外混淆</span></a></li></ol>
 </div>
     
 </div>
@@ -107,7 +112,6 @@
         </div>
     </div>
 </div>
-
         <div class="index-about-mobile">
             <i>  </i>
         </div>
@@ -176,7 +180,6 @@
 
     </div>
 </div>
-
     </div>
 </div>
 
@@ -226,7 +229,7 @@
         <span><a href="http://b.ljj.pub/atom.xml">feed/atom/rss</a></span>
         <span>/</span>
         
-        <span><a href="https://kalasearch.cn">卡拉搜索</a></span>
+        <span><a target="_blank" rel="noopener" href="https://kalasearch.cn">卡拉搜索</a></span>
         <span>/</span>
         
     </p>
@@ -238,7 +241,7 @@
         <span id="busuanzi_container_site_uv">
             <span id="busuanzi_value_site_uv"></span>UV
         </span>
-        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+        Created By <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>  Theme <a target="_blank" rel="noopener" href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
 </footer>
 
 
@@ -253,7 +256,9 @@
     window.isPost = true
 </script>
 <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+
 <script src="/js/index.js"></script>
+
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
 
