@@ -94,7 +94,7 @@
     </div>
     
         <div id="toc" class="toc-article">
-    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8E%9F%E7%90%86"><span class="toc-text">原理</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0"><span class="toc-text">实现</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Try%E9%98%B6%E6%AE%B5"><span class="toc-text">Try阶段</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Confirm%E9%98%B6%E6%AE%B5"><span class="toc-text">Confirm阶段</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Cancel%E9%98%B6%E6%AE%B5"><span class="toc-text">Cancel阶段</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0%E9%9A%BE%E7%82%B9"><span class="toc-text">实现难点</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8E%9F%E7%90%86"><span class="toc-text">原理</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0"><span class="toc-text">实现</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Try%E9%98%B6%E6%AE%B5"><span class="toc-text">Try阶段</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Confirm%E9%98%B6%E6%AE%B5"><span class="toc-text">Confirm阶段</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Cancel%E9%98%B6%E6%AE%B5"><span class="toc-text">Cancel阶段</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%9A%94%E7%A6%BB"><span class="toc-text">隔离</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0%E9%9A%BE%E7%82%B9"><span class="toc-text">实现难点</span></a></li></ol>
 </div>
     
 </div>
@@ -146,8 +146,7 @@
 <p>假设你要做飞机从上海转机去北京，要求到上海和到北京都有对应时间的机票，只要有一张没有，就两张都不买了。这时候你打电话给航空公司 A，预约保留机票，再打电话给航空公司 B，如果 B 有票的话，再打给 A 确认购票，如果 B 没有票的话，也要打给 A 取消预约。</p>
 <p>这个例子里面，向两个公司确认机票对应 Try 阶段，购票对应 Confirm 阶段，取消对应 Cancel 阶段。<strong>因此 TCC 模型就是用业务逻辑实现了数据库的事务逻辑。</strong> 整个逻辑的一个主要方面是确认操作是否可以失败。如果保证成功，则整个操作是一个补偿操作[2]，即隐式确认，明确取消。而 Cancel 阶段就是补偿操作里的补偿部分。一个现实中的例子是，企业通过电话要求客户忽略该信件可以补偿给客户的邮寄信件。</p>
 <p>Try/ Confirm/ Cancel 三个阶段对应的数据库操作可以参考下面这个简单的例子：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># try</span></span><br><span class="line"><span class="keyword">INSERT</span> RESERVATION</span><br><span class="line"></span><br><span class="line"><span class="comment"># confirm</span></span><br><span class="line"><span class="keyword">UPDATE</span> RESERVATION <span class="keyword">SET</span> <span class="keyword">STATUS</span>=<span class="string">'CONFIRMED'</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># cancel</span></span><br><span class="line"><span class="keyword">UPDATE</span> RESERVATION <span class="keyword">SET</span> <span class="keyword">STATUS</span>=<span class="string">'CANCELED'</span></span><br></pre></td></tr></table></figure>
-
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># try</span></span><br><span class="line"><span class="keyword">INSERT</span> RESERVATION</span><br><span class="line"></span><br><span class="line"><span class="comment"># confirm</span></span><br><span class="line"><span class="keyword">UPDATE</span> RESERVATION <span class="keyword">SET</span> <span class="keyword">STATUS</span>=<span class="string">&#x27;CONFIRMED&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># cancel</span></span><br><span class="line"><span class="keyword">UPDATE</span> RESERVATION <span class="keyword">SET</span> <span class="keyword">STATUS</span>=<span class="string">&#x27;CANCELED&#x27;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><p>阿里的实现是增加一个事务管理器，先由主业务发起主事务，然后向每个子业务（远程服务）发起 Try 确认资源。如果资源确认通过的话，再把 Confirm 和 Cancel 的请求代码交给事务管理器，由事务管理器完成后续工作</p>
 <p>例如我花20元下单买东西。</p>
 <h2 id="Try阶段"><a href="#Try阶段" class="headerlink" title="Try阶段"></a>Try阶段</h2><ol>
@@ -165,6 +164,7 @@
 <li>把预扣的金额补回到用户的金额里面。80+20=100</li>
 <li>将库存预扣部分补回到原本的99+1=100件</li>
 </ol>
+<h1 id="隔离"><a href="#隔离" class="headerlink" title="隔离"></a>隔离</h1><p>由于只使用了版本号（状态）区分事务的阶段，这就造成了事务还在进行中的时候，如果需要读数据，要么读不到最终状态的数据，要么无法读取，返回错误。这个时候需要引入快照。事务进行的时候，保存之前的快照，读的时候，需要从快照里读。</p>
 <h1 id="实现难点"><a href="#实现难点" class="headerlink" title="实现难点"></a>实现难点</h1><ol>
 <li>因为完全用业务逻辑实现，每个子事务都要提供三个接口，代码量稍大；</li>
 <li>事务要求隔离性（Isolation），即一个事务进行的时候，其他请求读到的应该是原来的数据，这个可以用冗余数据增加版本号来解决；</li>
@@ -172,13 +172,8 @@
 <li>Confirm / Cancel 操作要实现幂等性，即事务管理器失败重启，重新执行的时候，重复上一次的操作不会出错；</li>
 </ol>
 <hr>
-<p>参考资料：</p>
-<ol>
-<li><a href="http://www.enterpriseintegrationpatterns.com/patterns/conversation/TryConfirmCancel.html" target="_blank" rel="noopener">http://www.enterpriseintegrationpatterns.com/patterns/conversation/TryConfirmCancel.html</a></li>
-<li>补偿操作：<a href="http://www.enterpriseintegrationpatterns.com/patterns/conversation/CompensatingAction.html" target="_blank" rel="noopener">http://www.enterpriseintegrationpatterns.com/patterns/conversation/CompensatingAction.html</a></li>
-<li><a href="https://cdn.ttgtmedia.com/searchWebServices/downloads/Business_Activities.pdf" target="_blank" rel="noopener">https://cdn.ttgtmedia.com/searchWebServices/downloads/Business_Activities.pdf</a></li>
-<li>TCC Java 实现：<a href="https://cloud.tencent.com/developer/article/1049345" target="_blank" rel="noopener">https://cloud.tencent.com/developer/article/1049345</a></li>
-</ol>
+<p>参考资料：
+<a target="_blank" rel="noopener" href="http://www.enterpriseintegrationpatterns.com/patterns/conversation/TryConfirmCancel.html">http://www.enterpriseintegrationpatterns.com/patterns/conversation/TryConfirmCancel.html</a><br>补偿操作：<a target="_blank" rel="noopener" href="http://www.enterpriseintegrationpatterns.com/patterns/conversation/CompensatingAction.html">http://www.enterpriseintegrationpatterns.com/patterns/conversation/CompensatingAction.html</a><br><a target="_blank" rel="noopener" href="https://cdn.ttgtmedia.com/searchWebServices/downloads/Business_Activities.pdf">https://cdn.ttgtmedia.com/searchWebServices/downloads/Business_Activities.pdf</a><br>TCC Java 实现：<a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1049345">https://cloud.tencent.com/developer/article/1049345</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_33877092/article/details/92562466">分布式事务中的一致性和隔离性</a></p>
 
         
         <br />

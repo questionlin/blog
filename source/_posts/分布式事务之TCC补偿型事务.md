@@ -44,6 +44,9 @@ UPDATE RESERVATION SET STATUS='CANCELED'
 2. 把预扣的金额补回到用户的金额里面。80+20=100
 3. 将库存预扣部分补回到原本的99+1=100件
 
+# 隔离
+由于只使用了版本号（状态）区分事务的阶段，这就造成了事务还在进行中的时候，如果需要读数据，要么读不到最终状态的数据，要么无法读取，返回错误。这个时候需要引入快照。事务进行的时候，保存之前的快照，读的时候，需要从快照里读。
+
 # 实现难点
 1. 因为完全用业务逻辑实现，每个子事务都要提供三个接口，代码量稍大；
 2. 事务要求隔离性（Isolation），即一个事务进行的时候，其他请求读到的应该是原来的数据，这个可以用冗余数据增加版本号来解决；
@@ -52,7 +55,8 @@ UPDATE RESERVATION SET STATUS='CANCELED'
 
 --------------------------
 参考资料：
-1. http://www.enterpriseintegrationpatterns.com/patterns/conversation/TryConfirmCancel.html
-2. 补偿操作：http://www.enterpriseintegrationpatterns.com/patterns/conversation/CompensatingAction.html
-3. https://cdn.ttgtmedia.com/searchWebServices/downloads/Business_Activities.pdf
-4. TCC Java 实现：https://cloud.tencent.com/developer/article/1049345
+http://www.enterpriseintegrationpatterns.com/patterns/conversation/TryConfirmCancel.html  
+补偿操作：http://www.enterpriseintegrationpatterns.com/patterns/conversation/CompensatingAction.html  
+https://cdn.ttgtmedia.com/searchWebServices/downloads/Business_Activities.pdf  
+TCC Java 实现：https://cloud.tencent.com/developer/article/1049345  
+[分布式事务中的一致性和隔离性](https://blog.csdn.net/weixin_33877092/article/details/92562466)
