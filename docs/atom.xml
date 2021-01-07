@@ -6,7 +6,7 @@
   <link href="http://b.ljj.pub/atom.xml" rel="self"/>
   
   <link href="http://b.ljj.pub/"/>
-  <updated>2020-12-22T06:32:00.272Z</updated>
+  <updated>2021-01-07T12:53:28.750Z</updated>
   <id>http://b.ljj.pub/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>nodejs使用最佳实践</title>
+    <link href="http://b.ljj.pub/posts/1610023607/"/>
+    <id>http://b.ljj.pub/posts/1610023607/</id>
+    <published>2021-01-07T12:46:03.000Z</published>
+    <updated>2021-01-07T12:53:28.750Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;选择国内镜像&quot;&gt;&lt;a href=&quot;#选择国内镜像&quot; class=&quot;headerlink&quot; title=&quot;选择国内镜像&quot;&gt;&lt;/a&gt;选择国内镜像&lt;/h1&gt;&lt;figure class=&quot;highlight sh&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td</summary>
+        
+      
+    
+    
+    
+    
+    <category term="最佳实践" scheme="http://b.ljj.pub/tags/%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/"/>
+    
+    <category term="javascript" scheme="http://b.ljj.pub/tags/javascript/"/>
+    
+  </entry>
   
   <entry>
     <title>awesome frontend framework</title>
@@ -445,29 +470,6 @@
     
     
     <category term="最佳实践" scheme="http://b.ljj.pub/tags/%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>谷歌Colaboraty使用介绍</title>
-    <link href="http://b.ljj.pub/posts/1565938894/"/>
-    <id>http://b.ljj.pub/posts/1565938894/</id>
-    <published>2019-08-16T07:01:05.000Z</published>
-    <updated>2020-08-31T01:50:26.964Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;&lt;a href=&quot;https://colab.research.google.com&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;谷歌Colaboraty&lt;/a&gt;是谷歌推出的 python 练习工具，因为提供 GPU</summary>
-        
-      
-    
-    
-    
-    
-    <category term="在线工具" scheme="http://b.ljj.pub/tags/%E5%9C%A8%E7%BA%BF%E5%B7%A5%E5%85%B7/"/>
     
   </entry>
   
