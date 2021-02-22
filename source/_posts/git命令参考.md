@@ -69,6 +69,11 @@ $ git diff <commit-id>/<reflog-id> -- <file-name> #指定文件提交/操作之�
 $ git checkout -b <branch-name>
 ```
 
+# 分支改名
+```sh
+$ git branch -m old_branch new_branch
+```
+
 # 拉取远程分支
 ```sh
 $ git checkout -b <本地分支名> origin/<远程分支名>
