@@ -6,7 +6,7 @@
   <link href="http://b.ljj.pub/atom.xml" rel="self"/>
   
   <link href="http://b.ljj.pub/"/>
-  <updated>2021-01-07T12:53:28.750Z</updated>
+  <updated>2021-01-22T03:49:15.670Z</updated>
   <id>http://b.ljj.pub/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>简单哈希id</title>
+    <link href="http://b.ljj.pub/posts/1611284449/"/>
+    <id>http://b.ljj.pub/posts/1611284449/</id>
+    <published>2021-01-22T03:00:04.000Z</published>
+    <updated>2021-01-22T03:49:15.670Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;在这篇&lt;a href=&quot;/posts/1553830839&quot;&gt;「分布式系统的ID」&lt;/a&gt;里介绍了哈希ID的终极方案UUID和将数字ID转哈希ID的方案&lt;a</summary>
+        
+      
+    
+    
+    
+    
+    <category term="算法" scheme="http://b.ljj.pub/tags/%E7%AE%97%E6%B3%95/"/>
+    
+  </entry>
   
   <entry>
     <title>nodejs使用最佳实践</title>
@@ -446,30 +469,6 @@
     
     
     <category term="常用命令" scheme="http://b.ljj.pub/tags/%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>命令行翻墙</title>
-    <link href="http://b.ljj.pub/posts/1567490025/"/>
-    <id>http://b.ljj.pub/posts/1567490025/</id>
-    <published>2019-09-03T05:51:41.000Z</published>
-    <updated>2020-06-20T09:41:11.891Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;假设你已经有了一个ss，ss通过sock5转http帮助我们翻墙。这篇文章转如何给命令行软件设置http代理。&lt;/p&gt;
-&lt;h1 id=&quot;pip&quot;&gt;&lt;a href=&quot;#pip&quot; class=&quot;headerlink&quot;</summary>
-        
-      
-    
-    
-    
-    
-    <category term="最佳实践" scheme="http://b.ljj.pub/tags/%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/"/>
     
   </entry>
   

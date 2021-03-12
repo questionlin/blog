@@ -11,7 +11,7 @@
 
     <title>
         
-        ljj的博客
+        简单哈希id - ljj的博客
         
     </title>
 
@@ -58,7 +58,7 @@
     </div>
     <div class="contents" id="nav-content">
         <ul>
-            <li  class=active >
+            <li >
                 <a href="/">
                     <i class="iconfont icon-shouye1"></i>
                     <span>主页</span>
@@ -93,6 +93,10 @@
         </ul>
     </div>
     
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E7%9A%84%E9%94%99%E8%AF%AF%E6%96%B9%E6%A1%88"><span class="toc-text">常见的错误方案</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%84%E5%A4%87%E7%9F%A5%E8%AF%86"><span class="toc-text">预备知识</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#random"><span class="toc-text">random()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%94%99%E8%AF%AF%E7%9A%84%E5%8F%96%E6%A8%A1%E8%BF%90%E7%AE%97"><span class="toc-text">错误的取模运算</span></a></li></ol></li></ol>
+</div>
+    
 </div>
 
 
@@ -116,81 +120,66 @@
     <div class="index-middle">
         <!-- Main Content -->
         
-<div class="post-preview-container" style="min-height: 576px">
-    
-    <div class="post-preview">
-        <div class="post-time">2018-06-01</div>
-        <div class="post-info">
-            <a href="/posts/1528164430/">
-                <h3>
-                    redis sentinel主从模式
-                </h3>
-            </a>
-            <p>
-                
-                <span>/</span>
-                
-                <a class="tag" href="/tags/#redis" title="redis">redis</a>
-                <span>/</span>
-                
-                
-            </p>
-        </div>
-    </div>
-    
-    <div class="post-preview">
-        <div class="post-time">2018-06-01</div>
-        <div class="post-info">
-            <a href="/posts/1528164421/">
-                <h3>
-                    用人话教你设计模式
-                </h3>
-            </a>
-            <p>
-                
-                <span>/</span>
-                
-                <a class="tag" href="/tags/#php" title="php">php</a>
-                <span>/</span>
-                
-                
-            </p>
-        </div>
-    </div>
-    
-    <div class="post-preview">
-        <div class="post-time">2018-06-01</div>
-        <div class="post-info">
-            <a href="/posts/1528164408/">
-                <h3>
-                    hexo+github搭建博客最佳实践
-                </h3>
-            </a>
-            <p>
-                
-                <span>/</span>
-                
-                <a class="tag" href="/tags/#最佳实践" title="最佳实践">最佳实践</a>
-                <span>/</span>
-                
-                <a class="tag" href="/tags/#hexo" title="hexo">hexo</a>
-                <span>/</span>
-                
-                
-            </p>
-        </div>
-    </div>
-    
-</div>
-<ul class="pager">
-    
-    <li class="previous">
-        <a href="/page/9/">&larr; Newer Posts</a>
-    </li>
-    
-    
-</ul>
 
+
+<div class="post-container">
+    <div class="post-title">
+        简单哈希id
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2021-01-22 11:00:04</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#算法" title="算法">算法</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
+    </div>
+    <div class="post-content no-indent">
+        <p>在这篇<a href="/posts/1553830839">「分布式系统的ID」</a>里介绍了哈希ID的终极方案UUID和将数字ID转哈希ID的方案<a target="_blank" rel="noopener" href="https://hashids.org/">hashid</a>。这篇文章介绍简单的随机ID生成方案。</p>
+<h1 id="常见的错误方案"><a href="#常见的错误方案" class="headerlink" title="常见的错误方案"></a>常见的错误方案</h1><h2 id="预备知识"><a href="#预备知识" class="headerlink" title="预备知识"></a>预备知识</h2><p>随机数分为</p>
+<ul>
+<li>真随机数</li>
+<li>不可预测：不是真的随机，但是不能被预测，是安全的随机数生成方案</li>
+<li>不规则：常见的语言重的随机数生成方案，如果 seed 和 salt 一样，就能生成一样的随机数。不安全</li>
+</ul>
+<h2 id="random"><a href="#random" class="headerlink" title="random()"></a>random()</h2><p>很多语言的随机数算法——就是上面说的第三种随机数——是伪随机的，即可以被破解。同时性能也不比硬件随机数生成算法好，因此不推荐使用。不可预测随机数可以用很多方法生成。linux 环境可以用</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">head /dev/urandom|cksum</span><br></pre></td></tr></table></figure>
+<p>js可以用</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Number</span>.parseInt(crypto.randomBytes(<span class="number">1</span>).toString(<span class="string">&#x27;hex&#x27;</span>),<span class="number">16</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="错误的取模运算"><a href="#错误的取模运算" class="headerlink" title="错误的取模运算"></a>错误的取模运算</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> chars = <span class="string">&#x27;0-9a-z&#x27;</span></span><br><span class="line"><span class="keyword">let</span> randomNum = <span class="built_in">Number</span>.parseInt(crypto.randomBytes(<span class="number">1</span>).toString(<span class="string">&#x27;hex&#x27;</span>),<span class="number">16</span>)<span class="comment">//1个字节</span></span><br><span class="line"><span class="keyword">let</span> randomCharacter = chars.charAt(randomNum % <span class="number">36</span>);</span><br></pre></td></tr></table></figure>
+<p>这个方案通过获得随机数 Math.random()，来获得随机字符 randomCharacter，循环后组成随机字符串。因为1个字节有256种可能，所以得到随机字符可能性：</p>
+<ul>
+<li>0-35入住 0-35。</li>
+<li>36-71变为 0-35。</li>
+<li>72-107变为 0-35。</li>
+<li>108-143变为 0-35。</li>
+<li>144-179变为 0-35。</li>
+<li>180-215变为 0-35。</li>
+<li>216-251变为 0-35。</li>
+<li>252-255变为0-3。
+可以看到 0-3的可能性大于其他数字。要避免这种情况，要合理配置第一步生成的随机数和被除数。</li>
+</ul>
+<hr>
+<p>参考：<br><a target="_blank" rel="noopener" href="https://gist.github.com/joepie91/7105003c3b26e65efcea63f3db82dfba">https://gist.github.com/joepie91/7105003c3b26e65efcea63f3db82dfba</a></p>
+
+        
+        <br />
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
     </div>
 </div>
 
@@ -264,7 +253,7 @@
     // We expose some of the variables needed by the front end
     window.hexo_search_path = "search.json"
     window.hexo_root = "/"
-    window.isPost = false
+    window.isPost = true
 </script>
 <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
 
