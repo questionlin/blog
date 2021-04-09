@@ -105,6 +105,11 @@ $ git fetch upstream
 $ git merge upstream/master
 ```
 
+# 重命名
+```sh
+$ git branch -m oldName name # m = move
+```
+
 --------------------------
 参考资料：  
 http://www.bootcss.com/p/git-guide/
