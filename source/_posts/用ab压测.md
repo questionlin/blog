@@ -1,5 +1,5 @@
 ---
-title: 用ab和jMeter压测
+title: 用ab压测
 date: 2019-08-13 15:39:10
 tags: 运维
 id: 1565682061
@@ -68,7 +68,3 @@ Percentage of the requests served within a certain time (ms)
  100%    811 (longest request)
 ```
 当结果里 Failed requests 不为0的时候，就表示已经达到系统最高并发了，这时的 Requests per second 较为准确
-
-# jMeter
-
-https://www.cnblogs.com/fnng/p/5827577.html

@@ -151,8 +151,10 @@
 </ul>
 <h2 id="random"><a href="#random" class="headerlink" title="random()"></a>random()</h2><p>很多语言的随机数算法——就是上面说的第三种随机数——是伪随机的，即可以被破解。同时性能也不比硬件随机数生成算法好，因此不推荐使用。不可预测随机数可以用很多方法生成。linux 环境可以用</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">head /dev/urandom|cksum</span><br></pre></td></tr></table></figure>
+
 <p>js可以用</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Number</span>.parseInt(crypto.randomBytes(<span class="number">1</span>).toString(<span class="string">&#x27;hex&#x27;</span>),<span class="number">16</span>)</span><br></pre></td></tr></table></figure>
+
 <h2 id="错误的取模运算"><a href="#错误的取模运算" class="headerlink" title="错误的取模运算"></a>错误的取模运算</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> chars = <span class="string">&#x27;0-9a-z&#x27;</span></span><br><span class="line"><span class="keyword">let</span> randomNum = <span class="built_in">Number</span>.parseInt(crypto.randomBytes(<span class="number">1</span>).toString(<span class="string">&#x27;hex&#x27;</span>),<span class="number">16</span>)<span class="comment">//1个字节</span></span><br><span class="line"><span class="keyword">let</span> randomCharacter = chars.charAt(randomNum % <span class="number">36</span>);</span><br></pre></td></tr></table></figure>
 <p>这个方案通过获得随机数 Math.random()，来获得随机字符 randomCharacter，循环后组成随机字符串。因为1个字节有256种可能，所以得到随机字符可能性：</p>
 <ul>
@@ -163,9 +165,9 @@
 <li>144-179变为 0-35。</li>
 <li>180-215变为 0-35。</li>
 <li>216-251变为 0-35。</li>
-<li>252-255变为0-3。
-可以看到 0-3的可能性大于其他数字。要避免这种情况，要合理配置第一步生成的随机数和被除数。</li>
+<li>252-255变为0-3。</li>
 </ul>
+<p>可以看到 0-3的可能性大于其他数字。要避免这种情况，要合理配置第一步生成的随机数和被除数。</p>
 <hr>
 <p>参考：<br><a target="_blank" rel="noopener" href="https://gist.github.com/joepie91/7105003c3b26e65efcea63f3db82dfba">https://gist.github.com/joepie91/7105003c3b26e65efcea63f3db82dfba</a></p>
 

@@ -11,7 +11,7 @@
 
     <title>
         
-        用ab和jMeter压测 - ljj的博客
+        用ab压测 - ljj的博客
         
     </title>
 
@@ -94,7 +94,7 @@
     </div>
     
         <div id="toc" class="toc-article">
-    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#ab"><span class="toc-text">ab</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#jMeter"><span class="toc-text">jMeter</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#ab"><span class="toc-text">ab</span></a></li></ol>
 </div>
     
 </div>
@@ -124,7 +124,7 @@
 
 <div class="post-container">
     <div class="post-title">
-        用ab和jMeter压测
+        用ab压测
     </div>
 
     <div class="post-meta">
@@ -151,8 +151,7 @@
 </ul>
 <ol>
 <li><p>模拟gei请求</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ab -c 10 -n 10 http://www.test.api.com/?gid=2</span><br></pre></td></tr></table></figure>
-</li>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ab -c 10 -n 10 http:&#x2F;&#x2F;www.test.api.com&#x2F;?gid&#x3D;2</span><br></pre></td></tr></table></figure></li>
 <li><p>模拟post请求
 在当前目录下创建一个文件post.txt</p>
 </li>
@@ -160,15 +159,12 @@
 <p>编辑文件post.txt写入</p>
 <p>cid=4&amp;status=1</p>
 <p>相当于post传递cid,status参数</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ab -n 100  -c 10 -p &apos;post.txt&apos; -T &apos;application/x-www-form-urlencoded&apos; &apos;http://test.api.com/ttk/auth/info/&apos;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ab -n 100  -c 10 -p &#39;post.txt&#39; -T &#39;application&#x2F;x-www-form-urlencoded&#39; &#39;http:&#x2F;&#x2F;test.api.com&#x2F;ttk&#x2F;auth&#x2F;info&#x2F;&#39;</span><br></pre></td></tr></table></figure>
 
 <ol start="3">
-<li>结果分析<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">Server Software:        BWS/1.1</span><br><span class="line">Server Hostname:        www.baidu.com</span><br><span class="line">Server Port:            80</span><br><span class="line"></span><br><span class="line">Document Path:          /</span><br><span class="line">Document Length:        154179 bytes</span><br><span class="line"></span><br><span class="line">Concurrency Level:      10</span><br><span class="line">Time taken for tests:   0.877 seconds</span><br><span class="line">Complete requests:      10</span><br><span class="line">Failed requests:        9</span><br><span class="line">   (Connect: 0, Receive: 0, Length: 9, Exceptions: 0)</span><br><span class="line">Total transferred:      1549288 bytes</span><br><span class="line">HTML transferred:       1539602 bytes</span><br><span class="line">Requests per second:    11.41 [#/sec] (mean)</span><br><span class="line">Time per request:       876.697 [ms] (mean)</span><br><span class="line">Time per request:       87.670 [ms] (mean, across all concurrent requests)</span><br><span class="line">Transfer rate:          1725.77 [Kbytes/sec] received</span><br><span class="line"></span><br><span class="line">Connection Times (ms)</span><br><span class="line">              min  mean[+/-sd] median   max</span><br><span class="line">Connect:       31   37   5.6     42      42</span><br><span class="line">Processing:   201  571 169.9    540     769</span><br><span class="line">Waiting:       34  107  97.7     50     311</span><br><span class="line">Total:        232  608 171.9    582     811</span><br><span class="line"></span><br><span class="line">Percentage of the requests served within a certain time (ms)</span><br><span class="line">  50%    582</span><br><span class="line">  66%    733</span><br><span class="line">  75%    753</span><br><span class="line">  80%    782</span><br><span class="line">  90%    811</span><br><span class="line">  95%    811</span><br><span class="line">  98%    811</span><br><span class="line">  99%    811</span><br><span class="line"> 100%    811 (longest request)</span><br></pre></td></tr></table></figure>
-
-</li>
+<li>结果分析<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">Server Software:        BWS&#x2F;1.1</span><br><span class="line">Server Hostname:        www.baidu.com</span><br><span class="line">Server Port:            80</span><br><span class="line"></span><br><span class="line">Document Path:          &#x2F;</span><br><span class="line">Document Length:        154179 bytes</span><br><span class="line"></span><br><span class="line">Concurrency Level:      10</span><br><span class="line">Time taken for tests:   0.877 seconds</span><br><span class="line">Complete requests:      10</span><br><span class="line">Failed requests:        9</span><br><span class="line">   (Connect: 0, Receive: 0, Length: 9, Exceptions: 0)</span><br><span class="line">Total transferred:      1549288 bytes</span><br><span class="line">HTML transferred:       1539602 bytes</span><br><span class="line">Requests per second:    11.41 [#&#x2F;sec] (mean)</span><br><span class="line">Time per request:       876.697 [ms] (mean)</span><br><span class="line">Time per request:       87.670 [ms] (mean, across all concurrent requests)</span><br><span class="line">Transfer rate:          1725.77 [Kbytes&#x2F;sec] received</span><br><span class="line"></span><br><span class="line">Connection Times (ms)</span><br><span class="line">              min  mean[+&#x2F;-sd] median   max</span><br><span class="line">Connect:       31   37   5.6     42      42</span><br><span class="line">Processing:   201  571 169.9    540     769</span><br><span class="line">Waiting:       34  107  97.7     50     311</span><br><span class="line">Total:        232  608 171.9    582     811</span><br><span class="line"></span><br><span class="line">Percentage of the requests served within a certain time (ms)</span><br><span class="line">  50%    582</span><br><span class="line">  66%    733</span><br><span class="line">  75%    753</span><br><span class="line">  80%    782</span><br><span class="line">  90%    811</span><br><span class="line">  95%    811</span><br><span class="line">  98%    811</span><br><span class="line">  99%    811</span><br><span class="line"> 100%    811 (longest request)</span><br></pre></td></tr></table></figure>
+当结果里 Failed requests 不为0的时候，就表示已经达到系统最高并发了，这时的 Requests per second 较为准确</li>
 </ol>
-<p>当结果里 Failed requests 不为0的时候，就表示已经达到系统最高并发了，这时的 Requests per second 较为准确</p>
-<h1 id="jMeter"><a href="#jMeter" class="headerlink" title="jMeter"></a>jMeter</h1><p><a href="https://www.cnblogs.com/fnng/p/5827577.html" target="_blank" rel="noopener">https://www.cnblogs.com/fnng/p/5827577.html</a></p>
 
         
         <br />
