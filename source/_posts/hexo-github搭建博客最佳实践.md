@@ -23,4 +23,15 @@ hexo 不提供 markdown 编辑器，我使用 vscode，快捷键 command + k 再
 - hexo-generator-search 用来支持搜索
 - hexo-generator-feed 用来生成 feed
 
+置顶标签：
+
+hexo-generator-index 插件已经原生支持了置顶标签，只要使用 sticky 标签，值越高越靠前
+```
+title: Hello World
+date: 2013/7/13 20:46:25
+sticky: 100
+```
+
+
+
 到此我的 hexo 博客就建好了，[项目仓库在这里](https://github.com/questionlin/blog)。比官方的方法少了一步。
