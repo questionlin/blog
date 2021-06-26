@@ -5,9 +5,9 @@ tags:
 id: 1608437030
 ---
 # 自适应
+[bootstrap](https://github.com/twbs/bootstrap) - 推特的框架，生态最好，但最重  
+[ChatUI](https://github.com/alibaba/ChatUI) - 聊天框架，基于react  
 
-[bootstrap](https://github.com/twbs/bootstrap) - 推特的框架，生态最好，但最重
-[ChatUI](https://github.com/alibaba/ChatUI) - 聊天框架，基于react
 # PC
 [AdminLTE](https://github.com/ColorlibHQ/AdminLTE) - 基于 bootstrap，为后台专门优化  
 [element](https://github.com/ElemeFE/element) - 饿了么基于 VUE 的框架  
